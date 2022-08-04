@@ -1,0 +1,5 @@
+package com.edo.config;
+
+public class SecurityConfig {
+
+}
