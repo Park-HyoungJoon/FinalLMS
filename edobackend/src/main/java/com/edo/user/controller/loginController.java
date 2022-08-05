@@ -26,21 +26,22 @@ import lombok.RequiredArgsConstructor;
 public class loginController {
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private UserService userService;
+	private final UserService userService;
 	
 	@GetMapping(value="/")
 	public ResponseEntity<?> Home(){
-		return new ResponseEntity<>("홍므로 이동",HttpStatus.OK);
+		return new ResponseEntity<>("localhost:3000으로 가보쇼",HttpStatus.OK);
 	}
-	
+//	로그인
 	@PostMapping(value="/login")
 	public ResponseEntity<?> loginUser(@RequestBody UserDto userDto){
 		System.out.println(userDto.getEmail());
 		Long num = userService.findUser(userDto);
 		System.out.println(num);
+//		0이 나오면 
 		if(num==0) {
 			return new ResponseEntity<>( userService.findUser(userDto),HttpStatus.BAD_REQUEST);
 		}
@@ -48,7 +49,8 @@ public class loginController {
 			return new ResponseEntity<>( userService.findUser(userDto),HttpStatus.OK);
 		}
 	}
-	@PostMapping(value="/User")
+//	회원가입
+	@PostMapping(value="/user")
 	public ResponseEntity<?> newUser(@RequestBody UserDto userDto,BindingResult bindingResult) {
 		try {
 			User user = User.createUser(userDto, passwordEncoder);
