@@ -1,0 +1,187 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* MinJu Made CSS */
+
+/* footer설정 */
+
+.footer{
+  position : relative;
+  transform : translateY(-100%);
+}
+
+/* 폰트 */
+@font-face {
+  font-family: "d2Coding";
+  src: url("./resource/font/D2CodingBold-Ver1.3.2-20180524.ttf");
+}
+
+@font-face {
+  font-family: "Bazzi";
+  src: url("./resource/font/Bazzi.ttf");
+}
+
+@font-face {
+  font-family: "ROKASM";
+  src: url("./resource/font/ROKAF\ Sans\ Medium.ttf");
+}
+
+@font-face {
+  font-family: "ROKASB";
+  src: url("./resource/font/ROKAF\ Sans\ Bold.ttf");
+}
+
+
+
+/* 글씨 왼쪽으로 나오는 CSS */
+.fadeleft{
+  font-size: 20pt;
+  position: relative;
+  overflow: hidden;
+  animation: fadeleft 2s ease-in-out;
+  padding-right: 30px;
+  margin-bottom: -20px;
+  font-style: italic;
+
+
+}
+@keyframes fadeleft{
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 글씨 오른쪽으로 나오는 CSS */
+.faderight{
+  font-size: 45pt;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  animation: faderight 2s ease-in-out;
+  font-style: italic;
+
+}
+@keyframes faderight{
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 폰트+색 적용 */
+.font-white{
+  font-family: "d2Coding";
+  color: white;
+}
+
+/* 배경화면 색 */
+.body{
+  background-color: #83dcb7;
+}
+
+/* 컴포넌트 가운데 정렬을 위함 */
+.mainParents{
+/* display, justify-content = 가운데정렬 */
+  display: flex;
+  justify-content : center;
+  /* 헤더랑 간격 띄워주기 */
+  margin-top: 30px;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 650px;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#customers tr:nth-child(even){
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+#customers tr:hover {
+  background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #78c2ad;
+  color: white;
+}
+
+.buttonhi{
+  display: flex;
+ 
+  justify-content : center;
+  /* 헤더랑 간격 띄워주기 */
+  background-color: white;
+  margin-top: 5px;
+  margin-bottom: 50px;
+}
+
+.fonth1{
+  display: flex;
+ 
+  justify-content : center;
+  font-size: x-large;
+  font-family: "ROKASM";
+  src: url("./resource/font/ROKAF\ Sans\ Medium.ttf");
+  font-style: inherit;
+  color: #282c34;
+  margin-top: 8px;
+  margin-bottom: -10px;
+
+
+}
