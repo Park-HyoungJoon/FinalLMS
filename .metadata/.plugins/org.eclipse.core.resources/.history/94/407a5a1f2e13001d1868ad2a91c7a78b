@@ -1,0 +1,6 @@
+package com.edo.user.entity;
+
+@Ge
+public class user {
+
+}
