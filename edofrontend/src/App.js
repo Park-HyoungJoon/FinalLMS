@@ -19,7 +19,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" excat={true} />
-          {/* 회원가입 */}
+          {/* 회원가입dsds */}
           <Route path="/memberJoin" excat={true} element={<MemberJoin />} />
           {/* 로그인 */}
           <Route path="/memberLogin" excat={true} element={<MemberLogin />} />
