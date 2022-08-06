@@ -38,7 +38,7 @@ const MemberLogin = props => {
   return (
     <div>
       <>
-        {/* button누르면 login 실행 */}
+        {/* button누르면 login 실행dds */}
         <Form onSubmit={Login}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
