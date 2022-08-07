@@ -50,7 +50,7 @@ public class loginController {
 		}
 	}
 //	회원가입
-	@PostMapping(value="/user")
+	@PostMapping(value="/User")
 	public ResponseEntity<?> newUser(@RequestBody UserDto userDto,BindingResult bindingResult) {
 		try {
 			User user = User.createUser(userDto, passwordEncoder);

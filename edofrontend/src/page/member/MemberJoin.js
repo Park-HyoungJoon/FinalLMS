@@ -17,9 +17,9 @@ const MemberJoin = props => {
   };
 
   //   회원가입 버튼 누르면 비동기 연결
-  const User = e => {
+  const User = (e) => {
     e.preventDefault();
-    fetch('http://localhost:80/user', {
+    fetch('http://localhost:80/User', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(users),
