@@ -23,6 +23,10 @@ const Header = () => {
             <Link to="/memberLogin" className="navbar-brand">
               로그인
             </Link>
+            
+            <Link to="/communityMain" className="navbar-brand">
+              게시판
+            </Link>
           </Nav>
         </Container>
       </Navbar>

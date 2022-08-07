@@ -7,6 +7,7 @@ import Header from './components/Header';
 import MemberJoin from './page/member/MemberJoin';
 import MemberLogin from './page/member/MemberLogin';
 import { logout } from './store';
+import CommunityMain from './page/community/CommunityMain';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ function App() {
           <Route path="/memberJoin" excat={true} element={<MemberJoin />} />
           {/* 로그인 */}
           <Route path="/memberLogin" excat={true} element={<MemberLogin />} />
+          {/* 커뮤니티 */}
+          <Route path="/communityMain" excat={true} element={<CommunityMain />} />
         </Routes>
       </Container>
       <Footer />
