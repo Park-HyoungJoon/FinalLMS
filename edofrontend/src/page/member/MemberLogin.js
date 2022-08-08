@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux/es/exports';
+import { login } from '../../store';
 
 const MemberLogin = props => {
   // 로그인을 위한 useState
@@ -7,25 +9,30 @@ const MemberLogin = props => {
     Email: '',
     password: '',
   });
+  const dispatch = useDispatch();
 
-  const [num, setNum] = useState(5);
-
+  const [token,setToken] = useState({
+    grantType : '',
+    accessToken : '',
+    tokenExpiresIn : '',
+  });
   const Login = e => {
     e.preventDefault();
-    fetch('http://localhost:80/login', {
+    fetch('http://localhost:80/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(user),
     })
-      .then(res => {
-        console.log('잘 됨', res);
-        res.json();
-      })
-      .then(res => {
-        console.log(res);
-        setNum(res);
-        console.log(num);
-      });
+      .then(
+        res => res.json()//응답(res)이 오면 걔를 javascript object로 바꿈
+    ).then(
+        res=>{
+            console.log(1,res);
+            setToken(res);
+            console.log(res.grantType);
+            dispatch({type:"login",text:res.accessToken});
+        }
+      );
   };
 
   const changeValue = e => {

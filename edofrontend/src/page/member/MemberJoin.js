@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-
 const MemberJoin = props => {
   const [users, setUsers] = useState({
     Email: '',
@@ -19,7 +18,7 @@ const MemberJoin = props => {
   //   회원가입 버튼 누르면 비동기 연결
   const User = (e) => {
     e.preventDefault();
-    fetch('http://localhost:80/User', {
+    fetch('http://localhost:80/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify(users),

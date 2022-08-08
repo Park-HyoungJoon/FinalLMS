@@ -8,12 +8,9 @@ import MemberJoin from './page/member/MemberJoin';
 import MemberLogin from './page/member/MemberLogin';
 import { logout } from './store';
 import CommunityMain from './page/community/CommunityMain';
+import MemberLogout from './page/member/MemberLogout';
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(logout());
-  }, []);
   return (
     <div>
       <Header />
@@ -24,6 +21,8 @@ function App() {
           <Route path="/memberJoin" excat={true} element={<MemberJoin />} />
           {/* 로그인 */}
           <Route path="/memberLogin" excat={true} element={<MemberLogin />} />
+          {/* 로그아웃 */}
+          <Route path="/memberLogout" excat={true} element={<MemberLogout/>} />
           {/* 커뮤니티 */}
           <Route path="/communityMain" excat={true} element={<CommunityMain />} />
         </Routes>

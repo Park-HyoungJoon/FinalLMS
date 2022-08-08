@@ -1,16 +1,17 @@
-export const login = () => ({type:"login"});
-export const logout = () => ({type:"logout"});
+export const login = (a,b,c) => ({type:"login",grantType:a,accessToken:b,tokenExpiresIn:c});
+export const logout = () => ({type:"logout",grantType:'',accessToken:'',tokenExpiresIn:''});
 
-const logged = {
-    logState : "logout",
+const token = {
+    grantType : '',
+    accessToken : '',
+    tokenExpiresIn : '',
 }
-
-const reducer = (state = logged,action) => {
+const reducer = (state=token,action) => {
     switch(action.type){
         case "login":
-            return {logState : "login"};
+            return {accessToken: action.text};
         case "logout":
-            return {logState : "logout"};
+            return {accessToken:''};
         default:
             return state;
     }
