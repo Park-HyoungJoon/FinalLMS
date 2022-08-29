@@ -9,6 +9,7 @@ import MemberLogin from './page/member/MemberLogin';
 import { logout } from './store';
 import CommunityMain from './page/community/CommunityMain';
 import MemberLogout from './page/member/MemberLogout';
+import CommunityAdd from './page/community/CommunityAdd';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route path="/memberLogout" excat={true} element={<MemberLogout/>} />
           {/* 커뮤니티 */}
           <Route path="/communityMain" excat={true} element={<CommunityMain />} />
+          {/* 커뮤니티 추가 */}
+          <Route path="/communityAdd" excat={true} element={<CommunityAdd />} />
         </Routes>
       </Container>
       <Footer />

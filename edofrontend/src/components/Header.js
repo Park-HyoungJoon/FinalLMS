@@ -11,15 +11,15 @@ const Header = () => {
     email:''
   });
   const token = useSelector((store) => store.accessToken);
-  useEffect(() => {
-    fetch('http://localhost:80/me').then(
-    ).then(
-      res => {
-        console.log(res);
-        setUser(res);
-      }
-    );
-  },[])
+  // useEffect(() => {
+  //   fetch('http://localhost:80/me').then(
+  //   ).then(
+  //     res => {
+  //       console.log(res);
+  //       setUser(res);
+  //     }
+  //   );
+  // },[])
   return (
     <>
       <Navbar bg="dark" variant="dark">
