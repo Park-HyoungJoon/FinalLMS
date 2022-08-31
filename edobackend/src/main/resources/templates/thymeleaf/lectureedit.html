@@ -1,0 +1,1210 @@
+<html lang="ko"><head>
+	<title>AiMind에 오신 것을 환영합니다.</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<meta name="Generator" content="EditPlus">
+	<meta name="Author" content="AiMind">
+	<meta name="Keywords" content="AiMind">
+	<meta name="Description" content="AiMind">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
+	<noscript><meta http-equiv="X-Frame-Options" content="DENY" /></noscript>
+	
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
+	<link rel="stylesheet" type="text/css" href="css/header.css">
+
+    <link rel="shortcut icon" href="http://crhs.aimind.co.kr/images/favicon.ico" type="image/x-icon">
+<script async="" src="/js/pdfjs/google-analytics.js"></script><script type="text/javascript" src="http://crhs.aimind.co.kr/js/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+	$(window).load(function(){
+		try {
+			
+		}catch(e) {	}
+	});
+</script>
+<script>
+	if( top != window ) {
+	 top.location = window.location;
+	}
+</script> 
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="AiMind : [강좌 제목]">
+<meta property="og:description" content="상세강의내용">
+<meta property="og:url" content="http://crhs.aimind.co.kr/course/manage/manage.htm?id=32&amp;menu=110&amp;searchType=C01&amp;pageNo=1&amp;scale=15">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/course.css">
+<style>
+.pdfobject-container {
+	width: 100%;
+	max-width: 830px;
+	height: 490px;
+}
+
+.pdfobject { border: solid 1px #666; }
+</style>
+<style type="text/css">
+.data_source_thumb{
+	transition: 1s all;
+	position: relative;
+	transform-origin: top left;
+	cursor: pointer;
+	width:100px !important;
+}
+
+.data_source_thumb:hover{
+	transform: scale(2.38);
+}
+
+</style>
+
+
+
+
+<script type="text/javascript">
+	
+	function commentMoreShow(obj) {
+		try {
+			var cmmtid = $(obj).data('cmmtid');
+			if(cmmtid !== undefined) {
+				if($('#cmmt_list_tr_' + cmmtid).is(':visible')) {
+					$('#cmmt_list_tr_' + cmmtid).hide();
+				}else {
+					if($('#cmmt_list_tr_' + cmmtid + ' > td > ul').children('li').length > 0) {
+						$('#cmmt_list_tr_' + cmmtid).show();	
+					}
+				}
+			}
+		}catch(e){console.log(e);}
+	}
+	
+	function commentFormShow(obj) {
+		try {
+			var cmmtid = $(obj).data('cmmtid');
+			if(cmmtid !== undefined) {
+				if($('#cmmt_form_tr_' + cmmtid).is(':visible')) {
+					$('#cmmt_form_tr_' + cmmtid).hide();
+				}else {
+					$('#cmmt_form_tr_' + cmmtid).show();
+				}
+			}
+		}catch(e){console.log(e);}
+	}
+	
+	function commentFormHide(obj) {
+		try {
+			var cmmtid = $(obj).data('cmmtid');
+			if(cmmtid !== undefined) {
+				$('#cmmt_form_tr_' + cmmtid).hide();
+			}
+		}catch(e){console.log(e);}
+	}
+	
+	function commentContTrim(obj) {
+		try {
+			$(obj).val($(obj).val().replace(/^\s+|\s+$/g, ""));
+		}catch(e){console.log(e);}
+	}
+
+	function commentContTrimNEmptyCheck(obj) {
+		try {
+			commentContTrim(obj);
+			var str = $(obj).val();
+			if (str.length == 0) {
+				return true;
+			}
+			return false;
+		}catch(e){console.log(e);}
+	}
+
+	function createCommentBoxHtml(comment) {
+		var cmmtId = comment.id;
+		var html = '';
+		html += '<li id="comment_box_' + cmmtId + '" data-cmmtid="' + cmmtId + '"  class="comment_box">';
+		html += createCommentInnerHtml(comment);
+		html += '</li>';
+		return html;
+	}
+	
+	function createCommentInnerHtml(comment) {
+		var defaultImgSrc = 'http://crhs.aimind.co.kr/images/profile_pic.png';
+		var imgSrc = comment.pictureDataURLr;
+		var writer = comment.writer;
+		var dateStr = comment.createDate;
+		var cmmtId = comment.id;
+		var contents = comment.contents;
+		var rCnt = comment.recommendationCount;
+		var cCnt = comment.totalCommentCount;
+		var isRecommendation = comment.recommendation;
+		var isWritePermission = comment.writePermission;
+		var isDeletePermission = comment.deletePermission;
+
+		var html = '';
+		html += ' <table class="comment_tbl">';
+		html += ' <tr>';
+		html += '  <td rowspan="3" class="comment_pic"><span><img src="' + (imgSrc == null ? defaultImgSrc : imgSrc) + '" alt="프로필 사진" /></span></td>';
+		html += '  <td class="comment_writer"><span>' + writer + '</span></td>';
+		html += '  <td class="comment_date"><span>' + dateStr + '</span></td>';
+		html += '  <td class="comment_more">';
+		html += '   <a class="moreBtn" href="javascript:;" data-cmmtid="' + cmmtId + '" onclick="javascript:commentMoreShow(this);"><span>more</span></a>';
+		html += '  </td>';
+		html += ' </tr>';
+		html += ' <tr>';
+		html += '  <td colspan="3" class="comment_cont">';
+		html += '   <span>' + contents + '</span>';
+		html += '  </td>';
+		html += ' </tr>';
+		html += ' <tr>';
+		html += '  <td colspan="3" class="comment_btns">';
+		html += '   <div class="comment_btns">';
+		html += '    <ul class="comment_btns">';
+
+		html += '     <li>';
+		html += '      <a class="cmmtBtn" href="javascript:;" data-cmmtid="' + cmmtId + '" onclick="javascript:commentMoreShow(this);"><span>댓글 수</span></a><span class="comment_count" id="cnt_cmmt_' + cmmtId + '" data-cntCmmt="' + cCnt + '">' + cCnt + '</span>';
+		html += '     </li>   ';
+		html += '    </ul>';
+		html += '    <ul class="comment_btns">';
+		if(isWritePermission) {
+			html += '     <li><a class="commnet_btn" href="javascript:;" data-cmmtid="' + cmmtId + '" onclick="javascript:commentFormShow(this);">댓글</a></li>';
+		}
+		if(isDeletePermission) {
+			html += '     <li><a class="commnet_btn" href="javascript:;" data-cmmtid="' + cmmtId + '" onclick="javascript:commentDel(this);">삭제</a></li>';
+		}
+		html += '    </ul>';
+		html += '   </div>';
+		html += '  </td>';
+		html += ' </tr>';
+		if(isWritePermission) {
+			html += ' <tr id="cmmt_form_tr_' + cmmtId + '" class="comment_hide">';
+			html += '  <td colspan="4" class="comment_cmmt">';
+			html += '   <form id="commentForm_' + cmmtId + '" name="commentForm" onsubmit="javascript: return false;"><textarea class="cont" placeholder="댓글을 입력해 주세요."></textarea></form>';
+			html += '   <span>';
+			html += '    <a class="regist_btn" href="javascript:;" data-cmmtid="' + cmmtId + '" onclick="javascript:commentFormSubmit(this);">댓글등록</a>';
+			html += '    <a class="cancle_btn" href="javascript:;" data-cmmtid="' + cmmtId + '" onclick="javascript:commentFormHide(this);">취소</a>';
+			html += '   </span>';
+			html += '  </td>';
+			html += ' </tr>';
+		}
+		html += ' <tr id="cmmt_list_tr_' + cmmtId + '" class="comment_hide">';
+		html += '  <td colspan="4" class="comment_list">';
+		html += '   <ul id="comment_list_' + cmmtId + '" class="comment_list">';
+		html += '   </ul>';
+		html += '  </td>';
+		html += ' </tr>';
+		html += ' </table>';
+		return html;
+	}
+	
+	function createCommentPagingHtml(pagingInfo) {
+		var html = '';
+		//html += '<div id="comment_paging">';
+		html += ' <div class="paging">';
+		if(pagingInfo.hasFirstPage) {
+			html += '  <a class="num begin" href="javascript:;" onclick="javascript:commentPaging(' + pagingInfo.firstPageNo + ');">페이지 맨처음으로</a>';
+		}
+		if(pagingInfo.hasPrePage) {
+			html += '  <a class="num prev" href="javascript:;" onclick="javascript:commentPaging(' + pagingInfo.prePageNo + ');">페이지 이전으로</a>';
+		}
+				
+		html += '  <div class="num_box" id="divNumBox">';
+		for(var pageNo=pagingInfo.startPageNo; pageNo<=pagingInfo.endPageNo; pageNo++ ) {
+			if(pagingInfo.pageNo == pageNo) {
+				html += '   <a class="num active" title="현재페이지" href="javascript:;" onclick="javascript:commentPaging(' + pageNo + ');">' + pageNo + '</a>';
+			}else {
+				html += '   <a class="num" href="javascript:;" onclick="javascript:commentPaging(' + pageNo + ');">' + pageNo + '</a>';
+			}
+		}
+		html += '  </div><!-- //num_box -->';
+		if(pagingInfo.hasNextPage) {
+			html += '  <a class="num next" href="javascript:;" onclick="javascript:commentPaging(' + pagingInfo.nextPageNo + ');">페이지 다음으로</a>';
+		}
+		if(pagingInfo.hasLastPage) {
+			html += '  <a class="num end" href="javascript:;" onclick="javascript:commentPaging(' + pagingInfo.lastPageNo + ');">페이지 맨끝으로</a>';
+		}
+		html += ' </div><!-- //paging -->';
+		//html += '</div>';
+		return html;
+	}
+	
+	function commentFormSubmit(obj) {
+		try {
+			var cmmtid = undefined;
+			if(obj != null || obj !== undefined) {
+				cmmtid = $(obj).data('cmmtid');
+			}
+			if(cmmtid !== undefined) {
+				var $formObj = $('#commentForm_' + cmmtid);
+				if(commentContTrimNEmptyCheck($formObj.find('textarea.cont'))) {
+					alert('내용을 입력해 주십시오.');
+					$formObj.focus();
+				}else {
+					var cont = $formObj.find('textarea.cont').val();
+					$formObj.find('textarea.cont').val('');
+					$.ajax({
+			            method: 'GET',
+			            url: './comment/write.ajax',
+			            data: {
+			            	target: '170',
+			            	thread: cmmtid,
+			            	contents: cont
+			            },
+			            dataType: 'json'
+			        }).done(function (data) {
+			        	try {
+				            console.log(data);
+				            if(data.isGuest) {
+				            	commentFormDisableProcess();
+				            }
+				            if(data.status == 'OK') {
+				            	commentTopThreadLoad(data.topThread);
+				            }else {
+				            	console.log(data.error);
+				            	alert(data.message);
+				            }
+			        	}catch(e){console.log(e);}
+			        });
+				}
+			}else {
+				var $formObj = $('#commentForm');
+				if(commentContTrimNEmptyCheck($formObj.find('textarea.cont'))) {
+					alert('내용을 입력해 주십시오.');
+					$formObj.focus();
+				}else {
+					var cont = $formObj.find('textarea.cont').val();
+					$formObj.find('textarea.cont').val('');
+					$.ajax({
+			            method: 'GET',
+			            url: './comment/write.ajax',
+			            data: {
+			            	target: '170',
+			            	contents: cont
+			            },
+			            dataType: 'json'
+			        }).done(function (data) {
+			        	try {
+				            console.log(data);
+				            if(data.isGuest) {
+				            	commentFormDisableProcess();
+				            }
+				            if(data.status == 'OK') {
+				        		if($('#commentOrderBy').val() == 'ASC') {
+				        			$('#commentPageNo').val(parseInt($('#commentLastPageNo').val()) + 1);
+				        		}else if($('#commentOrderBy').val() == 'DESC') {
+				        			$('#commentPageNo').val($('#commentFirstPageNo').val());
+				        		}
+				            	commentTopListLoad();
+				            }else {
+				            	console.log(data.error);
+				            	alert(data.message);
+				            }
+			        	}catch(e){console.log(e);}
+			        });
+				}
+			}
+		}catch(e){console.log(e);}
+	}
+	
+	function commentDel(obj) {
+		try {
+			var cmmtid = $(obj).data('cmmtid');
+			$.ajax({
+	            method: 'GET',
+	            url: './comment/delete.ajax',
+	            data: {
+	            	target: '170',
+	            	id: cmmtid
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            console.log(data);
+		            if(data.isGuest) {
+		            	commentFormDisableProcess();
+		            }
+		            if(data.status == 'OK') {
+		            	if(data.topThread != null && data.id != null) {
+		            		if(data.topThread == data.id) {
+		            			console.log(1);
+			            		commentTopListLoad();
+			            	}else {
+			            		console.log(2);
+			            		commentTopThreadLoad(data.topThread)
+			            	}
+		            	}else {
+		            		console.log(3);
+		            		commentTopListLoad();
+		            	}
+		            }else {
+		            	console.log(data.error);
+		            	alert(data.message);
+		            	commentTopListLoad();
+		            }
+	        	}catch(e){console.log(e);}
+	        });
+		}catch(e){console.log(e);}
+	}
+
+	function commentPaging(pageNo) {
+		try {
+			$.ajax({
+				method: 'GET',
+				url: './comment/list.ajax',
+				data: {
+					target: '170',
+					orderBy: $('#commentOrderBy').val(),
+					isTopOnly: false,
+					pageNo: pageNo
+				},
+				dataType: 'json'
+			}).done(function (data) {
+				try {
+					console.log(data);
+					if(data.isGuest) {
+		            	commentFormDisableProcess();
+		            }
+					if(data.status == 'OK') {
+						commentPagingProcess(data.pagingInfo);
+						commentTopListLoadProcess(data.pagingInfo.topThreads);
+					}
+				}catch(e){console.log(e);}
+			});
+		}catch(e){console.log(e);}
+	}
+	
+	function commentTopListLoad() {
+		try {
+			$.ajax({
+				method: 'GET',
+				url: './comment/list.ajax',
+				data: {
+					target: '170',
+					orderBy: $('#commentOrderBy').val(),
+					isTopOnly: false,
+					pageNo: commentPageNo()
+				},
+				dataType: 'json'
+			}).done(function (data) {
+				try {
+					console.log(data);
+					if(data.isGuest) {
+						commentFormDisableProcess();
+		            }
+					if(data.status == 'OK') {
+						commentPagingProcess(data.pagingInfo);
+						commentTopListLoadProcess(data.pagingInfo.topThreads);
+					}
+				}catch(e){console.log(e);}
+			});
+		}catch(e){console.log(e);}
+	}
+	
+	function commentTopThreadLoad(topThread) {
+		try {
+			$.ajax({
+				method: 'GET',
+				url: './comment/list.ajax',
+				data: {
+					target: '170',
+					orderBy: $('#commentOrderBy').val(),
+					isTopOnly: false,
+					topThread: topThread
+				},
+				dataType: 'json'
+			}).done(function (data) {
+				try {
+					console.log(data);
+					if(data.isGuest) {
+		            	commentFormDisableProcess();
+		            }
+					if(data.status == 'OK') {
+						try {
+							for(var i=0; i<data.list.length; i++) {
+								threadObj = data.list[i];
+								$('#comment_box_'+threadObj.id).html(createCommentInnerHtml(threadObj));
+								commentLoadProcess(threadObj);
+							}
+							commentTopListLoad();
+						}catch(e){console.log(e);}
+					}
+				}catch(e){console.log(e);}
+			});
+		}catch(e){console.log(e);}
+	}
+	
+	function commentPageNo() {
+		return $('#commentPageNo').val();
+	}
+	
+	function commentPagingProcess(pagingInfo) {
+		$('#commentFirstPageNo').val(pagingInfo.firstPageNo);
+		$('#commentPageNo').val(pagingInfo.pageNo);
+		$('#commentLastPageNo').val(pagingInfo.lastPageNo);
+		$('#comment_total_count').text(pagingInfo.totalCount);
+		$('#comment_paging').html(createCommentPagingHtml(pagingInfo));
+	}
+	
+	function commentTopListLoadProcess(topThreads) {
+		try {
+			var html = '';
+			for(var i=0; i<topThreads.length; i++) {
+				var topThreadObj = topThreads[i];
+				html += createCommentBoxHtml(topThreadObj);
+			}
+			$('#comment_list').html(html);
+			for(var i=0; i<topThreads.length; i++) {
+				var topThreadObj = topThreads[i];
+				commentLoadProcess(topThreadObj);
+			}
+		}catch(e){console.log(e);}
+	}
+
+	function commentLoadProcess(threadObj) {
+		try {
+			if(threadObj.comments.length > 0) {
+				var html = '';
+				for(var i=0; i<threadObj.comments.length; i++) {
+					html += createCommentBoxHtml(threadObj.comments[i]);
+				}
+				$('#comment_list_'+threadObj.id).html(html);
+				$('#cmmt_list_tr_'+threadObj.id).show();
+				for(var i=0; i<threadObj.comments.length; i++) {
+					commentLoadProcess(threadObj.comments[i]);
+				}
+			}
+		}catch(e){console.log(e);}
+	}
+	
+	function commentFormDisableProcess() {
+		if($('#commentForm').is(':visible')) {
+			$('#commentForm').hide();
+			commentTopListLoad();
+		}
+	}
+
+	$( document ).ready(function() {
+	    console.log( "comment loading!" );
+	    commentTopListLoad();
+	});
+</script>
+<script src="http://crhs.aimind.co.kr/js/pdfjs/pdfobject.min.js"></script>
+<script src="http://crhs.aimind.co.kr/js/pdfjs/google-pdf-analytics.js"></script>
+<script>
+	var options = {
+		pdfOpenParams: {
+			navpanes: 0,
+			toolbar: 0,
+			statusbar: 0,
+			view: "FitV",
+			pagemode: "none",
+			page: 1,
+		},
+		forcePDFJS: true,
+		PDFJS_URL: "http://crhs.aimind.co.kr/js/pdfjs/web/viewer.html"
+	};
+</script>
+<script type="text/javascript">
+	$(document).on("click", 'a[data-lesson]', function () {
+		var seq = $(this).data("lesson");
+		try {
+			$('#lId').val(seq);
+			$('#defaultForm').attr("method", "GET");
+			$('#defaultForm').attr("action", "http://crhs.aimind.co.kr/course/manage/manage.htm");
+			$('#defaultForm').submit();
+		}catch(e) {
+			alert(e);
+		}
+	});
+	
+	$(document).on("click", 'a[data-lecture]', function () {
+		var seq = $(this).data("lecture");
+		setLecture(seq, this);
+	});
+	
+	$(document).on("click", 'a[data-lec_html]', function () {
+		var seq = $(this).data("lec_html");
+		try {
+			window.open('http://crhs.aimind.co.kr/course/study/lecture.pop?id='+seq, 'lecturePop', 'width=1000, height=900, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=yes');
+		}catch(e) {
+			alert(e);
+		}
+	});
+	
+	$(document).on("click", 'a[data-data]', function () {
+		var seq = $(this).data("data");
+		setData(seq, this);
+	});
+
+	function setData(seq, obj) {
+		try {
+			$.ajax({
+	            method: 'GET',
+	            url: 'http://crhs.aimind.co.kr/course/study/data.ajax',
+	            data: {
+	            	id: seq
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            if(!data.error) {
+		            	var detail = data.detail;
+		            	if (detail.dataType == 'CT5') {
+		            		location.href = "http://crhs.aimind.co.kr/course/data/download.do?id="+detail.file.courseDataSeqNo+"&fid="+detail.file.id;
+		            	} else if (detail.dataType == 'CT6') {
+		            		try {
+		            			$('#seqNo').val(detail.seqNo);
+		            			$('#edubForm').attr("method", "GET");
+		            			$('#edubForm').attr("action", "http://crhs.aimind.co.kr/course/edub/data/request.do");
+		            			$('#edubForm').submit();
+		            		}catch(e) {
+		            			alert(e);
+		            		}
+			            }
+		            }
+	        	}catch(e) {
+	        		alert(e);
+	        	}
+	        });
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	$(document).on("click", 'a[data-assignment]', function () {
+		var seq = $(this).data("assignment");
+		setAssignment(seq, this);
+	});
+	
+	function setAssignment(seq, obj) {
+		try {
+			$.ajax({
+	            method: 'GET',
+	            url: 'http://crhs.aimind.co.kr/course/study/assignment.ajax',
+	            data: {
+	            	id: seq
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            if(!data.error) {
+		            	var detail = data.detail;
+		            	if (detail.dataType == 'CT7') {
+		            		location.href = "http://crhs.aimind.co.kr/course/assignment/download.do?id="+detail.file.courseAssignmentSeqNo+"&fid="+detail.file.id;
+		            	} else if (detail.dataType == 'CT8') {
+		            		try {
+		            			$('#seqNo').val(detail.seqNo);
+		            			$('#edubForm').attr("method", "GET");
+		            			$('#edubForm').attr("action", "http://crhs.aimind.co.kr/course/edub/assignment/request.do");
+		            			$('#edubForm').submit();
+		            		}catch(e) {
+		            			alert(e);
+		            		}
+			            }
+		            }
+	        	}catch(e) {
+	        		alert(e);
+	        	}
+	        });
+		}catch(e) {
+			alert(e);
+		}
+	}
+
+	$(document).on("click", 'a[data-assignment-submission]', function () {
+		var seq = $(this).data("assignment-submission");
+		setAssignmentSubmission(seq, this);
+	});
+	
+	function setAssignmentSubmission(seq, obj) {
+		try {
+			$.ajax({
+	            method: 'GET',
+	            url: 'http://crhs.aimind.co.kr/course/manage/assignment/submission.ajax',
+	            data: {
+	            	id: seq
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            if(!data.error) {
+		            	var detail = data.detail;
+		            	if (detail.submitMethod == 'AS0') {
+		            		location.href = "http://crhs.aimind.co.kr/course/manage/assignment/download.do?id="+detail.file.courseStudentSubmissionSeqNo+"&fid="+detail.file.id;
+		            	} else if (detail.submitMethod == 'AS1') {
+		            		try {
+		            			$('#seqNo').val(detail.seqNo);
+		            			$('#edubForm').attr("method", "GET");
+		            			$('#edubForm').attr("action", "http://crhs.aimind.co.kr/course/edub/assignment/submission/request.do");
+		            			$('#edubForm').submit();
+		            		}catch(e) {
+		            			alert(e);
+		            		}
+			            }
+		            }
+	        	}catch(e) {
+	        		alert(e);
+	        	}
+	        });
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	$(document).on("click", 'a[data-assignment-submission-alldown]', function () {
+		var seq = $(this).data("assignment-submission-alldown");
+		setAssignmentSubmissionAllDown(seq, this);
+	});
+
+	function setAssignmentSubmissionAllDown(seq, obj) {
+		try {
+			$.ajax({
+	            method: 'GET',
+	            url: 'http://crhs.aimind.co.kr/course/manage/assignment/allDownload.ajax',
+	            data: {
+	            	id: seq
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            if(!data.error) {
+		            	location.href = "http://crhs.aimind.co.kr/course/manage/assignment/allDownload.do?id="+seq;
+		            } else {
+		            	alert('일괄다운로드 받을 파일이 존재하지 않습니다.');
+		            }
+	        	}catch(e) {
+	        		alert(e);
+	        	}
+	        });
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	$(document).on("click", 'a[data-assignment-submission-pass]', function () {
+		if (!confirm('제출된 과제를 통과 처리할까요?')) {
+			return;
+		}
+		var seq = $(this).data("assignment-submission-pass");
+		setAssignmentSubmissionPass(seq, this);
+	});
+	
+	function setAssignmentSubmissionPass(seq, obj) {
+		try {
+			$.ajax({
+	            method: 'POST',
+	            url: 'http://crhs.aimind.co.kr/course/manage/assignment/submission/pass.do',
+	            data: {
+	            	id: seq
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            if(!data.error) {
+		            	var detail = data.detail;
+		            	if (detail.status == 'C04') {
+		            		$(obj).closest('tr').attr("class","state1");
+		            		$(obj).parent().prev('a').attr("class","state1");
+		            		$(obj).parent().parent().siblings('span').attr("class","state1");
+		            		$(obj).parent().parent().siblings('span').children('a').attr("class","state1");
+		            		$("#sId_"+detail.studentSeqNo).css('display','none');
+		            	}
+		            	$(obj).parent().prev('a').text(detail.submissionDateStr+' (통과)');
+		        		$(obj).parent().parent().parent().siblings('td.statusName').text(detail.statusName);
+		        		$(obj).parent().css('display','none');
+		            	alert('정상적으로 통과 처리되었습니다.');
+		            } else {
+		            	alert('정상적으로 통과 처리되지 않았습니다.');
+		            }
+	        	}catch(e) {
+	        		alert(e);
+	        	}
+	        });
+		}catch(e) {
+			alert(e);
+		}
+	}
+
+	$(document).on("click", 'a[data-assignment-submission-reject]', function () {
+		if (!confirm('제출된 과제를 반려 처리할까요?')) {
+			return;
+		}
+		var seq = $(this).data("assignment-submission-reject");
+		setAssignmentSubmissionReject(seq, this);
+	});
+	
+	function setAssignmentSubmissionReject(seq, obj) {
+		try {
+			$.ajax({
+	            method: 'POST',
+	            url: 'http://crhs.aimind.co.kr/course/manage/assignment/submission/reject.do',
+	            data: {
+	            	id: seq
+	            },
+	            dataType: 'json'
+	        }).done(function (data) {
+	        	try {
+		            if(!data.error) {
+		            	var detail = data.detail;
+		            	$(obj).parent().parent('span').attr("class","state3");
+		            	$(obj).parent().prev('a').attr("class","state3");
+		            	$(obj).parent().prev('a').text(detail.submissionDateStr+' (반려)');
+		        		$(obj).parent().parent().parent().siblings('td.statusName').text(detail.statusName);
+		        		$(obj).parent().css('display','none');
+		            	alert('정상적으로 반려 처리되었습니다.');
+		            } else {
+		            	alert('정상적으로 반려 처리되지 않았습니다.');
+		            }
+	        	}catch(e) {
+	        		alert(e);
+	        	}
+	        });
+		}catch(e) {
+			alert(e);
+		}
+	}
+
+	function goView() {
+		try {
+			$('#defaultForm').attr("method", "GET");
+			$('#defaultForm').attr("action", "http://crhs.aimind.co.kr/course/view.htm");
+			$('#defaultForm').submit();
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	function chkCompletion() {
+		try {
+			if (lCnt == 0) {
+				alert('수강생을(를) 선택해 주십시오.');
+				return;
+			}
+			
+			if (!confirm('선택한 수강생의 이번 차시의 이수처리를 진행하시겠습니까?')) {
+				return;
+			}
+			$('#studentListForm').attr("method", "POST");
+			$('#studentListForm').attr("action", "http://crhs.aimind.co.kr/course/manage/students/lesson/completion.do");
+			$('#studentListForm').submit();
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+	function chkAllCompletion() {
+		try {
+			if (!confirm('전체 수강생의 이번 차시의 이수처리를 진행하시겠습니까?')) {
+				return;
+			}
+			$('#studentListForm').attr("method", "POST");
+			$('#studentListForm').attr("action", "http://crhs.aimind.co.kr/course/manage/students/lesson/allCompletion.do");
+			$('#studentListForm').submit();
+		}catch(e) {
+			alert(e);
+		}
+	}
+	
+</script>
+</head>
+<body class="vsc-initialized">
+	<div id="wrapper">
+		<div id="header">
+				<div class="main_visual">
+					<div class="main_visual_in">
+						<div class="spot_menu">
+							<ul>
+								<li><a href="http://crhs.aimind.co.kr/index.htm">홈</a></li>
+								<li><a href="javascript:;" onclick="logoutDo();return false;">로그아웃</a></li>
+								</ul>
+						</div><!-- //spot_menu -->
+						<div class="clear"></div>
+						<form id="logoutProcessForm" name="logoutProcessForm" action="http://crhs.aimind.co.kr/logout.do" method="post" onsubmit="javascript:return logoutDo();">
+						</form>
+						<hr>
+
+						<h1><a href="http://crhs.aimind.co.kr/index.htm" style="color:#fff;"><img class="school_logo" src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png" alt=""></a></h1>
+						<hr>
+
+						<h2 class="hidden">주메뉴</h2>
+						<div class="gnb">
+							<ul>
+			<li><a href="http://crhs.aimind.co.kr/course/list.htm?menu=10" target="_self" title="강좌 메뉴 링크">강좌</a></li>
+			<li><a href="http://crhs.aimind.co.kr/portfolio/list.htm?menu=20" target="_self" title="포트폴리오 메뉴 링크">포트폴리오</a></li>
+			<li><a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self" title="공지/소식 메뉴 링크">커뮤니티</a></li>
+			<li><a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크">소개</a></li>
+			</ul>
+	
+	<a class="mypage" href="http://crhs.aimind.co.kr/mypage/portfolio/list.htm?menu=100"><span>마이페이지</span></a>
+							</div><!-- //gnb -->
+						<hr>
+						
+						<div class="main_visual_tit">
+						</div><!-- //main_visual_tit -->
+						<hr>
+					</div><!-- //main_visual_in -->
+				</div><!-- //main_visual -->		
+			</div><!-- //header -->
+			<div id="container">
+			<h3 style="background:url(http://crhs.aimind.co.kr/images/menu_icon.png) no-repeat 530px 6px">강좌</h3>
+			<hr>
+			
+				
+				<div class="lecture_box">
+					<p class="tit_in">
+						<!-- <span class="school3">고등학교</span>&nbsp; -->
+						<span class="lecture_field">데이터분석</span>
+						&nbsp;&nbsp;<span class="highlighter">강좌 제목</span>
+						&nbsp;&nbsp;<span class="finish_lec">(완료/전체 : 0/0)</span>
+					</p>
+					
+					
+					<div class="lecture_box_in">
+						<div class="lecture_area_l">
+							<div class="movie_area">
+							
+								
+								
+									<div style="height: 490px; position: relative;">
+										<div id="pdf" class=" pdfobject-container" style="position: static; overflow: auto;"><div style="overflow: hidden; position: absolute; top: 0; right: 0; bottom: 0; left: 0;"><iframe src="http://crhs.aimind.co.kr/js/pdfjs/web/viewer.html?file=http%3A%2F%2Fcrhs.aimind.co.kr%2Fupload%2F%2F2022%2F08%2F15%2F8f72ff796cde228968dc0fbd5c79885f.pdf#navpanes=0&amp;toolbar=0&amp;statusbar=0&amp;view=FitV&amp;pagemode=none&amp;page=1" style="border: none; width: 100%; height: 100%;" frameborder="0"></iframe></div></div>
+									</div>
+									<script type="text/javascript">
+										var myPDF = PDFObject.embed("http://crhs.aimind.co.kr/upload//2022/08/15/8f72ff796cde228968dc0fbd5c79885f.pdf", "#pdf", options);
+									</script>
+								
+								
+							
+								
+							
+							</div><!-- //movie_area -->
+							
+						</div><!-- //lecture_area_l -->
+
+						<div class="lecture_area_r">
+							<div class="lecture_area_r_box">
+								<table class="lecture_list" summary="게시판 목록입니다.">
+									<caption>게시판 목록보기</caption>
+									<thead>
+										<tr>
+											<th>목차</th>
+											<th>과제</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										
+										<tr>
+											<td style="text-align:left;">
+												<a href="javascript:;" data-lesson="170" class="current">1. 몇차시게요 </a>
+											</td>
+											<td>
+												0
+											</td>
+										</tr>
+										
+										<tr>
+											<td style="text-align:left;">
+												<a href="javascript:;" data-lesson="171">2. 하하 집에보내줘</a>
+											</td>
+											<td>
+												0
+											</td>
+										</tr>
+										
+									</tbody>
+								</table>
+							</div><!-- //lecture_area_r_box -->
+						</div><!-- //lecture_area_r -->
+						
+					</div><!-- //lecture_box_in -->	
+
+					<div class="lecture_box_b">
+						<table class="board_base" summary="게시판 목록입니다.">
+							<caption>게시판 목록보기</caption>
+							<colgroup>
+								<col width="130px">
+								<col width="*">
+							</colgroup>
+							<tbody><tr></tr>
+							
+							<tr>
+								<th>강의</th>
+								<td>
+									
+									<a class="study_lec_title on" href="javascript:;" data-lecture="198" data-type="CT1">ㅁㄷ솜ㅎㅈㄷㄹ</a>
+									
+									
+									<span data-current="198" style="padding-left:10px;">◀</span>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>강의</th>
+								<td>
+									
+									<a class="study_lec_title off" href="javascript:;" data-lecture="199" data-type="CT1">이건뭐게</a>
+									
+									
+									
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th>· 강의자료</th>
+								<td class="lecture_detail">
+									
+									
+									<span>화면정의서.pptx</span>&nbsp;&nbsp;<span class="finish_lec_in">(다운/전체 : 0/1)</span>
+									
+									
+								</td>
+							</tr>
+							
+							
+							
+						</tbody></table>
+						
+						
+						<form id="edubForm" name="edubForm">
+							<input type="hidden" name="menu" value="110">
+							<input type="hidden" name="pageNo" value="1">
+							<input type="hidden" name="scale" value="15">
+							<input type="hidden" name="searchType" value="C01">
+							<input type="hidden" name="searchCId" value="">
+							<input type="hidden" name="searchKeyword" value="">
+							<input type="hidden" name="id" value="32">
+							<input type="hidden" name="lId" value="170">
+							<input type="hidden" name="seqNo" id="seqNo">
+							<input type="hidden" name="linkTarget" value="C">
+						</form>
+
+						<form name="studentListForm" id="studentListForm" method="post">
+						<input type="hidden" name="menu" value="110">
+						<input type="hidden" name="pageNo" value="1">
+						<input type="hidden" name="scale" value="15">
+						<input type="hidden" name="searchType" value="C01">
+						<input type="hidden" name="searchCId" value="">
+						<input type="hidden" name="searchKeyword" value="">
+						<input type="hidden" name="id" value="32">
+						<input type="hidden" name="lId" value="170">
+						<table class="board_base board_basic2" summary="게시판 목록입니다.">
+							<caption>게시판 목록보기</caption>
+							<thead>
+								<tr>
+									
+									<th>
+									
+									학년
+									
+									</th>
+									
+									<th>학번</th>
+									<th>이메일</th>
+									<th>이름(닉네임)</th>
+									<th>강의자료</th>
+									<th>과제&nbsp;&nbsp;<a data-assignment-submission-alldown="170" class="btn btn_gray_off_s all_down" href="javascript:;">일괄다운</a></th>
+									<th>퀴즈</th>
+									<th>선택</th>
+									<th>상태</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								
+								
+									
+										
+											
+											
+											
+										
+									
+										
+									
+									
+								
+							</tbody>
+						</table>
+						</form>
+						<div class="board_btn board_btn_r">
+							
+							<span>
+								<a class="btn btn_gray_off_s" href="javascript:;" onclick="chkCompletion();">선택 이수 처리</a>
+								&nbsp;<a class="btn btn_gray_off_s" href="javascript:;" onclick="chkAllCompletion();">전체 이수 처리</a>
+							</span>
+						</div><br>
+						
+
+						
+
+
+
+
+	<div style="padding: 5px 0px; text-align: right;">
+		<form id="commentForm" name="commentForm" onsubmit="javascript: return false;">
+			<textarea class="cont" style="width: 100%; box-sizing: border-box;" placeholder="댓글을 입력해 주세요."></textarea>
+		</form>
+		<div class="board_btn">
+			<span></span>
+			<a class="regist_btn" href="javascript:;" onclick="javascript:commentFormSubmit();">댓글등록</a>
+		</div>
+	</div>
+	<hr><br>
+
+	<div class="comment_list_info">
+		<div>
+			<a href="javascript:;" onclick="javascript:commentTopListLoad();">댓글<span id="comment_total_count" class="mint">0</span></a>
+		</div>
+		<div>
+			<form name="commentPagingForm">
+			<input type="hidden" id="commentPageNo" name="pageNo" value="1">
+			<input type="hidden" id="commentFirstPageNo" name="firstPageNo" value="1">
+			<input type="hidden" id="commentLastPageNo" name="lastPageNo" value="0">
+			<select id="commentOrderBy" name="orderBy" onchange="javascript:commentTopListLoad();">
+				<option value="ASC">등록순</option>
+				<option value="DESC" selected="selected">최신순</option>
+			</select>
+			</form>
+		</div>
+	</div>
+
+	<ul id="comment_list" class="comment_list"></ul>
+	
+	<div id="comment_paging"> <div class="paging">  <div class="num_box" id="divNumBox">  </div><!-- //num_box --> </div><!-- //paging --></div>
+
+ 
+						<div class="board_btn">
+							<span><a class="list_btn" href="javascript:;" onclick="goView();">이전</a></span>
+						</div>
+						
+
+					</div><!-- //lecture_box_b -->
+					
+				</div><!-- //lecture_box -->
+				
+				<form id="defaultForm" name="defaultForm">
+					<input type="hidden" name="menu" value="110">
+					<input type="hidden" name="pageNo" value="1">
+					<input type="hidden" name="scale" value="15">
+					<input type="hidden" name="searchType" value="C01">
+					<input type="hidden" name="searchCId" value="">
+					<input type="hidden" name="searchKeyword" value="">
+					<input type="hidden" name="id" value="32">
+					<input type="hidden" name="lId" id="lId">
+				</form>
+				
+				<script type="text/javascript">
+					function setLecture(seq, obj) {
+						try {
+							$.ajax({
+					            method: 'GET',
+					            url: 'http://crhs.aimind.co.kr/course/study/lecture.ajax',
+					            data: {
+					            	id: seq
+					            },
+					            dataType: 'json'
+					        }).done(function (data) {
+					        	try {
+					        		//console.log("data.detail : " + data.detail);
+						            if(!data.error) {
+						            	var detail = data.detail;
+						            	//console.log("detail : " + detail);
+
+						        		$('a[data-lecture]').removeClass('on');
+						        		$('a[data-lecture]').addClass('off');
+						        		$(obj).removeClass('off');
+						        		$(obj).addClass('on');
+						        		$('span[data-current]').remove();
+						        		$(obj).parent("td:last").append('<span data-current="'+$(obj).data("lecture")+'" style="padding-left:10px;">◀</span>');
+						        		
+						            	//$('a[data-lecture="'+$(this).data("asm_file")+'"').css('display','none');
+						            	if (seq == null || seq == '') {
+						        			alert('이전 강의를 모두 확인하여야 다음 강의로 이동할 수 있습니다.');
+						        			return;
+						        		}
+						            	
+						            	if (detail.dataType == 'CT0') {
+						            		var htmlStr = '<video id="lecture_vod" controls controlsList="nodownload" width="840" height="490"><source type="video/mp4" src="http://crhs.aimind.co.kr/upload/'+detail.file.location+'/'+detail.file.name +'"/>';
+						            		htmlStr += '	Your user agent does not support the HTML5 Video element.<br/>';
+						            		htmlStr += '</video>';
+						            		$('.movie_area').html(htmlStr);
+						            	} else if (detail.dataType == 'CT1') {
+						            		var htmlStr = '<div style="height: 490px; position: relative;">';
+						            		htmlStr += '	<div id="pdf"></div>';
+											htmlStr += '</div>';
+						            		$('.movie_area').html(htmlStr);
+						            		var myPDF = PDFObject.embed("http://crhs.aimind.co.kr/upload/"+detail.file.location+"/"+detail.file.name, "#pdf", options);
+						            	} else if (detail.dataType == 'CT2') {
+						            		var htmlStr = '<iframe src="'+detail.url+'" width="840" height="490">';
+											htmlStr += '	<p>It does not support iframes.</p>';
+											htmlStr += '</iframe>';
+						            		$('.movie_area').html(htmlStr);
+						            	} else if (detail.dataType == 'CT3') {
+						            		var htmlStr = '<iframe src="'+detail.url+'" width="840" height="490" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+						            		$('.movie_area').html(htmlStr);
+						            	} else if (detail.dataType == 'CT4') {
+						            		var htmlStr = '<div style="overflow:scroll; height:490px;">'+detail.contents+'</div>';
+						            		$('.movie_area').html(htmlStr);
+							            }
+						            } else {
+						            	alert('이전 강의를 모두 확인하여야 다음 강의로 이동할 수 있습니다.');
+						            }
+					        	}catch(e) {
+					        		alert(e);
+					        	}
+					        });
+						}catch(e) {
+							alert(e);
+						}
+					}
+				</script>
+				
+				<script type="text/javascript">
+					var lCnt = 0;
+					$( "input[type=checkbox]" ).on( "click", function() {
+						var lStatus = $(this).data("status");
+						var ltStatus = $(this).data("temp_status");
+						//console.log("lStatus : " + lStatus);
+						//console.log("ltStatus : " + ltStatus);
+						if ($(this).is(":checked")) {
+							if (lStatus != 'C04' && ltStatus == 'C04') {
+								lCnt++;
+							}
+						} else {
+							if (lStatus != 'C04' && ltStatus == 'C04') {
+								lCnt--;
+							}
+						}
+					});
+				</script>
+				
+</div><!-- //container -->
+
+		<div id="footer">
+				<div class="footer_box">		
+					<div class="footer_logo">
+						<img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
+					</div><!-- //footer_logo -->
+					
+
+					<div class="copyright">
+						<ul>
+							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/privacyPolicy.pop', 'privacy', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">개인정보처리방침</a></li>
+							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/stipulation.pop', 'stipulation', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">서비스 이용약관</a></li>
+							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/rejectEmail.pop', 'email', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">이메일주소 무단수집거부</a></li>
+						</ul>		
+						
+
+						<address>경기도 부천시 양지로 205 서영아너시티2 913호 (주)에듀웍스<br>
+						TEL) 032-872-3072~4, FAX) 032-872-3060<br>
+						Copyright by Eduwalks. All rights reserved.</address>
+					</div><!-- //copyright -->
+				</div><!-- //footer_box -->
+			</div><!-- //footer --></div><!-- //wrapper -->
+
+
+</body></html>
