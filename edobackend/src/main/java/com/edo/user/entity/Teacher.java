@@ -10,23 +10,25 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //강사
 public class Teacher {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long TId;
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "teacher_id")
+    private Long id;
+
     //식별관계 User 매핑
     @MapsId
     @OneToOne
-    @JoinColumn(name="UId")
-    private User user;
+    @JoinColumn(name="users_id")
+    private Users users;
 
     //대표이미지
-    private String imgUrl;
+    @Column(columnDefinition = "LONGTEXT")
+    private String teacherImgUrl;
 
     //강사소개
-    private String TeacherInfo;
+    @Column(columnDefinition = "TEXT")
+    private String teacherInfo;
 }

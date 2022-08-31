@@ -1,6 +1,6 @@
 package com.edo.lecture.entity;
 
-import com.edo.config.BaseEntity;
+import com.edo.item.BaseFileEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,15 +11,15 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //학습자료_파일
-public class MasterPlan_File extends BaseEntity {
+public class MasterPlanFile extends BaseFileEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long MPFId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "master_plan_file_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MPId")
+    @JoinColumn(name = "master_plan_id ")
     private MasterPlan masterPlan;
 }

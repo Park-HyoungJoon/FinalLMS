@@ -1,6 +1,6 @@
 package com.edo.lecture.entity;
 
-import com.edo.user.entity.User;
+import com.edo.user.entity.Users;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,22 +11,23 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //강좌와 수강생
-public class Lecture_User {
+public class LectureUsers {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long L_UId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lecture_users_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Uemail")
-    private User user;
+    @JoinColumn(name = "users_email")
+    private Users users;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "L_Id")
+    @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
     //좋아요 버튼 눌렀는지 아닌지
+    @Column(length = 1)
     private char like_yn = 'N';
 }

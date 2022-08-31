@@ -11,24 +11,25 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //수강생
-public class User_Lecture {
+public class UserLecture {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ULId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "users_lecture_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UId")
-    private User user;
+    @JoinColumn(name = "users_id")
+    private Users users;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LId")
+    @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
     //좋아요 체크,미체크
+    @Column(length = 1)
     private String like_YN;
 
 }

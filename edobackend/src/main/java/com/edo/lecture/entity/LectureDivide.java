@@ -10,25 +10,24 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //차시
-public class Lec_Divide {
+public class LectureDivide {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long LDId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lecture_divide_id")
+    private Long id;
 
     //강좌 매핑(다대일 / 강좌Id가 테이블에 등록됨)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="LId")
+    @JoinColumn(name="lecture_id")
     private Lecture lecture;
     
     //차시제목
-    private String title;
+    @Column(length = 255)
+    private String lectureDivideTitle;
 
-    //파일 url
-    private String fileURL;
     //차시순번
-    private int LDseq;
+    private int lectureDivideSeq;
 
 }

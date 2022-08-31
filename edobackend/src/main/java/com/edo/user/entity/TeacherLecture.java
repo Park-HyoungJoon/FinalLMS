@@ -11,20 +11,20 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //강사-강좌매핑
-public class Teacher_Lecture {
+public class TeacherLecture {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long TLId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "teacher_lecture_id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LId")
+    @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TId")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 }

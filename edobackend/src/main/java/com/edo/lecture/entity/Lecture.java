@@ -4,6 +4,7 @@ import com.edo.user.entity.Teacher;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -14,43 +15,47 @@ import java.util.Date;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //강좌
 public class Lecture {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long LId;
-    //이름
-    private String LName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lecture_id")
+    private Long id;
     //제목
-    private String title;
+    @Column(length = 100)
+    private String lectureTitle;
     //개요
-    private String LInfo;
+    @Column(length = 20)
+    private String lectureInfo;
     //신청시작일
-    @Temporal(TemporalType.DATE)
-    private Date SDate;
+    @Column(length = 8)
+    private LocalDate startDate;
     //신청마감일
-    @Temporal(TemporalType.DATE)
-    private Date FDate;
+    @Column(length = 8)
+    private LocalDate finalDate;
     //상시 신청 여부
+    @Column(length = 1)
     private String subYN;
     //운영 시작일
-    @Temporal(TemporalType.DATE)
-    private Date MSDate;
+    @Column(length = 8)
+    private LocalDate manageStartDate;
     //운영 종료일
-    @Temporal(TemporalType.DATE)
-    private Date MFDate;
+    @Column(length = 8)
+    private LocalDate manageFinalDate;
     //상시 운영 여부
-    private String ManageYN;
+    @Column(length = 1)
+    private String manageYN;
     //강의시간
-    private String LTime;
+    @Column(length = 20)
+    private String lectureTime;
     //강좌소개
-    private String LDetail;
+    @Column(columnDefinition = "LONGTEXT")
+    private String lectureDetail;
     //대표이미지
-    private String LImage;
+    @Column(columnDefinition = "LONGTEXT")
+    private String lectureImage;
     //상태
-    private String LYN;
-    //등록일
-    private String LDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    @Column(length = 1)
+    private String lectureYN;
 }

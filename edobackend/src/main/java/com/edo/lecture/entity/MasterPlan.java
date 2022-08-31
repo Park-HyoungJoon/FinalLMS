@@ -10,18 +10,19 @@ import javax.persistence.*;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 //학습자료
 public class MasterPlan {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long MPId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "master_plan_id")
+    private Long id;
 
-    private String MPName;
+    @Column(length = 255)
+    private String masterPlanName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LDId")
-    private Lec_Divide lec_divide;
+    @JoinColumn(name = "lecture_divide_id")
+    private LectureDivide lectureDivide;
 }
