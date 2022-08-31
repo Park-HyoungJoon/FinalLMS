@@ -1,0 +1,566 @@
+<html lang="ko"><head>
+	<title>AiMind에 오신 것을 환영합니다.</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<meta name="Generator" content="EditPlus">
+	<meta name="Author" content="AiMind">
+	<meta name="Keywords" content="AiMind">
+	<meta name="Description" content="AiMind">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
+	<noscript><meta http-equiv="X-Frame-Options" content="DENY" /></noscript>
+	
+	<link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/sub.css">
+<link rel="shortcut icon" href="http://crhs.aimind.co.kr/images/favicon.ico" type="image/x-icon">
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/jquery/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/design/lnb.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/util.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/jsbn.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rsa.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/prng4.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rng.js"></script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/loginScript.do"></script>
+<script type="text/javascript">
+	$(window).load(function(){
+		try {
+			
+		}catch(e) {	}
+	});
+</script>
+<script>
+	if( top != window ) {
+	 top.location = window.location;
+	}
+</script> 
+<link rel="stylesheet" type="text/css" href="css/header.css">
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>    
+<link rel="stylesheet" type="text/css" href="css/file.css">
+<script type="text/javascript">
+	function fileAddPop(type) {
+		if (type == null || type == undefined) {
+			alert("올바른 접근이 아닙니다.");
+		} else {
+			//var url = "http://crhs.aimind.co.kr/file/attach/upload.lay?type=" + type + "&fid=8015d5161e17f95ff7b9b8efe9b2e813";
+			//window.open(url, '_blank','width=600, height=600, scrollbars=yes, menubar=no, status=no, toolbar=no, top=0, left=0');
+			$('#footer').after("<div class=\"popview-overlay\" id=\"popview-overlay\" style=\"display: block; z-index: 1002; opacity: 0.5;\"></div>");
+			if (type == 'F') {
+				$('#file_attach').attr("style","display:block;z-index:1003;text-align:left;");
+			} else {
+				$('#image_attach').attr("style","display:block;z-index:1003;text-align:left;");
+			}
+			
+			$("#popview-overlay").on('click', function (e) 
+			{
+				popClose();
+			});
+		}
+	}
+	
+	function popClose() {
+		$('#popview-overlay').remove();
+		$('.attach_layer').attr("style","display:none");
+	}
+</script>
+<script type="text/javascript" src="http://crhs.aimind.co.kr/js/file.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		try {
+			$.post(
+				"http://crhs.aimind.co.kr/file/attach/files.do",
+				{
+					fid:'8015d5161e17f95ff7b9b8efe9b2e813'
+				},
+				function(data,status){
+					if(status == 'success') {
+						var json = eval('(' + data + ')');
+						if(!json.error) {
+							for(var i=0; i<json.count; i++) {
+								FileList.add(json.fileInfos[i]);
+							}
+							fileBody.reload();
+						}
+					}
+				}
+			);
+		}catch(e) {
+			alert(e);
+		}
+	});
+	
+</script>
+
+<script type="text/javascript">
+	function formCheck() {
+		try {
+			if (objTrimNEmptyCheckNMsg($('#title'), '제목을 입력해 주십시오.')) return false;
+			if (objTrimNEmptyCheckNMsg($('#type'), '구분을(를) 선택해 주십시오.')) return false;
+			if (objTrimNEmptyCheckNMsg($('#courseCurriculumId'), '분야을(를) 선택해 주십시오.')) return false;
+
+			var applicationStartDate = $('#applicationStartYear').val()+fillZero(2, $('#applicationStartMonth').val())+fillZero(2, $('#applicationStartDay').val());
+			var applicationEndDate = $('#applicationEndYear').val()+fillZero(2, $('#applicationEndMonth').val())+fillZero(2, $('#applicationEndDay').val());
+			var courseStartDate = $('#courseStartYear').val()+fillZero(2, $('#courseStartMonth').val())+fillZero(2, $('#courseStartDay').val());
+			var courseEndDate = $('#courseEndYear').val()+fillZero(2, $('#courseEndMonth').val())+fillZero(2, $('#courseEndDay').val());
+
+			if (!$('#alwaysApplicationYn1').is(':checked')) {
+				if (parseInt(applicationStartDate) > parseInt(applicationEndDate)) {
+					alert('접수기간 종료 날짜가 시작 날짜보다 작습니다.');
+					$('#applicationStartYear').focus();
+					return false;
+				}
+			}
+			
+			if (!$('#alwaysCourseYn1').is(':checked')) {
+				if (parseInt(courseStartDate) > parseInt(courseEndDate)) {
+					alert('운영기간 종료 날짜가 시작 날짜보다 작습니다.');
+					$('#courseStartYear').focus();
+					return false;
+				}
+			}
+
+			if (objTrimNEmptyCheckNMsg($('#courseTime'), '강의시간을(를) 입력해 주십시오.')) return false;
+			if (objTrimNEmptyCheckNMsg($('#managerSeqNo'), '강의관리을(를) 선택해 주십시오.')) return false;
+			if (objTrimNEmptyCheckNMsg($('#lecturerName'), '강의에 표시될 강의자 이름을 입력해 주십시오.')) return false;
+			if (objTrimNEmptyCheckNMsg($('#lecturerIntroduction'), '강의에 표시될 강의자 소개를 입력해 주십시오.')) return false;
+			/* 
+			if (objTrimNEmptyCheck($('#lecturerPictureDataUrl')) && !$('#lecturerImageFile').val()) {
+				alert('강의자사진을(를) 선택해 주십시오.');
+				return false;
+			}
+			 */
+			if (objTrimNEmptyCheckNMsg($('#summary'), '개요을(를) 입력해 주십시오.')) return false;
+			
+			if (isEmptyTinymceValue()) {
+				alert('내용을 입력해 주십시오.');
+				return false;
+			}
+
+			//if (objTrimNEmptyCheckNMsg($('#reference'), '참고을(를) 입력해 주십시오.')) return false;
+			
+			if (!$('input:radio[name="authType"]').is(':checked')) {
+				alert('수강 승인을(를) 선택해 주십시오.');
+				return false;
+			}
+			
+			if ($('input:radio[name="authType"]').is(':checked') 
+					&& $("input:radio[name='authType']:checked").val() == "AT1" 
+					&& objTrimNEmptyCheck($('#authPassword'))) {
+				alert('암호을(를) 입력해 주십시오.');
+				$('#authPassword').focus();
+				return false;
+			}
+
+			if (!$('input:radio[name="completionType"]').is(':checked')) {
+				alert('이수 조건을(를) 선택해 주십시오.');
+				return false;
+			}
+			
+			$('#enContent').val(encodeURIComponent(getTinymceContent()));
+			
+			if (!confirm('등록하시겠습니까?')) {
+				return false;
+			}
+			$('#contents').attr("disabled", true);
+			
+			return true;
+		}catch(e) {
+			return false;
+		}
+	}
+	
+	function writeDo() {
+		try {
+			$('#writeForm').submit();
+		}catch(e) {
+			alert(e);
+		}
+	}
+
+	var fileBody;
+	$(document).ready(function(){
+		fileBody = new createfileBody();
+		var fileUploadViewOptions = {
+			editorId: 'contents',
+			uploadPath: 'http://crhs.aimind.co.kr/upload',
+			downPath: '', 
+			noimagePath: 'http://crhs.aimind.co.kr/images/file_noimg.gif',
+		};
+	   	fileBody.init(fileUploadViewOptions);
+		fileBody.setFormObj($('#writeForm'));
+	});
+	
+	function changeType(value) {
+		try {
+			$.post(
+					"http://crhs.aimind.co.kr/course/curriculum.ajax",
+				{
+					id: value
+				},
+				function(data,status){
+					if(status == 'success') {
+						var json = eval('(' + data + ')');
+						if(!json.error) {
+							var list = json.list;
+							if (list != null && list.length > 0) {
+								$("#courseCurriculumId > option").each(function(){if(this.value != '') {$(this).remove();}});
+								$("#courseCurriculumId").show();
+								for (var i=0; i<list.length; i++) {
+									var selectFlg = "";
+									
+									
+									$("#courseCurriculumId").append("<option value='"+list[i].id+"'"+selectFlg+">"+list[i].name+"</option>");
+								}
+								$("#courseCurriculumId").show();
+							}
+						}else {
+							console.log(json.message);
+						}
+					}
+				}
+			);
+		}catch(e) {
+			alert(e);
+		}
+	}
+</script>
+<link rel="stylesheet" type="text/css" id="u0" href="http://crhs.aimind.co.kr/js/tinymce_4.6.0/skins/lightgray/skin.min.css"></head>
+<body class="vsc-initialized">
+	<div id="wrapper">
+		<div id="header">
+			<nav class="navbar navbar-expand-lg navbar-light " >
+				<div class="container-fluid">
+				  <a class="navbar-brand" href="#">
+					<img class="school_logo" src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png" alt="" >
+					</a>
+				  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarText">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					  <li class="nav-item">
+						<a href="http://crhs.aimind.co.kr/course/list.htm?menu=10" target="_self" title="강좌 메뉴 링크" class="cate">강좌</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://crhs.aimind.co.kr/portfolio/list.htm?menu=20" target="_self" title="포트폴리오 메뉴 링크"class="cate">포트폴리오</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self" title="공지/소식 메뉴 링크"class="cate">커뮤니티</a>
+					  </li>
+					  <li class="nav-item">
+						<a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크"class="cate">소개</a>
+					  </li>
+					  <li class="nav-item">
+						<a  href="http://crhs.aimind.co.kr/edub/experience/request.do">체험하기</a>
+					  </li>
+					</ul>
+					<span > 
+						<a href="http://crhs.aimind.co.kr/login.htm">로그인</a>
+					</span>
+	
+					<span class="paddingleft">
+						<a href="http://crhs.aimind.co.kr/join/joinStep1.htm">회원가입</a>
+					</span>
+				  </div>
+				</div>
+			  </nav>	
+			</div><!-- //header -->
+			<div id="container">
+			<h3 style="background:url(http://crhs.aimind.co.kr/images/menu_icon1.png) no-repeat 530px 6px">강좌</h3>
+			<hr>
+			
+						<ul class="tabs_in">
+							<li class="tab-link current" data-tab="tab_2"><span>기본정보</span></li>
+							<li class="tab-link" data-tab="tab_3"><span>차시정보</span></li>
+						</ul>
+	<div id="file_attach" class="attach_layer">
+		<iframe src="http://crhs.aimind.co.kr/file/attach/upload.lay?type=F&amp;fid=8015d5161e17f95ff7b9b8efe9b2e813" title="파일추가"></iframe>
+	</div>
+	<div id="image_attach" class="attach_layer">
+		<iframe src="http://crhs.aimind.co.kr/file/attach/upload.lay?type=I&amp;fid=8015d5161e17f95ff7b9b8efe9b2e813" title="이미지추가"></iframe>
+	</div>
+
+						
+						<form id="writeForm" name="writeForm" action="http://crhs.aimind.co.kr/course/write.htm" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
+						<input type="hidden" name="menu" value="10">
+						<input type="hidden" name="pageNo" value="1">
+						<input type="hidden" name="scale" value="15">
+						<input type="hidden" name="searchType" value="C01">
+						<input type="hidden" name="searchCId" value="">
+						<input type="hidden" name="searchKeyword" value="">
+						<input type="hidden" name="fid" value="8015d5161e17f95ff7b9b8efe9b2e813">
+						
+						<input type="hidden" id="enContent" name="enContent" value="">
+						<p class="tit_in course">
+							<input id="title" name="title" class="text" style="width:80%;" type="text" value="">
+							
+						</p>
+						<div class="lec_info">
+							<div class="lec_info_r">
+								<p>
+									
+									<img src="http://crhs.aimind.co.kr/images/lec_info_pic.png" alt="이미지">
+									
+								</p>
+								<p>
+									<input id="imageFile" name="imageFile" type="file" accept=".jpg, .jpeg, .gif, .png" value="">
+								</p>
+							</div><!-- //lec_info_r -->
+
+							<div class="lec_info_l">
+								<table class="board_base board_color course" summary="게시판 목록입니다.">
+									<caption>게시판 목록보기</caption>
+									<colgroup>
+										<col width="130px">
+										<col width="*">
+									</colgroup>
+									<tbody><tr>
+										<th>· 구분/분야</th>
+										<td>
+											<label class="blind" for="type">구분</label>
+											<select id="type" name="type" class="search_select" onchange="changeType(this.value);">
+												<option value="">구분</option>
+											
+												
+											
+												
+												
+												<option value="C01" selected="selected">학교</option>
+												
+												
+												
+											
+												
+												
+												<option value="C02">추천</option>
+												
+												
+												
+											
+												
+												
+												<option value="C03">공개</option>
+												
+												
+												
+											
+												
+											
+											</select>
+											<label class="blind" for="courseCurriculumId">분야</label>
+											<select id="courseCurriculumId" name="curriculum.id" class="search_select">
+												<option value="">분야</option>
+											
+												<option value="7">파이썬</option>
+												
+											
+												<option value="8">인공지능</option>
+												
+											
+												<option value="9">데이터분석</option>
+												
+											
+												<option value="4">기타</option>
+												
+											
+											</select>
+										</td>
+									</tr>
+								</tbody></table>
+							</div><!-- //lec_info_l -->
+						</div>
+						
+
+						<table class="board_base board_color" summary="게시판 목록입니다.">
+							<caption>게시판 목록보기</caption>
+							<colgroup>
+								<col width="130px">
+								<col width="*">
+							</colgroup>
+							<tbody>
+							<tr>
+								<th>· 개요</th>
+								<td>
+									<input id="summary" name="summary" class="text" style="width:80%;" type="text" value="">
+									
+								</td>
+							</tr>
+							<tr>
+								<th>· 첨부</th>
+								<td>
+									
+
+
+
+
+
+
+
+
+
+	<div class="complete_btn">
+		<a href="javascript:;" onclick="fileAddPop('I');return false;" class="btn btn_gray_on_s">이미지 추가</a>
+	</div>
+
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div id="mceu_35" class="mce-tinymce mce-container mce-panel" hidefocus="1" tabindex="-1" role="application" style="visibility: hidden; border-width: 1px; width: 100%;"><div id="mceu_35-body" class="mce-container-body mce-stack-layout"><div id="mceu_36" class="mce-toolbar-grp mce-container mce-panel mce-stack-layout-item mce-first" hidefocus="1" tabindex="-1" role="group"><div id="mceu_36-body" class="mce-container-body mce-stack-layout"><div id="mceu_37" class="mce-container mce-toolbar mce-stack-layout-item mce-first" role="toolbar"><div id="mceu_37-body" class="mce-container-body mce-flow-layout"><div id="mceu_38" class="mce-container mce-flow-layout-item mce-first mce-btn-group" role="group"><div id="mceu_38-body"><div id="mceu_0" class="mce-widget mce-btn mce-btn-small mce-first mce-last" tabindex="-1" role="button" aria-label="New document"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-newdocument"></i></button></div></div></div><div id="mceu_39" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_39-body"><div id="mceu_1" class="mce-widget mce-btn mce-btn-small mce-first" tabindex="-1" role="button" aria-label="Cut"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-cut"></i></button></div><div id="mceu_2" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Copy"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-copy"></i></button></div><div id="mceu_3" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Paste"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-paste"></i></button></div><div id="mceu_4" class="mce-widget mce-btn mce-btn-small mce-last" tabindex="-1" role="button" aria-label="Find and replace"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-searchreplace"></i></button></div></div></div><div id="mceu_40" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_40-body"><div id="mceu_5" class="mce-widget mce-btn mce-btn-small mce-menubtn mce-fixed-width mce-listbox mce-first mce-btn-has-text" tabindex="-1" aria-labelledby="mceu_5" role="button" aria-label="Font Family" aria-haspopup="true"><button id="mceu_5-open" role="presentation" type="button" tabindex="-1"><span class="mce-txt">Verdana</span> <i class="mce-caret"></i></button></div><div id="mceu_6" class="mce-widget mce-btn mce-btn-small mce-menubtn mce-fixed-width mce-listbox mce-last mce-btn-has-text" tabindex="-1" aria-labelledby="mceu_6" role="button" aria-label="Font Sizes" aria-haspopup="true"><button id="mceu_6-open" role="presentation" type="button" tabindex="-1"><span class="mce-txt">11pt</span> <i class="mce-caret"></i></button></div></div></div><div id="mceu_41" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_41-body"><div id="mceu_7" class="mce-widget mce-btn mce-btn-small mce-menubtn mce-first mce-last mce-btn-has-text" tabindex="-1" aria-labelledby="mceu_7" role="button" aria-haspopup="true"><button id="mceu_7-open" role="presentation" type="button" tabindex="-1"><span class="mce-txt">포맷</span> <i class="mce-caret"></i></button></div></div></div><div id="mceu_42" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_42-body"><div id="mceu_8" class="mce-widget mce-btn mce-btn-small mce-first" tabindex="-1" role="button" aria-label="Bold"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-bold"></i></button></div><div id="mceu_9" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Italic"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-italic"></i></button></div><div id="mceu_10" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Underline"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-underline"></i></button></div><div id="mceu_11" class="mce-widget mce-btn mce-btn-small mce-last" tabindex="-1" role="button" aria-label="Strikethrough"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-strikethrough"></i></button></div></div></div><div id="mceu_43" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_43-body"><div id="mceu_12" class="mce-widget mce-btn mce-btn-small mce-colorbutton mce-first" role="button" tabindex="-1" aria-haspopup="true" aria-label="Text color"><button role="presentation" hidefocus="1" type="button" tabindex="-1"><i class="mce-ico mce-i-forecolor"></i><span id="mceu_12-preview" class="mce-preview"></span></button><button type="button" class="mce-open" hidefocus="1" tabindex="-1"> <i class="mce-caret"></i></button></div><div id="mceu_13" class="mce-widget mce-btn mce-btn-small mce-colorbutton mce-last" role="button" tabindex="-1" aria-haspopup="true" aria-label="Background color"><button role="presentation" hidefocus="1" type="button" tabindex="-1"><i class="mce-ico mce-i-backcolor"></i><span id="mceu_13-preview" class="mce-preview"></span></button><button type="button" class="mce-open" hidefocus="1" tabindex="-1"> <i class="mce-caret"></i></button></div></div></div><div id="mceu_44" class="mce-container mce-flow-layout-item mce-last mce-btn-group" role="group"><div id="mceu_44-body"><div id="mceu_14" class="mce-widget mce-btn mce-btn-small mce-first mce-last" tabindex="-1" role="button" aria-label="Fullscreen"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-fullscreen"></i></button></div></div></div></div></div><div id="mceu_45" class="mce-container mce-toolbar mce-stack-layout-item mce-last" role="toolbar"><div id="mceu_45-body" class="mce-container-body mce-flow-layout"><div id="mceu_46" class="mce-container mce-flow-layout-item mce-first mce-btn-group" role="group"><div id="mceu_46-body"><div id="mceu_15" class="mce-widget mce-btn mce-btn-small mce-first" tabindex="-1" role="button" aria-label="Subscript"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-subscript"></i></button></div><div id="mceu_16" class="mce-widget mce-btn mce-btn-small mce-last" tabindex="-1" role="button" aria-label="Superscript"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-superscript"></i></button></div></div></div><div id="mceu_47" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_47-body"><div id="mceu_17" class="mce-widget mce-btn mce-splitbtn mce-btn-small mce-menubtn mce-first" role="button" tabindex="-1" aria-label="Bullet list" aria-haspopup="true"><button type="button" hidefocus="1" tabindex="-1"><i class="mce-ico mce-i-bullist"></i></button><button type="button" class="mce-open" hidefocus="1" tabindex="-1"> <i class="mce-caret"></i></button></div><div id="mceu_18" class="mce-widget mce-btn mce-splitbtn mce-btn-small mce-menubtn mce-last" role="button" tabindex="-1" aria-label="Numbered list" aria-haspopup="true"><button type="button" hidefocus="1" tabindex="-1"><i class="mce-ico mce-i-numlist"></i></button><button type="button" class="mce-open" hidefocus="1" tabindex="-1"> <i class="mce-caret"></i></button></div></div></div><div id="mceu_48" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_48-body"><div id="mceu_19" class="mce-widget mce-btn mce-btn-small mce-first" tabindex="-1" role="button" aria-label="Align left"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-alignleft"></i></button></div><div id="mceu_20" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Align center"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-aligncenter"></i></button></div><div id="mceu_21" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Align right"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-alignright"></i></button></div><div id="mceu_22" class="mce-widget mce-btn mce-btn-small mce-last" tabindex="-1" role="button" aria-label="Justify"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-alignjustify"></i></button></div></div></div><div id="mceu_49" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_49-body"><div id="mceu_23" class="mce-widget mce-btn mce-btn-small mce-first" tabindex="-1" role="button" aria-label="Decrease indent"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-outdent"></i></button></div><div id="mceu_24" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Increase indent"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-indent"></i></button></div><div id="mceu_25" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Blockquote"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-blockquote"></i></button></div><div id="mceu_26" class="mce-widget mce-btn mce-btn-small mce-menubtn mce-last" tabindex="-1" aria-labelledby="mceu_26" role="button" aria-label="Table" aria-haspopup="true"><button id="mceu_26-open" role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-table"></i> <i class="mce-caret"></i></button></div></div></div><div id="mceu_50" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_50-body"><div id="mceu_27" class="mce-widget mce-btn mce-btn-small mce-first mce-last" tabindex="-1" role="button" aria-label="Special character"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-charmap"></i></button></div></div></div><div id="mceu_51" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_51-body"><div id="mceu_28" class="mce-widget mce-btn mce-btn-small mce-first" tabindex="-1" role="button" aria-label="Insert/edit link"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-link"></i></button></div><div id="mceu_29" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Remove link"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-unlink"></i></button></div><div id="mceu_30" class="mce-widget mce-btn mce-btn-small" tabindex="-1" role="button" aria-label="Insert/edit image"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-image"></i></button></div><div id="mceu_31" class="mce-widget mce-btn mce-btn-small mce-last" tabindex="-1" role="button" aria-label="Insert/edit media"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-media"></i></button></div></div></div><div id="mceu_52" class="mce-container mce-flow-layout-item mce-btn-group" role="group"><div id="mceu_52-body"><div id="mceu_32" class="mce-widget mce-btn mce-btn-small mce-first mce-disabled" tabindex="-1" role="button" aria-label="Undo" aria-disabled="true"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-undo"></i></button></div><div id="mceu_33" class="mce-widget mce-btn mce-btn-small mce-last mce-disabled" tabindex="-1" role="button" aria-label="Redo" aria-disabled="true"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-redo"></i></button></div></div></div><div id="mceu_53" class="mce-container mce-flow-layout-item mce-last mce-btn-group" role="group"><div id="mceu_53-body"><div id="mceu_34" class="mce-widget mce-btn mce-btn-small mce-first mce-last" tabindex="-1" role="button" aria-label="Source code"><button role="presentation" type="button" tabindex="-1"><i class="mce-ico mce-i-code"></i></button></div></div></div></div></div></div></div><div id="mceu_54" class="mce-edit-area mce-container mce-panel mce-stack-layout-item" hidefocus="1" tabindex="-1" role="group" style="border-width: 1px 0px 0px;"><iframe id="contents_ifr" frameborder="0" allowtransparency="true" title="서식 있는 텍스트 편집기 입니다. ALT-F9를 누르면 메뉴, ALT-F10를 누르면 툴바, ALT-0을 누르면 도움말을 볼 수 있습니다." src="javascript:&quot;&quot;" style="width: 100%; height: 350px; display: block;"></iframe></div><div id="mceu_55" class="mce-statusbar mce-container mce-panel mce-stack-layout-item mce-last" hidefocus="1" tabindex="-1" role="group" style="border-width: 1px 0px 0px;"><div id="mceu_55-body" class="mce-container-body mce-flow-layout"><div id="mceu_56" class="mce-path mce-flow-layout-item mce-first"><div class="mce-path-item">&nbsp;</div></div><span id="mceu_58" class="mce-wordcount mce-widget mce-label mce-flow-layout-item">단어: 0</span><div id="mceu_57" class="mce-flow-layout-item mce-resizehandle mce-last"><i class="mce-ico mce-i-resize"></i></div></div></div></div><div class="mce-branding-powered-by" style="right: 0px; bottom: 38px;"></div></div><textarea id="contents" name="contents" class="editable" style="height: 350px; display: none;" aria-hidden="true"></textarea>
+									
+								</td>
+							</tr>
+							<tr>
+								<th>· 참고</th>
+								<td>
+									<ul>
+										<li>
+											<span>- 선행과정</span>
+											<label class="blind" for="preCourse.seqNo">선행과정</label>
+											<select id="preCourse.seqNo" name="preCourse.seqNo" class="search_select">
+												<option value="">없음</option>
+												
+												
+												
+												<option value="35">[AI 기본] AI개요 및 머신러닝</option>
+												
+												
+												
+												<option value="36">[AI 심화] 딥러닝 기초</option>
+												
+												
+												
+												<option value="20">[Level 1] 프로그래밍 쉽게 배우자</option>
+												
+												
+												
+												<option value="30">[Level 2] 프로그래밍과 AI의 세계로 발 담그기</option>
+												
+												
+												
+												<option value="34">[Level 3] AI&amp;빅데이터와 친해지는 프로그래밍</option>
+												
+												
+												
+												<option value="6">AI융합 기초 캠프</option>
+												
+												
+												
+												<option value="17">EBS 신년특집 다큐멘터리 "소프트웨어 교육,  길을 묻다"</option>
+												
+											</select>
+													
+										</li>
+										<li>
+											<textarea id="reference" name="reference"></textarea>
+											
+										</li>
+									</ul>
+
+								</td>
+							</tr>
+							<tr>
+								<th>· 수강 승인</th>
+								<td>
+									
+									<input id="authType1" name="authType" type="radio" value="AT0"><label for="authType1">자동 승인</label>&nbsp;&nbsp;
+									
+									
+									<input id="authType2" name="authType" type="radio" value="AT1"><label for="authType2">수강암호설정</label>&nbsp;&nbsp;
+									&nbsp;(&nbsp;암호&nbsp;
+									
+									<input id="authPassword" name="authPassword" class="search_txt" title="수강암호 입력" placeholder="수강암호 입력" type="password" value="" autocomplete="off">&nbsp;)
+									
+									<input id="authType3" name="authType" type="radio" value="AT2"><label for="authType3">관리자 승인</label>&nbsp;&nbsp;
+									
+									
+									
+								</td>
+							</tr>
+							<tr>
+								<th>· 이수 조건</th>
+								<td>
+									
+									<input id="completionType1" name="completionType" type="radio" value="CT0"><label for="completionType1">자동이수</label>&nbsp;&nbsp;
+									
+									<input id="completionType2" name="completionType" type="radio" value="CT1"><label for="completionType2">관리자 확인</label>&nbsp;&nbsp;
+									
+									
+								</td>
+							</tr>
+							<tr>
+								<th>· 공유설정</th>
+								<td>
+									<label class="blind" for="publicYn">공유설정</label>
+									<select id="publicYn" name="publicYn" class="search_select">
+										
+										<option value="Y">공유함</option>
+										
+										<option value="N">공유안함</option>
+										
+									</select>
+									
+								</td>
+							</tr>
+							<tr>
+								<th>· 상태</th>
+								<td>
+									<label class="blind" for="status">상태</label>
+									<select id="status" name="status" class="search_select">
+									
+											
+										<option value="C00">대기</option>
+										
+									
+										
+									
+											
+										<option value="C02">진행</option>
+										
+									
+										
+									
+									</select>							
+								</td>
+							</tr>
+						</tbody></table>
+						</form>
+						
+						<div class="board_btn">
+							<span></span>
+							<span>
+								<a class="regist_btn" href="javascript:;" onclick="writeDo();">다음</a>&nbsp;
+							</span>
+						</div><!-- //board_btn -->
+						
+						
+						
+</div><!-- //container -->
+
+		<div id="footer">
+				<div class="footer_box">		
+					<div class="footer_logo">
+						<img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
+					</div><!-- //footer_logo -->
+					
+
+					<div class="copyright">
+						<ul>
+							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/privacyPolicy.pop', 'privacy', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">개인정보처리방침</a></li>
+							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/stipulation.pop', 'stipulation', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">서비스 이용약관</a></li>
+							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/rejectEmail.pop', 'email', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">이메일주소 무단수집거부</a></li>
+						</ul>		
+						
+
+						<address>경기도 부천시 양지로 205 서영아너시티2 913호 (주)에듀웍스<br>
+						TEL) 032-872-3072~4, FAX) 032-872-3060<br>
+						Copyright by Eduwalks. All rights reserved.</address>
+					</div><!-- //copyright -->
+				</div><!-- //footer_box -->
+			</div><!-- //footer --></div><!-- //wrapper -->
+
+
+</body></html>
