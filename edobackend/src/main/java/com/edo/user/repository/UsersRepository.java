@@ -8,7 +8,7 @@ import com.edo.user.entity.Users;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users,String>{
-	Optional<Users> findByEmail(String email);
-	boolean existsByEmail(String email);
+public interface UsersRepository extends JpaRepository<Users,String>{
+	Optional<Users> findByusersEmail(String usersEmail);
+	boolean existsByusersEmail(String usersEmail);
 }
