@@ -1,1089 +1,1323 @@
-<html lang="ko"><head>
-	<title>AiMind에 오신 것을 환영합니다.</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Pragma" content="no-cache">
-	<meta http-equiv="Cache-Control" content="no-cache">
-	<meta http-equiv="Expires" content="-1">
-	<meta name="Generator" content="EditPlus">
-	<meta name="Author" content="AiMind">
-	<meta name="Keywords" content="AiMind">
-	<meta name="Description" content="AiMind">
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
-	<noscript><meta http-equiv="X-Frame-Options" content="DENY" /></noscript>
-	
-	<link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/sub.css">
-<link rel="shortcut icon" href="http://crhs.aimind.co.kr/images/favicon.ico" type="image/x-icon">
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/design/lnb.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/util.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/jsbn.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rsa.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/prng4.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rng.js"></script>
-<script type="text/javascript" src="http://crhs.aimind.co.kr/loginScript.do"></script>
-<script type="text/javascript">
-	$(window).load(function(){
-		try {
-			
-		}catch(e) {	}
-	});
-</script>
-<script>
-	if( top != window ) {
-	 top.location = window.location;
-	}
-</script> 
+<html lang="ko">
+<head>
+    <title>AiMind에 오신 것을 환영합니다.</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="Generator" content="EditPlus">
+    <meta name="Author" content="AiMind">
+    <meta name="Keywords" content="AiMind">
+    <meta name="Description" content="AiMind">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
+    <noscript>
+        <meta http-equiv="X-Frame-Options" content="DENY"/>
+    </noscript>
+
+    <link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/sub.css">
+    <link rel="shortcut icon" href="http://crhs.aimind.co.kr/images/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/jquery/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/design/lnb.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/util.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/jsbn.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rsa.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/prng4.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rng.js"></script>
+    <script type="text/javascript" src="http://crhs.aimind.co.kr/loginScript.do"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            try {
+
+            } catch (e) {
+            }
+        });
+    </script>
+    <script>
+        if (top != window) {
+            top.location = window.location;
+        }
+    </script>
 
 
-<link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/course.css">
-<style type="text/css">
-.data_source_thumb{
-	transition: 1s all;
-	position: relative;
-	transform-origin: top left;
-	cursor: pointer;
-}
+    <link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/course.css">
+    <style type="text/css">
+        .data_source_thumb {
+            transition: 1s all;
+            position: relative;
+            transform-origin: top left;
+            cursor: pointer;
+        }
 
-.data_source_thumb:hover{
-	transform: scale(2.38);
-}
-</style>
-<script type="text/javascript">
-	function formCheck() {
-		try {
-			//console.log("lessonIdx : " + lessonIdx);
-			if (lessonIdx > 0) {
-				var lesTitles = $("input[name^='les_title_']");
-				for (var i=0;i<lesTitles.length;i++) {
-					var lesIdx = ($("input[name^='les_title_']").eq(i).attr("name"));
-					lesIdx = lesIdx.replace("les_title_","");
-					//console.log("lesIdx : " + lesIdx);
-					if (trim($("input[name^='les_title_']").eq(i).val()) == "" ) {
-						alert('차시제목을(를) 입력해 주십시오.');
-						$("input[name^='les_title_']").eq(i).focus();
-						return false;
-					}
-					
-					var lecTitles = $("input[name^='lec_title_"+lesIdx+"_']");
-					for (var j=0;j<lecTitles.length;j++) {
-						if (trim($("input[name^='lec_title_"+lesIdx+"_']").eq(j).val()) == "" ) {
-							alert('강의 제목을(를) 입력해 주십시오.');
-							$("input[name^='lec_title_"+lesIdx+"_']").eq(j).focus();
-							return false;
-						}
-						
-						if (trim($("input[name^='lec_data_type_"+lesIdx+"_']").eq(j).val()) == "" ) {
-							alert('강의 파일을(를) 선택해 주십시오.');
-							return false;
-						} else {
-							var dataType = $("input[name^='lec_data_type_"+lesIdx+"_']").eq(j).val();
-							//console.log("dataType : " + dataType);
-							if (dataType == 'CT0' || dataType == 'CT1') {	// file
-								if (trim($("input[name^='lec_file_"+lesIdx+"_']").eq(j).val()) == "" ) {
-									alert('강의 파일을(를) 선택해 주십시오.');
-									return false;
-								}
-							} else if (dataType == 'CT2' || dataType == 'CT3') {	// url
-								if (trim($("input[name^='lec_url_"+lesIdx+"_']").eq(j).val()) == "" ) {
-									alert('URL을(를) 입력해 주십시오.');
-									$("input[name^='lec_url_"+lesIdx+"_']").eq(j).focus();
-									return false;
-								}
-							} else if (dataType == 'CT4') {	// html
-								if (trim($("input[name^='lec_html_"+lesIdx+"_']").eq(j).val()) == "" || $("input[name^='lec_html_"+lesIdx+"_']").eq(j).val() == "false") {
-									alert('직접작성내용을(를) 선택해 주십시오.');
-									return false;
-								}
-							}
-						}
-					}
-					
-					var dataTitles = $("input[name^='data_data_type_"+lesIdx+"_']");
-					for (var j=0;j<dataTitles.length;j++) {
-						if (trim($("input[name^='data_data_type_"+lesIdx+"_']").eq(j).val()) == "" ) {
-							alert('학습 자료을(를) 선택해 주십시오.');
-							return false;
-						} else {
-							var dataType = $("input[name^='data_data_type_"+lesIdx+"_']").eq(j).val();
-							//console.log("dataType : " + dataType);
-							if (dataType == 'CT5') {	// file
-								if (trim($("input[name^='data_file_"+lesIdx+"_']").eq(j).val()) == "" ) {
-									alert('학습 자료을(를) 선택해 주십시오.');
-									return false;
-								}
-							} else if (dataType == 'CT6') {	// 소스코드
-								if (trim($("input[name^='data_source_"+lesIdx+"_']").eq(j).val()) == "" ) {
-									alert('소스코드을(를) 선택해 주십시오.');
-									return false;
-								}
-							}
-						}
-					}
-					
-					var asmTitles = $("textarea[name^='asm_contents_"+lesIdx+"_']");
-					for (var j=0;j<asmTitles.length;j++) {
-						var asmIdx = ($("textarea[name^='asm_contents_"+lesIdx+"_']").eq(j).attr("name"));
-						asmIdx = asmIdx.replace("asm_contents_"+lesIdx+"_","");
-						//console.log("asmIdx : " + asmIdx);
-						if (trim($("textarea[name^='asm_contents_"+lesIdx+"_']").eq(j).val()) == "" ) {
-							alert('과제 설명을(를) 입력해 주십시오.');
-							$("textarea[name^='asm_contents_"+lesIdx+"_']").eq(j).focus();
-							return false;
-						}
-						
-						if (trim($("input[name^='asm_data_type_"+lesIdx+"_']").eq(j).val()) == "" ) {
-							alert('과제 파일을(를) 선택해 주십시오.');
-							return false;
-						} else {
-							var dataType = $("input[name^='asm_data_type_"+lesIdx+"_']").eq(j).val();
-							//console.log("dataType : " + dataType);
-							if (dataType == 'CT7') {	// file
-								if (trim($("input[name^='asm_file_"+lesIdx+"_']").eq(j).val()) == "" ) {
-									alert('과제 파일을(를) 선택해 주십시오.');
-									return false;
-								}
-							} else if (dataType == 'CT8') {	// 소스코드
-								if (trim($("input[name^='asm_source_"+lesIdx+"_']").eq(j).val()) == "" ) {
-									alert('소스코드을(를) 선택해 주십시오.');
-									return false;
-								}
-							}
-						}
-						//console.log(($("input:radio[name^='asm_aat_"+lesIdx+"_"+asmIdx+"']")).filter(":checked").val());
-						//console.log($("input:radio[name^='asm_aat_"+lesIdx+"_"+asmIdx+"']").is(":checked"));
-						if (!$("input:radio[name^='asm_aat_"+lesIdx+"_"+asmIdx+"']").is(":checked")) {
-							alert('과제 승인을(를) 선택해 주십시오.');
-							return false;
-						}
-						
-						if (!$("input:radio[name^='asm_asm_"+lesIdx+"_"+asmIdx+"']").is(":checked")) {
-							alert('과제 제출을(를) 선택해 주십시오.');
-							return false;
-						}
-					}
+        .data_source_thumb:hover {
+            transform: scale(2.38);
+        }
+    </style>
+    <script type="text/javascript">
+        function formCheck() {
+            try {
+                //console.log("lessonIdx : " + lessonIdx);
+                if (lessonIdx > 0) {
+                    var lesTitles = $("input[name^='les_title_']");
+                    for (var i = 0; i < lesTitles.length; i++) {
+                        var lesIdx = ($("input[name^='les_title_']").eq(i).attr("name"));
+                        lesIdx = lesIdx.replace("les_title_", "");
+                        //console.log("lesIdx : " + lesIdx);
+                        if (trim($("input[name^='les_title_']").eq(i).val()) == "") {
+                            alert('차시제목을(를) 입력해 주십시오.');
+                            $("input[name^='les_title_']").eq(i).focus();
+                            return false;
+                        }
 
-					var quizDescs = $("textarea[name^='quiz_desc_"+lesIdx+"_']");
-					for (var j=0;j<quizDescs.length;j++) {
-						var quizIdx = ($("textarea[name^='quiz_desc_"+lesIdx+"_']").eq(j).attr("name"));
-						quizIdx = quizIdx.replace("quiz_desc_"+lesIdx+"_","");
-						//console.log("quizIdx : " + quizIdx);
-						if (trim($("textarea[name^='quiz_desc_"+lesIdx+"_']").eq(j).val()) == "" ) {
-							alert('퀴즈 질문을(를) 입력해 주십시오.');
-							$("textarea[name^='quiz_desc_"+lesIdx+"_']").eq(j).focus();
-							return false;
-						}
-						
-						if (!$("input:radio[name^='quiz_qzt_"+lesIdx+"_"+quizIdx+"']").is(":checked")) {
-							alert('퀴즈 보기방식을(를) 선택해 주십시오.');
-							return false;
-						}
-						
-						if ($("input:radio[id='quiz_qzt_"+lesIdx+"_"+quizIdx+"_1']").is(":checked")) {
-							var cnt = $("select[name='quiz_exam_count_"+lesIdx+"_"+quizIdx+"']").val();
-							console.log(cnt);
-							if (cnt == '') {
-								alert('보기개수을(를) 선택해 주십시오.');
-								return false;
-							} else {
-								for (k=0;k<cnt;k++) {
-									if (trim($("input[name^='quiz_exam_"+lesIdx+"_"+quizIdx+"_']").eq(k).val()) == "" ) {
-										alert('객관식 보기을(를) 입력해 주십시오.');
-										objTrim($("input[name^='quiz_exam_"+lesIdx+"_"+quizIdx+"_']").eq(k));
-										$("input[name^='quiz_exam_"+lesIdx+"_"+quizIdx+"_']").eq(k).focus();
-										return false;
-									}
-								}
-								
-								if (!$("input:radio[name^='quiz_ora_"+lesIdx+"_"+quizIdx+"']").is(":checked")) {
-									alert('정답을(를) 선택해 주십시오.');
-									return false;
-								}
-							}
-						} else {
-							if (trim($("input[name^='quiz_sra_"+lesIdx+"_']").eq(j).val()) == "" ) {
-								alert('퀴즈 정답을(를) 입력해 주십시오.');
-								$("input[name^='quiz_sra_"+lesIdx+"_']").eq(j).focus();
-								return false;
-							}
-						}
-					}
-				}
-			}
-			
-			if (!confirm('등록하시겠습니까?')) {
-				return false;
-			}
-			
-			return true;
-		}catch(e) {
-			return false;
-		}
-	}
-	
-	function writeDo() {
-		try {
-			$('#writeLessonForm').submit();
-		}catch(e) {
-			alert(e);
-		}
-	}
-</script>
-<script type="text/javascript">
-	var lessonIdx = 0;
-	var lecIdx = 0;
-	var dataIdx = 0;
-	var asmIdx = 0;
-	var quizIdx = 0;	
-	$(document).ready(function(){
+                        var lecTitles = $("input[name^='lec_title_" + lesIdx + "_']");
+                        for (var j = 0; j < lecTitles.length; j++) {
+                            if (trim($("input[name^='lec_title_" + lesIdx + "_']").eq(j).val()) == "") {
+                                alert('강의 제목을(를) 입력해 주십시오.');
+                                $("input[name^='lec_title_" + lesIdx + "_']").eq(j).focus();
+                                return false;
+                            }
 
-		lesson_add_table();
+                            if (trim($("input[name^='lec_data_type_" + lesIdx + "_']").eq(j).val()) == "") {
+                                alert('강의 파일을(를) 선택해 주십시오.');
+                                return false;
+                            } else {
+                                var dataType = $("input[name^='lec_data_type_" + lesIdx + "_']").eq(j).val();
+                                //console.log("dataType : " + dataType);
+                                if (dataType == 'CT0' || dataType == 'CT1') {	// file
+                                    if (trim($("input[name^='lec_file_" + lesIdx + "_']").eq(j).val()) == "") {
+                                        alert('강의 파일을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                } else if (dataType == 'CT2' || dataType == 'CT3') {	// url
+                                    if (trim($("input[name^='lec_url_" + lesIdx + "_']").eq(j).val()) == "") {
+                                        alert('URL을(를) 입력해 주십시오.');
+                                        $("input[name^='lec_url_" + lesIdx + "_']").eq(j).focus();
+                                        return false;
+                                    }
+                                } else if (dataType == 'CT4') {	// html
+                                    if (trim($("input[name^='lec_html_" + lesIdx + "_']").eq(j).val()) == "" || $("input[name^='lec_html_" + lesIdx + "_']").eq(j).val() == "false") {
+                                        alert('직접작성내용을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
 
-		buttonAction();
-		$('.les_add').click(function () {
-			lesson_add_table();
-		});
-	});
+                        var dataTitles = $("input[name^='data_data_type_" + lesIdx + "_']");
+                        for (var j = 0; j < dataTitles.length; j++) {
+                            if (trim($("input[name^='data_data_type_" + lesIdx + "_']").eq(j).val()) == "") {
+                                alert('학습 자료을(를) 선택해 주십시오.');
+                                return false;
+                            } else {
+                                var dataType = $("input[name^='data_data_type_" + lesIdx + "_']").eq(j).val();
+                                //console.log("dataType : " + dataType);
+                                if (dataType == 'CT5') {	// file
+                                    if (trim($("input[name^='data_file_" + lesIdx + "_']").eq(j).val()) == "") {
+                                        alert('학습 자료을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                } else if (dataType == 'CT6') {	// 소스코드
+                                    if (trim($("input[name^='data_source_" + lesIdx + "_']").eq(j).val()) == "") {
+                                        alert('소스코드을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
 
-	function lesson_add_table() {
-		++lessonIdx;
-		var lessonDiv = (lessonIdx<10?'0'+lessonIdx:lessonIdx);
-		var addHtml = '';
-		addHtml+='						<table data-lesson_table="'+lessonDiv+'" class="board_base les_table course" summary="게시판 목록입니다." >';
-		addHtml+='							<caption>게시판 목록보기</caption>';
-		addHtml+='							<colgroup>';
-		addHtml+='								<col width="130px" />';
-		addHtml+='								<col width="*" />';
-		addHtml+='							</colgroup>';
-		addHtml+='							<tr class="board_tit">';
-		addHtml+='								<th>차시제목</th>';
-		addHtml+='								<td>';
-		addHtml+='									<div class="td_flex">';
-		addHtml+='										<p><input class="text" type="text" id="les_title_'+lessonDiv+'" name="les_title_'+lessonDiv+'" value="" title="" /></p>';
-		addHtml+='										<p><a data-les_del="'+lessonDiv+'" href="javascript:;" class="btn btn_o_s les_del">차시삭제</a></p>';
-		addHtml+='									</div>';
-		addHtml+='								</td>';
-		addHtml+='							</tr>';
-		addHtml+='							<tr>';
-		addHtml+='								<td data-lectureTable="'+lessonDiv+'" colspan="2" style="padding-top:0px;">';
-		addHtml+=addLecture(lessonDiv);
-		addHtml+='								</td>';
-		addHtml+='							</tr>';
-		addHtml+='							<tr>';
-		addHtml+='								<td data-dataTable="'+lessonDiv+'" colspan="2">';
-		addHtml+=addData(lessonDiv);
-		addHtml+='								</td>';
-		addHtml+='							</tr>';
-		addHtml+='							<tr>';
-		addHtml+='								<td data-assignmentTable="'+lessonDiv+'" colspan="2">';
-		addHtml+=addAssignment(lessonDiv);
-		addHtml+='								</td>';
-		addHtml+='							</tr>';
-		addHtml+='							<tr>';
-		addHtml+='								<td data-quizTable="'+lessonDiv+'" colspan="2">';
-		addHtml+=addQuiz(lessonDiv);
-		addHtml+='								</td>';
-		addHtml+='							</tr>';
-		addHtml+='							<tr>';
-		addHtml+='								<td colspan="2">';
-		addHtml+='									<p class="center_box">';
-		addHtml+='										<a data-lec_add="'+lessonDiv+'" href="javascript:;" class="btn btn_w lec_add">강의추가</a>&nbsp;';
-		addHtml+='										<a data-data_add="'+lessonDiv+'" href="javascript:;" class="btn btn_w data_add">학습자료추가</a>&nbsp;';
-		addHtml+='										<a data-asm_add="'+lessonDiv+'" href="javascript:;" class="btn btn_w asm_add">과제추가</a>';
-		addHtml+='										<a data-quiz_add="'+lessonDiv+'" href="javascript:;" class="btn btn_w quiz_add">퀴즈추가</a>';	
-		addHtml+='									</p>';
-		addHtml+='								</td>';
-		addHtml+='							</tr>';
-		addHtml+='						</table>';
-		$('#asset').append(addHtml);		
-	}
+                        var asmTitles = $("textarea[name^='asm_contents_" + lesIdx + "_']");
+                        for (var j = 0; j < asmTitles.length; j++) {
+                            var asmIdx = ($("textarea[name^='asm_contents_" + lesIdx + "_']").eq(j).attr("name"));
+                            asmIdx = asmIdx.replace("asm_contents_" + lesIdx + "_", "");
+                            //console.log("asmIdx : " + asmIdx);
+                            if (trim($("textarea[name^='asm_contents_" + lesIdx + "_']").eq(j).val()) == "") {
+                                alert('과제 설명을(를) 입력해 주십시오.');
+                                $("textarea[name^='asm_contents_" + lesIdx + "_']").eq(j).focus();
+                                return false;
+                            }
 
-	function addLecture(idx) {
-		++lecIdx;
-		var lecDiv = (idx)+'_'+(lecIdx<10?'0'+lecIdx:lecIdx);
-		var addHtml = '';
-		addHtml+='									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<th>· 강의 제목</th>';
-		addHtml+='										<td>';
-		addHtml+='											<div class="td_flex">';
-		addHtml+='												<p><input class="text" type="text" value="" name="lec_title_'+lecDiv+'" id="lec_title_'+lecDiv+'" title="" /></p>';
-		addHtml+='												<p><a data-lec_del="'+lecDiv+'" href="javascript:;" class="btn btn_o_s lec_del">강의삭제</a></p>';
-		addHtml+='											</div>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr>';
-		addHtml+='										<th>· 강의 파일</th>';
-		addHtml+='										<td>';
-		
-			
-		addHtml+='											<input type="hidden" id="lec_data_type_'+lecDiv+'" name="lec_data_type_'+lecDiv+'" value="CT0">';
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_on_s" data-lec_vod="'+lecDiv+'" data-type="CT0">VOD</a>';
-			
-			
-		addHtml+='&nbsp;';
-			
-		
-			
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_pdf="'+lecDiv+'" data-type="CT1">PDF</a>';
-			
-			
-		addHtml+='&nbsp;';
-			
-		
-			
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_url="'+lecDiv+'" data-type="CT2">URL</a>';
-			
-			
-		addHtml+='&nbsp;';
-			
-		
-			
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_ytb="'+lecDiv+'" data-type="CT3">YouTube</a>';
-			
-			
-		addHtml+='&nbsp;';
-			
-		
-			
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_htm="'+lecDiv+'" data-type="CT4">직접작성</a>';
-			
-			
-		
-		addHtml+='											<p class="input_file file">';
-		addHtml+='												<input type="file" id="lec_file_'+lecDiv+'" name="lec_file_'+lecDiv+'" class="text" accept=".avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">';
-		//addHtml+='											&nbsp;<a href="#" class="btn btn_w_r">삭제</a></p>';
-		addHtml+='											</p>';
-		addHtml+='											<p class="input_file url" style="display:none;">';
-		addHtml+='												<input type="text" id="lec_url_'+lecDiv+'" name="lec_url_'+lecDiv+'" class="text">';
-		addHtml+='											</p>';
-		addHtml+='											<p class="input_file html" style="display:none;">';
-		addHtml+='												<a href="javascript:;" class="btn btn_gray_on_s" data-lec_html_btn="'+lecDiv+'">직접작성</a>';
-		addHtml+='												<span data-lec_html_contents="'+lecDiv+'"></span>';
-		addHtml+='												<input type="hidden" id="lec_html_'+lecDiv+'" name="lec_html_'+lecDiv+'" class="text">';
-		addHtml+='											</p>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									</table>';
-		return addHtml;
-	}
+                            if (trim($("input[name^='asm_data_type_" + lesIdx + "_']").eq(j).val()) == "") {
+                                alert('과제 파일을(를) 선택해 주십시오.');
+                                return false;
+                            } else {
+                                var dataType = $("input[name^='asm_data_type_" + lesIdx + "_']").eq(j).val();
+                                //console.log("dataType : " + dataType);
+                                if (dataType == 'CT7') {	// file
+                                    if (trim($("input[name^='asm_file_" + lesIdx + "_']").eq(j).val()) == "") {
+                                        alert('과제 파일을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                } else if (dataType == 'CT8') {	// 소스코드
+                                    if (trim($("input[name^='asm_source_" + lesIdx + "_']").eq(j).val()) == "") {
+                                        alert('소스코드을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                }
+                            }
+                            //console.log(($("input:radio[name^='asm_aat_"+lesIdx+"_"+asmIdx+"']")).filter(":checked").val());
+                            //console.log($("input:radio[name^='asm_aat_"+lesIdx+"_"+asmIdx+"']").is(":checked"));
+                            if (!$("input:radio[name^='asm_aat_" + lesIdx + "_" + asmIdx + "']").is(":checked")) {
+                                alert('과제 승인을(를) 선택해 주십시오.');
+                                return false;
+                            }
 
-	function addData(idx) {
-		++dataIdx;
-		var dataDiv = (idx)+'_'+(dataIdx<10?'0'+dataIdx:dataIdx);
-		var addHtml = '';
-		addHtml+='									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
-		addHtml+='									<tr>';
-		addHtml+='										<th>· 학습 자료</th>';
-		addHtml+='										<td>';
-		addHtml+='											<div class="td_flex">';
-		addHtml+='												<p>';
-		
-			
-		addHtml+='											<input type="hidden" id="data_data_type_'+dataDiv+'" name="data_data_type_'+dataDiv+'" value="CT5">';
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_on_s" data-data_file="'+dataDiv+'" data-type="CT5">파일등록</a>';
-			
-			
-		addHtml+='&nbsp;';
-			
-		
-			
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-data_source="'+dataDiv+'" data-type="CT6">소스코드</a>';
-			
-			
-		
-		addHtml+='												</p>';
-		addHtml+='												<p><a data-data_del="'+dataDiv+'" href="javascript:;" class="btn btn_o_s data_del">학습자료삭제</a></p>';
-		addHtml+='											</div>';
-		addHtml+='											<p class="input_file file">';
-		addHtml+='												<input type="file" id="data_file_'+dataDiv+'" name="data_file_'+dataDiv+'" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">';
-		/*addHtml+='											&nbsp;<a href="#" class="btn btn_w_r">삭제</a></p>'; */
-		addHtml+='											</p>';
-		addHtml+='											<p class="input_file source" style="display:none;">';
-		addHtml+='												<a href="javascript:;" class="btn btn_gray_on_s" data-data_source_btn="'+dataDiv+'">소스코드</a>';
-		addHtml+='												<input type="hidden" id="data_source_'+dataDiv+'" name="data_source_'+dataDiv+'" value="">';
-		addHtml+='											</p>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									</table>';
-		return addHtml;
-	}
+                            if (!$("input:radio[name^='asm_asm_" + lesIdx + "_" + asmIdx + "']").is(":checked")) {
+                                alert('과제 제출을(를) 선택해 주십시오.');
+                                return false;
+                            }
+                        }
 
-	function addAssignment(idx) {
-		++asmIdx;
-		var asmDiv = (idx)+'_'+(asmIdx<10?'0'+asmIdx:asmIdx);
-		var addHtml = '';
-		addHtml+='									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<th>· 과제 설명</th>';
-		addHtml+='										<td>';
-		addHtml+='											<div class="td_flex">';
-		addHtml+='												<p><textarea id="asm_contents_'+asmDiv+'" name="asm_contents_'+asmDiv+'"></textarea></p>';
-		addHtml+='												<p><a data-asm_del="'+asmDiv+'" href="javascript:;" class="btn btn_o_s asm_del">과제삭제</a></p>';
-		addHtml+='											</div>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<th>· 과제 파일</th>';
-		addHtml+='										<td>';
-		
-			
-		addHtml+='											<input type="hidden" id="asm_data_type_'+asmDiv+'" name="asm_data_type_'+asmDiv+'" value="CT7">';
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_on_s" data-asm_file="'+asmDiv+'" data-type="CT7">파일등록</a>';
-			
-			
-		addHtml+='&nbsp;';
-			
-		
-			
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-asm_source="'+asmDiv+'" data-type="CT8">소스코드</a>';
-			
-			
-		
-		addHtml+='											<p class="input_file file">';
-		addHtml+='												<input type="file" id="asm_file_'+asmDiv+'" name="asm_file_'+asmDiv+'" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">';
-		/*addHtml+='											&nbsp;<a href="#" class="btn btn_w_r">삭제</a></p>'; */
-		addHtml+='											</p>';
-		addHtml+='											<p class="input_file source" style="display:none;">';
-		addHtml+='												<a href="javascript:;" class="btn btn_gray_on_s" data-asm_source_btn="'+asmDiv+'">소스코드</a>';
-		addHtml+='												<input type="hidden" id="asm_source_'+asmDiv+'" name="asm_source_'+asmDiv+'" value="">';
-		addHtml+='											</p>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr data-asm_exam="'+asmDiv+'" class="border_n" style="display:none;">';
-		addHtml+='										<th>·  모범답안</th>';
-		addHtml+='										<td>';
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_on_s" data-asm_exam_empty="'+asmDiv+'">없음</a>&nbsp;';
-		addHtml+='											<a href="javascript:;" class="btn btn_gray_off_s" data-asm_exam_source="'+asmDiv+'">소스코드</a>';
-		addHtml+='											<input type="hidden" id="asm_exam_source_'+asmDiv+'" name="asm_exam_source_'+asmDiv+'" value="">';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<th>· 과제 승인</th>';
-		addHtml+='										<td>';
-		
-		addHtml+='											<input type="radio" id="asm_aat_'+asmDiv+'_1" name="asm_aat_'+asmDiv+'" value="AA0">&nbsp;<label for="asm_aat_'+asmDiv+'_1">자동 승인</label>';
-			
-		addHtml+='&nbsp;&nbsp;';
-			
-		
-		addHtml+='											<input type="radio" id="asm_aat_'+asmDiv+'_2" name="asm_aat_'+asmDiv+'" value="AA1">&nbsp;<label for="asm_aat_'+asmDiv+'_2">관리자 승인</label>';
-			
-		
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr>';
-		addHtml+='										<th>· 과제 제출</th>';
-		addHtml+='										<td>';
-		
-		addHtml+='											<input type="radio" id="asm_asm_'+asmDiv+'_1" name="asm_asm_'+asmDiv+'" value="AS0">&nbsp;<label for="asm_asm_'+asmDiv+'_1">파일등록</label>';
-			
-		addHtml+='&nbsp;&nbsp;';
-			
-		
-		addHtml+='											<input type="radio" id="asm_asm_'+asmDiv+'_2" name="asm_asm_'+asmDiv+'" value="AS1">&nbsp;<label for="asm_asm_'+asmDiv+'_2">소스코드</label>';
-			
-		
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									</table>';
-		return addHtml;
-	}
+                        var quizDescs = $("textarea[name^='quiz_desc_" + lesIdx + "_']");
+                        for (var j = 0; j < quizDescs.length; j++) {
+                            var quizIdx = ($("textarea[name^='quiz_desc_" + lesIdx + "_']").eq(j).attr("name"));
+                            quizIdx = quizIdx.replace("quiz_desc_" + lesIdx + "_", "");
+                            //console.log("quizIdx : " + quizIdx);
+                            if (trim($("textarea[name^='quiz_desc_" + lesIdx + "_']").eq(j).val()) == "") {
+                                alert('퀴즈 질문을(를) 입력해 주십시오.');
+                                $("textarea[name^='quiz_desc_" + lesIdx + "_']").eq(j).focus();
+                                return false;
+                            }
 
-	function addQuiz(idx) {
-		++quizIdx;
-		var quizDiv = (idx)+'_'+(quizIdx<10?'0'+quizIdx:quizIdx);
-		var addHtml = '';
-		addHtml+='									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<th rowspan="2">· 퀴즈 질문</th>';
-		addHtml+='										<td>';
-		addHtml+='											<div class="td_flex">';
-		addHtml+='												<p><textarea id="quiz_desc_'+quizDiv+'" name="quiz_desc_'+quizDiv+'"></textarea></p>';
-		addHtml+='												<p><a data-quiz_del="'+quizDiv+'" href="javascript:;" class="btn btn_o_s quiz_del">퀴즈삭제</a></p>';
-		addHtml+='											</div>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<td>';
-		addHtml+='											<div class="td_flex">';
-		addHtml+='												<p class="input_file file"><input type="file" id="quiz_file_'+quizDiv+'" name="quiz_file_'+quizDiv+'" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v"></p>';
-		addHtml+='											</div>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr class="border_n">';
-		addHtml+='										<th>· 퀴즈 보기방식</th>';
-		addHtml+='										<td>';
-		
-			
-		addHtml+='											<input type="radio" id="quiz_qzt_'+quizDiv+'_1" name="quiz_qzt_'+quizDiv+'" value="QT0" data-quiz_type="'+quizDiv+'" onclick="quizTypeClick(this);" checked="checked">&nbsp;<label for="quiz_qzt_'+quizDiv+'_1">객관식</label>';
-			
-		addHtml+='											( 보기개수 ';
-		addHtml+='											<select name="quiz_exam_count_'+quizDiv+'" id="quiz_exam_count_'+quizDiv+'" data-quiz_select="'+quizDiv+'">';
-		addHtml+='												<option value="">선택하세요.</option>';
-				
-		addHtml+='												<option value="1">1개</option>';
-				
-		addHtml+='												<option value="2">2개</option>';
-				
-		addHtml+='												<option value="3">3개</option>';
-				
-		addHtml+='												<option value="4">4개</option>';
-				
-		addHtml+='												<option value="5">5개</option>';
-				
-		addHtml+='											</select>';
-		addHtml+='											)';
-			
-			
-		addHtml+='											&nbsp;&nbsp;';
-			
-			
-		
-			
-		
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr data-quiz_exam="'+quizDiv+'" style="display:none;">';
-		addHtml+='										<th>· 객관식 보기</th>';
-		addHtml+='										<td data-quiz_exam_descs="'+quizDiv+'">';
-		addHtml+='												<table class="board_inner_base" data-quiz_exam_table="'+quizDiv+'">';
-		addHtml+='												<thead>';
-		addHtml+='												<tr>';
-		addHtml+='													<th>객관식 보기</th>';
-		addHtml+='													<th>정답</th>';
-		addHtml+='												</tr>';
-		addHtml+='												</thead>';
-		addHtml+='												<tbody>';
-		//addHtml+=addExamDiv(quizDiv, $("select[name='quiz_exam_count_"+quizDiv+"']").val());
-		addHtml+='												</tbody>';
-		addHtml+='												</table>';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									<tr data-quiz_sra="'+quizDiv+'" style="display:none;">';
-		addHtml+='										<th>· 퀴즈 정답</th>';
-		addHtml+='										<td>';
-		addHtml+='											<input class="text" type="text" name="quiz_sra_'+quizDiv+'" id="quiz_sra_'+quizDiv+'" value="" />';
-		addHtml+='										</td>';
-		addHtml+='									</tr>';
-		addHtml+='									</table>';
-		return addHtml;
-	}
-	
-	function addExamDiv(quizDiv, examIdx) {
-		//console.log('examIdx : ' + examIdx);
-		if (examIdx != '' && examIdx != undefined) {
-			var addHtml ='';
-			addHtml+='										<tr>';
-			addHtml+='											<td>';
-			addHtml+='												<input class="text" type="text" name="quiz_exam_'+quizDiv+'_'+examIdx+'" id="quiz_exam_'+quizDiv+'_'+examIdx+'" value="" />';
-			addHtml+='											</td>';
-			addHtml+='											<td>';
-			addHtml+='												<input type="radio" id="quiz_ora_'+quizDiv+'_'+examIdx+'" name="quiz_ora_'+quizDiv+'" value="'+quizDiv+'_'+examIdx+'">';
-			addHtml+='											</td>';
-			addHtml+='										</tr>';
-			return addHtml;
-		}
-	}
+                            if (!$("input:radio[name^='quiz_qzt_" + lesIdx + "_" + quizIdx + "']").is(":checked")) {
+                                alert('퀴즈 보기방식을(를) 선택해 주십시오.');
+                                return false;
+                            }
 
-	var source_target;
-	var source_target_id;
-	function buttonAction() {
-		$(document).on("click", 'a[data-lec_vod]', function () {
-			if (($('#lec_url_'+$(this).data("lec_vod")).val() != '' || ($('#lec_html_'+$(this).data("lec_vod")).val() != 'false' && $('#lec_html_'+$(this).data("lec_vod")).val() != ''))
-					|| ($('#lec_file_'+$(this).data("lec_vod")).attr('accept') == '.pdf' && $('#lec_file_'+$(this).data("lec_vod")).val() != '')){
-				if (!confirm('VOD를 등록하려면 PDF, URL, YouTube, 직접작성에서 등록한 내용이 취소됩니다. VOD를 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			if ($('#lec_file_'+$(this).data("lec_vod")).attr('accept') == '.pdf' && $('#lec_file_'+$(this).data("lec_vod")).val() != '') {
-				$('#lec_file_'+$(this).data("lec_vod")).val('');
-			}
-			
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','');
-			$(this).siblings('p.url').css('display','none');
-			$(this).siblings('p.html').css('display','none');
-			$("#lec_data_type_"+$(this).data("lec_vod")).val($(this).data("type"));
-			$("#lec_file_"+$(this).data("lec_vod")).prop("accept", ".avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v");
-			
-			$('#lec_url_'+$(this).data("lec_vod")).val('');
-			$('#lec_html_'+$(this).data("lec_vod")).val('false');
-			$('#lec_html_'+$(this).data("lec_vod")).prev('span').html('');
-		});
-		
-		$(document).on("click", 'a[data-lec_pdf]', function () {
-			if (($('#lec_url_'+$(this).data("lec_pdf")).val() != '' || ($('#lec_html_'+$(this).data("lec_pdf")).val() != 'false' && $('#lec_html_'+$(this).data("lec_pdf")).val() != ''))
-					|| ($('#lec_file_'+$(this).data("lec_pdf")).attr('accept') == '.avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v' && $('#lec_file_'+$(this).data("lec_pdf")).val() != '')){
-				if (!confirm('PDF를 등록하려면 VOD, URL, YouTube, 직접작성에서 등록한 내용이 취소됩니다. PDF를 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			if ($('#lec_file_'+$(this).data("lec_pdf")).attr('accept') == '.avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v' && $('#lec_file_'+$(this).data("lec_pdf")).val() != '') {
-				$('#lec_file_'+$(this).data("lec_pdf")).val('');
-			}
-			
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','');
-			$(this).siblings('p.url').css('display','none');
-			$(this).siblings('p.html').css('display','none');
-			$("#lec_data_type_"+$(this).data("lec_pdf")).val($(this).data("type"));
-			$("#lec_file_"+$(this).data("lec_pdf")).attr("accept", ".pdf");
-			
-			$('#lec_url_'+$(this).data("lec_pdf")).val('');
-			$('#lec_html_'+$(this).data("lec_pdf")).val('false');
-			$('#lec_html_'+$(this).data("lec_pdf")).prev('span').html('');
-		});
+                            if ($("input:radio[id='quiz_qzt_" + lesIdx + "_" + quizIdx + "_1']").is(":checked")) {
+                                var cnt = $("select[name='quiz_exam_count_" + lesIdx + "_" + quizIdx + "']").val();
+                                console.log(cnt);
+                                if (cnt == '') {
+                                    alert('보기개수을(를) 선택해 주십시오.');
+                                    return false;
+                                } else {
+                                    for (k = 0; k < cnt; k++) {
+                                        if (trim($("input[name^='quiz_exam_" + lesIdx + "_" + quizIdx + "_']").eq(k).val()) == "") {
+                                            alert('객관식 보기을(를) 입력해 주십시오.');
+                                            objTrim($("input[name^='quiz_exam_" + lesIdx + "_" + quizIdx + "_']").eq(k));
+                                            $("input[name^='quiz_exam_" + lesIdx + "_" + quizIdx + "_']").eq(k).focus();
+                                            return false;
+                                        }
+                                    }
 
-		$(document).on("click", 'a[data-lec_url]', function () {
-			if (($("#lec_data_type_"+$(this).data("lec_url")).val() == 'CT3' && $('#lec_url_'+$(this).data("lec_url")).val() != '') || ($('#lec_html_'+$(this).data("lec_url")).val() != 'false' && $('#lec_html_'+$(this).data("lec_url")).val() != '')
-				|| $('#lec_file_'+$(this).data("lec_url")).val() != '') {
-				if (!confirm('URL을 등록하려면 VOD, PDF, YouTube, 직접작성에서 등록한 내용이 취소됩니다. URL을 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			if ($("#lec_data_type_"+$(this).data("lec_url")).val() == 'CT3' && $('#lec_url_'+$(this).data("lec_url")).val() != '') {
-				$('#lec_url_'+$(this).data("lec_url")).val('');
-			}
-			
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','none');
-			$(this).siblings('p.url').css('display','');
-			$(this).siblings('p.html').css('display','none');
-			$("#lec_data_type_"+$(this).data("lec_url")).val($(this).data("type"));
+                                    if (!$("input:radio[name^='quiz_ora_" + lesIdx + "_" + quizIdx + "']").is(":checked")) {
+                                        alert('정답을(를) 선택해 주십시오.');
+                                        return false;
+                                    }
+                                }
+                            } else {
+                                if (trim($("input[name^='quiz_sra_" + lesIdx + "_']").eq(j).val()) == "") {
+                                    alert('퀴즈 정답을(를) 입력해 주십시오.');
+                                    $("input[name^='quiz_sra_" + lesIdx + "_']").eq(j).focus();
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
 
-			$('#lec_file_'+$(this).data("lec_url")).val('');
-			$('#lec_html_'+$(this).data("lec_url")).val('false');
-			$('#lec_html_'+$(this).data("lec_url")).prev('span').html('');
-		});
+                if (!confirm('등록하시겠습니까?')) {
+                    return false;
+                }
 
-		$(document).on("click", 'a[data-lec_ytb]', function () {
-			if (($("#lec_data_type_"+$(this).data("lec_ytb")).val() == 'CT2' && $('#lec_url_'+$(this).data("lec_ytb")).val() != '') || ($('#lec_html_'+$(this).data("lec_ytb")).val() != 'false' && $('#lec_html_'+$(this).data("lec_ytb")).val() != '')
-				|| $('#lec_file_'+$(this).data("lec_ytb")).val() != '') {
-				if (!confirm('YouTube를 등록하려면 VOD, PDF, URL, 직접작성에서 등록한 내용이 취소됩니다. YouTube를 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			if ($("#lec_data_type_"+$(this).data("lec_ytb")).val() == 'CT2' && $('#lec_url_'+$(this).data("lec_ytb")).val() != '') {
-				$('#lec_url_'+$(this).data("lec_ytb")).val('');
-			}
-			
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','none');
-			$(this).siblings('p.url').css('display','');
-			$(this).siblings('p.html').css('display','none');
-			$("#lec_data_type_"+$(this).data("lec_ytb")).val($(this).data("type"));
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
 
-			$('#lec_file_'+$(this).data("lec_ytb")).val('');
-			$('#lec_html_'+$(this).data("lec_ytb")).val('false');
-			$('#lec_html_'+$(this).data("lec_ytb")).prev('span').html('');
-		});
+        function writeDo() {
+            try {
+                $('#writeLessonForm').submit();
+            } catch (e) {
+                alert(e);
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        var lessonIdx = 0;
+        var lecIdx = 0;
+        var dataIdx = 0;
+        var asmIdx = 0;
+        var quizIdx = 0;
+        $(document).ready(function () {
 
-		$(document).on("click", 'a[data-lec_htm]', function () {
-			if ($('#lec_file_'+$(this).data("lec_htm")).val() != ''	|| $('#lec_url_'+$(this).data("lec_htm")).val() != '') {
-				if (!confirm('직접작성을 등록하려면 VOD, PDF, URL, YouTube에서 등록한 내용이 취소됩니다. 직접작성을 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','none');
-			$(this).siblings('p.url').css('display','none');
-			$(this).siblings('p.html').css('display','');
-			$("#lec_data_type_"+$(this).data("lec_htm")).val($(this).data("type"));
-			//htmlPop($(this).data("lec_htm"));
+            lesson_add_table();
 
-			$('#lec_file_'+$(this).data("lec_htm")).val('');
-			$('#lec_url_'+$(this).data("lec_htm")).val('');
-		});
-		
-		$(document).on("click", 'a[data-lec_html_btn]', function () {
-			//console.log($(this).data("lec_html_btn"));
-			htmlPop($(this).data("lec_html_btn"));
-		});
-		
-		$(document).on("click", 'a[data-data_file]', function () {
-			if ($('#data_source_'+$(this).data("data_file")).val() != '' || $('#data_source_diy_'+$(this).data("data_file")).val() != '') {
-				if (!confirm('파일을 등록하려면 이미 등록된 소스코드가 취소됩니다. 파일을 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).parent().parent().siblings('p.file').css('display','');
-			$(this).parent().parent().siblings('p.source').css('display','none');
-			$("#data_data_type_"+$(this).data("data_file")).val($(this).data("type"));
-			$('#data_source_'+$(this).data("data_file")).val('');
-			$('#data_source_'+$(this).data("data_file")).next('span').html('');
-			$('#data_source_diy_'+$(this).data("data_file")).val('');
-			$("#data_file_"+$(this).data("data_file")).attr("accept", ".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v");
-		});
+            buttonAction();
+            $('.les_add').click(function () {
+                lesson_add_table();
+            });
+        });
 
-		$(document).on("click", 'a[data-data_source]', function () {
-			if ($('#data_file_'+$(this).data("data_source")).val() != '') {
-				if (!confirm('소스코드를 등록하려면 이미 등록된 파일이 취소됩니다. 소스코드를 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).parent().parent().siblings('p.file').css('display','none');
-			$(this).parent().parent().siblings('p.source').css('display','');
-			$('#data_file_'+$(this).data("data_source")).val('');
-			$("#data_data_type_"+$(this).data("data_source")).val($(this).data("type"));
-		});
-		
-		$(document).on("click", 'a[data-data_source_btn]', function () {
-			source_target = "data_source";
-			source_target_id = $(this).data("data_source_btn");
-			portfolioSearchPop();
-		});
+        function lesson_add_table() {
+            ++lessonIdx;
+            var lessonDiv = (lessonIdx < 10 ? '0' + lessonIdx : lessonIdx);
+            var addHtml = '';
+            addHtml += '						<table data-lesson_table="' + lessonDiv + '" class="board_base les_table course" summary="게시판 목록입니다." >';
+            addHtml += '							<caption>게시판 목록보기</caption>';
+            addHtml += '							<colgroup>';
+            addHtml += '								<col width="130px" />';
+            addHtml += '								<col width="*" />';
+            addHtml += '							</colgroup>';
+            addHtml += '							<tr class="board_tit">';
+            addHtml += '								<th>차시제목</th>';
+            addHtml += '								<td>';
+            addHtml += '									<div class="td_flex">';
+            addHtml += '										<p><input class="text" type="text" id="les_title_' + lessonDiv + '" name="les_title_' + lessonDiv + '" value="" title="" /></p>';
+            addHtml += '										<p><a data-les_del="' + lessonDiv + '" href="javascript:;" class="btn btn_o_s les_del">차시삭제</a></p>';
+            addHtml += '									</div>';
+            addHtml += '								</td>';
+            addHtml += '							</tr>';
+            addHtml += '							<tr>';
+            addHtml += '								<td data-lectureTable="' + lessonDiv + '" colspan="2" style="padding-top:0px;">';
+            addHtml += addLecture(lessonDiv);
+            addHtml += '								</td>';
+            addHtml += '							</tr>';
+            addHtml += '							<tr>';
+            addHtml += '								<td data-dataTable="' + lessonDiv + '" colspan="2">';
+            addHtml += addData(lessonDiv);
+            addHtml += '								</td>';
+            addHtml += '							</tr>';
+            addHtml += '							<tr>';
+            addHtml += '								<td data-assignmentTable="' + lessonDiv + '" colspan="2">';
+            addHtml += addAssignment(lessonDiv);
+            addHtml += '								</td>';
+            addHtml += '							</tr>';
+            addHtml += '							<tr>';
+            addHtml += '								<td data-quizTable="' + lessonDiv + '" colspan="2">';
+            addHtml += addQuiz(lessonDiv);
+            addHtml += '								</td>';
+            addHtml += '							</tr>';
+            addHtml += '							<tr>';
+            addHtml += '								<td colspan="2">';
+            addHtml += '									<p class="center_box">';
+            addHtml += '										<a data-lec_add="' + lessonDiv + '" href="javascript:;" class="btn btn_w lec_add">강의추가</a>&nbsp;';
+            addHtml += '										<a data-data_add="' + lessonDiv + '" href="javascript:;" class="btn btn_w data_add">학습자료추가</a>&nbsp;';
+            addHtml += '										<a data-asm_add="' + lessonDiv + '" href="javascript:;" class="btn btn_w asm_add">과제추가</a>';
+            addHtml += '										<a data-quiz_add="' + lessonDiv + '" href="javascript:;" class="btn btn_w quiz_add">퀴즈추가</a>';
+            addHtml += '									</p>';
+            addHtml += '								</td>';
+            addHtml += '							</tr>';
+            addHtml += '						</table>';
+            $('#asset').append(addHtml);
+        }
 
-		$(document).on("click", 'a[data-asm_file]', function () {
-			if ($('#asm_source_'+$(this).data("asm_file")).val() != '' || $('#asm_source_diy_'+$(this).data("asm_file")).val() != '') {
-				if (!confirm('파일을 등록하려면 이미 등록된 소스코드가 취소됩니다. 파일을 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','');
-			$(this).siblings('p.source').css('display','none');
-			$('tr[data-asm_exam="'+$(this).data("asm_file")+'"').css('display','none');
-			$("#asm_data_type_"+$(this).data("asm_file")).val($(this).data("type"));
-			$('#asm_source_'+$(this).data("asm_file")).val('');
-			$('#asm_source_'+$(this).data("asm_file")).next('span').html('');
-			$('#asm_source_diy_'+$(this).data("asm_file")).val('');
-			$("#asm_file_"+$(this).data("asm_file")).attr("accept", ".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v");
-		});
+        function addLecture(idx) {
+            ++lecIdx;
+            var lecDiv = (idx) + '_' + (lecIdx < 10 ? '0' + lecIdx : lecIdx);
+            var addHtml = '';
+            addHtml += '									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<th>· 강의 제목</th>';
+            addHtml += '										<td>';
+            addHtml += '											<div class="td_flex">';
+            addHtml += '												<p><input class="text" type="text" value="" name="lec_title_' + lecDiv + '" id="lec_title_' + lecDiv + '" title="" /></p>';
+            addHtml += '												<p><a data-lec_del="' + lecDiv + '" href="javascript:;" class="btn btn_o_s lec_del">강의삭제</a></p>';
+            addHtml += '											</div>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr>';
+            addHtml += '										<th>· 강의 파일</th>';
+            addHtml += '										<td>';
 
-		$(document).on("click", 'a[data-asm_source]', function () {
-			if ($('#asm_file_'+$(this).data("asm_source")).val() != '') {
-				if (!confirm('소스코드를 등록하려면 이미 등록된 파일이 취소됩니다. 소스코드를 등록하시겠습니까?')) {
-					return;
-				}
-			}
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$(this).siblings('p.file').css('display','none');
-			$(this).siblings('p.source').css('display','');
-			$('tr[data-asm_exam="'+$(this).data("asm_source")+'"').css('display','');
-			$('#asm_file_'+$(this).data("asm_source")).val('');
-			$("#asm_data_type_"+$(this).data("asm_source")).val($(this).data("type"));
-		});
-		
-		$(document).on("click", 'a[data-asm_source_btn]', function () {
-			source_target = "asm_source";
-			source_target_id = $(this).data("asm_source_btn");
-			portfolioSearchPop();
-		});
 
-		$(document).on("click", 'a[data-asm_exam_empty]', function () {
-			if ($('#asm_exam_source_'+$(this).data("asm_exam_empty")).val() != '' || $('#asm_exam_source_diy_'+$(this).data("asm_exam_empty")).val() != '') {
-				if (!confirm('등록된 소스코드를 취소하시겠습니까?')) {
-					return;
-				}
-			}
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			$("#asm_exam_source_"+$(this).data("asm_exam_empty")).val('');
-			$('#asm_exam_source_'+$(this).data("asm_exam_empty")).next('span').html('');
-			$("#asm_exam_source_diy_"+$(this).data("asm_exam_empty")).val('');
-		});
+            addHtml += '											<input type="hidden" id="lec_data_type_' + lecDiv + '" name="lec_data_type_' + lecDiv + '" value="CT0">';
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_on_s" data-lec_vod="' + lecDiv + '" data-type="CT0">VOD</a>';
 
-		$(document).on("click", 'a[data-asm_exam_source]', function () {
-			$(this).removeClass('btn_gray_on_s');
-			$(this).removeClass('btn_gray_off_s');
-			$(this).siblings('a').removeClass('btn_gray_on_s');
-			$(this).siblings('a').removeClass('btn_gray_off_s');
-			$(this).siblings('a').addClass('btn_gray_off_s');
-			$(this).addClass('btn_gray_on_s');
-			source_target = "asm_exam_source";
-			source_target_id = $(this).data("asm_exam_source");
-			portfolioSearchPop();
-		});
 
-		$(document).on("click", '.lec_del', function () {
-			$(this).parents('table:first').remove();
-		});
+            addHtml += '&nbsp;';
 
-		$(document).on("click", '.data_del', function () {
-			$(this).parents('table:first').remove();
-		});
 
-		$(document).on("click", '.asm_del', function () {
-			$(this).parents('table:first').remove();
-		});
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_pdf="' + lecDiv + '" data-type="CT1">PDF</a>';
 
-		$(document).on("click", '.quiz_del', function () {
-			$(this).parents('table:first').remove();
-		});
 
-		$(document).on("click", '.les_del', function () {
-			$(this).parents('table').remove();
-		});
+            addHtml += '&nbsp;';
 
-		$(document).on("click", '.lec_add', function () {
-			var param = $(this).data('lec_add');
-			$('td[data-lectureTable="'+param+'"').append(addLecture(param));
-		});
 
-		$(document).on("click", '.data_add', function () {
-			var param = $(this).data('data_add');
-			$('td[data-dataTable="'+param+'"').append(addData(param));
-		});
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_url="' + lecDiv + '" data-type="CT2">URL</a>';
 
-		$(document).on("click", '.asm_add', function () {
-			var param = $(this).data('asm_add');
-			$('td[data-assignmentTable="'+param+'"').append(addAssignment(param));
-		});
 
-		$(document).on("click", '.quiz_add', function () {
-			var param = $(this).data('quiz_add');
-			$('td[data-quizTable="'+param+'"').append(addQuiz(param));
-		});
-		
-		$(document).on("click", 'select[data-quiz_select]', function () {
-			var cnt = $(this).val();
-			var tdObj = $('table[data-quiz_exam_table="'+$(this).data("quiz_select")+'"');
-			if ($("input:radio[name^='quiz_qzt_"+$(this).data("quiz_select")+"']:checked").val() == 'QT0') {
-				$('tr[data-quiz_exam="'+$(this).data("quiz_select")+'"').css('display','');
-				$('tr[data-quiz_sra="'+$(this).data("quiz_select")+'"').css('display','none');
-			}
-			var start = tdObj.children('tbody').children('tr').size();
-			if (start < cnt) {
-				for (var i=start+1;i<=cnt;i++) {
-					tdObj.children('tbody').append(addExamDiv($(this).data("quiz_select"), i));
-				}
-			} else {
-				for (var i=start;i>cnt;i--) {
-					tdObj.children('tbody').children('tr:last').remove();
-				}
-			}
-		});
-	}
+            addHtml += '&nbsp;';
 
-	function htmlPop(id) {
-		var ids = id.split('_');
-		$('#footer').after("<div class=\"popCourse-overlay\" id=\"popCourse-overlay\" style=\"display: block; z-index: 100; opacity: 0.5;\"></div>");
-		$('#htmlPop_layer').attr("style","display:block;z-index:200;text-align:left;");
-		$('#htmlPop_frame').attr("src", "http://crhs.aimind.co.kr/course/html.lay?lsId="+ids[0]+"&lId="+ids[1]);
-		
-		$("#popCourse-overlay").on('click', function (e) 
-		{
-			pophtmlClose();
-		});
-	}
-	
-	function pophtmlClose(id, val, desc) {
-		if (id != null && id != '' && id != undefined) {
-			$('#lec_html_'+id).val(!val);
-			$('span[data-lec_html_contents="'+id+'"').html(desc);
-		}
-		$('#popCourse-overlay').remove();
-		$('#htmlPop_layer').attr("style","display:none");
-	}
-	
-	function portfolioSearchPop() {
-		$('#footer').after("<div class=\"popCourse-overlay\" id=\"popCourse-overlay\" style=\"display: block; z-index: 100; opacity: 0.5;\"></div>");
-		$('#portfolioPop_layer').attr("style","display:block;z-index:200;text-align:left;");
-		$('#portfolioPop_frame').attr("src", "http://crhs.aimind.co.kr/course/portfolio/list.lay");
-		
-		$("#popCourse-overlay").on('click', function (e) 
-		{
-			popPortfolioClose();
-		});
-	}
-	
-	function popPortfolioClose() {
-		$('#popCourse-overlay').remove();
-		$('#portfolioPop_layer').attr("style","display:none");
-		source_target = "";
-		source_target_id = "";
-	}
-	
-	function selectPortfolio(id, thumb) {
-		$("#"+source_target+"_"+source_target_id).val(id);
-		$("#"+source_target+"_diy_"+source_target_id).val('');
-		$("#"+source_target+"_"+source_target_id).siblings('span').remove();
-		$("#"+source_target+"_"+source_target_id).after("<span>&nbsp;<img class=\"data_source_thumb\" src=\""+thumb+"\" width=\"100\"></span>");
-	}
 
-	function quizTypeClick(obj) {
-		var quizDiv = $(obj).data("quiz_type");
-		if ($(obj).val() == 'QT0') {	
-			$('tr[data-quiz_exam="'+quizDiv+'"').css('display','');
-			$('tr[data-quiz_sra="'+quizDiv+'"').css('display','none');
-			
-			var examCnt = $('select[name="quiz_exam_count_'+quizDiv+'"]').val();
-			if (examCnt == '') {
-				alert('보기개수을(를) 선택해 주십시오.');
-			}
-			
-		} else if ($(obj).val() == 'QT1') {
-			$('tr[data-quiz_sra="'+quizDiv+'"').css('display','');
-			$('tr[data-quiz_exam="'+quizDiv+'"').css('display','none');
-		}
-	}
-</script>
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_ytb="' + lecDiv + '" data-type="CT3">YouTube</a>';
+
+
+            addHtml += '&nbsp;';
+
+
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_htm="' + lecDiv + '" data-type="CT4">직접작성</a>';
+
+
+            addHtml += '											<p class="input_file file">';
+            addHtml += '												<input type="file" id="lec_file_' + lecDiv + '" name="lec_file_' + lecDiv + '" class="text" accept=".avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">';
+            //addHtml+='											&nbsp;<a href="#" class="btn btn_w_r">삭제</a></p>';
+            addHtml += '											</p>';
+            addHtml += '											<p class="input_file url" style="display:none;">';
+            addHtml += '												<input type="text" id="lec_url_' + lecDiv + '" name="lec_url_' + lecDiv + '" class="text">';
+            addHtml += '											</p>';
+            addHtml += '											<p class="input_file html" style="display:none;">';
+            addHtml += '												<a href="javascript:;" class="btn btn_gray_on_s" data-lec_html_btn="' + lecDiv + '">직접작성</a>';
+            addHtml += '												<span data-lec_html_contents="' + lecDiv + '"></span>';
+            addHtml += '												<input type="hidden" id="lec_html_' + lecDiv + '" name="lec_html_' + lecDiv + '" class="text">';
+            addHtml += '											</p>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									</table>';
+            return addHtml;
+        }
+
+        function addData(idx) {
+            ++dataIdx;
+            var dataDiv = (idx) + '_' + (dataIdx < 10 ? '0' + dataIdx : dataIdx);
+            var addHtml = '';
+            addHtml += '									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
+            addHtml += '									<tr>';
+            addHtml += '										<th>· 학습 자료</th>';
+            addHtml += '										<td>';
+            addHtml += '											<div class="td_flex">';
+            addHtml += '												<p>';
+
+
+            addHtml += '											<input type="hidden" id="data_data_type_' + dataDiv + '" name="data_data_type_' + dataDiv + '" value="CT5">';
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_on_s" data-data_file="' + dataDiv + '" data-type="CT5">파일등록</a>';
+
+
+            addHtml += '&nbsp;';
+
+
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-data_source="' + dataDiv + '" data-type="CT6">소스코드</a>';
+
+
+            addHtml += '												</p>';
+            addHtml += '												<p><a data-data_del="' + dataDiv + '" href="javascript:;" class="btn btn_o_s data_del">학습자료삭제</a></p>';
+            addHtml += '											</div>';
+            addHtml += '											<p class="input_file file">';
+            addHtml += '												<input type="file" id="data_file_' + dataDiv + '" name="data_file_' + dataDiv + '" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">';
+            /*addHtml+='											&nbsp;<a href="#" class="btn btn_w_r">삭제</a></p>'; */
+            addHtml += '											</p>';
+            addHtml += '											<p class="input_file source" style="display:none;">';
+            addHtml += '												<a href="javascript:;" class="btn btn_gray_on_s" data-data_source_btn="' + dataDiv + '">소스코드</a>';
+            addHtml += '												<input type="hidden" id="data_source_' + dataDiv + '" name="data_source_' + dataDiv + '" value="">';
+            addHtml += '											</p>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									</table>';
+            return addHtml;
+        }
+
+        function addAssignment(idx) {
+            ++asmIdx;
+            var asmDiv = (idx) + '_' + (asmIdx < 10 ? '0' + asmIdx : asmIdx);
+            var addHtml = '';
+            addHtml += '									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<th>· 과제 설명</th>';
+            addHtml += '										<td>';
+            addHtml += '											<div class="td_flex">';
+            addHtml += '												<p><textarea id="asm_contents_' + asmDiv + '" name="asm_contents_' + asmDiv + '"></textarea></p>';
+            addHtml += '												<p><a data-asm_del="' + asmDiv + '" href="javascript:;" class="btn btn_o_s asm_del">과제삭제</a></p>';
+            addHtml += '											</div>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<th>· 과제 파일</th>';
+            addHtml += '										<td>';
+
+
+            addHtml += '											<input type="hidden" id="asm_data_type_' + asmDiv + '" name="asm_data_type_' + asmDiv + '" value="CT7">';
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_on_s" data-asm_file="' + asmDiv + '" data-type="CT7">파일등록</a>';
+
+
+            addHtml += '&nbsp;';
+
+
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-asm_source="' + asmDiv + '" data-type="CT8">소스코드</a>';
+
+
+            addHtml += '											<p class="input_file file">';
+            addHtml += '												<input type="file" id="asm_file_' + asmDiv + '" name="asm_file_' + asmDiv + '" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">';
+            /*addHtml+='											&nbsp;<a href="#" class="btn btn_w_r">삭제</a></p>'; */
+            addHtml += '											</p>';
+            addHtml += '											<p class="input_file source" style="display:none;">';
+            addHtml += '												<a href="javascript:;" class="btn btn_gray_on_s" data-asm_source_btn="' + asmDiv + '">소스코드</a>';
+            addHtml += '												<input type="hidden" id="asm_source_' + asmDiv + '" name="asm_source_' + asmDiv + '" value="">';
+            addHtml += '											</p>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr data-asm_exam="' + asmDiv + '" class="border_n" style="display:none;">';
+            addHtml += '										<th>·  모범답안</th>';
+            addHtml += '										<td>';
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_on_s" data-asm_exam_empty="' + asmDiv + '">없음</a>&nbsp;';
+            addHtml += '											<a href="javascript:;" class="btn btn_gray_off_s" data-asm_exam_source="' + asmDiv + '">소스코드</a>';
+            addHtml += '											<input type="hidden" id="asm_exam_source_' + asmDiv + '" name="asm_exam_source_' + asmDiv + '" value="">';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<th>· 과제 승인</th>';
+            addHtml += '										<td>';
+
+            addHtml += '											<input type="radio" id="asm_aat_' + asmDiv + '_1" name="asm_aat_' + asmDiv + '" value="AA0">&nbsp;<label for="asm_aat_' + asmDiv + '_1">자동 승인</label>';
+
+            addHtml += '&nbsp;&nbsp;';
+
+
+            addHtml += '											<input type="radio" id="asm_aat_' + asmDiv + '_2" name="asm_aat_' + asmDiv + '" value="AA1">&nbsp;<label for="asm_aat_' + asmDiv + '_2">관리자 승인</label>';
+
+
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr>';
+            addHtml += '										<th>· 과제 제출</th>';
+            addHtml += '										<td>';
+
+            addHtml += '											<input type="radio" id="asm_asm_' + asmDiv + '_1" name="asm_asm_' + asmDiv + '" value="AS0">&nbsp;<label for="asm_asm_' + asmDiv + '_1">파일등록</label>';
+
+            addHtml += '&nbsp;&nbsp;';
+
+
+            addHtml += '											<input type="radio" id="asm_asm_' + asmDiv + '_2" name="asm_asm_' + asmDiv + '" value="AS1">&nbsp;<label for="asm_asm_' + asmDiv + '_2">소스코드</label>';
+
+
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									</table>';
+            return addHtml;
+        }
+
+        function addQuiz(idx) {
+            ++quizIdx;
+            var quizDiv = (idx) + '_' + (quizIdx < 10 ? '0' + quizIdx : quizIdx);
+            var addHtml = '';
+            addHtml += '									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다." >';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<th rowspan="2">· 퀴즈 질문</th>';
+            addHtml += '										<td>';
+            addHtml += '											<div class="td_flex">';
+            addHtml += '												<p><textarea id="quiz_desc_' + quizDiv + '" name="quiz_desc_' + quizDiv + '"></textarea></p>';
+            addHtml += '												<p><a data-quiz_del="' + quizDiv + '" href="javascript:;" class="btn btn_o_s quiz_del">퀴즈삭제</a></p>';
+            addHtml += '											</div>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<td>';
+            addHtml += '											<div class="td_flex">';
+            addHtml += '												<p class="input_file file"><input type="file" id="quiz_file_' + quizDiv + '" name="quiz_file_' + quizDiv + '" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v"></p>';
+            addHtml += '											</div>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr class="border_n">';
+            addHtml += '										<th>· 퀴즈 보기방식</th>';
+            addHtml += '										<td>';
+
+
+            addHtml += '											<input type="radio" id="quiz_qzt_' + quizDiv + '_1" name="quiz_qzt_' + quizDiv + '" value="QT0" data-quiz_type="' + quizDiv + '" onclick="quizTypeClick(this);" checked="checked">&nbsp;<label for="quiz_qzt_' + quizDiv + '_1">객관식</label>';
+
+            addHtml += '											( 보기개수 ';
+            addHtml += '											<select name="quiz_exam_count_' + quizDiv + '" id="quiz_exam_count_' + quizDiv + '" data-quiz_select="' + quizDiv + '">';
+            addHtml += '												<option value="">선택하세요.</option>';
+
+            addHtml += '												<option value="1">1개</option>';
+
+            addHtml += '												<option value="2">2개</option>';
+
+            addHtml += '												<option value="3">3개</option>';
+
+            addHtml += '												<option value="4">4개</option>';
+
+            addHtml += '												<option value="5">5개</option>';
+
+            addHtml += '											</select>';
+            addHtml += '											)';
+
+
+            addHtml += '											&nbsp;&nbsp;';
+
+
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr data-quiz_exam="' + quizDiv + '" style="display:none;">';
+            addHtml += '										<th>· 객관식 보기</th>';
+            addHtml += '										<td data-quiz_exam_descs="' + quizDiv + '">';
+            addHtml += '												<table class="board_inner_base" data-quiz_exam_table="' + quizDiv + '">';
+            addHtml += '												<thead>';
+            addHtml += '												<tr>';
+            addHtml += '													<th>객관식 보기</th>';
+            addHtml += '													<th>정답</th>';
+            addHtml += '												</tr>';
+            addHtml += '												</thead>';
+            addHtml += '												<tbody>';
+            //addHtml+=addExamDiv(quizDiv, $("select[name='quiz_exam_count_"+quizDiv+"']").val());
+            addHtml += '												</tbody>';
+            addHtml += '												</table>';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									<tr data-quiz_sra="' + quizDiv + '" style="display:none;">';
+            addHtml += '										<th>· 퀴즈 정답</th>';
+            addHtml += '										<td>';
+            addHtml += '											<input class="text" type="text" name="quiz_sra_' + quizDiv + '" id="quiz_sra_' + quizDiv + '" value="" />';
+            addHtml += '										</td>';
+            addHtml += '									</tr>';
+            addHtml += '									</table>';
+            return addHtml;
+        }
+
+        function addExamDiv(quizDiv, examIdx) {
+            //console.log('examIdx : ' + examIdx);
+            if (examIdx != '' && examIdx != undefined) {
+                var addHtml = '';
+                addHtml += '										<tr>';
+                addHtml += '											<td>';
+                addHtml += '												<input class="text" type="text" name="quiz_exam_' + quizDiv + '_' + examIdx + '" id="quiz_exam_' + quizDiv + '_' + examIdx + '" value="" />';
+                addHtml += '											</td>';
+                addHtml += '											<td>';
+                addHtml += '												<input type="radio" id="quiz_ora_' + quizDiv + '_' + examIdx + '" name="quiz_ora_' + quizDiv + '" value="' + quizDiv + '_' + examIdx + '">';
+                addHtml += '											</td>';
+                addHtml += '										</tr>';
+                return addHtml;
+            }
+        }
+
+        var source_target;
+        var source_target_id;
+
+        function buttonAction() {
+            $(document).on("click", 'a[data-lec_vod]', function () {
+                if (($('#lec_url_' + $(this).data("lec_vod")).val() != '' || ($('#lec_html_' + $(this).data("lec_vod")).val() != 'false' && $('#lec_html_' + $(this).data("lec_vod")).val() != ''))
+                    || ($('#lec_file_' + $(this).data("lec_vod")).attr('accept') == '.pdf' && $('#lec_file_' + $(this).data("lec_vod")).val() != '')) {
+                    if (!confirm('VOD를 등록하려면 PDF, URL, YouTube, 직접작성에서 등록한 내용이 취소됩니다. VOD를 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                if ($('#lec_file_' + $(this).data("lec_vod")).attr('accept') == '.pdf' && $('#lec_file_' + $(this).data("lec_vod")).val() != '') {
+                    $('#lec_file_' + $(this).data("lec_vod")).val('');
+                }
+
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', '');
+                $(this).siblings('p.url').css('display', 'none');
+                $(this).siblings('p.html').css('display', 'none');
+                $("#lec_data_type_" + $(this).data("lec_vod")).val($(this).data("type"));
+                $("#lec_file_" + $(this).data("lec_vod")).prop("accept", ".avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v");
+
+                $('#lec_url_' + $(this).data("lec_vod")).val('');
+                $('#lec_html_' + $(this).data("lec_vod")).val('false');
+                $('#lec_html_' + $(this).data("lec_vod")).prev('span').html('');
+            });
+
+            $(document).on("click", 'a[data-lec_pdf]', function () {
+                if (($('#lec_url_' + $(this).data("lec_pdf")).val() != '' || ($('#lec_html_' + $(this).data("lec_pdf")).val() != 'false' && $('#lec_html_' + $(this).data("lec_pdf")).val() != ''))
+                    || ($('#lec_file_' + $(this).data("lec_pdf")).attr('accept') == '.avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v' && $('#lec_file_' + $(this).data("lec_pdf")).val() != '')) {
+                    if (!confirm('PDF를 등록하려면 VOD, URL, YouTube, 직접작성에서 등록한 내용이 취소됩니다. PDF를 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                if ($('#lec_file_' + $(this).data("lec_pdf")).attr('accept') == '.avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v' && $('#lec_file_' + $(this).data("lec_pdf")).val() != '') {
+                    $('#lec_file_' + $(this).data("lec_pdf")).val('');
+                }
+
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', '');
+                $(this).siblings('p.url').css('display', 'none');
+                $(this).siblings('p.html').css('display', 'none');
+                $("#lec_data_type_" + $(this).data("lec_pdf")).val($(this).data("type"));
+                $("#lec_file_" + $(this).data("lec_pdf")).attr("accept", ".pdf");
+
+                $('#lec_url_' + $(this).data("lec_pdf")).val('');
+                $('#lec_html_' + $(this).data("lec_pdf")).val('false');
+                $('#lec_html_' + $(this).data("lec_pdf")).prev('span').html('');
+            });
+
+            $(document).on("click", 'a[data-lec_url]', function () {
+                if (($("#lec_data_type_" + $(this).data("lec_url")).val() == 'CT3' && $('#lec_url_' + $(this).data("lec_url")).val() != '') || ($('#lec_html_' + $(this).data("lec_url")).val() != 'false' && $('#lec_html_' + $(this).data("lec_url")).val() != '')
+                    || $('#lec_file_' + $(this).data("lec_url")).val() != '') {
+                    if (!confirm('URL을 등록하려면 VOD, PDF, YouTube, 직접작성에서 등록한 내용이 취소됩니다. URL을 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                if ($("#lec_data_type_" + $(this).data("lec_url")).val() == 'CT3' && $('#lec_url_' + $(this).data("lec_url")).val() != '') {
+                    $('#lec_url_' + $(this).data("lec_url")).val('');
+                }
+
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', 'none');
+                $(this).siblings('p.url').css('display', '');
+                $(this).siblings('p.html').css('display', 'none');
+                $("#lec_data_type_" + $(this).data("lec_url")).val($(this).data("type"));
+
+                $('#lec_file_' + $(this).data("lec_url")).val('');
+                $('#lec_html_' + $(this).data("lec_url")).val('false');
+                $('#lec_html_' + $(this).data("lec_url")).prev('span').html('');
+            });
+
+            $(document).on("click", 'a[data-lec_ytb]', function () {
+                if (($("#lec_data_type_" + $(this).data("lec_ytb")).val() == 'CT2' && $('#lec_url_' + $(this).data("lec_ytb")).val() != '') || ($('#lec_html_' + $(this).data("lec_ytb")).val() != 'false' && $('#lec_html_' + $(this).data("lec_ytb")).val() != '')
+                    || $('#lec_file_' + $(this).data("lec_ytb")).val() != '') {
+                    if (!confirm('YouTube를 등록하려면 VOD, PDF, URL, 직접작성에서 등록한 내용이 취소됩니다. YouTube를 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                if ($("#lec_data_type_" + $(this).data("lec_ytb")).val() == 'CT2' && $('#lec_url_' + $(this).data("lec_ytb")).val() != '') {
+                    $('#lec_url_' + $(this).data("lec_ytb")).val('');
+                }
+
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', 'none');
+                $(this).siblings('p.url').css('display', '');
+                $(this).siblings('p.html').css('display', 'none');
+                $("#lec_data_type_" + $(this).data("lec_ytb")).val($(this).data("type"));
+
+                $('#lec_file_' + $(this).data("lec_ytb")).val('');
+                $('#lec_html_' + $(this).data("lec_ytb")).val('false');
+                $('#lec_html_' + $(this).data("lec_ytb")).prev('span').html('');
+            });
+
+            $(document).on("click", 'a[data-lec_htm]', function () {
+                if ($('#lec_file_' + $(this).data("lec_htm")).val() != '' || $('#lec_url_' + $(this).data("lec_htm")).val() != '') {
+                    if (!confirm('직접작성을 등록하려면 VOD, PDF, URL, YouTube에서 등록한 내용이 취소됩니다. 직접작성을 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', 'none');
+                $(this).siblings('p.url').css('display', 'none');
+                $(this).siblings('p.html').css('display', '');
+                $("#lec_data_type_" + $(this).data("lec_htm")).val($(this).data("type"));
+                //htmlPop($(this).data("lec_htm"));
+
+                $('#lec_file_' + $(this).data("lec_htm")).val('');
+                $('#lec_url_' + $(this).data("lec_htm")).val('');
+            });
+
+            $(document).on("click", 'a[data-lec_html_btn]', function () {
+                //console.log($(this).data("lec_html_btn"));
+                htmlPop($(this).data("lec_html_btn"));
+            });
+
+            $(document).on("click", 'a[data-data_file]', function () {
+                if ($('#data_source_' + $(this).data("data_file")).val() != '' || $('#data_source_diy_' + $(this).data("data_file")).val() != '') {
+                    if (!confirm('파일을 등록하려면 이미 등록된 소스코드가 취소됩니다. 파일을 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).parent().parent().siblings('p.file').css('display', '');
+                $(this).parent().parent().siblings('p.source').css('display', 'none');
+                $("#data_data_type_" + $(this).data("data_file")).val($(this).data("type"));
+                $('#data_source_' + $(this).data("data_file")).val('');
+                $('#data_source_' + $(this).data("data_file")).next('span').html('');
+                $('#data_source_diy_' + $(this).data("data_file")).val('');
+                $("#data_file_" + $(this).data("data_file")).attr("accept", ".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v");
+            });
+
+            $(document).on("click", 'a[data-data_source]', function () {
+                if ($('#data_file_' + $(this).data("data_source")).val() != '') {
+                    if (!confirm('소스코드를 등록하려면 이미 등록된 파일이 취소됩니다. 소스코드를 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).parent().parent().siblings('p.file').css('display', 'none');
+                $(this).parent().parent().siblings('p.source').css('display', '');
+                $('#data_file_' + $(this).data("data_source")).val('');
+                $("#data_data_type_" + $(this).data("data_source")).val($(this).data("type"));
+            });
+
+            $(document).on("click", 'a[data-data_source_btn]', function () {
+                source_target = "data_source";
+                source_target_id = $(this).data("data_source_btn");
+                portfolioSearchPop();
+            });
+
+            $(document).on("click", 'a[data-asm_file]', function () {
+                if ($('#asm_source_' + $(this).data("asm_file")).val() != '' || $('#asm_source_diy_' + $(this).data("asm_file")).val() != '') {
+                    if (!confirm('파일을 등록하려면 이미 등록된 소스코드가 취소됩니다. 파일을 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', '');
+                $(this).siblings('p.source').css('display', 'none');
+                $('tr[data-asm_exam="' + $(this).data("asm_file") + '"').css('display', 'none');
+                $("#asm_data_type_" + $(this).data("asm_file")).val($(this).data("type"));
+                $('#asm_source_' + $(this).data("asm_file")).val('');
+                $('#asm_source_' + $(this).data("asm_file")).next('span').html('');
+                $('#asm_source_diy_' + $(this).data("asm_file")).val('');
+                $("#asm_file_" + $(this).data("asm_file")).attr("accept", ".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v");
+            });
+
+            $(document).on("click", 'a[data-asm_source]', function () {
+                if ($('#asm_file_' + $(this).data("asm_source")).val() != '') {
+                    if (!confirm('소스코드를 등록하려면 이미 등록된 파일이 취소됩니다. 소스코드를 등록하시겠습니까?')) {
+                        return;
+                    }
+                }
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $(this).siblings('p.file').css('display', 'none');
+                $(this).siblings('p.source').css('display', '');
+                $('tr[data-asm_exam="' + $(this).data("asm_source") + '"').css('display', '');
+                $('#asm_file_' + $(this).data("asm_source")).val('');
+                $("#asm_data_type_" + $(this).data("asm_source")).val($(this).data("type"));
+            });
+
+            $(document).on("click", 'a[data-asm_source_btn]', function () {
+                source_target = "asm_source";
+                source_target_id = $(this).data("asm_source_btn");
+                portfolioSearchPop();
+            });
+
+            $(document).on("click", 'a[data-asm_exam_empty]', function () {
+                if ($('#asm_exam_source_' + $(this).data("asm_exam_empty")).val() != '' || $('#asm_exam_source_diy_' + $(this).data("asm_exam_empty")).val() != '') {
+                    if (!confirm('등록된 소스코드를 취소하시겠습니까?')) {
+                        return;
+                    }
+                }
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                $("#asm_exam_source_" + $(this).data("asm_exam_empty")).val('');
+                $('#asm_exam_source_' + $(this).data("asm_exam_empty")).next('span').html('');
+                $("#asm_exam_source_diy_" + $(this).data("asm_exam_empty")).val('');
+            });
+
+            $(document).on("click", 'a[data-asm_exam_source]', function () {
+                $(this).removeClass('btn_gray_on_s');
+                $(this).removeClass('btn_gray_off_s');
+                $(this).siblings('a').removeClass('btn_gray_on_s');
+                $(this).siblings('a').removeClass('btn_gray_off_s');
+                $(this).siblings('a').addClass('btn_gray_off_s');
+                $(this).addClass('btn_gray_on_s');
+                source_target = "asm_exam_source";
+                source_target_id = $(this).data("asm_exam_source");
+                portfolioSearchPop();
+            });
+
+            $(document).on("click", '.lec_del', function () {
+                $(this).parents('table:first').remove();
+            });
+
+            $(document).on("click", '.data_del', function () {
+                $(this).parents('table:first').remove();
+            });
+
+            $(document).on("click", '.asm_del', function () {
+                $(this).parents('table:first').remove();
+            });
+
+            $(document).on("click", '.quiz_del', function () {
+                $(this).parents('table:first').remove();
+            });
+
+            $(document).on("click", '.les_del', function () {
+                $(this).parents('table').remove();
+            });
+
+            $(document).on("click", '.lec_add', function () {
+                var param = $(this).data('lec_add');
+                $('td[data-lectureTable="' + param + '"').append(addLecture(param));
+            });
+
+            $(document).on("click", '.data_add', function () {
+                var param = $(this).data('data_add');
+                $('td[data-dataTable="' + param + '"').append(addData(param));
+            });
+
+            $(document).on("click", '.asm_add', function () {
+                var param = $(this).data('asm_add');
+                $('td[data-assignmentTable="' + param + '"').append(addAssignment(param));
+            });
+
+            $(document).on("click", '.quiz_add', function () {
+                var param = $(this).data('quiz_add');
+                $('td[data-quizTable="' + param + '"').append(addQuiz(param));
+            });
+
+            $(document).on("click", 'select[data-quiz_select]', function () {
+                var cnt = $(this).val();
+                var tdObj = $('table[data-quiz_exam_table="' + $(this).data("quiz_select") + '"');
+                if ($("input:radio[name^='quiz_qzt_" + $(this).data("quiz_select") + "']:checked").val() == 'QT0') {
+                    $('tr[data-quiz_exam="' + $(this).data("quiz_select") + '"').css('display', '');
+                    $('tr[data-quiz_sra="' + $(this).data("quiz_select") + '"').css('display', 'none');
+                }
+                var start = tdObj.children('tbody').children('tr').size();
+                if (start < cnt) {
+                    for (var i = start + 1; i <= cnt; i++) {
+                        tdObj.children('tbody').append(addExamDiv($(this).data("quiz_select"), i));
+                    }
+                } else {
+                    for (var i = start; i > cnt; i--) {
+                        tdObj.children('tbody').children('tr:last').remove();
+                    }
+                }
+            });
+        }
+
+        function htmlPop(id) {
+            var ids = id.split('_');
+            $('#footer').after("<div class=\"popCourse-overlay\" id=\"popCourse-overlay\" style=\"display: block; z-index: 100; opacity: 0.5;\"></div>");
+            $('#htmlPop_layer').attr("style", "display:block;z-index:200;text-align:left;");
+            $('#htmlPop_frame').attr("src", "http://crhs.aimind.co.kr/course/html.lay?lsId=" + ids[0] + "&lId=" + ids[1]);
+
+            $("#popCourse-overlay").on('click', function (e) {
+                pophtmlClose();
+            });
+        }
+
+        function pophtmlClose(id, val, desc) {
+            if (id != null && id != '' && id != undefined) {
+                $('#lec_html_' + id).val(!val);
+                $('span[data-lec_html_contents="' + id + '"').html(desc);
+            }
+            $('#popCourse-overlay').remove();
+            $('#htmlPop_layer').attr("style", "display:none");
+        }
+
+        function portfolioSearchPop() {
+            $('#footer').after("<div class=\"popCourse-overlay\" id=\"popCourse-overlay\" style=\"display: block; z-index: 100; opacity: 0.5;\"></div>");
+            $('#portfolioPop_layer').attr("style", "display:block;z-index:200;text-align:left;");
+            $('#portfolioPop_frame').attr("src", "http://crhs.aimind.co.kr/course/portfolio/list.lay");
+
+            $("#popCourse-overlay").on('click', function (e) {
+                popPortfolioClose();
+            });
+        }
+
+        function popPortfolioClose() {
+            $('#popCourse-overlay').remove();
+            $('#portfolioPop_layer').attr("style", "display:none");
+            source_target = "";
+            source_target_id = "";
+        }
+
+        function selectPortfolio(id, thumb) {
+            $("#" + source_target + "_" + source_target_id).val(id);
+            $("#" + source_target + "_diy_" + source_target_id).val('');
+            $("#" + source_target + "_" + source_target_id).siblings('span').remove();
+            $("#" + source_target + "_" + source_target_id).after("<span>&nbsp;<img class=\"data_source_thumb\" src=\"" + thumb + "\" width=\"100\"></span>");
+        }
+
+        function quizTypeClick(obj) {
+            var quizDiv = $(obj).data("quiz_type");
+            if ($(obj).val() == 'QT0') {
+                $('tr[data-quiz_exam="' + quizDiv + '"').css('display', '');
+                $('tr[data-quiz_sra="' + quizDiv + '"').css('display', 'none');
+
+                var examCnt = $('select[name="quiz_exam_count_' + quizDiv + '"]').val();
+                if (examCnt == '') {
+                    alert('보기개수을(를) 선택해 주십시오.');
+                }
+
+            } else if ($(obj).val() == 'QT1') {
+                $('tr[data-quiz_sra="' + quizDiv + '"').css('display', '');
+                $('tr[data-quiz_exam="' + quizDiv + '"').css('display', 'none');
+            }
+        }
+    </script>
 </head>
 <body class="vsc-initialized">
-	<div id="wrapper">
-		<div id="header">
-				<div class="main_visual">
-					<div class="main_visual_in">
-						<div class="spot_menu">
-							<ul>
-								<li><a href="http://crhs.aimind.co.kr/index.htm">홈</a></li>
-								<li><a href="javascript:;" onclick="logoutDo();return false;">로그아웃</a></li>
-								</ul>
-						</div><!-- //spot_menu -->
-						<div class="clear"></div>
-						<form id="logoutProcessForm" name="logoutProcessForm" action="http://crhs.aimind.co.kr/logout.do" method="post" onsubmit="javascript:return logoutDo();">
-						</form>
-						<hr>
+<div id="wrapper">
+    <div id="header">
+        <div class="main_visual">
+            <div class="main_visual_in">
+                <div class="spot_menu">
+                    <ul>
+                        <li><a href="http://crhs.aimind.co.kr/index.htm">홈</a></li>
+                        <li><a href="javascript:;" onclick="logoutDo();return false;">로그아웃</a></li>
+                    </ul>
+                </div><!-- //spot_menu -->
+                <div class="clear"></div>
+                <form id="logoutProcessForm" name="logoutProcessForm" action="http://crhs.aimind.co.kr/logout.do"
+                      method="post" onsubmit="javascript:return logoutDo();">
+                </form>
+                <hr>
 
-						<h1><a href="http://crhs.aimind.co.kr/index.htm" style="color:#fff;"><img class="school_logo" src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png" alt=""></a></h1>
-						<hr>
+                <h1><a href="http://crhs.aimind.co.kr/index.htm" style="color:#fff;"><img class="school_logo"
+                                                                                          src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png"
+                                                                                          alt=""></a></h1>
+                <hr>
 
-						<h2 class="hidden">주메뉴</h2>
-						<div class="gnb">
-							<ul>
-			<li><a class="on" href="http://crhs.aimind.co.kr/course/list.htm?menu=10" target="_self" title="강좌 메뉴 링크">강좌</a></li>
-			<li><a href="http://crhs.aimind.co.kr/portfolio/list.htm?menu=20" target="_self" title="포트폴리오 메뉴 링크">포트폴리오</a></li>
-			<li><a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self" title="공지/소식 메뉴 링크">커뮤니티</a></li>
-			<li><a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크">소개</a></li>
-			</ul>
-	
-	<a class="mypage" href="http://crhs.aimind.co.kr/mypage/portfolio/list.htm?menu=100"><span>마이페이지</span></a>
-							</div><!-- //gnb -->
-						<hr>
-						
-						<div class="main_visual_tit">
-						</div><!-- //main_visual_tit -->
-						<hr>
-					</div><!-- //main_visual_in -->
-				</div><!-- //main_visual -->		
-			</div><!-- //header -->
-			<div id="container">
-			<h3 style="background:url(http://crhs.aimind.co.kr/images/menu_icon1.png) no-repeat 530px 6px">강좌</h3>
-			<hr>
-			
-						<ul class="tabs_in">
-							<li class="tab-link" data-tab="tab_2"><span>기본정보</span></li>
-							<li class="tab-link current" data-tab="tab_3"><span>차시정보</span></li>
-						</ul>
-						
-						
-						<form id="writeLessonForm" name="writeLessonForm" action="http://crhs.aimind.co.kr/course/lessonWrite.htm" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
-						<input type="hidden" name="menu" value="10">
-						<input type="hidden" name="pageNo" value="1">
-						<input type="hidden" name="scale" value="15">
-						<input type="hidden" name="searchType" value="C01">
-						<input type="hidden" name="searchCId" value="">
-						<input type="hidden" name="searchKeyword" value="">
-						<input type="hidden" name="id" value="41">
-						<div id="asset">
-							<p class="tit_in">
-								<span class="highlighter">1</span>
-							</p>
-							<!-- <p class="right_box"><a href="#" class="btn btn_g">강의자료실에서 가져오기</a></p> -->
-							
-						
+                <h2 class="hidden">주메뉴</h2>
+                <div class="gnb">
+                    <ul>
+                        <li><a class="on" href="http://crhs.aimind.co.kr/course/list.htm?menu=10" target="_self"
+                               title="강좌 메뉴 링크">강좌</a></li>
+                        <li><a href="http://crhs.aimind.co.kr/portfolio/list.htm?menu=20" target="_self"
+                               title="포트폴리오 메뉴 링크">포트폴리오</a></li>
+                        <li><a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self" title="공지/소식 메뉴 링크">커뮤니티</a>
+                        </li>
+                        <li><a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self"
+                               title="소개 메뉴 링크">소개</a></li>
+                    </ul>
 
-												<table data-lesson_table="01" class="board_base les_table course" summary="게시판 목록입니다.">							<caption>게시판 목록보기</caption>							<colgroup>								<col width="130px">								<col width="*">							</colgroup>							<tbody><tr class="board_tit">								<th>차시제목</th>								<td>									<div class="td_flex">										<p><input class="text" type="text" id="les_title_01" name="les_title_01" value="" title=""></p>										<p><a data-les_del="01" href="javascript:;" class="btn btn_o_s les_del">차시삭제</a></p>									</div>								</td>							</tr>							<tr>								<td data-lecturetable="01" colspan="2" style="padding-top:0px;">									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">									<tbody><tr class="border_n">										<th>· 강의 제목</th>										<td>											<div class="td_flex">												<p><input class="text" type="text" value="" name="lec_title_01_01" id="lec_title_01_01" title=""></p>												<p><a data-lec_del="01_01" href="javascript:;" class="btn btn_o_s lec_del">강의삭제</a></p>											</div>										</td>									</tr>									<tr>										<th>· 강의 파일</th>										<td>											<input type="hidden" id="lec_data_type_01_01" name="lec_data_type_01_01" value="CT0">											<a href="javascript:;" class="btn btn_gray_on_s" data-lec_vod="01_01" data-type="CT0">VOD</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_pdf="01_01" data-type="CT1">PDF</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_url="01_01" data-type="CT2">URL</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_ytb="01_01" data-type="CT3">YouTube</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-lec_htm="01_01" data-type="CT4">직접작성</a>											<p class="input_file file">												<input type="file" id="lec_file_01_01" name="lec_file_01_01" class="text" accept=".avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">											</p>											<p class="input_file url" style="display:none;">												<input type="text" id="lec_url_01_01" name="lec_url_01_01" class="text">											</p>											<p class="input_file html" style="display:none;">												<a href="javascript:;" class="btn btn_gray_on_s" data-lec_html_btn="01_01">직접작성</a>												<span data-lec_html_contents="01_01"></span>												<input type="hidden" id="lec_html_01_01" name="lec_html_01_01" class="text">											</p>										</td>									</tr>									</tbody></table>								</td>							</tr>							<tr>								<td data-datatable="01" colspan="2">									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">									<tbody><tr>										<th>· 학습 자료</th>										<td>											<div class="td_flex">												<p>											<input type="hidden" id="data_data_type_01_01" name="data_data_type_01_01" value="CT5">											<a href="javascript:;" class="btn btn_gray_on_s" data-data_file="01_01" data-type="CT5">파일등록</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-data_source="01_01" data-type="CT6">소스코드</a>												</p>												<p><a data-data_del="01_01" href="javascript:;" class="btn btn_o_s data_del">학습자료삭제</a></p>											</div>											<p class="input_file file">												<input type="file" id="data_file_01_01" name="data_file_01_01" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">											</p>											<p class="input_file source" style="display:none;">												<a href="javascript:;" class="btn btn_gray_on_s" data-data_source_btn="01_01">소스코드</a>												<input type="hidden" id="data_source_01_01" name="data_source_01_01" value="">											</p>										</td>									</tr>									</tbody></table>								</td>							</tr>							<tr>								<td data-assignmenttable="01" colspan="2">									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">									<tbody><tr class="border_n">										<th>· 과제 설명</th>										<td>											<div class="td_flex">												<p><textarea id="asm_contents_01_01" name="asm_contents_01_01"></textarea></p>												<p><a data-asm_del="01_01" href="javascript:;" class="btn btn_o_s asm_del">과제삭제</a></p>											</div>										</td>									</tr>									<tr class="border_n">										<th>· 과제 파일</th>										<td>											<input type="hidden" id="asm_data_type_01_01" name="asm_data_type_01_01" value="CT7">											<a href="javascript:;" class="btn btn_gray_on_s" data-asm_file="01_01" data-type="CT7">파일등록</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-asm_source="01_01" data-type="CT8">소스코드</a>											<p class="input_file file">												<input type="file" id="asm_file_01_01" name="asm_file_01_01" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">											</p>											<p class="input_file source" style="display:none;">												<a href="javascript:;" class="btn btn_gray_on_s" data-asm_source_btn="01_01">소스코드</a>												<input type="hidden" id="asm_source_01_01" name="asm_source_01_01" value="">											</p>										</td>									</tr>									<tr data-asm_exam="01_01" class="border_n" style="display:none;">										<th>·  모범답안</th>										<td>											<a href="javascript:;" class="btn btn_gray_on_s" data-asm_exam_empty="01_01">없음</a>&nbsp;											<a href="javascript:;" class="btn btn_gray_off_s" data-asm_exam_source="01_01">소스코드</a>											<input type="hidden" id="asm_exam_source_01_01" name="asm_exam_source_01_01" value="">										</td>									</tr>									<tr class="border_n">										<th>· 과제 승인</th>										<td>											<input type="radio" id="asm_aat_01_01_1" name="asm_aat_01_01" value="AA0">&nbsp;<label for="asm_aat_01_01_1">자동 승인</label>&nbsp;&nbsp;											<input type="radio" id="asm_aat_01_01_2" name="asm_aat_01_01" value="AA1">&nbsp;<label for="asm_aat_01_01_2">관리자 승인</label>										</td>									</tr>									<tr>										<th>· 과제 제출</th>										<td>											<input type="radio" id="asm_asm_01_01_1" name="asm_asm_01_01" value="AS0">&nbsp;<label for="asm_asm_01_01_1">파일등록</label>&nbsp;&nbsp;											<input type="radio" id="asm_asm_01_01_2" name="asm_asm_01_01" value="AS1">&nbsp;<label for="asm_asm_01_01_2">소스코드</label>										</td>									</tr>									</tbody></table>								</td>							</tr>							<tr>								<td data-quiztable="01" colspan="2">									<table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">									<tbody><tr class="border_n">										<th rowspan="2">· 퀴즈 질문</th>										<td>											<div class="td_flex">												<p><textarea id="quiz_desc_01_01" name="quiz_desc_01_01"></textarea></p>												<p><a data-quiz_del="01_01" href="javascript:;" class="btn btn_o_s quiz_del">퀴즈삭제</a></p>											</div>										</td>									</tr>									<tr class="border_n">										<td>											<div class="td_flex">												<p class="input_file file"><input type="file" id="quiz_file_01_01" name="quiz_file_01_01" class="text" accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v"></p>											</div>										</td>									</tr>									<tr class="border_n">										<th>· 퀴즈 보기방식</th>										<td>											<input type="radio" id="quiz_qzt_01_01_1" name="quiz_qzt_01_01" value="QT0" data-quiz_type="01_01" onclick="quizTypeClick(this);" checked="checked">&nbsp;<label for="quiz_qzt_01_01_1">객관식</label>											( 보기개수 											<select name="quiz_exam_count_01_01" id="quiz_exam_count_01_01" data-quiz_select="01_01">												<option value="">선택하세요.</option>												<option value="1">1개</option>												<option value="2">2개</option>												<option value="3">3개</option>												<option value="4">4개</option>												<option value="5">5개</option>											</select>											)											&nbsp;&nbsp;										</td>									</tr>									<tr data-quiz_exam="01_01" style="display:none;">										<th>· 객관식 보기</th>										<td data-quiz_exam_descs="01_01">												<table class="board_inner_base" data-quiz_exam_table="01_01">												<thead>												<tr>													<th>객관식 보기</th>													<th>정답</th>												</tr>												</thead>												<tbody>												</tbody>												</table>										</td>									</tr>									<tr data-quiz_sra="01_01" style="display:none;">										<th>· 퀴즈 정답</th>										<td>											<input class="text" type="text" name="quiz_sra_01_01" id="quiz_sra_01_01" value="">										</td>									</tr>									</tbody></table>								</td>							</tr>							<tr>								<td colspan="2">									<p class="center_box">										<a data-lec_add="01" href="javascript:;" class="btn btn_w lec_add">강의추가</a>&nbsp;										<a data-data_add="01" href="javascript:;" class="btn btn_w data_add">학습자료추가</a>&nbsp;										<a data-asm_add="01" href="javascript:;" class="btn btn_w asm_add">과제추가</a>										<a data-quiz_add="01" href="javascript:;" class="btn btn_w quiz_add">퀴즈추가</a>									</p>								</td>							</tr>						</tbody></table></div>
-						</form>
-						
-						<p class="center_box">
-							<a href="javascript:;" class="btn btn_bs les_add">차시추가</a>
-						</p>
-						
+                    <a class="mypage"
+                       href="http://crhs.aimind.co.kr/mypage/portfolio/list.htm?menu=100"><span>마이페이지</span></a>
+                </div><!-- //gnb -->
+                <hr>
 
-						<div class="board_btn">
-							<span></span>
-							<span>
+                <div class="main_visual_tit">
+                </div><!-- //main_visual_tit -->
+                <hr>
+            </div><!-- //main_visual_in -->
+        </div><!-- //main_visual -->
+    </div><!-- //header -->
+    <div id="container">
+        <h3 style="background:url(http://crhs.aimind.co.kr/images/menu_icon1.png) no-repeat 530px 6px">강좌</h3>
+        <hr>
+
+        <ul class="tabs_in">
+            <li class="tab-link" data-tab="tab_2"><span>기본정보</span></li>
+            <li class="tab-link current" data-tab="tab_3"><span>차시정보</span></li>
+        </ul>
+
+
+        <form id="writeLessonForm" name="writeLessonForm" action="http://crhs.aimind.co.kr/course/lessonWrite.htm"
+              method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
+            <input type="hidden" name="menu" value="10">
+            <input type="hidden" name="pageNo" value="1">
+            <input type="hidden" name="scale" value="15">
+            <input type="hidden" name="searchType" value="C01">
+            <input type="hidden" name="searchCId" value="">
+            <input type="hidden" name="searchKeyword" value="">
+            <input type="hidden" name="id" value="41">
+            <div id="asset">
+                <p class="tit_in">
+                    <span class="highlighter">1</span>
+                </p>
+                <!-- <p class="right_box"><a href="#" class="btn btn_g">강의자료실에서 가져오기</a></p> -->
+
+
+                <table data-lesson_table="01" class="board_base les_table course" summary="게시판 목록입니다.">
+                    <caption>게시판 목록보기</caption>
+                    <colgroup>
+                        <col width="130px">
+                        <col width="*">
+                    </colgroup>
+                    <tbody>
+                    <tr class="board_tit">
+                        <th>차시제목</th>
+                        <td>
+                            <div class="td_flex"><p><input class="text" type="text" id="les_title_01"
+                                                           name="les_title_01" value="" title=""></p>
+                                <p><a data-les_del="01" href="javascript:;" class="btn btn_o_s les_del">차시삭제</a></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-lecturetable="01" colspan="2" style="padding-top:0px;">
+                            <table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">
+                                <tbody>
+                                <tr class="border_n">
+                                    <th>· 강의 제목</th>
+                                    <td>
+                                        <div class="td_flex"><p><input class="text" type="text" value=""
+                                                                       name="lec_title_01_01" id="lec_title_01_01"
+                                                                       title=""></p>
+                                            <p><a data-lec_del="01_01" href="javascript:;" class="btn btn_o_s lec_del">강의삭제</a>
+                                            </p></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>· 강의 파일</th>
+                                    <td><input type="hidden" id="lec_data_type_01_01" name="lec_data_type_01_01"
+                                               value="CT0"> <a href="javascript:;" class="btn btn_gray_on_s"
+                                                               data-lec_vod="01_01" data-type="CT0">VOD</a>&nbsp; <a
+                                            href="javascript:;" class="btn btn_gray_off_s" data-lec_pdf="01_01"
+                                            data-type="CT1">PDF</a>&nbsp; <a href="javascript:;"
+                                                                             class="btn btn_gray_off_s"
+                                                                             data-lec_url="01_01"
+                                                                             data-type="CT2">URL</a>&nbsp; <a
+                                            href="javascript:;" class="btn btn_gray_off_s" data-lec_ytb="01_01"
+                                            data-type="CT3">YouTube</a>&nbsp; <a href="javascript:;"
+                                                                                 class="btn btn_gray_off_s"
+                                                                                 data-lec_htm="01_01" data-type="CT4">직접작성</a>
+                                        <p class="input_file file"><input type="file" id="lec_file_01_01"
+                                                                          name="lec_file_01_01" class="text"
+                                                                          accept=".avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">
+                                        </p>
+                                        <p class="input_file url" style="display:none;"><input type="text"
+                                                                                               id="lec_url_01_01"
+                                                                                               name="lec_url_01_01"
+                                                                                               class="text"></p>
+                                        <p class="input_file html" style="display:none;"><a href="javascript:;"
+                                                                                            class="btn btn_gray_on_s"
+                                                                                            data-lec_html_btn="01_01">직접작성</a>
+                                            <span data-lec_html_contents="01_01"></span> <input type="hidden"
+                                                                                                id="lec_html_01_01"
+                                                                                                name="lec_html_01_01"
+                                                                                                class="text"></p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-datatable="01" colspan="2">
+                            <table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">
+                                <tbody>
+                                <tr>
+                                    <th>· 학습 자료</th>
+                                    <td>
+                                        <div class="td_flex"><p><input type="hidden" id="data_data_type_01_01"
+                                                                       name="data_data_type_01_01" value="CT5"> <a
+                                                href="javascript:;" class="btn btn_gray_on_s" data-data_file="01_01"
+                                                data-type="CT5">파일등록</a>&nbsp; <a href="javascript:;"
+                                                                                  class="btn btn_gray_off_s"
+                                                                                  data-data_source="01_01"
+                                                                                  data-type="CT6">소스코드</a></p>
+                                            <p><a data-data_del="01_01" href="javascript:;"
+                                                  class="btn btn_o_s data_del">학습자료삭제</a></p></div>
+                                        <p class="input_file file"><input type="file" id="data_file_01_01"
+                                                                          name="data_file_01_01" class="text"
+                                                                          accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">
+                                        </p>
+                                        <p class="input_file source" style="display:none;"><a href="javascript:;"
+                                                                                              class="btn btn_gray_on_s"
+                                                                                              data-data_source_btn="01_01">소스코드</a>
+                                            <input type="hidden" id="data_source_01_01" name="data_source_01_01"
+                                                   value=""></p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-assignmenttable="01" colspan="2">
+                            <table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">
+                                <tbody>
+                                <tr class="border_n">
+                                    <th>· 과제 설명</th>
+                                    <td>
+                                        <div class="td_flex"><p><textarea id="asm_contents_01_01"
+                                                                          name="asm_contents_01_01"></textarea></p>
+                                            <p><a data-asm_del="01_01" href="javascript:;" class="btn btn_o_s asm_del">과제삭제</a>
+                                            </p></div>
+                                    </td>
+                                </tr>
+                                <tr class="border_n">
+                                    <th>· 과제 파일</th>
+                                    <td><input type="hidden" id="asm_data_type_01_01" name="asm_data_type_01_01"
+                                               value="CT7"> <a href="javascript:;" class="btn btn_gray_on_s"
+                                                               data-asm_file="01_01" data-type="CT7">파일등록</a>&nbsp; <a
+                                            href="javascript:;" class="btn btn_gray_off_s" data-asm_source="01_01"
+                                            data-type="CT8">소스코드</a>
+                                        <p class="input_file file"><input type="file" id="asm_file_01_01"
+                                                                          name="asm_file_01_01" class="text"
+                                                                          accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">
+                                        </p>
+                                        <p class="input_file source" style="display:none;"><a href="javascript:;"
+                                                                                              class="btn btn_gray_on_s"
+                                                                                              data-asm_source_btn="01_01">소스코드</a>
+                                            <input type="hidden" id="asm_source_01_01" name="asm_source_01_01" value="">
+                                        </p></td>
+                                </tr>
+                                <tr data-asm_exam="01_01" class="border_n" style="display:none;">
+                                    <th>· 모범답안</th>
+                                    <td><a href="javascript:;" class="btn btn_gray_on_s"
+                                           data-asm_exam_empty="01_01">없음</a>&nbsp; <a href="javascript:;"
+                                                                                       class="btn btn_gray_off_s"
+                                                                                       data-asm_exam_source="01_01">소스코드</a>
+                                        <input type="hidden" id="asm_exam_source_01_01" name="asm_exam_source_01_01"
+                                               value=""></td>
+                                </tr>
+                                <tr class="border_n">
+                                    <th>· 과제 승인</th>
+                                    <td><input type="radio" id="asm_aat_01_01_1" name="asm_aat_01_01" value="AA0">&nbsp;<label
+                                            for="asm_aat_01_01_1">자동 승인</label>&nbsp;&nbsp; <input type="radio"
+                                                                                                   id="asm_aat_01_01_2"
+                                                                                                   name="asm_aat_01_01"
+                                                                                                   value="AA1">&nbsp;<label
+                                            for="asm_aat_01_01_2">관리자 승인</label></td>
+                                </tr>
+                                <tr>
+                                    <th>· 과제 제출</th>
+                                    <td><input type="radio" id="asm_asm_01_01_1" name="asm_asm_01_01" value="AS0">&nbsp;<label
+                                            for="asm_asm_01_01_1">파일등록</label>&nbsp;&nbsp; <input type="radio"
+                                                                                                  id="asm_asm_01_01_2"
+                                                                                                  name="asm_asm_01_01"
+                                                                                                  value="AS1">&nbsp;<label
+                                            for="asm_asm_01_01_2">소스코드</label></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-quiztable="01" colspan="2">
+                            <table class="board_base inner_board_base course inner_board_base2" summary="게시판 목록입니다.">
+                                <tbody>
+                                <tr class="border_n">
+                                    <th rowspan="2">· 퀴즈 질문</th>
+                                    <td>
+                                        <div class="td_flex"><p><textarea id="quiz_desc_01_01"
+                                                                          name="quiz_desc_01_01"></textarea></p>
+                                            <p><a data-quiz_del="01_01" href="javascript:;"
+                                                  class="btn btn_o_s quiz_del">퀴즈삭제</a></p></div>
+                                    </td>
+                                </tr>
+                                <tr class="border_n">
+                                    <td>
+                                        <div class="td_flex"><p class="input_file file"><input type="file"
+                                                                                               id="quiz_file_01_01"
+                                                                                               name="quiz_file_01_01"
+                                                                                               class="text"
+                                                                                               accept=".jpg, .jpeg, .gif, .png, .bmp, .txt, .hwp, .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .zip, .gul, .avi, .wmv, .mpg, .mpeg, .mp4, .mov, .flv, .m4v">
+                                        </p></div>
+                                    </td>
+                                </tr>
+                                <tr class="border_n">
+                                    <th>· 퀴즈 보기방식</th>
+                                    <td><input type="radio" id="quiz_qzt_01_01_1" name="quiz_qzt_01_01" value="QT0"
+                                               data-quiz_type="01_01" onclick="quizTypeClick(this);" checked="checked">&nbsp;<label
+                                            for="quiz_qzt_01_01_1">객관식</label> ( 보기개수 <select
+                                            name="quiz_exam_count_01_01" id="quiz_exam_count_01_01"
+                                            data-quiz_select="01_01">
+                                        <option value="">선택하세요.</option>
+                                        <option value="1">1개</option>
+                                        <option value="2">2개</option>
+                                        <option value="3">3개</option>
+                                        <option value="4">4개</option>
+                                        <option value="5">5개</option>
+                                    </select> ) &nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                                <tr data-quiz_exam="01_01" style="display:none;">
+                                    <th>· 객관식 보기</th>
+                                    <td data-quiz_exam_descs="01_01">
+                                        <table class="board_inner_base" data-quiz_exam_table="01_01">
+                                            <thead>
+                                            <tr>
+                                                <th>객관식 보기</th>
+                                                <th>정답</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr data-quiz_sra="01_01" style="display:none;">
+                                    <th>· 퀴즈 정답</th>
+                                    <td><input class="text" type="text" name="quiz_sra_01_01" id="quiz_sra_01_01"
+                                               value=""></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><p class="center_box"><a data-lec_add="01" href="javascript:;"
+                                                                 class="btn btn_w lec_add">강의추가</a>&nbsp; <a
+                                data-data_add="01" href="javascript:;" class="btn btn_w data_add">학습자료추가</a>&nbsp; <a
+                                data-asm_add="01" href="javascript:;" class="btn btn_w asm_add">과제추가</a> <a
+                                data-quiz_add="01" href="javascript:;" class="btn btn_w quiz_add">퀴즈추가</a></p></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+        <p class="center_box">
+            <a href="javascript:;" class="btn btn_bs les_add">차시추가</a>
+        </p>
+
+
+        <div class="board_btn">
+            <span></span>
+            <span>
 								<a class="regist_btn" href="javascript:;" onclick="writeDo();">등록</a>&nbsp;
 							</span>
-						</div><!-- //board_btn -->
-						
-						
-						<div id="portfolioPop_layer" class="managerPop_layer">
-							<iframe id="portfolioPop_frame" src="http://crhs.aimind.co.kr/course/portfolio/list.lay" frameborder="0" scrolling="yes" title=""></iframe>
-						</div>
-						
-						<div id="htmlPop_layer" class="htmlPop_layer">
-							<iframe id="htmlPop_frame" src="about:blank;" frameborder="0" scrolling="yes" title=""></iframe>
-						</div>
-
-</div><!-- //container -->
-
-		<div id="footer">
-				<div class="footer_box">		
-					<h5 class="hidden">주소&amp;카피라이트</h5>
-					<div class="footer_logo">
-						<img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
-					</div><!-- //footer_logo -->
-					
-
-					<div class="copyright">
-						<ul>
-							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/privacyPolicy.pop', 'privacy', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">개인정보처리방침</a></li>
-							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/stipulation.pop', 'stipulation', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">서비스 이용약관</a></li>
-							<li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/rejectEmail.pop', 'email', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">이메일주소 무단수집거부</a></li>
-						</ul>		
-						
-
-						<address>경기도 부천시 양지로 205 서영아너시티2 913호 (주)에듀웍스<br>
-						TEL) 032-872-3072~4, FAX) 032-872-3060<br>
-						Copyright by Eduwalks. All rights reserved.</address>
-					</div><!-- //copyright -->
-				</div><!-- //footer_box -->
-			</div><!-- //footer --></div><!-- //wrapper -->
+        </div><!-- //board_btn -->
 
 
-</body></html>
+        <div id="portfolioPop_layer" class="managerPop_layer">
+            <iframe id="portfolioPop_frame" src="http://crhs.aimind.co.kr/course/portfolio/list.lay" frameborder="0"
+                    scrolling="yes" title=""></iframe>
+        </div>
+
+        <div id="htmlPop_layer" class="htmlPop_layer">
+            <iframe id="htmlPop_frame" src="about:blank;" frameborder="0" scrolling="yes" title=""></iframe>
+        </div>
+
+    </div><!-- //container -->
+
+    <div id="footer">
+        <div class="footer_box">
+            <h5 class="hidden">주소&amp;카피라이트</h5>
+            <div class="footer_logo">
+                <img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
+            </div><!-- //footer_logo -->
+
+
+            <div class="copyright">
+                <ul>
+                    <li><a href="javascript:;"
+                           onclick="window.open('http://crhs.aimind.co.kr/popup/privacyPolicy.pop', 'privacy', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">개인정보처리방침</a>
+                    </li>
+                    <li><a href="javascript:;"
+                           onclick="window.open('http://crhs.aimind.co.kr/popup/stipulation.pop', 'stipulation', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">서비스
+                        이용약관</a></li>
+                    <li><a href="javascript:;"
+                           onclick="window.open('http://crhs.aimind.co.kr/popup/rejectEmail.pop', 'email', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">이메일주소
+                        무단수집거부</a></li>
+                </ul>
+
+
+                <address>경기도 부천시 양지로 205 서영아너시티2 913호 (주)에듀웍스<br>
+                    TEL) 032-872-3072~4, FAX) 032-872-3060<br>
+                    Copyright by Eduwalks. All rights reserved.
+                </address>
+            </div><!-- //copyright -->
+        </div><!-- //footer_box -->
+    </div><!-- //footer --></div><!-- //wrapper -->
+
+
+</body>
+</html>

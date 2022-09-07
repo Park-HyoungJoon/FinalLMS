@@ -12,6 +12,6 @@ public class lectureController {
 
     @GetMapping(value="/lecture")
     public String Home(){
-        return "lecture";
+        return "lecture/lecture";
     }
 }

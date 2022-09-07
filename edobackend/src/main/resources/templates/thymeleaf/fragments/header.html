@@ -6,270 +6,203 @@
 </head>
 <body>
 <div id="header" th:fragment="fragment-nav">
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img class="school_logo"
-             src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png"
-             alt="">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-              aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a th:href="@{/lecture}" target="_self"
-               title="강좌 메뉴 링크" class="button">강좌</a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/}" target="_self"
-               title="포트폴리오 메뉴 링크" class="button">포트폴리오</a>
-          </li>
-          <li class="nav-item">
-            <a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self"
-               title="공지/소식 메뉴 링크" class="button">커뮤니티</a>
-          </li>
-          <li class="nav-item">
-            <a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크"
-               class="button">소개</a>
-          </li>
-          <li class="nav-item">
-            <a href="http://crhs.aimind.co.kr/edub/experience/request.do" class="button">체험하기</a>
-          </li>
-        </ul>
-        <span>
-                             <a type="button" class="button" data-bs-toggle="modal" data-bs-target="#modal"
-                                     style="width:100px; margin:0 0 0 5px;" sec:authorize="!isAuthenticated()">Login</a>
-                        </span>
-
-        <span>
-                            <a href="http://crhs.aimind.co.kr/join/joinStep1.htm">회원가입</a>
-                        </span>
-      </div>
-    </div>
-  </nav>
-  <div class="gnb_box">
-    <div class="clear"></div>
-  </div><!-- //gnb_box -->
-  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="2000">
-        <img src="http://crhs.aimind.co.kr/upload/2022/06/14/96872a00625998ff734e4f4fe640ef70.png"
-             alt="이미지1">
-      </div>
-      <div class="carousel-item" data-bs-interval="2000">
-        <img src="http://crhs.aimind.co.kr/upload/2022/06/14/2530d18288fe9f9912ad6ac8db6a3125.png"
-             alt="이미지2">
-      </div>
-      <div class="carousel-item">
-        <img src="http://crhs.aimind.co.kr/upload/2022/06/14/f27a4a1ee105a1a43add0a13f6739620.png"
-             alt="이미지3">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
-            data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
-            data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <!-- 모달 시작
-
-
-   -->
-
-  <div id="modal" class="modal fade">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content rounded-5 shadow">
-        <div class="modal-header p-5 pb-4 border-bottom-0">
-          <!-- <h5 class="modal-title">Modal title</h5> -->
-          <h2 class="fw-bold mb-0">로그인</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body p-5 pt-0">
-          <form th:action="@{/login}" method="post">
-            <div class="form-floating mb-3">
-              <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com"
-                     name="username" style="width: 400px;">
-              <label for="floatingInput" >Email address</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password"
-                     name="password" style="width: 400px; ">
-              <label for="floatingPassword" >Password</label>
-            </div>
-            <button class="w-100 mb-2 btn btn-lg rounded-4" type="submit"
-                    style="color: #2E8E46; border-color: #2E8E46;">Sign in</button>
-          </form>
-
-          <small class="text-muted"> <a href="/joinFrom">회원가입</a> | <a data-bs-toggle="modal" href="#modal2"
-                                                                       onclick="zz()">비밀번호 찾기</a></small>
-          <!-- <button data-bs-toggle="modal" data-bs-target="#modal2" data-bs-dismiss="modal">dddd</button> -->
-          <hr class="my-4">
-          <h2 class="fs-5 fw-bold mb-3">Or</h2>
-          <form method="get" th:action="@{/oauth2/authorization/google}">
-            <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-4" type="submit">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google"
-                   viewBox="0 0 16 16">
-                <path
-                        d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
-              </svg>
-              Sign up with google
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img class="school_logo"
+                     src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png"
+                     alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-          </form>
-          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" type="submit">
-            <svg class="bi me-1" width="16" height="16">
-              <use xlink:href="#facebook" />
-            </svg>
-            Sign up with Facebook
-          </button>
-          <!-- <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-4" type="submit">
-          <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"/></svg>
-          Sign up with GitHub
-        </button>-->
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a href="/lecture" target="_self"
+                           title="강좌 메뉴 링크" class="button">강좌</a>
+                    </li>
+                    <li class="nav-item">
+                        <a th:href="@{/}" target="_self"
+                           title="포트폴리오 메뉴 링크" class="button">포트폴리오</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self"
+                           title="공지/소식 메뉴 링크" class="button">커뮤니티</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크"
+                           class="button">소개</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://crhs.aimind.co.kr/edub/experience/request.do" class="button">체험하기</a>
+                    </li>
+                </ul>
+                <span>
+                             <a type="button" class="button" href="/login">Login</a>
+                        </span>
+
+                <span>
+                            <a href="/memberjoin">회원가입</a>
+                        </span>
+            </div>
         </div>
-      </div>
+    </nav>
+    <div class="gnb_box">
+        <div class="clear"></div>
+    </div><!-- //gnb_box -->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="2000">
+                <img src="http://crhs.aimind.co.kr/upload/2022/06/14/96872a00625998ff734e4f4fe640ef70.png"
+                     alt="이미지1">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="http://crhs.aimind.co.kr/upload/2022/06/14/2530d18288fe9f9912ad6ac8db6a3125.png"
+                     alt="이미지2">
+            </div>
+            <div class="carousel-item">
+                <img src="http://crhs.aimind.co.kr/upload/2022/06/14/f27a4a1ee105a1a43add0a13f6739620.png"
+                     alt="이미지3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-  </div>
 
-  <!-- 모달끝
-
-
--->
     <script type="text/javascript">
 
-      var emailconfirm = document.getElementById("sendmail");
-      var sendmail_text = document.getElementById("sendmail_text");
-      var sendmailvar = document.getElementById('btt');
-      var btn = document.getElementById('aa');
-      var mes = document.getElementById("mes");
+        var emailconfirm = document.getElementById("sendmail");
+        var sendmail_text = document.getElementById("sendmail_text");
+        var sendmailvar = document.getElementById('btt');
+        var btn = document.getElementById('aa');
+        var mes = document.getElementById("mes");
 
-      var fild1 = document.getElementById("fild_1");
-      var fild2 = document.getElementById("fild_2");
-      var fild3 = document.getElementById("fild_3");
+        var fild1 = document.getElementById("fild_1");
+        var fild2 = document.getElementById("fild_2");
+        var fild3 = document.getElementById("fild_3");
 
-      var fild1_t = document.getElementById("fild_1_text");
-      var fild2_t = document.getElementById("fild_2_text");
-      var fild3_t = document.getElementById("fild_3_text");
+        var fild1_t = document.getElementById("fild_1_text");
+        var fild2_t = document.getElementById("fild_2_text");
+        var fild3_t = document.getElementById("fild_3_text");
 
-      function zz() {
-        mes.style.display = 'none';
-        sendmailvar.style.display = 'flex';
-        emailconfirm.style.display = 'flex';
-        sendmail_text.style.display = 'flex';
+        function zz() {
+            mes.style.display = 'none';
+            sendmailvar.style.display = 'flex';
+            emailconfirm.style.display = 'flex';
+            sendmail_text.style.display = 'flex';
 
-        fild1.style.display = 'none';
-        fild1_t.style.display = 'none';
+            fild1.style.display = 'none';
+            fild1_t.style.display = 'none';
 
-        fild2.style.display = 'none';
-        fild2_t.style.display = 'none';
+            fild2.style.display = 'none';
+            fild2_t.style.display = 'none';
 
-        fild3.style.display = 'none';
-        fild3_t.style.display = 'none';
-      }
-
-
-
-      //var sendemaildata = { sendemail : $("#sendemail").val()};
-
-      sendmailvar.addEventListener('click', function () {
-        var xhr = new XMLHttpRequest();
-        var value = 'sendmail=' + emailconfirm.value;
-        console.log(value);
-        //alert("a");
-
-        xhr.open('POST', '/sendmail', true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        console.log(value);
-        xhr.send(value); /// ajax data부분
-        xhr.onload = function () {
-          if (xhr.status == 200) {
-            //alert(xhr.response);
-            if (xhr.response != 'false') {
-              mes.style.display = 'none';
-              sendmailvar.style.display = 'none';
-              emailconfirm.style.display = 'none';
-              sendmail_text.style.display = 'none';
-
-
-              fild1.style.display = 'flex';
-              fild1_t.style.display = 'flex';
-
-              fild2.style.display = 'flex';
-              fild2_t.style.display = 'flex';
-
-              fild3.style.display = 'flex';
-              fild3_t.style.display = 'flex';
-            } else {
-              mes.style.display = 'flex';
-            }
-          }
+            fild3.style.display = 'none';
+            fild3_t.style.display = 'none';
         }
-      })
 
-      function btnSubmit() {
-        var xhr = new XMLHttpRequest();
-        var value = {
-          'email': emailconfirm.value,
-          'pass': fild_1.value,
-        };
-        var jsonString = JSON.stringify(value);
 
-        //alert("a");
-        xhr.open('POST', '/passchange', true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(jsonString); /// ajax data부분
+        //var sendemaildata = { sendemail : $("#sendemail").val()};
 
-        xhr.onload = function () {
-          if (xhr.status == 200) {
-            //alert(xhr.response);
-            if (xhr.response == 'true') {
-              if (fild_2.value == fild_3.value) {
-                //////////////////////////////////////////////////////////////
-                var x = new XMLHttpRequest();
-                var v = {
-                  'email': emailconfirm.value,
-                  'pw': fild_2.value,
-                };
+        sendmailvar.addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            var value = 'sendmail=' + emailconfirm.value;
+            console.log(value);
+            //alert("a");
 
-                var js = JSON.stringify(v);
+            xhr.open('POST', '/sendmail', true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            console.log(value);
+            xhr.send(value); /// ajax data부분
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    //alert(xhr.response);
+                    if (xhr.response != 'false') {
+                        mes.style.display = 'none';
+                        sendmailvar.style.display = 'none';
+                        emailconfirm.style.display = 'none';
+                        sendmail_text.style.display = 'none';
 
-                x.open('POST', '/pwchange', true);
-                x.setRequestHeader("Content-Type", "application/json");
-                x.send(js); /// ajax data부분
-                if (x.status == 200) {
-                  if (x.response == true) {
-                    alert("ㅂㅂ");
-                    return true;
-                  }
-                  else {
-                    alert("실패");
-                    return false;
-                  }
+
+                        fild1.style.display = 'flex';
+                        fild1_t.style.display = 'flex';
+
+                        fild2.style.display = 'flex';
+                        fild2_t.style.display = 'flex';
+
+                        fild3.style.display = 'flex';
+                        fild3_t.style.display = 'flex';
+                    } else {
+                        mes.style.display = 'flex';
+                    }
                 }
-
-                ////////////////////////////////////////////////////////////////
-              }
-              else {
-                alert("비밀번호가 다릅니다");
-                return false;
-              }
-            } else {
-              alert("인증번호가 다릅니다");
-              return false;
             }
-          }
-          return false;
+        })
+
+        function btnSubmit() {
+            var xhr = new XMLHttpRequest();
+            var value = {
+                'email': emailconfirm.value,
+                'pass': fild_1.value,
+            };
+            var jsonString = JSON.stringify(value);
+
+            //alert("a");
+            xhr.open('POST', '/passchange', true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(jsonString); /// ajax data부분
+
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    //alert(xhr.response);
+                    if (xhr.response == 'true') {
+                        if (fild_2.value == fild_3.value) {
+                            //////////////////////////////////////////////////////////////
+                            var x = new XMLHttpRequest();
+                            var v = {
+                                'email': emailconfirm.value,
+                                'pw': fild_2.value,
+                            };
+
+                            var js = JSON.stringify(v);
+
+                            x.open('POST', '/pwchange', true);
+                            x.setRequestHeader("Content-Type", "application/json");
+                            x.send(js); /// ajax data부분
+                            if (x.status == 200) {
+                                if (x.response == true) {
+                                    alert("ㅂㅂ");
+                                    return true;
+                                } else {
+                                    alert("실패");
+                                    return false;
+                                }
+                            }
+
+                            ////////////////////////////////////////////////////////////////
+                        } else {
+                            alert("비밀번호가 다릅니다");
+                            return false;
+                        }
+                    } else {
+                        alert("인증번호가 다릅니다");
+                        return false;
+                    }
+                }
+                return false;
+            }
+            return false;
         }
-        return false;
-      }
     </script>
 </div><!-- //header -->
 </div>
