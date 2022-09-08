@@ -3,6 +3,7 @@ package com.edo.user.entity;
 import javax.persistence.*;
 
 import com.edo.constant.Role;
+import com.edo.item.BaseTimeEntity;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,7 +17,7 @@ import com.edo.user.dto.UserDto;
 @NoArgsConstructor
 @Builder
 //회원
-public class Users {
+public class Users extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

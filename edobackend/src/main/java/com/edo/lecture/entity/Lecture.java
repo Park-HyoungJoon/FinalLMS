@@ -1,6 +1,8 @@
 package com.edo.lecture.entity;
 
+import com.edo.item.BaseTimeEntity;
 import com.edo.user.entity.Teacher;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 //강좌
-public class Lecture {
+public class Lecture extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lecture_id")
@@ -30,18 +32,25 @@ public class Lecture {
     private String lectureInfo;
     //신청시작일
     @Column(length = 8)
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
     private LocalDate startDate;
     //신청마감일
     @Column(length = 8)
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
     private LocalDate finalDate;
     //상시 신청 여부
     @Column(length = 1)
     private String subYN;
+    //분야
+    @Column(length = 10)
+    private String lecturePart;
     //운영 시작일
     @Column(length = 8)
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
     private LocalDate manageStartDate;
     //운영 종료일
     @Column(length = 8)
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
     private LocalDate manageFinalDate;
     //상시 운영 여부
     @Column(length = 1)

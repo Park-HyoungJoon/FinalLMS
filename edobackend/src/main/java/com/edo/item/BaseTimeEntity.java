@@ -1,6 +1,7 @@
 package com.edo.item;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,8 +27,10 @@ public abstract class BaseTimeEntity {
 
     @CreatedDate
     @Column(updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd HH:mm:ss" , timezone = "Asia/Seoul")
     private LocalDateTime regTime;
 
     @LastModifiedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd HH:mm:ss" , timezone = "Asia/Seoul")
     private LocalDateTime updateTime;
 }

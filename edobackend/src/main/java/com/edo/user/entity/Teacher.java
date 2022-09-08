@@ -1,5 +1,6 @@
 package com.edo.user.entity;
 
+import com.edo.item.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 //강사
-public class Teacher {
+public class Teacher extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
