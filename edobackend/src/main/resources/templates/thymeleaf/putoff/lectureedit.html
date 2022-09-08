@@ -1,3 +1,4 @@
+<!--
 <html lang="ko">
 <head>
     <title>AiMind에 오신 것을 환영합니다.</title>
@@ -235,14 +236,14 @@
                     html += '   <a class="num" href="javascript:;" onclick="javascript:commentPaging(' + pageNo + ');">' + pageNo + '</a>';
                 }
             }
-            html += '  </div><!-- //num_box -->';
+            html += '  </div>&lt;!&ndash; //num_box &ndash;&gt;';
             if (pagingInfo.hasNextPage) {
                 html += '  <a class="num next" href="javascript:;" onclick="javascript:commentPaging(' + pagingInfo.nextPageNo + ');">페이지 다음으로</a>';
             }
             if (pagingInfo.hasLastPage) {
                 html += '  <a class="num end" href="javascript:;" onclick="javascript:commentPaging(' + pagingInfo.lastPageNo + ');">페이지 맨끝으로</a>';
             }
-            html += ' </div><!-- //paging -->';
+            html += ' </div>&lt;!&ndash; //paging &ndash;&gt;';
             //html += '</div>';
             return html;
         }
@@ -864,7 +865,7 @@
                         <li><a href="http://crhs.aimind.co.kr/index.htm">홈</a></li>
                         <li><a href="javascript:;" onclick="logoutDo();return false;">로그아웃</a></li>
                     </ul>
-                </div><!-- //spot_menu -->
+                </div>&lt;!&ndash; //spot_menu &ndash;&gt;
                 <div class="clear"></div>
                 <form id="logoutProcessForm" name="logoutProcessForm" action="http://crhs.aimind.co.kr/logout.do"
                       method="post" onsubmit="javascript:return logoutDo();">
@@ -891,15 +892,15 @@
 
                     <a class="mypage"
                        href="http://crhs.aimind.co.kr/mypage/portfolio/list.htm?menu=100"><span>마이페이지</span></a>
-                </div><!-- //gnb -->
+                </div>&lt;!&ndash; //gnb &ndash;&gt;
                 <hr>
 
                 <div class="main_visual_tit">
-                </div><!-- //main_visual_tit -->
+                </div>&lt;!&ndash; //main_visual_tit &ndash;&gt;
                 <hr>
-            </div><!-- //main_visual_in -->
-        </div><!-- //main_visual -->
-    </div><!-- //header -->
+            </div>&lt;!&ndash; //main_visual_in &ndash;&gt;
+        </div>&lt;!&ndash; //main_visual &ndash;&gt;
+    </div>&lt;!&ndash; //header &ndash;&gt;
     <div id="container">
         <h3 style="background:url(http://crhs.aimind.co.kr/images/menu_icon.png) no-repeat 530px 6px">강좌</h3>
         <hr>
@@ -907,7 +908,7 @@
 
         <div class="lecture_box">
             <p class="tit_in">
-                <!-- <span class="school3">고등학교</span>&nbsp; -->
+                &lt;!&ndash; <span class="school3">고등학교</span>&nbsp; &ndash;&gt;
                 <span class="lecture_field">데이터분석</span>
                 &nbsp;&nbsp;<span class="highlighter">강좌 제목</span>
                 &nbsp;&nbsp;<span class="finish_lec">(완료/전체 : 0/0)</span>
@@ -932,9 +933,9 @@
                         </script>
 
 
-                    </div><!-- //movie_area -->
+                    </div>&lt;!&ndash; //movie_area &ndash;&gt;
 
-                </div><!-- //lecture_area_l -->
+                </div>&lt;!&ndash; //lecture_area_l &ndash;&gt;
 
                 <div class="lecture_area_r">
                     <div class="lecture_area_r_box">
@@ -969,10 +970,10 @@
 
                             </tbody>
                         </table>
-                    </div><!-- //lecture_area_r_box -->
-                </div><!-- //lecture_area_r -->
+                    </div>&lt;!&ndash; //lecture_area_r_box &ndash;&gt;
+                </div>&lt;!&ndash; //lecture_area_r &ndash;&gt;
 
-            </div><!-- //lecture_box_in -->
+            </div>&lt;!&ndash; //lecture_box_in &ndash;&gt;
 
             <div class="lecture_box_b">
                 <table class="board_base" summary="게시판 목록입니다.">
@@ -1076,7 +1077,7 @@
                     </table>
                 </form>
                 <div class="board_btn board_btn_r">
-							
+
 							<span>
 								<a class="btn btn_gray_off_s" href="javascript:;"
                                    onclick="chkCompletion();">선택 이수 처리</a>
@@ -1121,7 +1122,7 @@
 
                 <div id="comment_paging">
                     <div class="paging">
-                        <div class="num_box" id="divNumBox"></div><!-- //num_box --> </div><!-- //paging --></div>
+                        <div class="num_box" id="divNumBox"></div>&lt;!&ndash; //num_box &ndash;&gt; </div>&lt;!&ndash; //paging &ndash;&gt;</div>
 
 
                 <div class="board_btn">
@@ -1129,9 +1130,9 @@
                 </div>
 
 
-            </div><!-- //lecture_box_b -->
+            </div>&lt;!&ndash; //lecture_box_b &ndash;&gt;
 
-        </div><!-- //lecture_box -->
+        </div>&lt;!&ndash; //lecture_box &ndash;&gt;
 
         <form id="defaultForm" name="defaultForm">
             <input type="hidden" name="menu" value="110">
@@ -1223,19 +1224,19 @@
                     }
                 } else {
                     if (lStatus != 'C04' && ltStatus == 'C04') {
-                        lCnt--;
+                        lCnt&#45;&#45;;
                     }
                 }
             });
         </script>
 
-    </div><!-- //container -->
+    </div>&lt;!&ndash; //container &ndash;&gt;
 
     <div id="footer">
         <div class="footer_box">
             <div class="footer_logo">
                 <img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
-            </div><!-- //footer_logo -->
+            </div>&lt;!&ndash; //footer_logo &ndash;&gt;
 
 
             <div class="copyright">
@@ -1256,10 +1257,10 @@
                     TEL) 032-872-3072~4, FAX) 032-872-3060<br>
                     Copyright by Eduwalks. All rights reserved.
                 </address>
-            </div><!-- //copyright -->
-        </div><!-- //footer_box -->
-    </div><!-- //footer --></div><!-- //wrapper -->
+            </div>&lt;!&ndash; //copyright &ndash;&gt;
+        </div>&lt;!&ndash; //footer_box &ndash;&gt;
+    </div>&lt;!&ndash; //footer &ndash;&gt;</div>&lt;!&ndash; //wrapper &ndash;&gt;
 
 
 </body>
-</html>
+</html>-->

@@ -31,13 +31,11 @@ public class Lecture extends BaseTimeEntity {
     @Column(length = 20)
     private String lectureInfo;
     //신청시작일
-    @Column(length = 8)
-    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
-    private LocalDate startDate;
+    @Column(columnDefinition = "timestamp")
+    private LocalDateTime startDate;
     //신청마감일
-    @Column(length = 8)
-    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
-    private LocalDate finalDate;
+    @Column(columnDefinition = "timestamp")
+    private LocalDateTime finalDate;
     //상시 신청 여부
     @Column(length = 1)
     private String subYN;
@@ -45,13 +43,11 @@ public class Lecture extends BaseTimeEntity {
     @Column(length = 10)
     private String lecturePart;
     //운영 시작일
-    @Column(length = 8)
-    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
-    private LocalDate manageStartDate;
+    @Column(columnDefinition = "timestamp")
+    private LocalDateTime manageStartDate;
     //운영 종료일
-    @Column(length = 8)
-    @JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-mm-dd" , timezone = "Asia/Seoul")
-    private LocalDate manageFinalDate;
+    @Column(columnDefinition = "timestamp")
+    private LocalDateTime manageFinalDate;
     //상시 운영 여부
     @Column(length = 1)
     private String manageYN;

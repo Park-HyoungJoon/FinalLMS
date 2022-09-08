@@ -18,10 +18,16 @@ public class lectureController {
 
     @GetMapping(value="/lecture/add")
     public String lectureAdd2() {
-        return "lectureAdd";
+        return "lecture/lectureAdd";
     }
     @PostMapping(value="/lecture/add")
     public String lectureAdd() {
-        return "lectureAdd";
+        return "lecture/lectureAdd";
     }
+
+    @GetMapping(value="/lecture/contents")
+    public String lectureContents() {
+        return "/lecture/lectureContents";
+    }
+
 }

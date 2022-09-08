@@ -1,0 +1,9 @@
+diff a/edobackend/src/main/java/com/edo/lecture/controller/lectureController.java b/edobackend/src/main/java/com/edo/lecture/controller/lectureController.java	(rejected hunks)
+@@ -12,7 +12,6 @@
+ 
+     @GetMapping(value="/lecture")
+     public String Home(){
+-        return "lecture";
+         return "lecture/lecture";
+     }
+ }
