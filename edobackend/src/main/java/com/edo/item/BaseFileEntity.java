@@ -1,6 +1,8 @@
 package com.edo.item;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -8,16 +10,17 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
 @EntityListeners(value = {AuditingEntityListener.class})
-@MappedSuperclass
 @Getter
+@Setter
+@MappedSuperclass
 public abstract class BaseFileEntity {
     @Column(length = 255)
-    private String FileName;
+    public String fileName;
     @Column(length = 255)
-    private String FileLoc;
+    private String fileLoc;
     @Column(length = 255)
-    private String Thumbnail;
-    private Long FileSize;
+    private String thumbnail;
+    private Long fileSize;
     @Column(length = 1)
-    private String FileType;
+    private String fileType;
 }

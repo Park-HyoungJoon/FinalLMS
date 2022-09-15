@@ -2,6 +2,7 @@ package com.edo.lecture.entity;
 
 import com.edo.item.BaseFileEntity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -9,8 +10,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 //강의자료 파일
 /**
@@ -26,4 +27,15 @@ public class LectureContentsFile extends BaseFileEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_contents_id")
     private LectureContents lectureContents;
+
+
+    public LectureContentsFile toLectureContentsFile(String originalFileName,long fileSize,String fileLoc,String fileType){
+        LectureContentsFile lectureContentsFile = new LectureContentsFile();
+        lectureContentsFile.setFileName(originalFileName);
+        lectureContentsFile.setFileLoc(fileLoc);
+        lectureContentsFile.setFileType(fileType);
+        lectureContentsFile.setFileSize(fileSize);
+        return lectureContentsFile;
+    }
 }
+
