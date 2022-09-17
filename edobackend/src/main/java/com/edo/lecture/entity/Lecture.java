@@ -32,10 +32,10 @@ public class Lecture extends BaseTimeEntity {
     private String lectureInfo;
     //신청시작일
     @Column(columnDefinition = "timestamp")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     //신청마감일
     @Column(columnDefinition = "timestamp")
-    private LocalDateTime finalDate;
+    private LocalDate finalDate;
     //상시 신청 여부
     @Column(length = 1)
     private String subYN;
@@ -44,10 +44,10 @@ public class Lecture extends BaseTimeEntity {
     private String lecturePart;
     //운영 시작일
     @Column(columnDefinition = "timestamp")
-    private LocalDateTime manageStartDate;
+    private LocalDate manageStartDate;
     //운영 종료일
     @Column(columnDefinition = "timestamp")
-    private LocalDateTime manageFinalDate;
+    private LocalDate manageFinalDate;
     //상시 운영 여부
     @Column(length = 1)
     private String manageYN;

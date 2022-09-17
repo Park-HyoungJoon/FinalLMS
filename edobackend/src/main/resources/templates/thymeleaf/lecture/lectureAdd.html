@@ -9,11 +9,11 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
 
 <body>
-<form th:action="@{/lecture/add}" method="post">
+<form th:action="@{/lecture/add}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 		<div style="display: block">
 			<label  class="form-label">강좌명</label> <input
-				type="text" class="form-control" id="Nick" name="Nick"
-			th:placeholder="gd" required>
+				type="text" class="form-control" id="lectureTitle" name="lectureTitle"
+			th:placeholder="닉네임" required>
 			<!--th:placeholder="${user[0].Nick}" required>-->
 			<div class="invalid-feedback">Valid first name is required.</div>
 		</div>
@@ -43,18 +43,18 @@
 			-
 			<select id="startDateMonth" name="startDateMonth">
 				<option>month</option>
-				<option value="01">(01) January</option>
-				<option value="02">(02) February</option>
-				<option value="03">(03) March</option>
-				<option value="04">(04) April</option>
-				<option value="05">(05) May</option>
-				<option value="06">(06) June</option>
-				<option value="07">(07) July</option>
-				<option value="08">(08) August</option>
-				<option value="09">(09) September</option>
-				<option value="10">(10) October</option>
-				<option value="11">(11) November</option>
-				<option value="12">(12) December</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
 			</select>
 			-
 			<select id="startDateDay" name="startDateDay">
@@ -101,18 +101,18 @@
 			-
 			<select id="finalDateMonth" name="finalDateMonth">
 				<option>month</option>
-				<option value="01">(01) January</option>
-				<option value="02">(02) February</option>
-				<option value="03">(03) March</option>
-				<option value="04">(04) April</option>
-				<option value="05">(05) May</option>
-				<option value="06">(06) June</option>
-				<option value="07">(07) July</option>
-				<option value="08">(08) August</option>
-				<option value="09">(09) September</option>
-				<option value="10">(10) October</option>
-				<option value="11">(11) November</option>
-				<option value="12">(12) December</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
 			</select>
 			-
 			<select id="finalDateDay" name="finalDateDay">
@@ -165,18 +165,18 @@
 			-
 			<select id="manageStartDateMonth" name="manageStartDateMonth">
 				<option>month</option>
-				<option value="01">(01) January</option>
-				<option value="02">(02) February</option>
-				<option value="03">(03) March</option>
-				<option value="04">(04) April</option>
-				<option value="05">(05) May</option>
-				<option value="06">(06) June</option>
-				<option value="07">(07) July</option>
-				<option value="08">(08) August</option>
-				<option value="09">(09) September</option>
-				<option value="10">(10) October</option>
-				<option value="11">(11) November</option>
-				<option value="12">(12) December</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
 			</select>
 			-
 			<select id="manageStartDateDay" name="manageStartDateDay">
@@ -223,18 +223,18 @@
 			-
 			<select id="manageFinalDateMonth" name="manageFinalDateMonth">
 				<option>month</option>
-				<option value="01">(01) January</option>
-				<option value="02">(02) February</option>
-				<option value="03">(03) March</option>
-				<option value="04">(04) April</option>
-				<option value="05">(05) May</option>
-				<option value="06">(06) June</option>
-				<option value="07">(07) July</option>
-				<option value="08">(08) August</option>
-				<option value="09">(09) September</option>
-				<option value="10">(10) October</option>
-				<option value="11">(11) November</option>
-				<option value="12">(12) December</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
 			</select>
 			-
 			<select id="manageFinalDateDay" name="manageFinalDateDay">
@@ -279,7 +279,7 @@
 	</div>
 		<div style="display:block;">
 			<img id="preImage"/><!--src="${pageContext.request.contextPath}/saveFile/${noticeVO.filename}" alt="image_title" onerror='this.src="${pageContext.request.contextPath}/images/no_img.jpg"'-->
-			<input type='file' id="lectureImg" name="lectureImg"/>
+			<input type='file' id="realLectureImg" name="realLectureImg"/>
 		</div>
 
 	<div style="display:block;">
@@ -289,7 +289,7 @@
 
 	<div style="display:block;">
 		<label>강사이름</label>
-		<input type='text' id="name" name="name" placeholder="강사이름"/>
+		<input type='text' id="teacherName" name="teacherName" placeholder="강사이름"/>
 	</div>
 		<div class="col-12">
 			<label  class="form-label">강사소개 </label>
@@ -298,7 +298,7 @@
 
 	<div style="display:block;">
 		<img id="teacherload"/><!--src="${pageContext.request.contextPath}/saveFile/${noticeVO.filename}" alt="image_title" onerror='this.src="${pageContext.request.contextPath}/images/no_img.jpg"'-->
-		<input type='file' id="teacherImg" name="teacherImg"/>
+		<input type='file' id="realTeacherImg" name="realTeacherImg"/>
 	</div>
 
 	<div class="form-group">
