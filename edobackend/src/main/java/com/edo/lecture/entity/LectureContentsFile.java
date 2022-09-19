@@ -1,8 +1,7 @@
 package com.edo.lecture.entity;
 
-import com.edo.item.BaseFileEntity;
+import com.edo.util.item.BaseFileEntity;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 

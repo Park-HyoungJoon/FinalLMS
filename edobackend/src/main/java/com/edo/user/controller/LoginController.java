@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @CrossOrigin
 @Controller
 @RequiredArgsConstructor
-public class loginController {
+public class LoginController {
 
     @GetMapping(value="/login")
     public String Login(){

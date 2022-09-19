@@ -1,15 +1,10 @@
 package com.edo.lecture.entity;
 
-import com.edo.item.BaseTimeEntity;
-import com.edo.user.entity.Teacher;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Getter
 @Setter

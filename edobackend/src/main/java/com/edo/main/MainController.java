@@ -1,4 +1,4 @@
-package com.edo.user.controller;
+package com.edo.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;

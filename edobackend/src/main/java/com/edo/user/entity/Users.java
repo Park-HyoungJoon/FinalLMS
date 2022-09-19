@@ -3,7 +3,7 @@ package com.edo.user.entity;
 import javax.persistence.*;
 
 import com.edo.constant.Role;
-import com.edo.item.BaseTimeEntity;
+import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

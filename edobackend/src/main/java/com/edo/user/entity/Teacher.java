@@ -1,6 +1,6 @@
 package com.edo.user.entity;
 
-import com.edo.item.BaseTimeEntity;
+import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;

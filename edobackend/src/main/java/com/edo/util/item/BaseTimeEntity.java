@@ -1,4 +1,4 @@
-package com.edo.item;
+package com.edo.util.item;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
