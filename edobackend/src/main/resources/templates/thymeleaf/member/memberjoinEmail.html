@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>로그인</title>
+    <title>회원가입</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="Pragma" content="no-cache"/>
@@ -39,6 +39,11 @@
     <script>
         if (top != window) {
             top.location = window.location;
+        }
+    </script>
+    <script type="text/javascript">
+        function initEmailCheck(){
+
         }
     </script>
 </head>
@@ -80,7 +85,7 @@
                         </li>
                     </ul>
                     <span>
-                    <a href="http://crhs.aimind.co.kr/login.htm">login</a>
+                    <a href="/login">login</a>
                 </span>
 
                     <span class="paddingleft">
@@ -122,32 +127,116 @@
     </div>
 </div>
 <div id="container">
-    <div class="log_form">
-        <h4 class="log_tt">
-            <div class="login_icon">
-                <img src="http://crhs.aimind.co.kr/images/login_icon.png" alt="자물쇠사진">
-            </div>
-            <div class="login_title">
-                <p>로그인</p>
-                <p>이메일과 비밀번호를 입력해주세요.</p>
-            </div>
-        </h4>
-        <div class="log_area">
-            <form id="loginPageForm" name="loginPageForm" action="http://crhs.aimind.co.kr/login.htm" method="post" onsubmit="return loginDo('loginPageForm');">
-                <div class="log_in">
-
-                    <div class="iparea ip_id"><input id="email" name="email" tabindex="1" onkeypress="javascript:enPress();" placeholder="이메일" hname="이메일" required="Y" type="text" value=""></div>
-                    <div class="iparea ip_pass"><input id="password" name="password" tabindex="2" onkeypress="javascript:enPress();" placeholder="비밀번호" hname="비밀번호" required="Y" type="password" value=""></div>
-                </div>
-                <p class="ip_submit"><a href="javascript:;" onclick="login();" class="button btn_login">로그인</a></p>
 
 
-            </form>
-        </div>
-        <div style="margin:20px auto 0 auto;text-align:center;">
-            <!-- <input type="button" class="button gray" style="width:199px;" onclick="#'" value="아이디/비밀번호 찾기"> -->
-            <input type="button" class="button gray" style="width:198px;" onclick="memberEnter();" value="회원가입">
-        </div>
+        <h3>회원가입</h3>
+
+        <form id="joinForm" name="joinForm" action="http://crhs.aimind.co.kr/join/joinStep2.htm" method="post" onsubmit="return formCheck();">
+            <table class="board_base board_color board_login" summary="게시판 목록입니다.">
+                <colgroup>
+                    <col width="130px">
+                    <col width="*">
+                </colgroup>
+                <tbody><tr>
+                    <th>· 이메일</th>
+                    <td>
+                        <input id="email" name="email" class="text text_s text_ss" title="이메일" onfocus="initEmailCheck()" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="emailDuplCheck();return false;">중복확인</a>
+
+                    </td>
+                </tr>
+                <tr class="firstsite site" style="display: none;">
+                    <th>· 권한</th>
+                    <td>
+                        <select id="memberRank" name="memberRank">
+                            <option value="">권한</option>
+
+
+                            <option value="R10">학생</option>
+
+
+
+                            <option value="R20">교사</option>
+
+
+
+                            <option value="R30">교직원</option>
+
+
+
+
+
+                        </select>
+
+                    </td>
+                </tr>
+                <tr class="firstsite site" style="display: none;">
+                    <th>· 비밀번호</th>
+                    <td>
+                        <input id="password" name="password" class="text text_s text_ss" title="비밀번호" type="password" value="">&nbsp;&nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &amp;, *, (, ), _, +)를 <br> 포함해야 합니다. 숫자의 경우 연속으로 5자를 초과하여 사용할 수 없습니다.</p>
+
+                    </td>
+                </tr>
+                <tr class="firstsite site" style="display: none;">
+                    <th>· 비밀번호 확인</th>
+                    <td>
+                        <input id="password2" name="password2" class="text text_s text_ss" title="비밀번호 확인" type="password" value="">
+
+                    </td>
+                </tr>
+
+                <tr class="firstsite site" style="display: none;">
+                    <th>· 학년</th>
+                    <td>
+                        <select name="memberGroup">
+                            <option value="">선택하세요.</option>
+
+                            <option value="11">1학년</option>
+
+                            <option value="12">2학년</option>
+
+                            <option value="13">3학년</option>
+
+                        </select>
+                    </td>
+                </tr>
+
+                <tr class="firstsite site" style="display: none;">
+                    <th>· 학번</th>
+                    <td>
+                        <input id="studentId" name="studentId" class="text text_s" title="학번" onfocus="initStudentIdCheck()" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="studentIdDuplCheck();return false;">중복확인</a>
+                        &nbsp;&nbsp;예)1학년 3반 10번&gt;10310
+
+                    </td>
+                </tr>
+                <tr class="firstsite" style="display: none;">
+                    <th>· 닉네임</th>
+                    <td>
+                        <input id="nickName" name="nickName" class="text text_s" title="닉네임" onfocus="initNickNameCheck()" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="nickNameDuplCheck();return false;">중복확인</a>
+
+                    </td>
+                </tr>
+                <tr class="firstsite" style="display: none;">
+                    <th>· 이름</th>
+                    <td>
+                        <input id="name" name="name" class="text text_s" title="이름" type="text" value="">
+
+                    </td>
+                </tr>
+                <tr class="firstsite" style="display: none;">
+                    <th>· 연락처</th>
+                    <td>
+                        <input id="contact" name="contact" class="text text_s text_ss" title="연락처" type="text" value="">
+
+                    </td>
+                </tr>
+
+                </tbody></table>
+        </form>
+
+
+        <div class="board_btn board_btn_c firstsite site" style="display: none;">
+            <span><a class="join_btn" href="javascript:;" onclick="joinDo();">회원가입</a></span>
+        </div><!-- //board_btn -->
 
     </div>
 </div><!-- //container -->
