@@ -9,12 +9,7 @@ input[type=password]::placeholder {
 }
 
 /* 메인비주얼 영역 */
-/*
-.main_visual{width:100%;height:425px;background:url(../images/sub_visual.png) no-repeat left top;}
-.main_visual_in{margin:0 auto;width:1200px;}
-.main_visual_in h1{font-size:30px;font-weight:400;color:#fff;text-align:center;}
-.main_visual_tit{margin:-20px 0 0 200px;height:160px;background:url(../images/sub_title.png) no-repeat left top;}
-*/
+
 .main_visual_in{margin:0 auto;}
 .main_image{position:absolute;left:0;top:0;width:1903px;height:420px;}
 .main_image img{width:100%;height:420px;}
@@ -22,7 +17,7 @@ input[type=password]::placeholder {
 /* .main_visual_tit{position:absolute;left:340px;top:248px;width:578px;height:160px;background:url(../images/sub_title.png) no-repeat left top;} */
 
 /* 컨테이너 영역 */
-#container{margin:0 auto;padding:40px 0 25px 0;width:1200px;margin:221px auto 45px auto;}
+#container{margin:0 auto;padding:40px 0 25px 0;width:1200px;margin:50px auto 45px auto;}
 /* 로그인 영역 */
 .login_box{margin:0;  border:1px solid #dbdbdb; background:#ffffff; padding:50px 50px 50px 50px;overflow:hidden;}
 .log_tt{margin-bottom:30px; font-size:15px;}
