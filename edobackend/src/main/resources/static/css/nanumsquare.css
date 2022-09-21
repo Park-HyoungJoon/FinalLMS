@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'NanumSquare';
+    font-weight: 300;
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.eot);
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.eot?#iefix) format('embedded-opentype'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.woff) format('woff'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'NanumSquare';
+    font-weight: 400;
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareR.eot);
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareR.eot?#iefix) format('embedded-opentype'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareR.woff) format('woff'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareR.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'NanumSquare';
+    font-weight: 500;
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareB.eot);
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareB.eot?#iefix) format('embedded-opentype'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareB.woff) format('woff'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareB.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'NanumSquare';
+    font-weight: 600;
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareEB.eot);
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareEB.eot?#iefix) format('embedded-opentype'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareEB.woff) format('woff'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareEB.ttf) format('truetype');
+}

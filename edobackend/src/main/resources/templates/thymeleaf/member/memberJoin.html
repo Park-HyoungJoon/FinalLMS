@@ -56,90 +56,10 @@
 
 </head>
 <body class = "vsc-initialized">
-<!-- 네비게이션 바-->
-<div id = "wraper">
-    <div id="header">
-        <nav class="navbar navbar-expand-lg navbar-light ">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img class="school_logo"
-                         src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png" alt="">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a href="http://crhs.aimind.co.kr/course/list.htm?menu=10" target="_self" title="강좌 메뉴 링크"
-                               class="cate">강좌</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://crhs.aimind.co.kr/portfolio/list.htm?menu=20" target="_self"
-                               title="포트폴리오 메뉴 링크" class="cate">포트폴리오</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self" title="공지/소식 메뉴 링크"
-                               class="cate">커뮤니티</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크"
-                               class="cate">소개</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="http://crhs.aimind.co.kr/edub/experience/request.do">체험하기</a>
-                        </li>
-                    </ul>
-                    <span>
-                    <a href="http://crhs.aimind.co.kr/login.htm">로그인</a>
-                </span>
-
-                    <span class="paddingleft">
-                    <a href="http://crhs.aimind.co.kr/join/joinStep1.htm">회원가입</a>
-                </span>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
-
-<!--        캐러셀 -->
-<div class="gnb_box">
-    <div class="clear"></div>
-</div>
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="2000">
-            <img src="http://crhs.aimind.co.kr/upload/2022/06/14/96872a00625998ff734e4f4fe640ef70.png"
-                 alt="이미지1">
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="http://crhs.aimind.co.kr/upload/2022/06/14/2530d18288fe9f9912ad6ac8db6a3125.png"
-                 alt="이미지2">
-        </div>
-        <div class="carousel-item">
-            <img src="http://crhs.aimind.co.kr/upload/2022/06/14/f27a4a1ee105a1a43add0a13f6739620.png"
-                 alt="이미지3">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
-            data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
-            data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
-</div>
-</div>
+<!--    header   -->
+<div th:replace="/fragments/header.html :: fragment-nav"></div>
 
 <div id="container">
-
-
     <form class="board_login" name="joinForm" id="joinForm" method="post" action="http://www.aimind.co.kr/join/joinStep1.htm" target="_self" onsubmit="return formCheck();">
         <fieldset>
             <span class="tit_in_s">서비스 이용약관</span>

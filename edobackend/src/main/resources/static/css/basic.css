@@ -23,7 +23,6 @@ input[type=password]::placeholder {
 
 /* 컨테이너 영역 */
 #container{margin:0 auto;padding:40px 0 25px 0;width:1200px;margin:221px auto 45px auto;}
-
 /* 로그인 영역 */
 .login_box{margin:0;  border:1px solid #dbdbdb; background:#ffffff; padding:50px 50px 50px 50px;overflow:hidden;}
 .log_tt{margin-bottom:30px; font-size:15px;}
