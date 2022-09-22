@@ -25,7 +25,7 @@ public class UsersController {
 // 이메일 등록
     @GetMapping(value="/memberjoinInfo")
     public String MemberjoinInfo(){
-        return "memberjoinInfo";
+        return "member/memberjoinInfo";
     }
 
     // 마이페이지
