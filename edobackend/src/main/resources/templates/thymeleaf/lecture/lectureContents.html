@@ -12,6 +12,19 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
 </head>
 <body>
+<div data-name="fileDiv" class="form-group">
+    <label  class="form-label mt-4">영상등록</label>
+
+    <button type="button" onclick="addFile()"
+            class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+    <button type="button" onclick="removeFile(this)"
+            class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+        <i class="fa fa-minus" aria-hidden="true"></i>
+
+    </button>
+    <textarea id="video1" name="url1"></textarea>
 <div data-name="contentsDiv">
     <div style="display: block">
     <label>차시제목</label>
@@ -36,9 +49,11 @@
           <button id="nextButton">버튼</button>
     </div>
 </div>
+</div>
 
 
-
+<!--dropzone 과 form 버튼 클릭 시 ajax를 이용해 해당 정보를 보내는 이벤트, dropzone의 경우 submit 시 processQueue가 작동해
+쌓여있던 데이터가 보내진다.-->
 <script>
     Dropzone.autoDiscover = false;
 
@@ -97,7 +112,106 @@
         } );
 </script>
 <script>
+    let fileIdx = 1; /*[- 파일 인덱스 처리용 전역 변수 -]*/
 
+    function addFile() {
+
+        const fileDivs = $('div[data-name="fileDiv"]');
+        if (fileDivs.length > 4) {
+            alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
+            return false;
+        }
+
+        fileIdx++;
+
+        const fileHtml = `
+    <div data-name="fileDiv" class="form-group">
+		<button type="button" onclick="removeFile(this)"
+			class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+			<i class="fa fa-minus" aria-hidden="true"></i>
+		</button>
+<div data-name="contentsDiv">
+    <div style="display: block">
+    <label>차시제목</label>
+    <input type="text" name="lectureDevideTitle${fileIdx}" id="lectureDevideTitle${fileIdx}></div>
+    <div style="display:block;">
+    <label>강의제목</label>
+    <input type="text" name="lectureContentsTitle${fileIdx}" id="lectureContentsTitle${fileIdx}"></div>
+    <div style="display: block">
+        <label>강의 파일</label>
+            <form action="/upload" method="post" class="dropzone"
+                  enctype="multipart/form-data" >
+                <div id="fileDropzone">
+                <div class="dz-message needsclick">
+                    Dropfiles here or click to upload.
+                </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <label class="form-label mt-4">강의 설명</label>
+                <div id="lectureContentsInfo"></div>
+            </div>
+    </div>
+</div>
+</div>
+`;
+
+
+        $('#nextButton').before(fileHtml);
+
+        ClassicEditor
+            .create( document.querySelector('#contents'+fileIdx), {
+                mediaEmbed: {
+                    previewsInData: true
+                }
+            })
+
+
+    }
+
+    function removeFile(elem) {
+
+        const prevTag = $(elem).prev().prop('tagName');
+        if (prevTag === 'BUTTON') {
+            theEditor.setData('');
+            return false;
+        }
+        if(fileIdx===0){
+
+        }else{
+            $(elem).parent().remove();
+        }
+        fileIdx--;
+    }
+</script>
+
+<script>
+    let theEditor;
+
+    ClassicEditor
+        .create( document.querySelector( "#video1" ), {
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .then(video =>{
+            theEditor = video;
+        })
+        .catch( error => {
+            console.error( error );
+        } );
+
+
+
+    ClassicEditor
+        .create( document.querySelector( "#contents" ), {
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .catch( error => {
+            console.error( error );
+        } )
 
 </script>
 </html>

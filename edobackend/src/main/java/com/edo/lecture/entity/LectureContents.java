@@ -23,23 +23,9 @@ public class LectureContents {
     @JoinColumn(name = "lecture_devide_id")
     private LectureDivide lectureDivide;
 
-    //파일타입
-    @Column(length = 1)
-    private String lectureContentsType;
-
     //강의자료 제목
     @Column(length = 255)
     private String lectureContentsTitle;
 
-    //파일 타입이 URL인 경우
-    @Column(columnDefinition = "TEXT")
-    private String lectureContentsUrl;
-
-    //파일 타입이 youtube_url인 경우
-    @Column(columnDefinition = "TEXT")
-    private String lctureContentsYoutubeUrl;
-
-    //파일 타입이 HHTML인 경우
-    @Column(columnDefinition = "TEXT")
-    private String lectureContentsHtml;
+    private String lectureContentsFileName;
 }

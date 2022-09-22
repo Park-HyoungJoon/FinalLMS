@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @CrossOrigin
 @Controller
@@ -83,6 +85,7 @@ public class LectureController {
         //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
         lectureAddDto.setLectureImg(lectureAddDto.getRealLectureImg().getOriginalFilename());
         file = new File(resourcePath+filePath+lectureAddDto.getRealTeacherImg().getOriginalFilename());
+        //Entity transfer(파일)
         lectureAddDto.getRealTeacherImg().transferTo(file);
         lectureAddDto.setTeacherImg(lectureAddDto.getRealTeacherImg().getOriginalFilename());
 
@@ -105,6 +108,21 @@ public class LectureController {
     @PostMapping(value="/lecture/contents")
     public String LectureContentsAdd() {
         return "/";
-
     }
+/*    @PostMapping(value="/upload" , consumes = "multipart/form-data")
+    public void upload(@RequestParam("file") @RequestPart(value="file",required = false) List<MultipartFile> files)
+            throws Exception {
+        for(MultipartFile file : files) {
+            String originalFileName = file.getOriginalFilename();
+            LectureContentsService.save(originalFileName);
+            String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
+            File saveFile = new File(resourcePath+filePath+originalFileName);
+            File Folder = new File(resourcePath+filePath);
+            if(!Folder.exists()){
+                Folder.mkdir();
+            }
+            file.transferTo(dest);
+            log.info("uploaded file " + file.getOriginalFilename());
+        }
+    }*/
 }
