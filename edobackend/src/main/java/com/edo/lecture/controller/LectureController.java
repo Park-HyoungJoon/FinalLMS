@@ -30,7 +30,7 @@ public class LectureController {
     }
 
     @GetMapping(value="/lecture/add")
-    public String lectureAdd2() {
+    public String LectureAdd2() {
         return "lecture/lectureAdd";
     }
 
@@ -45,7 +45,7 @@ public class LectureController {
      * @throws IOException
      */
     @PostMapping(value="/lecture/add" , consumes = "multipart/form-data")
-    public String lectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException {
+    public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException {
         /**
          * 접수기간
          * StrToTime 설명은 lectureAddDto 클래스에 있다.
@@ -98,8 +98,13 @@ public class LectureController {
     }
 
     @GetMapping(value="/lecture/contents")
-    public String lectureContents() {
+    public String LectureContents() {
         return "/lecture/lectureContents";
     }
 
+    @PostMapping(value="/lecture/contents")
+    public String LectureContentsAdd() {
+        return "/";
+
+    }
 }

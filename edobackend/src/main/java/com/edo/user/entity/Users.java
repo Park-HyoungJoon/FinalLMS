@@ -5,7 +5,6 @@ import javax.persistence.*;
 import com.edo.constant.Role;
 import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.edo.user.dto.UserDto;
 
@@ -50,7 +49,10 @@ public class Users extends BaseTimeEntity {
     //image url 주소를 넣을예정
     @Column(columnDefinition = "LONGTEXT")
 	private String imageUrl;
-
+/*
+    시큐리티 설정을 지웠기에 일단 주석처리(다시 사용할 예정)
+    유저를 회원가입 할 때 비밀번호르 암호화하는 메서드 
+    
     public static Users createUser(UserDto userDto, PasswordEncoder passwordEncoder){
         Users users = new Users();
         users.setName(userDto.getName());
@@ -59,5 +61,5 @@ public class Users extends BaseTimeEntity {
         String passwrod = passwordEncoder.encode(userDto.getPassword());
         users.setPassword(passwrod);
         return users;
-    }
+    }*/
 }
