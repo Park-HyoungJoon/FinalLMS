@@ -28,10 +28,28 @@
         }
     </script>
     <script type="text/javascript">
-        function initEmailCheck(){
+            // 이메일 중복 체크
+        function emailDuplCheck(){
 
         }
+        //비밀번호 체크. -> 뭔가 틀릴 경우 fasle, 맞는 경우 true로 해서 값 넘기는 거 추가...해야할듯
+        function passwordCheck() {;
+
+            let password = document.getElementById('password');
+            let passwordCheck = document.getElementById('passwordcheck');
+            if(password == passwordCheck){
+                alert("비밀번호가 일치합니다.")
+            }else{
+                alert("비밀번호를 다시 확인해주세요")
+            }
+        }
+
+        function joinDo(){
+        //    회원가입
+            window.location.href = '/';
+        }
     </script>
+
 </head>
 <body class="vsc-initialized">
 
@@ -50,11 +68,11 @@
                 <tbody><tr>
                     <th>· 이메일</th>
                     <td>
-                        <input id="email" name="email" class="text text_s text_ss" title="이메일" onfocus="initEmailCheck()" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="emailDuplCheck();return false;">중복확인</a>
+                        <input id="email" name="email" class="text text_s text_ss" title="이메일"type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="emailDuplCheck();return false;">중복확인</a>
 
                     </td>
                 </tr>
-                <tr class="firstsite site" style="display: none;">
+                <tr class="firstsite site" >
                     <th>· 권한</th>
                     <td>
                         <select id="memberRank" name="memberRank">
@@ -65,74 +83,47 @@
 
 
 
-                            <option value="R20">교사</option>
+                            <option value="R20">강사</option>
 
 
 
-                            <option value="R30">교직원</option>
-
-
-
-
+                            <option value="R30">관리자</option>
 
                         </select>
 
                     </td>
                 </tr>
-                <tr class="firstsite site" style="display: none;">
+                <tr class="firstsite site" >
                     <th>· 비밀번호</th>
                     <td>
                         <input id="password" name="password" class="text text_s text_ss" title="비밀번호" type="password" value="">&nbsp;&nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &amp;, *, (, ), _, +)를 <br> 포함해야 합니다. 숫자의 경우 연속으로 5자를 초과하여 사용할 수 없습니다.</p>
 
                     </td>
                 </tr>
-                <tr class="firstsite site" style="display: none;">
+                <tr class="firstsite site">
                     <th>· 비밀번호 확인</th>
                     <td>
-                        <input id="password2" name="password2" class="text text_s text_ss" title="비밀번호 확인" type="password" value="">
+                        <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인" type="password" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="passwordCheck();return false;">비밀번호 확인</a>
+
 
                     </td>
                 </tr>
 
-                <tr class="firstsite site" style="display: none;">
-                    <th>· 학년</th>
-                    <td>
-                        <select name="memberGroup">
-                            <option value="">선택하세요.</option>
-
-                            <option value="11">1학년</option>
-
-                            <option value="12">2학년</option>
-
-                            <option value="13">3학년</option>
-
-                        </select>
-                    </td>
-                </tr>
-
-                <tr class="firstsite site" style="display: none;">
-                    <th>· 학번</th>
-                    <td>
-                        <input id="studentId" name="studentId" class="text text_s" title="학번" onfocus="initStudentIdCheck()" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="studentIdDuplCheck();return false;">중복확인</a>
-                        &nbsp;&nbsp;예)1학년 3반 10번&gt;10310
-
-                    </td>
-                </tr>
-                <tr class="firstsite" style="display: none;">
+                <tr class="firstsite" >
                     <th>· 닉네임</th>
                     <td>
-                        <input id="nickName" name="nickName" class="text text_s" title="닉네임" onfocus="initNickNameCheck()" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="nickNameDuplCheck();return false;">중복확인</a>
+                        <input id="nickName" name="nickName" class="text text_s" title="닉네임" type="text" value="">&nbsp;<a class="btn btn_gray_on_s" href="javascript:;" onclick="nickNameDuplCheck();return false;">중복확인</a>
 
                     </td>
                 </tr>
-                <tr class="firstsite" style="display: none;">
+                <tr class="firstsite" >
                     <th>· 이름</th>
                     <td>
                         <input id="name" name="name" class="text text_s" title="이름" type="text" value="">
 
                     </td>
                 </tr>
-                <tr class="firstsite" style="display: none;">
+                <tr class="firstsite" >
                     <th>· 연락처</th>
                     <td>
                         <input id="contact" name="contact" class="text text_s text_ss" title="연락처" type="text" value="">
@@ -144,7 +135,7 @@
         </form>
 
 
-        <div class="board_btn board_btn_c firstsite site" style="display: none;">
+        <div class="board_btn board_btn_c firstsite site">
             <span><a class="join_btn" href="javascript:;" onclick="joinDo();">회원가입</a></span>
         </div><!-- //board_btn -->
 
