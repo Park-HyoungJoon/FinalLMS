@@ -20,4 +20,9 @@ public class CommunityController {
     public String CommunityMain(){
         return "community/communityMain";
     }
+
+    @GetMapping(value = "communitywrite")
+    public String CommunityWrite(){
+        return "community/communityWrite";
+    }
 }
