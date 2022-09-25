@@ -1,5 +1,6 @@
 package com.edo.community.entity;
 
+import com.edo.util.item.BaseFileEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,12 +12,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommunityFile {
+public class CommunityFile extends BaseFileEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "community_file_id")
-    private int communityFileId;
+    private Long communityFileId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "community_id")
-    private int communityId;
+    private Community communityId;
 }

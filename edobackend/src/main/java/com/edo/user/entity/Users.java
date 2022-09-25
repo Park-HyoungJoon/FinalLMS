@@ -30,7 +30,7 @@ public class Users extends BaseTimeEntity {
     @Column(length = 255)
     private String password;
 
-    //닉네임(Unique)
+    //닉네임(Unique)`
     @Column(unique = true , length = 10)
 	private String nickname;
 
@@ -51,7 +51,7 @@ public class Users extends BaseTimeEntity {
 	private String imageUrl;
 /*
     시큐리티 설정을 지웠기에 일단 주석처리(다시 사용할 예정)
-    유저를 회원가입 할 때 비밀번호르 암호화하는 메서드 
+    유저를 회원가입 할 때 비밀번호를 암호화하는 메서드 
     
     public static Users createUser(UserDto userDto, PasswordEncoder passwordEncoder){
         Users users = new Users();
