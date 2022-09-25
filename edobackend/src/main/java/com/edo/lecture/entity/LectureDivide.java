@@ -1,5 +1,6 @@
 package com.edo.lecture.entity;
 
+import com.edo.lecture.service.LectureContentsService;
 import lombok.*;
 
 import javax.persistence.*;

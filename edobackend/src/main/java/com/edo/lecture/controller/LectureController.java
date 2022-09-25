@@ -1,7 +1,14 @@
 package com.edo.lecture.controller;
 
 import com.edo.lecture.dto.LectureAddDto;
-import com.edo.lecture.service.LectureAddService;
+import com.edo.lecture.dto.LectureContentsAddDto;
+import com.edo.lecture.dto.LectureContentsDto;
+import com.edo.lecture.dto.LectureDivideDto;
+import com.edo.lecture.entity.LectureContents;
+import com.edo.lecture.entity.LectureDivide;
+import com.edo.lecture.service.LectureDivideService;
+import com.edo.lecture.service.LectureService;
+import com.edo.lecture.service.LectureContentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -24,7 +32,12 @@ public class LectureController {
     @Value("${part4.upload.path}")
     private String filePath;
     @Autowired
-    LectureAddService lectureAddService;
+    LectureService lectureService;
+    @Autowired
+    LectureDivideService lectureDivideService;
+
+    @Autowired
+    LectureContentsService lectureContentsService;
 
     @GetMapping(value="/lecture")
     public String Home(){
@@ -93,36 +106,51 @@ public class LectureController {
         lectureAddDto.setFinalDate(finalTime);
         lectureAddDto.setManageStartDate(manageStartTime);
         lectureAddDto.setManageFinalDate(manageFinalTime);
-        lectureAddService.lectureAdd(lectureAddDto);
-        //File dwst = new File("D:/file/"+lectureAdd.getLectureImg());
-        //lectureAdd.getLectureImg().tra
+        lectureService.lectureAdd(lectureAddDto);
 
+        model.addAttribute("LectureTitle",lectureAddDto.getLectureTitle());
         return "lecture/lectureContents";
     }
 
     @GetMapping(value="/lecture/contents")
-    public String LectureContents() {
+    public String LectureContents(@RequestParam String lectureTitle)
+    {
         return "/lecture/lectureContents";
     }
 
     @PostMapping(value="/lecture/contents")
-    public String LectureContentsAdd() {
-        return "/";
+    public String LectureContentsAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto) {
+        LectureDivideDto lectureDivideDto = new LectureDivideDto();
+        LectureContentsDto lectureContentsDto = new LectureContentsDto();
+        lectureDivideDto.setLectureTitle(lectureContentsAddDto.getLectureTitle());
+        LectureDivide lectureDivide = lectureDivideDto.lectureDivideDtoTolectureDivide(lectureDivideDto);
+        lectureDivideService.save(lectureDivide);
+        for (int i=0; i<lectureContentsAddDto.getLectureContentsInfo().length; i++){
+            String lectureContentsInfo = lectureContentsAddDto.getLectureContentsInfo()[i];
+            String lectureContentsTitle = lectureContentsAddDto.getLectureContentsTitle()[i];
+            lectureContentsDto.setLectureDivide(lectureDivide);
+            lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
+            lectureContentsDto.setLectrueContentsTitle(lectureContentsTitle);
+            LectureContents lectureContents = lectureContentsDto.lectureContentsDtoTolectureContents(lectureContentsDto);
+            lectureContentsService.save(lectureContents);
+        }
+        return "redirect:/lecture";
     }
-/*    @PostMapping(value="/upload" , consumes = "multipart/form-data")
-    public void upload(@RequestParam("file") @RequestPart(value="file",required = false) List<MultipartFile> files)
+    @PostMapping(value="/upload/{id}" , consumes = "multipart/form-data")
+    public void upload(@RequestParam("file") @RequestPart(value="file",required = false) List<MultipartFile> files
+    , @PathVariable("id") int id)
             throws Exception {
         for(MultipartFile file : files) {
             String originalFileName = file.getOriginalFilename();
-            LectureContentsService.save(originalFileName);
+            lectureContentsService.save(originalFileName);
             String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
             File saveFile = new File(resourcePath+filePath+originalFileName);
             File Folder = new File(resourcePath+filePath);
             if(!Folder.exists()){
                 Folder.mkdir();
             }
-            file.transferTo(dest);
+            //file.transferTo(dest);
             log.info("uploaded file " + file.getOriginalFilename());
         }
-    }*/
+    }
 }

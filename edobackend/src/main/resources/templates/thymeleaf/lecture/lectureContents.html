@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <title>Title</title>	<!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <link th:rel="stylesheet" th:href="@{/assets/dropzonejs/dropzone.css}" />
-    <link th:rel="stylesheet" th:href="@{/assets/toastr/toastr.min.css}" />
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    <script>
+        async function load() {
+            let say = await import('https://unpkg.com/dropzone@5/dist/min/dropzone.min.js');
+            say.dragend();
+            say.click();
+            say.dragenter();
+            say.dragover();
+            say.dragstart();
+            say.drop();
+            say.focus();
+        }
+    </script>
 </head>
 <body>
 <div data-name="fileDiv" class="form-group">
-    <label  class="form-label mt-4">영상등록</label>
-
-    <button type="button" onclick="addFile()"
+    <input type="hidden" th:name="lectureTItle" th:value="lectureTitle" id="lectureTitle"/>
+    <button type="button" onclick="addFile();load()"
             class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
@@ -24,96 +33,55 @@
         <i class="fa fa-minus" aria-hidden="true"></i>
 
     </button>
-    <textarea id="video1" name="url1"></textarea>
-<div data-name="contentsDiv">
-    <div style="display: block">
-    <label>차시제목</label>
-    <input type="text" name="lectureDevideTitle1" id="lectureDevideTitle1"></div>
-    <div style="display:block;">
-    <label>강의제목</label>
-    <input type="text" name="lectureContentsTitle1" id="lectureContentsTitle1"></div>
-    <div style="display: block">
-        <label>강의 파일</label>
-            <form action="/upload" method="post" class="dropzone"
-                  enctype="multipart/form-data" >
-                <div id="fileDropzone">
-                <div class="dz-message needsclick">
-                    Dropfiles here or click to upload.
+    <div data-name="contentsDiv">
+        <div style="display: block">
+            <label>차시제목</label>
+            <input type="text" name="lectureDivideTitle1" id="lectureDivideTitle1"></div>
+        <div style="display:block;">
+            <label>강의제목</label>
+            <input type="text" name="lectureContentsTitle1" id="lectureContentsTitle1"></div>
+        <div style="display: block">
+            <label>강의 파일</label>
+            <form th:action="@{/upload}" th:method="post" class="dropzone"
+                  enctype="multipart/form-data" id="dropzone1">
+                <div id="fileDropzone1">
+                    <div class="dz-message needsclick">
+                        Dropfiles here or click to upload.
+                    </div>
                 </div>
-                </div>
+                <input type="hidden" id="ContentsSeq1" value="1"/>
+                <input type="hidden" th:name="lectureTItle" th:value="lectureTitle" id="lectureTitle1"/>
             </form>
             <div class="form-group">
                 <label class="form-label mt-4">강의 설명</label>
-                <div id="lectureContentsInfo"></div>
+                <textarea name="content" id="editor1">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
             </div>
-          <button id="nextButton">버튼</button>
+            <button id="nextButton" class="nextButton">버튼</button>
+        </div>
     </div>
 </div>
-</div>
-
-
-<!--dropzone 과 form 버튼 클릭 시 ajax를 이용해 해당 정보를 보내는 이벤트, dropzone의 경우 submit 시 processQueue가 작동해
-쌓여있던 데이터가 보내진다.-->
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 <script>
-    Dropzone.autoDiscover = false;
-
-    $("#demo-upload").dropzone({
-        success : function(file, response) {
-            toastr.success('File ' + file.name + ' uploaded successfully');
-        }
-    });
-    let myDropzone = new Dropzone("div#fileDropzone",{
-        autoProcessQueue: false,
-        maxFiles: 20,
-        parallelUploads: 20,
-        uploadMultiple: true,
-    })
-    $("#nextButton").click(function() {
-        var lectureDivideTitle = $("#lectureDevideTitle1").val();
-
-        var lectureContentsTitle = $("#lectureContentsTitle1").val();
-        var lectureContentsInfo = $("#lectureContentsInfo").val();
-
-        var param = {
-            "lectureDivideTitle": lectureDivideTitle,
-            "lectureContentsTitle": lectureContentsTitle,
-            "lectureContentsInfo": lectureContentsInfo
-        }
-
-        $.ajax({
-            anyne: true,
-            type: 'POST',
-            data: JSON.stringify(param),
-            url: "/Lecture/contents",
-            dataType: "text",
-            success: function (data) {
-                myDropzone.processQueue();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("ERROR : " + textStatus + " : " + errorThrown);
-            }
-        });
-    })
+    Dropzone.autoDiscover=false;
 </script>
-</body>
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script th:src="@{/assets/dropzonejs/dropzone.min.js}"></script>
-<script th:src="@{/assets/toastr/toastr.min.js}"></script>
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-
 <script>
+    let editor =[];
     ClassicEditor
-        .create( document.querySelector( '#lectureContentsInfo' ) )
+        .create( document.querySelector( '#editor1' ) )
+        .then( newEditor => {
+            editor[1] = newEditor;
+        } )
         .catch( error => {
             console.error( error );
         } );
 </script>
-<script>
-    let fileIdx = 1; /*[- 파일 인덱스 처리용 전역 변수 -]*/
 
+<script th:inline="javascript">
+    let fileIdx = 1; /*[- 파일 인덱스 처리용 전역 변수 -]*/
     function addFile() {
 
         const fileDivs = $('div[data-name="fileDiv"]');
@@ -132,40 +100,53 @@
 		</button>
 <div data-name="contentsDiv">
     <div style="display: block">
-    <label>차시제목</label>
-    <input type="text" name="lectureDevideTitle${fileIdx}" id="lectureDevideTitle${fileIdx}></div>
-    <div style="display:block;">
     <label>강의제목</label>
     <input type="text" name="lectureContentsTitle${fileIdx}" id="lectureContentsTitle${fileIdx}"></div>
     <div style="display: block">
         <label>강의 파일</label>
-            <form action="/upload" method="post" class="dropzone"
-                  enctype="multipart/form-data" >
-                <div id="fileDropzone">
+            <form th:action="@{/upload/${fileIdx}" th:method="post" class="dropzone dz-clickable dropzone"
+                  enctype="multipart/form-data"  id="dropzone${fileIdx}">
+                <div id="fileDropzone${fileIdx}">
                 <div class="dz-message needsclick">
                     Dropfiles here or click to upload.
                 </div>
                 </div>
+                <input type="hidden" id="ContentsSeq${fileIdx}" value="${fileIdx}"/>
+                <input type="hidden" th:name="lectureTItle" th:value="lectureTitle" id="lectureTitle${fileIdx}"/>
             </form>
             <div class="form-group">
                 <label class="form-label mt-4">강의 설명</label>
-                <div id="lectureContentsInfo"></div>
+                                <textarea name="content${fileIdx}" id="editor${fileIdx}">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
             </div>
     </div>
 </div>
 </div>
 `;
+// If you use jQuery, you can use the jQuery plugin Dropzone ships with:
 
+        if ($('#dropzone'+fileIdx).length) {
+           $("#dropzone"+fileIdx).dropzone({
+                url:'upload/'+fileIdx,
+                autoProcessQueue: false,
+                maxFiles: 20,
+                parallelUploads: 20,
+                uploadMultiple: true,
 
+           });
+            // other code here
+        }
         $('#nextButton').before(fileHtml);
 
         ClassicEditor
-            .create( document.querySelector('#contents'+fileIdx), {
-                mediaEmbed: {
-                    previewsInData: true
-                }
-            })
-
+            .create( document.querySelector( '#editor'+fileIdx ) )
+            .then( newEditor => {
+                editor[fileIdx] = newEditor;
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
 
     }
 
@@ -185,33 +166,54 @@
     }
 </script>
 
-<script>
-    let theEditor;
+<!--dropzone 과 form 버튼 클릭 시 ajax를 이용해 해당 정보를 보내는 이벤트, dropzone의 경우 submit 시 processQueue가 작동해
+쌓여있던 데이터가 보내진다.-->
+<script th:inline="javascript">
 
-    ClassicEditor
-        .create( document.querySelector( "#video1" ), {
-            mediaEmbed: {
-                previewsInData: true
-            }
-        })
-        .then(video =>{
-            theEditor = video;
-        })
-        .catch( error => {
-            console.error( error );
-        } );
-
-
-
-    ClassicEditor
-        .create( document.querySelector( "#contents" ), {
-            mediaEmbed: {
-                previewsInData: true
-            }
-        })
-        .catch( error => {
-            console.error( error );
-        } )
-
+    let myDropzone = new Dropzone("#dropzone1",{
+        autoProcessQueue: false,
+        maxFiles: 20,
+        parallelUploads: 20,
+        uploadMultiple: true,
+    })
 </script>
+<script th:inline="javascript">
+    $(document).on("click",'#nextButton',function() {
+        alert('작동확인');
+        var lectureDivideTitle = $("#lectureDivideTitle1").val();
+        var lectureContentsTitle =[];
+        var lectureContentsInfo = [];
+        var lectureTitle = $("#lectureTitle").val();
+        for (var i =1; i<=fileIdx; i++){
+            lectureContentsInfo.push(editor[i].getData());
+            lectureContentsTitle.push($("#lectureContentsTitle"+i).val());
+        }
+        var param = {
+            "lectureDivideTitle": lectureDivideTitle,
+            "lectureContentsTitle": lectureContentsTitle,
+            "lectureContentsInfo": lectureContentsInfo,
+            "lectureTitle" : lectureTitle
+        }
+        console.log(param);
+
+        $.ajax({
+            anyne: true,
+            type: 'POST',
+            contentType : 'application/json',
+            data: JSON.stringify(param),
+            url: "/lecture/contents",
+            dataType: "text",
+            success: function (data) {
+                alert('성공');
+                myDropzone.processQueue();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("ERROR : " + textStatus + " : " + errorThrown);
+            }
+        });
+    })
+</script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
 </html>
