@@ -20,12 +20,12 @@ public class LectureContents {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lecture_devide_id")
+    @JoinColumn(name = "lecture_divide_id")
     private LectureDivide lectureDivide;
 
     //강의자료 제목
     @Column(length = 255)
     private String lectureContentsTitle;
 
-    private String lectureContentsFileName;
+    private String lectureContentsInfo;
 }

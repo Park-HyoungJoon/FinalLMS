@@ -2,17 +2,21 @@ package com.edo.lecture.dto;
 
 import com.edo.lecture.entity.LectureContents;
 import com.edo.lecture.entity.LectureDivide;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+@Getter
+@Setter
 public class LectureContentsDto {
     String lectrueContentsTitle;
-    String lectureContentsFile;
+    String lectureContentsInfo;
     LectureDivide lectureDivide;
-    MultipartFile ealLectureContentsFile;
 
-    public LectureContents lectureContentsDtoTolectureContents (LectureContentsDto lectureContentsDto){
+   public LectureContents lectureContentsDtoTolectureContents (LectureContentsDto lectureContentsDto){
         return LectureContents.builder().lectureContentsTitle(lectureContentsDto.lectrueContentsTitle)
-                .lectureContentsFileName(lectureContentsDto.lectureContentsFile)
-                .lectureDivide(lectureContentsDto.lectureDivide).build();
+                .lectureDivide(lectureContentsDto.lectureDivide)
+                .lectureContentsInfo(lectureContentsDto.lectureContentsInfo)
+                .build();
     }
 }
