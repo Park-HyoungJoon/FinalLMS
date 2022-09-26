@@ -62,7 +62,7 @@
 <!--            </form>-->
 <!--            <div class="form-group">-->
                 <label class="form-label mt-4"> 내용 </label>
-                <div id="communityDetail"></div>
+                <div id="editor1"></div>
             </div>
             <div align="center" style= "margin-top: 10px">   <button class="btn btn-secondary" id="nextButton">등록</button></div>
 
@@ -85,11 +85,12 @@
 <!--</script>-->
 <!--CK Editor 사용-->
 <script>
-    Dropzone.autoDiscover=false;
-</script>
-<script>
+    let editor;
     ClassicEditor
-        .create( document.querySelector( '#communityDetail' ) )
+        .create( document.querySelector( '#editor1' ) )
+        .then( newEditor => {
+            editor = newEditor;
+        } )
         .catch( error => {
             console.error( error );
         } );
@@ -138,8 +139,8 @@
     //     });
     // })
     $(document).on("click",'#nextButton',function(){
-        let communityTitle = document.getElementById('communityTitle')
-        let communityDetail = document.getElementById('communityDetail')
+        let communityTitle = $("#communityTitle").val();
+        let communityDetail = editor.getData()
         let param = {
             "communityTitle" :communityTitle,
             "communityDetail" : communityDetail
