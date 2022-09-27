@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>커뮤니티</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -46,9 +47,11 @@
 
     <!--  community field  -->
     <div id="container">
-        <div style="display:block;">
-            <label>제목</label>
-            <input type="text" name="communityTitle" id="communityTitle"></div>
+        <input style="display:block;">
+            <form role="form" method="post" enctype="multipart/form-data" th:object="${communityTestDto}">
+                <input type="hidden" th:field="*{communityId}"></input>
+                <label>제목</label>
+                <input type="text" th:field="*{communityTitle}" name="communityTitle" id="communityTitle"></input>
 <!--        파일 업로드 부분 -->
 <!--        <div style="display: block">-->
 <!--            <label>파일 업로드</label>-->
@@ -62,9 +65,11 @@
 <!--            </form>-->
 <!--            <div class="form-group">-->
                 <label class="form-label mt-4"> 내용 </label>
-                <div id="editor1"></div>
-            </div>
-            <div align="center" style= "margin-top: 10px">   <button class="btn btn-secondary" id="nextButton">등록</button></div>
+                <input type = textarea name="content" id="editor1" th:field="*{communityContents}">
+                </input>
+                <div align="center" style= "margin-top: 10px">   <button class="btn btn-secondary" id="nextButton" th:formaction="@{/communitywrite}">등록</button>
+                <input type="button" value="로그찍기" id="testButton"></input></div>
+    </form>
 
     </div>
     </div>
@@ -148,6 +153,12 @@
 
         console.log(param)
     });
+
+    document.getElementById("testButton").addEventListener("click", ()=> {
+        console.log("test");
+        const test = document.getElementById("editor1").value
+        console.log(test);
+    })
 </script>
 
 </body>

@@ -118,6 +118,15 @@
 			<artifactId>querydsl-apt</artifactId>
 		</dependency>
 
+<!--		modelmapper 의존성 추가 -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>
