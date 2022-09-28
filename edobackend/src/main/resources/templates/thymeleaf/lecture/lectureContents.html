@@ -121,7 +121,7 @@
 
 <!--submit의 이벤트를 잠시 멈추고 진행한 다음에 재전송하는 함수-->
 <script th:inline="javascript">
-    $("#nextButton").submit(function(event){
+    $("#uploadContents").submit(function(event){
         event.preventDefault();
         let lectureDivideTitle = $("#lectureDivideTitle1").val();
         let lectureContentsTitle =[];
@@ -137,24 +137,34 @@
             "lectureContentsInfo": lectureContentsInfo,
             "lectureTitle" : lectureTitle,
         }
-       let when =  $.ajax({
+        let isSubmit = false;
+           $.ajax({
             anyne: true,
             type: 'POST',
             contentType : 'application/json',
             data: JSON.stringify(param),
             url: "/lecture/contents",
             dataType: "text",
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("ERROR입니당 ^^: " + textStatus + " : " + errorThrown);
-            }
+               async:false,
+               success:function()
+               {
+                   var message = 'Success'
+
+                   // 결과값이 성공이면 전송 여부는 true
+                   if ( message == 'Success' )
+                   {
+                       isSubmit = true;
+                   }
+                   else
+                   {
+                       // 결과값이 실패이면 전송 여부는 false
+                       // 앞서 초기값을 false로 해 놓았지만 한번 더 선언을 한다.
+                       isSubmit = false;
+                   }
+               },
         });
-        $.when(when)
-            .done(function() {
-                event.currentTarget.submit();
-            })
+
+        if ( isSubmit ) this.submit();
     })
 </script>
 </body>
