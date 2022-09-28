@@ -1,10 +1,8 @@
 package com.edo.lecture.controller;
 
-import com.edo.lecture.dto.LectureAddDto;
-import com.edo.lecture.dto.LectureContentsAddDto;
-import com.edo.lecture.dto.LectureContentsDto;
-import com.edo.lecture.dto.LectureDivideDto;
+import com.edo.lecture.dto.*;
 import com.edo.lecture.entity.LectureContents;
+import com.edo.lecture.entity.LectureContentsFile;
 import com.edo.lecture.entity.LectureDivide;
 import com.edo.lecture.service.LectureDivideService;
 import com.edo.lecture.service.LectureService;
@@ -17,10 +15,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin
 @Controller
@@ -28,7 +29,9 @@ import java.time.LocalDate;
 @Log4j2
 public class LectureController {
     @Value("${part4.upload.path}")
-    private String filePath;
+    private String imgRoot;
+    @Value("${part5.upload.path}")
+    private String fileRoot;
     @Autowired
     LectureService lectureService;
     @Autowired
@@ -86,16 +89,17 @@ public class LectureController {
          * file
          */
         String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
-        File file = new File(resourcePath+filePath+lectureAddDto.getRealLectureImg().getOriginalFilename());
-        File Folder = new File(resourcePath+filePath);
+        File file = new File(resourcePath+imgRoot+lectureAddDto.getRealLectureImg().getOriginalFilename());
+        File Folder = new File(resourcePath+imgRoot);
         if(!Folder.exists()){
             Folder.mkdir();
         }
-        log.info(resourcePath+filePath+lectureAddDto.getRealLectureImg().getOriginalFilename());
+        log.info(resourcePath+imgRoot+lectureAddDto.getRealLectureImg().getOriginalFilename());
+        //lectureAddDto.getRealLectureImg를 통해 받아온 MultiPartFile을 file에 지정된 경로로 보낸다.
         lectureAddDto.getRealLectureImg().transferTo(file);
         //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
         lectureAddDto.setLectureImg(lectureAddDto.getRealLectureImg().getOriginalFilename());
-        file = new File(resourcePath+filePath+lectureAddDto.getRealTeacherImg().getOriginalFilename());
+        file = new File(resourcePath+imgRoot+lectureAddDto.getRealTeacherImg().getOriginalFilename());
         //Entity transfer(파일)
         lectureAddDto.getRealTeacherImg().transferTo(file);
         lectureAddDto.setTeacherImg(lectureAddDto.getRealTeacherImg().getOriginalFilename());
@@ -119,7 +123,7 @@ public class LectureController {
     }
 
     @PostMapping(value="/lecture/contents" )
-    public void LectureDivideAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto,Model model) {
+    public String LectureDivideAndContentsAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto,Model model) {
         LectureDivideDto lectureDivideDto = new LectureDivideDto();
         LectureContentsDto lectureContentsDto = new LectureContentsDto();
         lectureDivideDto.setLectureTitle(lectureContentsAddDto.getLectureTitle());
@@ -134,6 +138,8 @@ public class LectureController {
             LectureContents lectureContents = lectureContentsDto.lectureContentsDtoTolectureContents(lectureContentsDto);
             lectureContentsService.save(lectureContents);
         }
+        model.addAttribute(lectureContentsService.getNewContents());
+        return "lecture/lectureContents";
     }
     @GetMapping(value = "/contents/uploader")
     public void ContentsFileCreate(){
@@ -142,22 +148,32 @@ public class LectureController {
     @PostMapping(value="/contents/uploader", consumes = "multipart/form-data")
             public String ContentsFileCreate(@ModelAttribute FileVO fileVO)
             throws IOException {
-        int newContents = lectureContentsService.getNewContents();
-        log.info("/>.................................."+newContents);
-        log.info("?/////////////////////////////"+ fileVO.getContentsId());
+        Long newContents = lectureContentsService.getNewContents();
+        log.info("///////////////////////////////////!!!!!!!!!!!!!!!!!!!!!"+newContents);
+        String resourcePath = fileRoot;
+            //uuid를 통한 랜덤값 지정
+            UUID uuid = UUID.randomUUID();
+        List<MultipartFile> files = fileVO.ContentsFileToList(fileVO);
+            for (int i=0; i<files.size(); i++){
+                if(files.get(i)==null){
+                    continue;
+                }
+                String uuidFileName = uuid+"_"+files.get(i).getOriginalFilename();
+                File file = new File(fileRoot+uuidFileName);
+                //file에 폴더 존재여부 확인
+                File Folder = new File(resourcePath);
+                if(!Folder.exists()){
+                    Folder.mkdir();
+                }
+                files.get(i).transferTo(file);
+                LectureContentsFileDto lectureContentsFileDto = new LectureContentsFileDto();
+                lectureContentsFileDto.setUuidPath(uuidFileName);
+                LectureContentsFile lectureContentsfile = lectureContentsFileDto.toLectureContentsFile(
+                        files.get(i), lectureContentsService.getContentsById(newContents-(files.size()-i))
+                );
+                lectureContentsService.save(lectureContentsfile);
+            }
 
         return "redirect:/lecture";
-//        for(MultipartFile file : files) {
-//            String originalFileName = file.getOriginalFilename();
-//            lectureContentsService.save(originalFileName);
-//            String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
-//            File saveFile = new File(resourcePath+filePath+originalFileName);
-//            File Folder = new File(resourcePath+filePath);
-//            if(!Folder.exists()){
-//                Folder.mkdir();
-//            }
-            //file.transferTo(dest);
-      //      log.info("uploaded file " + file.getOriginalFilename());
-      //  }
     }
 }

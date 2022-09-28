@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LectureContentsRepository extends JpaRepository<LectureContents,Long> {
+
     @Query(value = "select MAX(lecture_contents_id) from lecture_contents ORDER BY lecture_contents_id desc",nativeQuery = true)
-    int newContents();
+    Long newContents();
 }

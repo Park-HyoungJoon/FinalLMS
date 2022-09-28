@@ -21,6 +21,6 @@ public abstract class BaseFileEntity {
     @Column(length = 255)
     private String thumbnail;
     private Long fileSize;
-    @Column(length = 1)
+    @Column(length = 255)
     private String fileType;
 }
