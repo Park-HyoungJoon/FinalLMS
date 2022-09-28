@@ -47,11 +47,13 @@
 
     <!--  community field  -->
     <div id="container">
-        <input style="display:block;">
+
             <form role="form" method="post" enctype="multipart/form-data" th:object="${communityTestDto}">
-                <input type="hidden" th:field="*{communityId}"></input>
+                <div style="display:block;">
+                <input type="hidden" th:name="communityId" th:value="communityId" id="communityId"/>
                 <label>제목</label>
                 <input type="text" th:field="*{communityTitle}" name="communityTitle" id="communityTitle"></input>
+        </div>
 <!--        파일 업로드 부분 -->
 <!--        <div style="display: block">-->
 <!--            <label>파일 업로드</label>-->
@@ -62,14 +64,20 @@
 <!--                        Dropfiles here or click to upload.-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--            </form>-->
+<!--            </form>`-->`
 <!--            <div class="form-group">-->
+                <div style="display:block;">
                 <label class="form-label mt-4"> 내용 </label>
                 <input type = textarea name="content" id="editor1" th:field="*{communityContents}">
                 </input>
-                <div align="center" style= "margin-top: 10px">   <button class="btn btn-secondary" id="nextButton" th:formaction="@{/communitywrite}">등록</button>
-                <input type="button" value="로그찍기" id="testButton"></input></div>
+                </div>
+                <div style="display:block;">
+                <div align="center" style= "margin-top: 10px">
+                    <input type = submit  value="등록" class="btn btn-secondary" id="nextButton" th:formaction="@{/communitywrite}" />
+                </div>
+
     </form>
+
 
     </div>
     </div>
@@ -143,22 +151,48 @@
     //         }
     //     });
     // })
-    $(document).on("click",'#nextButton',function(){
+
+    $(document).on("click",'#nextButton',function (event){
+        // event.preventDefault();
         let communityTitle = $("#communityTitle").val();
-        let communityDetail = editor.getData()
+        let communityDetail = [];
+        communityDetail.push(editor.getData())
         let param = {
             "communityTitle" :communityTitle,
-            "communityDetail" : communityDetail
+            "communityContents" : communityDetail
         }
 
         console.log(param)
-    });
 
-    document.getElementById("testButton").addEventListener("click", ()=> {
-        console.log("test");
-        const test = document.getElementById("editor1").value
-        console.log(test);
-    })
+       let c = $.ajax({
+            async: true,
+            type: 'POST',
+            contentType : 'application/json',
+            data: JSON.stringify(param),
+            url: "/communitywrite",
+            dataType: "text",
+            success: function (data) {
+                alert('성공');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("ERROR : " + textStatus + " : " + errorThrown);
+            }
+
+
+        });
+
+        $.when(c)
+            .done(function (data){
+                let message = data.message();
+                if(message == "성공"){
+                    event.currentTarget.submit();
+                }else {
+                    alert("오류가 난 건가")
+                }
+            })
+
+
+    });
 </script>
 
 </body>
