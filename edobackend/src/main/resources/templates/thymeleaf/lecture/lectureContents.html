@@ -12,7 +12,7 @@
 <div data-name="fileDiv" class="form-group">
     <input type="hidden" id="ContentsSeq1" name="ContentsSeq1" value="1"/>
     <input type="hidden" th:name="lectureTItle" th:value="lectureTitle" id="lectureTitle"/>
-    <input type="hidden" th:if="${ContentsId !=null}" th:name="ContentsId" th:value="${ContentsId}" id="ContentsId"/>
+    <input type="hidden" th:if="${contentsId !=null}" th:name="contentsId" th:value="${contentsId}" id="contentsId"/>
     <button type="button" onclick="addFile();"
             class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
         <i class="fa fa-plus" aria-hidden="true"></i>
@@ -146,8 +146,9 @@
             url: "/lecture/contents",
             dataType: "text",
                async:false,
-               success:function()
+               success:function(data)
                {
+                   alert('ERWERERWREW');
                    var message = 'Success'
 
                    // 결과값이 성공이면 전송 여부는 true

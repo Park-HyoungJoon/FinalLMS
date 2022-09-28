@@ -52,7 +52,7 @@
                 <div style="display:block;">
 <!--                <input type="hidden" th:name="communityId" th:value="communityId" id="communityId"/>-->
                 <label>제목</label>
-                <input type="text" th:field="*{communityTitle}" name="communityTitle" id="communityTitle"></input>
+                <input type="text" th:value="${communityTest.communityTitle}" name="communityTitle" id="communityTitle"></input>
         </div>
 <!--        파일 업로드 부분 -->
 <!--        <div style="display: block">-->
@@ -71,8 +71,7 @@
 <!--                    민주 코드-->
 <!--                <input type = textarea name="content" id="editor1" th:field="*{communityContents}">-->
 <!--                    형준 코드-->
-                    <textarea name="communityContents" id="editor1">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
+                    <textarea th:value="${communityTest.communityContent}" name="communityContents" id="editor1">
         </textarea>
                 </input>
                 </div>

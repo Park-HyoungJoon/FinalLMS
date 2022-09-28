@@ -17,8 +17,8 @@ public class LectureContentsService {
     public  void save(String originalFileName) {
     }
 
-    public void save(LectureContents lectureContents) {
-        lectureContentsRepository.save(lectureContents);
+    public LectureContents save(LectureContents lectureContents) {
+        return lectureContentsRepository.save(lectureContents);
     }
 
     //Contents 가장 최근 ID값 검색

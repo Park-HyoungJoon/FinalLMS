@@ -2,6 +2,10 @@ package com.edo.community.controller;
 
 
 import com.edo.community.dto.CommunityTestDto;
+import com.edo.community.entity.Community;
+import com.edo.community.entity.CommunityTest;
+import com.edo.community.repository.CommunityRepository;
+import com.edo.community.repository.CommunityTestRepository;
 import com.edo.community.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +30,8 @@ import javax.validation.Valid;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final CommunityTestRepository communityTestRepository;
+
 
     @GetMapping(value = "communitymain")
     public String CommunityMain(){
@@ -40,14 +46,32 @@ public class CommunityController {
 
 //    값 전달 되는지 테스트
     @PostMapping(value = "communitywrite")
-    public String communityWriteTest(@Valid CommunityTestDto communityTestDto, BindingResult bindingResult, Model model){
+    public String communityWriteTest(@Valid CommunityTestDto communityTestDto, Model model){
         log.info(communityTestDto.toString());
-        if(bindingResult.hasErrors()){
-//            에러 시 글 작성 페이지로 다시 돌아감
-            return "community/communityWrite";
-        }
+//
+//        if(bindingResult.hasErrors()){
+////            에러 시 글 작성 페이지로 다시 돌아감
+//            return "community/communityWrite";
+//        }
+
+        CommunityTest communityTest = new CommunityTest();
+        communityTest.setCommunityTitle(communityTestDto.getCommunityTitle());
+        communityTest.setCommunityContent(communityTestDto.getCommunityContents());
+        log.info(communityTest.toString());
+        communityTestRepository.save(communityTest);
 //          성공 시 메인 페이지로 돌아감
         return "community/communityMain";
     }
+
+    @GetMapping(value = "/communitywrite/1")
+    public String communityWrite(Model model){
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        CommunityTest communityTest = communityTestRepository.getById(1L);
+        log.info(communityTest.toString());
+
+        model.addAttribute("communityTest",communityTest);
+        return "community/communityWriteDetail";
+    }
+
 
 }

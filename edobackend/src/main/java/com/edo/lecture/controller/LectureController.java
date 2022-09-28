@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -129,6 +130,7 @@ public class LectureController {
         lectureDivideDto.setLectureTitle(lectureContentsAddDto.getLectureTitle());
         LectureDivide lectureDivide = lectureDivideDto.lectureDivideDtoTolectureDivide(lectureDivideDto);
         lectureDivideService.save(lectureDivide);
+        List<LectureContents> lectureContents3 = new ArrayList<>();
         for (int i=0; i<lectureContentsAddDto.getLectureContentsInfo().length; i++){
             String lectureContentsInfo = lectureContentsAddDto.getLectureContentsInfo()[i];
             String lectureContentsTitle = lectureContentsAddDto.getLectureContentsTitle()[i];
@@ -136,9 +138,13 @@ public class LectureController {
             lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
             lectureContentsDto.setLectrueContentsTitle(lectureContentsTitle);
             LectureContents lectureContents = lectureContentsDto.lectureContentsDtoTolectureContents(lectureContentsDto);
-            lectureContentsService.save(lectureContents);
+           lectureContents3.add(lectureContentsService.save(lectureContents));
         }
-        model.addAttribute(lectureContentsService.getNewContents());
+        lectureContents3.size();
+        log.info("////////////////////////////"+lectureContents3.size());
+        log.info("///////////2/"+lectureContents3.get(0).getId());
+//        model.addAttribute("contentsId",lectureContents3.get(0).getId())
+        
         return "lecture/lectureContents";
     }
     @GetMapping(value = "/contents/uploader")
