@@ -1,4 +1,5 @@
 <html lang="ko"><head>
+	<header>
 	<title>AiMind에 오신 것을 환영합니다.</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
 	<!-- CSS only -->
@@ -7,12 +8,16 @@
 	<link rel="stylesheet" type="text/css"
 		  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/lecture.css">
-	<link rel="stylesheet" type="text/css" href="css/footer.css">
 	<link rel="stylesheet" type="text/css" href="css/header.css">
 
-<body>
+		<!--달력-->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+	</header>
+<body>
 <form th:action="@{/lecture/add}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 		<div style="display: block">
 			<label  class="form-label">강좌명</label> <input
@@ -37,244 +42,18 @@
 
 		<div class="col-sm-6">
 			<label  class="form-label">접수기간</label>
-			<!--th:placeholder="${user[0].Nick}" required>-->
-			<select id="startDateYear" name="startDateYear">
-				<option>year</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-				<option value="2024">2024</option>
-			</select>
-			-
-			<select id="startDateMonth" name="startDateMonth">
-				<option>month</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>
-			-
-			<select id="startDateDay" name="startDateDay">
-				<option>day</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
-			~
-			<select id="finalDateYear" name="finalDateYear">
-				<option>year</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-				<option value="2024">2024</option>
-			</select>
-			-
-			<select id="finalDateMonth" name="finalDateMonth">
-				<option>month</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>
-			-
-			<select id="finalDateDay" name="finalDateDay">
-				<option>day</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
+			<input class="dateSelector"
+				   id="startDateAndfinalDate" name="startDateAndfinalDate"
+				   placeholder="ex) 2022-09-28 ~ 2022-09-30" style="width: 350px;"/>
 			<input type="checkbox" id="subyn" name="subyn"> 상시
 		</div>
 
 
 		<div class="col-sm-6">
 			<label  class="form-label">운영기간</label>
-			<!--th:placeholder="${user[0].Nick}" required>-->
-			<select id="manageStartDateYear" name="manageStartDateYear">
-				<option>year</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-				<option value="2024">2024</option>
-			</select>
-			-
-			<select id="manageStartDateMonth" name="manageStartDateMonth">
-				<option>month</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>
-			-
-			<select id="manageStartDateDay" name="manageStartDateDay">
-				<option>day</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
-			~
-			<select id="manageFinalDateYear" name="manageFinalDateYear">
-				<option>year</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-				<option value="2024">2024</option>
-			</select>
-			-
-			<select id="manageFinalDateMonth" name="manageFinalDateMonth">
-				<option>month</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-			</select>
-			-
-			<select id="manageFinalDateDay" name="manageFinalDateDay">
-				<option>day</option>
-				<option value="01">01</option>
-				<option value="02">02</option>
-				<option value="03">03</option>
-				<option value="04">04</option>
-				<option value="05">05</option>
-				<option value="06">06</option>
-				<option value="07">07</option>
-				<option value="08">08</option>
-				<option value="09">09</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-				<option value="26">26</option>
-				<option value="27">27</option>
-				<option value="28">28</option>
-				<option value="29">29</option>
-				<option value="30">30</option>
-				<option value="31">31</option>
-			</select>
+			<input class="dateSelector2"
+				   id="manageStartDateAndmanageFinalDate" name="manageStartDateAndmanageFinalDate"
+				   placeholder="ex) 2022-09-28 ~ 2022-09-30"  style="width: 350px;"/>
 			<input type="checkbox" id="manageyn" name="manageyn"> 상시
 		</div>
 	<div style="display: block">
@@ -322,6 +101,16 @@
 <!-- JavaScript Bundle with Popper -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
+	var dateSelector = document.querySelector('.dateSelector');dateSelector.flatpickr({  mode: "range",
+		minDate: "today",
+		dateFormat: "Y-m-d",
+	});
+	var dateSelector = document.querySelector('.dateSelector2');dateSelector.flatpickr({  mode: "range",
+		minDate: "today",
+		dateFormat: "Y-m-d",
+	});
+</script>
+<script type="text/javascript">
 	$(function() {
 		$("#filename").on('change', function(){
 			readURL(this);
@@ -337,7 +126,6 @@
 		}
 	}
 </script>
-
 <script>
 	ClassicEditor
 			.create( document.querySelector( '#lectureInfo' ) )

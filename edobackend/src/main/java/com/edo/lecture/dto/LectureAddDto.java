@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * StrToTime 객체는 lectureAdd.html에서 select 태그의 정보를 하나의 LocalDate로 합치기 위한 객체다.
@@ -30,19 +32,9 @@ public class LectureAddDto {
     String lecturePart;
     String lectureInfo;
     String lectureDetail;
-    String startDateYear;
-    String startDateMonth;
-    String startDateDay;
-    String finalDateYear;
-    String finalDateMonth;
-    String finalDateDay;
     String subyn;
-    String manageStartDateYear;
-    String manageStartDateMonth;
-    String manageStartDateDay;
-    String manageFinalDateYear;
-    String manageFinalDateMonth;
-    String manageFinalDateDay;
+    String startDateAndfinalDate;
+    String manageStartDateAndmanageFinalDate;
     String manageyn;
     String lectureTime;
     String lectureImg;
@@ -57,9 +49,11 @@ public class LectureAddDto {
     String lectureyn;
     MultipartFile realLectureImg;
     MultipartFile realTeacherImg;
-    public LocalDate StrToTime(String year, String month, String day){
-        String time = year+"-"+month+"-"+day;
-        LocalDate date = LocalDate.parse(time, DateTimeFormatter.ISO_LOCAL_DATE);
+    public List<LocalDate> StrToTime(String data){
+        String[] str = data.split(" ");
+        List<LocalDate> date = new ArrayList<>();
+        date.add(LocalDate.parse(str[0], DateTimeFormatter.ISO_LOCAL_DATE));
+        date.add(LocalDate.parse(str[2], DateTimeFormatter.ISO_LOCAL_DATE));
         return date;
     }
     public Lecture LectureAddDtoToLecture(LectureAddDto lectureAddDto){

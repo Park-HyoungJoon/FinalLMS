@@ -2,6 +2,7 @@ package com.edo.lecture.dto;
 
 import com.edo.lecture.entity.LectureContents;
 import com.edo.lecture.entity.LectureContentsFile;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class LectureContentsFileDto {
     String uuidPath;
 
-        public LectureContentsFile toLectureContentsFile(MultipartFile file, LectureContents lectureContents){
+
+
+    public LectureContentsFile toLectureContentsFile(MultipartFile file, LectureContents lectureContents){
             if(file==null){
                 return null;
             }

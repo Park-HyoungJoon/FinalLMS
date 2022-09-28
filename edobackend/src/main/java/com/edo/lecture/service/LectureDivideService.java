@@ -23,7 +23,8 @@ public class LectureDivideService {
         }
     }
 
-    public void save(LectureDivide lectureDivide) {
-        lectureDivideRepository.save(lectureDivide);
+    public LectureDivide save(LectureDivide lectureDivide) {
+
+        return lectureDivideRepository.save(lectureDivide);
     }
 }

@@ -19,9 +19,8 @@ public class FileVO {
     private MultipartFile lectureContentsFile4;
     private MultipartFile lectureContentsFile5;
     //JsonProperty를 사용하는 이유는 hidden type의 경우 json 형태로 날라오기 때문에 타입을 String으로 변경하기 위해 사용
-    @JsonProperty("ContentsId")
-    private String ContentstTitle;
-
+    @JsonProperty("ContentsSeq")
+    private String ContentsSeq;
     public List<MultipartFile> ContentsFileToList(FileVO fileVO){
         List<MultipartFile> list = new ArrayList<>();
 

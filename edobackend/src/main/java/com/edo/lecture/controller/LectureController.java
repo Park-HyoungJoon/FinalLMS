@@ -71,17 +71,9 @@ public class LectureController {
          *
          * subyn은 접수기간의 상시체크
          */
-        LocalDate startTime = lectureAddDto.StrToTime(lectureAddDto.getStartDateYear(), lectureAddDto.getStartDateMonth(), lectureAddDto.getStartDateDay());
-        LocalDate finalTime = lectureAddDto.StrToTime(lectureAddDto.getFinalDateYear(), lectureAddDto.getFinalDateMonth(), lectureAddDto.getFinalDateDay());
-        String subyn = lectureAddDto.getSubyn();
-
-        /**
-         * 운영기간
-         * manageyn은 운영기간의 상시체크
-         */
-        LocalDate manageStartTime = lectureAddDto.StrToTime(lectureAddDto.getManageStartDateYear(), lectureAddDto.getManageStartDateMonth(), lectureAddDto.getManageStartDateDay());
-        LocalDate manageFinalTime = lectureAddDto.StrToTime(lectureAddDto.getManageFinalDateYear(), lectureAddDto.getManageFinalDateMonth(), lectureAddDto.getManageFinalDateDay());
-        String manageyn = lectureAddDto.getManageyn();
+        log.info(lectureAddDto.getStartDateAndfinalDate());
+        List<LocalDate> subDate = lectureAddDto.StrToTime(lectureAddDto.getStartDateAndfinalDate());
+        List<LocalDate> manageDate = lectureAddDto.StrToTime(lectureAddDto.getManageStartDateAndmanageFinalDate());
 
         /**
          * resourcePath는 현재 프로젝트의 상대경로를 가져와 그 안에
@@ -107,10 +99,13 @@ public class LectureController {
 
         lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfo());
         log.info("?/////////////////////////////////////"+lectureAddDto.getLectureInfo());
-        lectureAddDto.setStartDate(startTime);
-        lectureAddDto.setFinalDate(finalTime);
-        lectureAddDto.setManageStartDate(manageStartTime);
-        lectureAddDto.setManageFinalDate(manageFinalTime);
+
+
+        lectureAddDto.setStartDate(subDate.get(0));
+        lectureAddDto.setFinalDate(subDate.get(1));
+        lectureAddDto.setManageStartDate(manageDate.get(0));
+        lectureAddDto.setManageFinalDate(manageDate.get(1));
+
         lectureService.lectureAdd(lectureAddDto);
 
         model.addAttribute("LectureTitle",lectureAddDto.getLectureTitle());
@@ -129,12 +124,12 @@ public class LectureController {
         LectureContentsDto lectureContentsDto = new LectureContentsDto();
         lectureDivideDto.setLectureTitle(lectureContentsAddDto.getLectureTitle());
         LectureDivide lectureDivide = lectureDivideDto.lectureDivideDtoTolectureDivide(lectureDivideDto);
-        lectureDivideService.save(lectureDivide);
+        LectureDivide getLectureDivide = lectureDivideService.save(lectureDivide);
         List<LectureContents> lectureContents3 = new ArrayList<>();
         for (int i=0; i<lectureContentsAddDto.getLectureContentsInfo().length; i++){
             String lectureContentsInfo = lectureContentsAddDto.getLectureContentsInfo()[i];
             String lectureContentsTitle = lectureContentsAddDto.getLectureContentsTitle()[i];
-            lectureContentsDto.setLectureDivide(lectureDivide);
+            lectureContentsDto.setLectureDivide(getLectureDivide);
             lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
             lectureContentsDto.setLectrueContentsTitle(lectureContentsTitle);
             LectureContents lectureContents = lectureContentsDto.lectureContentsDtoTolectureContents(lectureContentsDto);
@@ -143,8 +138,14 @@ public class LectureController {
         lectureContents3.size();
         log.info("////////////////////////////"+lectureContents3.size());
         log.info("///////////2/"+lectureContents3.get(0).getId());
-//        model.addAttribute("contentsId",lectureContents3.get(0).getId())
-        
+        List<GetIdDto> getId = new ArrayList<>();
+        GetIdDto getIdDto = new GetIdDto();
+        for (int i=0; i<lectureContents3.size(); i++){
+            getIdDto.setGetId(lectureContents3.get(i).getId());
+            getId.add(getIdDto);
+        }
+        model.addAttribute("getSize",lectureContents3.size());
+        model.addAttribute("getId",getId);
         return "lecture/lectureContents";
     }
     @GetMapping(value = "/contents/uploader")
@@ -152,30 +153,32 @@ public class LectureController {
 
     }
     @PostMapping(value="/contents/uploader", consumes = "multipart/form-data")
-            public String ContentsFileCreate(@ModelAttribute FileVO fileVO)
+            public String ContentsFileCreate(FileVO fileVO)
             throws IOException {
         Long newContents = lectureContentsService.getNewContents();
-        log.info("///////////////////////////////////!!!!!!!!!!!!!!!!!!!!!"+newContents);
+        int idx = Integer.parseInt(fileVO.getContentsSeq());
         String resourcePath = fileRoot;
             //uuid를 통한 랜덤값 지정
             UUID uuid = UUID.randomUUID();
         List<MultipartFile> files = fileVO.ContentsFileToList(fileVO);
-            for (int i=0; i<files.size(); i++){
-                if(files.get(i)==null){
+            for (int i=1; i<=idx; i++){
+                log.info("#?///////////////////////////////////////"+newContents);
+                log.info("#?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+idx+"i값"+i);
+                if(files.get(i-1)==null){
                     continue;
                 }
-                String uuidFileName = uuid+"_"+files.get(i).getOriginalFilename();
+                String uuidFileName = uuid+"_"+files.get(i-1).getOriginalFilename();
                 File file = new File(fileRoot+uuidFileName);
                 //file에 폴더 존재여부 확인
                 File Folder = new File(resourcePath);
                 if(!Folder.exists()){
                     Folder.mkdir();
                 }
-                files.get(i).transferTo(file);
+                files.get(i-1).transferTo(file);
                 LectureContentsFileDto lectureContentsFileDto = new LectureContentsFileDto();
                 lectureContentsFileDto.setUuidPath(uuidFileName);
                 LectureContentsFile lectureContentsfile = lectureContentsFileDto.toLectureContentsFile(
-                        files.get(i), lectureContentsService.getContentsById(newContents-(files.size()-i))
+                        files.get(i-1), lectureContentsService.getContentsById(newContents-(idx-i))
                 );
                 lectureContentsService.save(lectureContentsfile);
             }
