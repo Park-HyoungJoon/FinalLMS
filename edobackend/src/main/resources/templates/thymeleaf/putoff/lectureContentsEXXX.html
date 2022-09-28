@@ -8,11 +8,9 @@
 </head>
 
 <body>
-<form id="uploadContents" th:action="@{/contents/uploader}" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+
 <div data-name="fileDiv" class="form-group">
-    <input type="hidden" id="ContentsSeq1" name="ContentsSeq1" value="1"/>
     <input type="hidden" th:name="lectureTItle" th:value="lectureTitle" id="lectureTitle"/>
-    <input type="hidden" th:if="${ContentsId !=null}" th:name="ContentsId" th:value="${ContentsId}" id="ContentsId"/>
     <button type="button" onclick="addFile();"
             class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
         <i class="fa fa-plus" aria-hidden="true"></i>
@@ -33,11 +31,10 @@
             &lt;p&gt;This is some sample content.&lt;/p&gt;
         </textarea>
             </div>
-            <input type="submit" id="nextButton" class="nextButton"/>
+            <button id="nextButton" class="nextButton">버튼</button>
         </div>
     </div>
 </div>
-</form>
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
@@ -77,8 +74,8 @@
     <div style="display: block">
         <label>강의 파일</label>
                 <input type='file' id="lectureContentsFile${fileIdx}" name="lectureContentsFile${fileIdx}"/>
-                <input type="hidden" id="ContentsSeq${fileIdx}" name="ContentsSeq${fileIdx}" value="${fileIdx}"/>
-
+                <input type="hidden" id="ContentsSeq${fileIdx}" value="${fileIdx}"/>
+                <input type="hidden" th:name="lectureTItle" th:value="lectureTitle"     id="lectureTitle${fileIdx}"/>
             <div class="form-group">
                 <label class="form-label mt-4">강의 설명</label>
                                 <textarea name="content${fileIdx}" id="editor${fileIdx}">
@@ -119,25 +116,46 @@
     }
 </script>
 
-<!--submit의 이벤트를 잠시 멈추고 진행한 다음에 재전송하는 함수-->
 <script th:inline="javascript">
-    $("#nextButton").submit(function(event){
-        event.preventDefault();
-        let lectureDivideTitle = $("#lectureDivideTitle1").val();
-        let lectureContentsTitle =[];
-        let lectureContentsInfo = [];
-        let lectureTitle = $("#lectureTitle").val();
-        for (let i =1; i<=fileIdx; i++){
+    $(document).on("click",'#nextButton',function() {
+        alert('작동확인');
+        var lectureDivideTitle = $("#lectureDivideTitle1").val();
+        var lectureContentsTitle =[];
+        var lectureContentsInfo = [];
+        var lectureTitle = $("#lectureTitle").val();
+        var contentsFiles = [];
+        var formData = new FormData();
+        for (var i =1; i<=fileIdx; i++){
+            let file = $("#lectureContentsFile"+i);
+            let files = file[0].files;
+            contentsFiles.push(files[0]);
+            formData.append('file'+i,files[0]);
             lectureContentsInfo.push(editor[i].getData());
             lectureContentsTitle.push($("#lectureContentsTitle"+i).val());
         }
-        let param = {
+        var param = {
             "lectureDivideTitle": lectureDivideTitle,
             "lectureContentsTitle": lectureContentsTitle,
             "lectureContentsInfo": lectureContentsInfo,
             "lectureTitle" : lectureTitle,
         }
-       let when =  $.ajax({
+        console.log(formData.get("file2"));
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/contents/uploader",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                console.log("SUCCESS : ", data);
+                },
+            error: function (e) {
+                console.log("ERROR : ", e);
+            }
+        });
+        $.ajax({
             anyne: true,
             type: 'POST',
             contentType : 'application/json',
@@ -148,13 +166,9 @@
                 console.log(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("ERROR입니당 ^^: " + textStatus + " : " + errorThrown);
+                alert("ERROR : " + textStatus + " : " + errorThrown);
             }
         });
-        $.when(when)
-            .done(function() {
-                event.currentTarget.submit();
-            })
     })
 </script>
 </body>

@@ -15,4 +15,6 @@ public class LectureContentsService {
     public void save(LectureContents lectureContents) {
         lectureContentsRepository.save(lectureContents);
     }
+
+    public int getNewContents(){return lectureContentsRepository.newContents();}
 }

@@ -9,6 +9,7 @@ import com.edo.lecture.entity.LectureDivide;
 import com.edo.lecture.service.LectureDivideService;
 import com.edo.lecture.service.LectureService;
 import com.edo.lecture.service.LectureContentsService;
+import com.edo.util.fileDTO.FileVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -102,6 +100,8 @@ public class LectureController {
         lectureAddDto.getRealTeacherImg().transferTo(file);
         lectureAddDto.setTeacherImg(lectureAddDto.getRealTeacherImg().getOriginalFilename());
 
+        lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfo());
+        log.info("?/////////////////////////////////////"+lectureAddDto.getLectureInfo());
         lectureAddDto.setStartDate(startTime);
         lectureAddDto.setFinalDate(finalTime);
         lectureAddDto.setManageStartDate(manageStartTime);
@@ -118,8 +118,8 @@ public class LectureController {
         return "/lecture/lectureContents";
     }
 
-    @PostMapping(value="/lecture/contents")
-    public String LectureContentsAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto) {
+    @PostMapping(value="/lecture/contents" )
+    public void LectureDivideAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto,Model model) {
         LectureDivideDto lectureDivideDto = new LectureDivideDto();
         LectureContentsDto lectureContentsDto = new LectureContentsDto();
         lectureDivideDto.setLectureTitle(lectureContentsAddDto.getLectureTitle());
@@ -134,23 +134,30 @@ public class LectureController {
             LectureContents lectureContents = lectureContentsDto.lectureContentsDtoTolectureContents(lectureContentsDto);
             lectureContentsService.save(lectureContents);
         }
-        return "redirect:/lecture";
     }
-    @PostMapping(value="/upload/{id}" , consumes = "multipart/form-data")
-    public void upload(@RequestParam("file") @RequestPart(value="file",required = false) List<MultipartFile> files
-    , @PathVariable("id") int id)
-            throws Exception {
-        for(MultipartFile file : files) {
-            String originalFileName = file.getOriginalFilename();
-            lectureContentsService.save(originalFileName);
-            String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
-            File saveFile = new File(resourcePath+filePath+originalFileName);
-            File Folder = new File(resourcePath+filePath);
-            if(!Folder.exists()){
-                Folder.mkdir();
-            }
+    @GetMapping(value = "/contents/uploader")
+    public void ContentsFileCreate(){
+
+    }
+    @PostMapping(value="/contents/uploader", consumes = "multipart/form-data")
+            public String ContentsFileCreate(@ModelAttribute FileVO fileVO)
+            throws IOException {
+        int newContents = lectureContentsService.getNewContents();
+        log.info("/>.................................."+newContents);
+        log.info("?/////////////////////////////"+ fileVO.getContentsId());
+
+        return "redirect:/lecture";
+//        for(MultipartFile file : files) {
+//            String originalFileName = file.getOriginalFilename();
+//            lectureContentsService.save(originalFileName);
+//            String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
+//            File saveFile = new File(resourcePath+filePath+originalFileName);
+//            File Folder = new File(resourcePath+filePath);
+//            if(!Folder.exists()){
+//                Folder.mkdir();
+//            }
             //file.transferTo(dest);
-            log.info("uploaded file " + file.getOriginalFilename());
-        }
+      //      log.info("uploaded file " + file.getOriginalFilename());
+      //  }
     }
 }
