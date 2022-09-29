@@ -42,12 +42,15 @@ public class LectureController {
     LectureContentsService lectureContentsService;
 
     @GetMapping(value="/lecture")
-    public String Home(){
+    public String Lecture(Model model){
+
         return "lecture/lecture";
     }
 
     @GetMapping(value="/lecture/add")
-    public String LectureAdd2() {
+    public String LectureAdd2(Model model)
+    {
+        model.addAttribute("lectureAddDto",new LectureAddDto());
         return "lecture/lectureAdd";
     }
 
@@ -72,6 +75,11 @@ public class LectureController {
          * subyn은 접수기간의 상시체크
          */
         log.info(lectureAddDto.getStartDateAndfinalDate());
+        log.info("#??????????????????????????????????????????"+lectureAddDto.isSubyn());
+        log.info("#><>@>>#@?#>@?>#?@>#?>@?>#?@>#?@>>#?@>#?"+lectureAddDto.getApproval());
+        log.info("#L#PKP#KO#KO#KO#KO#KOK#OKO#KO#KO#KOK#OK#OK"+lectureAddDto.getPart());
+        log.info("#RKEOKREORKEOKREOKREOKROKEOREOKROEKROE"+lectureAddDto.getLectureInfoHidden());
+
         List<LocalDate> subDate = lectureAddDto.StrToTime(lectureAddDto.getStartDateAndfinalDate());
         List<LocalDate> manageDate = lectureAddDto.StrToTime(lectureAddDto.getManageStartDateAndmanageFinalDate());
 
@@ -82,29 +90,38 @@ public class LectureController {
          * file
          */
         String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
-        File file = new File(resourcePath+imgRoot+lectureAddDto.getRealLectureImg().getOriginalFilename());
+        UUID uuid = UUID.randomUUID();
+        String uuidFileName = uuid+"_"+lectureAddDto.getRealLectureImg().getOriginalFilename();
+        File file = new File(resourcePath+imgRoot+uuidFileName);
         File Folder = new File(resourcePath+imgRoot);
         if(!Folder.exists()){
             Folder.mkdir();
         }
-        log.info(resourcePath+imgRoot+lectureAddDto.getRealLectureImg().getOriginalFilename());
         //lectureAddDto.getRealLectureImg를 통해 받아온 MultiPartFile을 file에 지정된 경로로 보낸다.
         lectureAddDto.getRealLectureImg().transferTo(file);
-        //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
-        lectureAddDto.setLectureImg(lectureAddDto.getRealLectureImg().getOriginalFilename());
-        file = new File(resourcePath+imgRoot+lectureAddDto.getRealTeacherImg().getOriginalFilename());
+        String uuidFileName2 = uuid+"_"+lectureAddDto.getRealTeacherImg().getOriginalFilename();
+        file = new File(resourcePath+imgRoot+uuidFileName2);
         //Entity transfer(파일)
         lectureAddDto.getRealTeacherImg().transferTo(file);
-        lectureAddDto.setTeacherImg(lectureAddDto.getRealTeacherImg().getOriginalFilename());
-
-        lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfo());
-        log.info("?/////////////////////////////////////"+lectureAddDto.getLectureInfo());
 
 
+        //강좌 생성 내용
+        //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
+        lectureAddDto.setLectureImg(uuidFileName);
+        lectureAddDto.setLectureTitle(lectureAddDto.getLectureTitle());
+        lectureAddDto.setPart(lectureAddDto.getPart());
+        lectureAddDto.setLectureTime(lectureAddDto.getLectureTime());
+        lectureAddDto.setSubyn(lectureAddDto.isSubyn());
+        lectureAddDto.setManageyn(lectureAddDto.isManageyn());
+        lectureAddDto.setLectureDetail(lectureAddDto.getLectureDetail());
+        lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfoHidden());
         lectureAddDto.setStartDate(subDate.get(0));
         lectureAddDto.setFinalDate(subDate.get(1));
         lectureAddDto.setManageStartDate(manageDate.get(0));
         lectureAddDto.setManageFinalDate(manageDate.get(1));
+
+        //선생 업데이트 내용
+        lectureAddDto.setTeacherImg(uuidFileName2);
 
         lectureService.lectureAdd(lectureAddDto);
 
@@ -152,6 +169,23 @@ public class LectureController {
     public void ContentsFileCreate(){
 
     }
+
+    /***
+     * lectureContents.html에서 form으로 파일 데이터를 받아 LectureContentsFile Entity에 저장해놓는 컨트롤러이다.
+     *
+     * LectureContensFile에는 각 차시 별 파일에 대한 정보가 들어가야 한다.
+     * 차시에 따라 파일 정보가 들어가야 하므로 contents_id가 필요하다.
+     * contents_id는 lectureContentsService.getNewContents를 통해 가장 마지막에 저장되어있는 contents_id값을 가져온 후
+     * 해당 메서드 실행 전에 실행된 메서드인 lectureDivideAndContentsAdd에서
+     model.addAttribute("getSize",lectureContents3.size());
+     값을 갖고와 newContents-(getSize-i) 를 통해 최근 순으로 하나씩 값을 넣어주는 방식으로 해결했다.
+
+     나머지는 파일에 대한 정보를 넣는 코드이다.
+     * @param fileVO
+     * fileVO는 LectoureContentsFile Entity에 저장하기 전 데이터를 담아놓는 객체이다.
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value="/contents/uploader", consumes = "multipart/form-data")
             public String ContentsFileCreate(FileVO fileVO)
             throws IOException {

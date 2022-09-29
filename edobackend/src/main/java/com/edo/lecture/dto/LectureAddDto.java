@@ -1,6 +1,7 @@
 package com.edo.lecture.dto;
 
 import com.edo.lecture.entity.Lecture;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,13 +30,13 @@ import java.util.List;
 @Setter
 public class LectureAddDto {
     String lectureTitle;
-    String lecturePart;
+    String part;
     String lectureInfo;
     String lectureDetail;
-    String subyn;
+    boolean subyn;
     String startDateAndfinalDate;
     String manageStartDateAndmanageFinalDate;
-    String manageyn;
+    boolean manageyn;
     String lectureTime;
     String lectureImg;
     String teacherName;
@@ -49,6 +50,8 @@ public class LectureAddDto {
     String lectureyn;
     MultipartFile realLectureImg;
     MultipartFile realTeacherImg;
+    @JsonProperty("lectureInfoHidden")
+    String lectureInfoHidden;
     public List<LocalDate> StrToTime(String data){
         String[] str = data.split(" ");
         List<LocalDate> date = new ArrayList<>();
@@ -60,7 +63,7 @@ public class LectureAddDto {
         return Lecture.builder().lectureYN(lectureAddDto.lectureyn)
                 .lectureDetail(lectureAddDto.lectureDetail)
                 .lectureInfo(lectureAddDto.lectureInfo)
-                .lecturePart(lectureAddDto.lecturePart)
+                .lecturePart(lectureAddDto.part)
                 .lectureTime(lectureAddDto.lectureTime)
                 .lectureTitle(lectureAddDto.lectureTitle)
                 .lectureImage(lectureAddDto.lectureImg)

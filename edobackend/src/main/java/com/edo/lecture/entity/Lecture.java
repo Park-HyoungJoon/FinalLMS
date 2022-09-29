@@ -22,8 +22,8 @@ public class Lecture extends BaseTimeEntity {
     //제목
     @Column(length = 100)
     private String lectureTitle;
-    //개요
-    @Column(length = 20)
+    //강좌소개
+    @Column(columnDefinition = "LONGTEXT")
     private String lectureInfo;
     //신청시작일
     @Column(columnDefinition = "timestamp")
@@ -33,7 +33,7 @@ public class Lecture extends BaseTimeEntity {
     private LocalDate finalDate;
     //상시 신청 여부
     @Column(length = 1)
-    private String subYN;
+    private boolean subYN;
     //분야
     @Column(length = 10)
     private String lecturePart;
@@ -45,12 +45,12 @@ public class Lecture extends BaseTimeEntity {
     private LocalDate manageFinalDate;
     //상시 운영 여부
     @Column(length = 1)
-    private String manageYN;
+    private boolean manageYN;
     //강의시간
     @Column(length = 20)
     private String lectureTime;
-    //강좌소개
-    @Column(columnDefinition = "LONGTEXT")
+    //개요
+    @Column(length = 20)
     private String lectureDetail;
     //대표이미지
     @Column(columnDefinition = "LONGTEXT")

@@ -23,7 +23,7 @@ public abstract class BaseTimeEntity {
     private String modifiedBy;
 
     @CreatedDate
-    @Column(updatable = false , columnDefinition = "timestamp")
+    @Column( columnDefinition = "timestamp")
     private LocalDateTime regTime;
 
     @LastModifiedDate
