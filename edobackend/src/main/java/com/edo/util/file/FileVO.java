@@ -1,10 +1,8 @@
-package com.edo.util.fileDTO;
+package com.edo.util.file;
 
-import com.edo.lecture.entity.LectureContentsFile;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.loader.entity.NaturalIdEntityJoinWalker;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;

@@ -9,7 +9,8 @@ import com.edo.lecture.repository.LectureRepository;
 import com.edo.lecture.service.LectureDivideService;
 import com.edo.lecture.service.LectureService;
 import com.edo.lecture.service.LectureContentsService;
-import com.edo.util.fileDTO.FileVO;
+import com.edo.util.file.FileVO;
+import com.edo.util.file.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +57,9 @@ public class LectureController {
     @GetMapping(value="/lecture")
     public String Lecture(Model model){
         List<Lecture> lectureList = lectureRepository.findAll();
+        for (int i=0; i<lectureList.size();i++){
+            log.info("!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+lectureList.get(i).getLectureImage());
+        }
         model.addAttribute("list",lectureList);
 
         return "lecture/lecture";
@@ -71,7 +83,8 @@ public class LectureController {
      * @throws IOException
      */
     @PostMapping(value="/lecture/add" , consumes = "multipart/form-data")
-    public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException {
+    public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException,
+            NullPointerException {
         /**
          * 접수기간
          * StrToTime 설명은 lectureAddDto 클래스에 있다.
@@ -81,10 +94,10 @@ public class LectureController {
          * subyn은 접수기간의 상시체크
          */
         log.info(lectureAddDto.getStartDateAndfinalDate());
-        log.info("#??????????????????????????????????????????"+lectureAddDto.isSubyn());
-        log.info("#><>@>>#@?#>@?>#?@>#?>@?>#?@>#?@>>#?@>#?"+lectureAddDto.getApproval());
-        log.info("#L#PKP#KO#KO#KO#KO#KOK#OKO#KO#KO#KOK#OK#OK"+lectureAddDto.getPart());
-        log.info("#RKEOKREORKEOKREOKREOKROKEOREOKROEKROE"+lectureAddDto.getLectureInfoHidden());
+        log.info("#??????????????????????????????????????????" + lectureAddDto.isSubyn());
+        log.info("#><>@>>#@?#>@?>#?@>#?>@?>#?@>#?@>>#?@>#?" + lectureAddDto.getApproval());
+        log.info("#L#PKP#KO#KO#KO#KO#KOK#OKO#KO#KO#KOK#OK#OK" + lectureAddDto.getPart());
+        log.info("#RKEOKREORKEOKREOKREOKROKEOREOKROEKROE" + lectureAddDto.getLectureInfoHidden());
 
         List<LocalDate> subDate = lectureAddDto.StrToTime(lectureAddDto.getStartDateAndfinalDate());
         List<LocalDate> manageDate = lectureAddDto.StrToTime(lectureAddDto.getManageStartDateAndmanageFinalDate());
@@ -95,44 +108,63 @@ public class LectureController {
          *
          * file
          */
-        String resourcePath = System.getProperty("user.dir")+"/src/main/resources/static/img/";
-        UUID uuid = UUID.randomUUID();
-        String uuidFileName = uuid+"_"+lectureAddDto.getRealLectureImg().getOriginalFilename();
-        File file = new File(resourcePath+uuidFileName);
-        File Folder = new File(resourcePath);
-        if(!Folder.exists()){
-            Folder.mkdir();
+        String uuidFileName = null;
+        String uuidFileName2 = null;
+        try {
+            String resourcePath = System.getProperty("user.dir") + imgRoot;
+
+            String uuid = UUID.randomUUID().toString();
+            uuidFileName = uuid + "_" + lectureAddDto.getRealLectureImg().getOriginalFilename();
+            Path savePath = Paths.get(resourcePath + uuidFileName);
+            File Folder = new File(resourcePath);
+            if (!Folder.exists()) {
+                Folder.mkdir();
+            }
+//        //lectureAddDto.getRealLectureImg를 통해 받아온 MultiPartFile을 file에 지정된 경로로 보낸다.
+            lectureAddDto.getRealLectureImg().transferTo(savePath);
+            File file = new File(resourcePath,uuidFileName);
+            InputStream inputStream = new FileInputStream(file);
+            file.delete();
+            int width = 335;
+            int height = 225;
+            ImageUtils utils = new ImageUtils();
+            BufferedImage resizeImage = utils.resize(inputStream, width, height);
+            file.delete();
+            ImageIO.write(resizeImage, "jpg", new File(resourcePath + uuidFileName));
+
+            uuidFileName2 = uuid + "_" + lectureAddDto.getRealTeacherImg().getOriginalFilename();
+            file = new File(resourcePath , uuidFileName2);
+            //Entity transfer(파일)
+            lectureAddDto.getRealTeacherImg().transferTo(file);
+            inputStream = new FileInputStream(file);
+            resizeImage = utils.resize(inputStream, width, height);
+            file.delete();
+            ImageIO.write(resizeImage, "jpg", new File(resourcePath + uuidFileName2));
+        } catch (Exception e) {
+        } finally {
+            //강좌 생성 내용
+            //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
+            lectureAddDto.setLectureImg(uuidFileName);
+            lectureAddDto.setLectureTitle(lectureAddDto.getLectureTitle());
+            lectureAddDto.setPart(lectureAddDto.getPart());
+            lectureAddDto.setLectureTime(lectureAddDto.getLectureTime());
+            lectureAddDto.setSubyn(lectureAddDto.isSubyn());
+            lectureAddDto.setManageyn(lectureAddDto.isManageyn());
+            lectureAddDto.setLectureDetail(lectureAddDto.getLectureDetail());
+            lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfoHidden());
+            lectureAddDto.setStartDate(subDate.get(0));
+            lectureAddDto.setFinalDate(subDate.get(1));
+            lectureAddDto.setManageStartDate(manageDate.get(0));
+            lectureAddDto.setManageFinalDate(manageDate.get(1));
+
+            //선생 업데이트 내용
+            lectureAddDto.setTeacherImg(uuidFileName2);
+
+            lectureService.lectureAdd(lectureAddDto);
+
+            model.addAttribute("LectureTitle", lectureAddDto.getLectureTitle());
+            return "lecture/lectureContents";
         }
-        //lectureAddDto.getRealLectureImg를 통해 받아온 MultiPartFile을 file에 지정된 경로로 보낸다.
-        lectureAddDto.getRealLectureImg().transferTo(file);
-        String uuidFileName2 = uuid+"_"+lectureAddDto.getRealTeacherImg().getOriginalFilename();
-        file = new File(resourcePath+uuidFileName2);
-        //Entity transfer(파일)
-        lectureAddDto.getRealTeacherImg().transferTo(file);
-
-
-        //강좌 생성 내용
-        //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
-        lectureAddDto.setLectureImg(uuidFileName);
-        lectureAddDto.setLectureTitle(lectureAddDto.getLectureTitle());
-        lectureAddDto.setPart(lectureAddDto.getPart());
-        lectureAddDto.setLectureTime(lectureAddDto.getLectureTime());
-        lectureAddDto.setSubyn(lectureAddDto.isSubyn());
-        lectureAddDto.setManageyn(lectureAddDto.isManageyn());
-        lectureAddDto.setLectureDetail(lectureAddDto.getLectureDetail());
-        lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfoHidden());
-        lectureAddDto.setStartDate(subDate.get(0));
-        lectureAddDto.setFinalDate(subDate.get(1));
-        lectureAddDto.setManageStartDate(manageDate.get(0));
-        lectureAddDto.setManageFinalDate(manageDate.get(1));
-
-        //선생 업데이트 내용
-        lectureAddDto.setTeacherImg(uuidFileName2);
-
-        lectureService.lectureAdd(lectureAddDto);
-
-        model.addAttribute("LectureTitle",lectureAddDto.getLectureTitle());
-        return "lecture/lectureContents";
     }
 
     @GetMapping(value="/lecture/contents")
