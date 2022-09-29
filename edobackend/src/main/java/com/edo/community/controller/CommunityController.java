@@ -33,6 +33,10 @@ public class CommunityController {
     private final CommunityTestRepository communityTestRepository;
 
 
+    @GetMapping(value = "test")
+    public String test() {
+        return "putoff/test";
+    }
     @GetMapping(value = "communitymain")
     public String CommunityMain(){
         return "community/communityMain";

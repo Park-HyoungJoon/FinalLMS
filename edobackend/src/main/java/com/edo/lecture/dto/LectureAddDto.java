@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class LectureAddDto {
     String lectureTime;
     String lectureImg;
     String teacherName;
+
     String teacherInfo;
     String teacherImg;
     String approval;

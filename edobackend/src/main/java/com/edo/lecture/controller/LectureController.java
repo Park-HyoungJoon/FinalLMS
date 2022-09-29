@@ -1,9 +1,11 @@
 package com.edo.lecture.controller;
 
 import com.edo.lecture.dto.*;
+import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.entity.LectureContents;
 import com.edo.lecture.entity.LectureContentsFile;
 import com.edo.lecture.entity.LectureDivide;
+import com.edo.lecture.repository.LectureRepository;
 import com.edo.lecture.service.LectureDivideService;
 import com.edo.lecture.service.LectureService;
 import com.edo.lecture.service.LectureContentsService;
@@ -41,8 +43,12 @@ public class LectureController {
     @Autowired
     LectureContentsService lectureContentsService;
 
+    @Autowired
+    LectureRepository lectureRepository;
     @GetMapping(value="/lecture")
     public String Lecture(Model model){
+        List<Lecture> lectureList = lectureRepository.findAll();
+        model.addAttribute("list",lectureList);
 
         return "lecture/lecture";
     }
@@ -89,18 +95,18 @@ public class LectureController {
          *
          * file
          */
-        String resourcePath = System.getProperty("user.dir")+"/src/main/resources";
+        String resourcePath = System.getProperty("user.dir")+"/src/main/resources/static/img/";
         UUID uuid = UUID.randomUUID();
         String uuidFileName = uuid+"_"+lectureAddDto.getRealLectureImg().getOriginalFilename();
-        File file = new File(resourcePath+imgRoot+uuidFileName);
-        File Folder = new File(resourcePath+imgRoot);
+        File file = new File(resourcePath+uuidFileName);
+        File Folder = new File(resourcePath);
         if(!Folder.exists()){
             Folder.mkdir();
         }
         //lectureAddDto.getRealLectureImg를 통해 받아온 MultiPartFile을 file에 지정된 경로로 보낸다.
         lectureAddDto.getRealLectureImg().transferTo(file);
         String uuidFileName2 = uuid+"_"+lectureAddDto.getRealTeacherImg().getOriginalFilename();
-        file = new File(resourcePath+imgRoot+uuidFileName2);
+        file = new File(resourcePath+uuidFileName2);
         //Entity transfer(파일)
         lectureAddDto.getRealTeacherImg().transferTo(file);
 
