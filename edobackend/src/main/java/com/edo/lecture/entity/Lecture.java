@@ -4,6 +4,7 @@ import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.time.LocalDate;
 
 @Getter
@@ -23,7 +24,7 @@ public class Lecture extends BaseTimeEntity {
     @Column(length = 100)
     private String lectureTitle;
     //강좌소개
-    @Column(columnDefinition = "LONGTEXT")
+    @Lob
     private String lectureInfo;
     //신청시작일
     @Column(columnDefinition = "timestamp")
@@ -50,7 +51,7 @@ public class Lecture extends BaseTimeEntity {
     @Column(length = 20)
     private String lectureTime;
     //개요
-    @Column(length = 20)
+    @Column(length = 100)
     private String lectureDetail;
     //대표이미지
     @Column(columnDefinition = "LONGTEXT")
