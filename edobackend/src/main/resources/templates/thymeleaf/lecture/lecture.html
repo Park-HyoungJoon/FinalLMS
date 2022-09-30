@@ -37,8 +37,8 @@
                     <div class="container-fluid">
 
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            <div class="col" th:if="${#lists.size(list)} > 0"
-                                 th:each="vo : ${list}"><!-- 리스트 배열의 수만큼 실행 -->
+                            <div class="col" th:if="${#lists.size(posts.page)} > 0"
+                                 th:each="vo : ${posts.page}"><!-- 리스트 배열의 수만큼 실행 -->
                                 <div class="card-flyer">
                                     <div class="card shadow-sm">
                                         <div th:if="${vo.getLectureImage()==null}">
@@ -90,9 +90,9 @@
                     <div class="container-fluid">
 
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            <div class="col" th:if="${#lists.size(list)} > 0"
-                                 th:each="vo : ${list}"><!-- 리스트 배열의 수만큼 실행 -->
-                                <div th:if="${vo.getLecturePart() == '파이썬'}">
+                            <div class="col" th:if="${#lists.size(python.page)} > 0"
+                                 th:each="vo : ${python.page}"><!-- 리스트 배열의 수만큼 실행 -->
+                                <div  th:if="${vo.getLecturePart() == '파이썬'}">
                                     <div class="card-flyer">
                                         <div class="card shadow-sm">
                                             <div th:if="${vo.getLectureImage()==null}">
@@ -146,9 +146,10 @@
                     <div class="container-fluid">
 
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            <div class="col" th:if="${#lists.size(list)} > 0"
-                                 th:each="vo : ${list}"><!-- 리스트 배열의 수만큼 실행 -->
-                                <div th:if="${vo.getLecturePart() == '인공지능'}">
+                            <div class="col" th:if="${#lists.size(posts.page)} > 0"
+                                 th:each="vo : ${posts.page}"><!-- 리스트 배열의 수만큼 실행 -->
+                                <div  th:if="${vo.getLecturePart() == '인공지능'}">
+                                    <div class="col">
                                     <div class="card-flyer">
                                         <div class="card shadow-sm">
                                             <div th:if="${vo.getLectureImage()==null}">
@@ -187,6 +188,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -202,8 +204,8 @@
                     <div class="container-fluid">
 
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            <div class="col" th:if="${#lists.size(list)} > 0"
-                                 th:each="vo : ${list}"><!-- 리스트 배열의 수만큼 실행 -->
+                            <div class="col" th:if="${#lists.size(posts.page)} > 0"
+                                 th:each="vo : ${posts.page}"><!-- 리스트 배열의 수만큼 실행 -->
                                 <div th:if="${vo.getLecturePart() == '데이터분석'}">
                                     <div class="card-flyer">
                                         <div class="card shadow-sm">
@@ -251,12 +253,55 @@
                 <!-- //school_lecture -->
             </div>
         </section>
+        <nav aria-label="Page navigation" class="paging">
+            <ul class="pagination" th:if="${posts.page.totalPages > 1}">
+                <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{'/lecture/?pageNumber=' + ${posts.paging.pageNumber - 1}}"
+                       tabindex="-1">Previous</a>
+                </li>
+                <th:block th:each="item : ${posts.paging.getItems()}">
+                    <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
+                        th:if="${item.pageItemType.name() == 'PAGE'}">
+                        <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
+                        <a class="page-link"
+                           id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>
+                      <!--  <a class="page-link" th:href="@{'/lecture/?pageNumber=' + ${item.index}}"
+                           th:text="${item.index}"></a>-->
+                    </li>
+                    <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                </th:block>
+                <li class="page-item" th:classappend="${!posts.paging.isNextEnabled()? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{'/lecture/?pageNumber=' + ${posts.paging.pageNumber + 1}}">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 </div>
 <div th:replace="/fragments/footer.html :: fragment-nav"></div>
 
 </body>
+<script type="text/javascript">
+    $('#pagePrev').on("click",function (){
+        alert($('input#hiddenPrev').val());
+        let test = $('input#hiddenPrev').val();
+        $.ajax({
+            url:"/lecture/?pageNumber="+test,
+            type:"GET",
+            data : {
+                pageNumber : test
+            },
+            success:function (data){
+                alert("hi");
+            }
+
+        })
+    })
+
+
+</script>
 <script type="text/javascript">
     $(document).ready(function()
     {

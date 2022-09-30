@@ -55,11 +55,13 @@ public class LectureController {
     @Autowired
     LectureRepository lectureRepository;
     @GetMapping(value="/lecture")
-    public String Lecture(Model model){
+    public String Lecture(@RequestParam(value = "pageNumber",required = false,defaultValue = "1") int pageNumber,
+                          @RequestParam(value = "size", required = false, defaultValue = "1") int size,
+                          Model model){
+
         List<Lecture> lectureList = lectureRepository.findAll();
-        for (int i=0; i<lectureList.size();i++){
-            log.info("!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+lectureList.get(i).getLectureImage());
-        }
+        model.addAttribute("posts",lectureService.getPage(pageNumber,size));
+        model.addAttribute("python",lectureService.getPageByPart(pageNumber,size,"파이썬"));
         model.addAttribute("list",lectureList);
 
         return "lecture/lecture";
