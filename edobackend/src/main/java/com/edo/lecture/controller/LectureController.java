@@ -56,7 +56,7 @@ public class LectureController {
     LectureRepository lectureRepository;
     @GetMapping(value="/lecture")
     public String Lecture(@RequestParam(value = "pageNumber",required = false,defaultValue = "1") int pageNumber,
-                          @RequestParam(value = "size", required = false, defaultValue = "1") int size,
+                          @RequestParam(value = "size", required = false, defaultValue = "3") int size,
                           Model model){
 
         List<Lecture> lectureList = lectureRepository.findAll();

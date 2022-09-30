@@ -262,11 +262,11 @@
                 <th:block th:each="item : ${posts.paging.getItems()}">
                     <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
                         th:if="${item.pageItemType.name() == 'PAGE'}">
-                        <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
+                       <!-- <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
                         <a class="page-link"
-                           id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>
-                      <!--  <a class="page-link" th:href="@{'/lecture/?pageNumber=' + ${item.index}}"
-                           th:text="${item.index}"></a>-->
+                           id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>-->
+                        <a class="page-link" th:href="@{'/lecture/?pageNumber=' + ${item.index}}"
+                           th:text="${item.index}"></a>
                     </li>
                     <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
                         <a class="page-link" href="#">...</a>
