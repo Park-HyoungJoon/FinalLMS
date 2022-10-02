@@ -48,7 +48,7 @@ public class CommunityController {
         return "community/communityWrite";
     }
 
-//    값 전달 되는지 테스트
+//    값 전달 테스트
     @PostMapping(value = "communitywrite")
     public String communityWriteTest(@Valid CommunityTestDto communityTestDto, Model model){
         log.info(communityTestDto.toString());

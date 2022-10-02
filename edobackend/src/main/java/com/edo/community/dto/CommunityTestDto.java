@@ -1,7 +1,6 @@
 package com.edo.community.dto;
 
 import com.edo.community.entity.CommunityTest;
-import com.edo.user.entity.Users;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

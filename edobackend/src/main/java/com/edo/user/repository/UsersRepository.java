@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users,String>{
 	Optional<Users> findByusersEmail(String usersEmail);
 	boolean existsByusersEmail(String usersEmail);
+
+//	닉네임 중복된 회원이 있는지 검사하기 위한 쿼리 메소드 작성
+	Optional<Users> findByusersNickname(String usersNickname);
 }
