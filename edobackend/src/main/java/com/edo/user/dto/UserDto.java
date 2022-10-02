@@ -19,18 +19,22 @@ public class UserDto {
 
 	@NotBlank(message = "이름은 필수 입력 값입니다.")
 	private String usersName;
+
 	@NotEmpty(message = "이메일은 필수 입력 값입니다.")
 	private String usersEmail;
+
 	@NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
 	private String usersPassword;
+
 	@NotNull(message = "핸드폰 번호는 필수 입력 값입니다.")
-	private int usersPhone;
+	private Long usersPhone;
+
 	@NotEmpty(message = "닉네임은 필수 입력 값입니다.")
 	private String usersNickname;
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
-	public Users createUserDto(){
+	public Users createUsers(){
 		return modelMapper.map(this, Users.class);
 	}
 

@@ -62,7 +62,7 @@
     <div id="container">
         <h3>회원가입</h3>
 
-        <form id="joinForm" name="joinForm" action="memberjoinInfo" method="post">
+        <form id="joinForm" name="joinForm" action="/memberjoinInfo" method="post">
             <table class="board_base board_color board_login">
                 <colgroup>
                     <col width="130px">
@@ -99,16 +99,16 @@
 
                     </td>
                 </tr>
-                <tr class="firstsite site">
-                    <th>· 비밀번호 확인</th>
-                    <td>
-                        <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인"
-                               type="password" value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
-                                                                 onclick="passwordCheck();return false;">비밀번호 확인</a>
+<!--                <tr class="firstsite site">-->
+<!--                    <th>· 비밀번호 확인</th>-->
+<!--                    <td>-->
+<!--                        <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인"-->
+<!--                               type="password" value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"-->
+<!--                                                                 onclick="passwordCheck();return false;">비밀번호 확인</a>-->
 
 
-                    </td>
-                </tr>
+<!--                    </td>-->
+<!--                </tr>-->
 
                 <tr class="firstsite">
                     <th>· 닉네임</th>
@@ -137,15 +137,16 @@
 
                 </tbody>
             </table>
-        </form>
+
 
 
         <div class="board_btn board_btn_c firstsite site" align="center">
             <span>
 <!--                <a class="join_btn" href="javascript:;" onclick="joinDo();">회원가입</a>-->
                 <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton"
-                       th:formaction="@{/memberjoininfo}"/>
+                       th:formaction="@{/memberjoinInfo}"/>
             </span>
+        </form>
 
         </div><!-- //board_btn -->
 
@@ -155,7 +156,8 @@
 <!--footer-->
 <div th:replace="/fragments/footer.html"></div>
 <!-- js code -->
-<script>$(#joinForm).submit(function (event){
+<script>
+    $(#joinForm).submit(function (event){
     let usersEmail = $("#usersEmail").val();
     let usersPassword = $("#usersPassword").val();
     let usersName = $("#usersName").val();

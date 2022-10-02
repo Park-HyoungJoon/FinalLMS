@@ -21,7 +21,7 @@
             } catch (e) {
             }
         });
-        $(function(){
+        $(function () {
             $('.tabcontent > div').hide();
             $('.tabnav a').click(function () {
                 $('.tabcontent > div').hide().filter(this.hash).fadeIn();
@@ -70,26 +70,33 @@
                     <span>자료실</span>
                 </li>
             </ul>
-            <div class = "tabs_inbox">
+            <div class="tabs_inbox">
                 <div id="tab_1" class="tab_content current">
                     <div class="row ">
                         <div class="col-sm-12">
-                            <div align="right"> <button type="button" class="btn btn-secondary" id = "writeBtn" onclick="window.location.href ='/communitywrite'">글쓰기</button></div>
+                            <div align="right">
+                                <button type="button" class="btn btn-secondary" id="writeBtn"
+                                        onclick="window.location.href ='/communitywrite'">글쓰기
+                                </button>
+                            </div>
                             <button onclick="testEvent()">이벤트 테스트</button>
                             <table id="example" class="display" style="width:100%" border="1">
                                 <thead>
                                 <tr>
                                     <th>번호</th>
                                     <th>제목</th>
-<!--                            <th>작성자</th>-->
-<!--                            <th>작성일</th>-->
-<!--                            <th>조회수</th>-->
+                                    <!--                            <th>작성자</th>-->
+                                    <!--                            <th>작성일</th>-->
+                                    <!--                            <th>조회수</th>-->
                                 </tr>
                                 </thead>
-                                <tbody id = "listArea">
+                                <tbody id="listArea">
+<!--                                <tr th:object="${communityTestDto}">-->
+<!--                                    <td th:text="${communityTestDto.communityId}"></td>-->
+<!--                                    <td th:text="${communityTestDto.communityTitle}"></td>-->
+<!--                                </tr>-->
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -104,7 +111,7 @@
 </div>
 
 <script type="text/javascript">
-    function testEvent(){
+    function testEvent() {
         // alert("테스트");
         // $.ajax({
         //     async: false,

@@ -33,7 +33,13 @@ public class UsersController {
         return "member/memberjoin";
     }
 
-//    회원가입 값 전달
+
+// 이메일 등록
+    @GetMapping(value="/memberjoinInfo")
+    public String MemberjoinInfo(){
+        return "member/memberjoinInfo";
+    }
+    //    회원가입 값 전달
     @PostMapping(value ="/memberjoinInfo" )
     public String userJoin(@Valid UserDto userDto, Model model){
 
@@ -51,12 +57,6 @@ public class UsersController {
 
 //        성공 시 메인 페이지로 돌아간다
         return "redirect:/";
-    }
-
-// 이메일 등록
-    @GetMapping(value="/memberjoinInfo")
-    public String MemberjoinInfo(){
-        return "member/memberjoinInfo";
     }
 
     // 마이페이지
