@@ -1,15 +1,25 @@
 package com.edo.user.controller;
 
+import com.edo.user.dto.UserDto;
+import com.edo.user.entity.Users;
+import com.edo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @CrossOrigin
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class UsersController {
+
+    private final UserService userService;
 
     @GetMapping(value="/login")
     public String Login(){
@@ -18,8 +28,29 @@ public class UsersController {
 
 //   이용약관
     @GetMapping(value="/memberjoin")
-    public String MemberJoin(){
+    public String MemberJoin(Model model){
+        model.addAttribute("UserDto", new UserDto());
         return "member/memberjoin";
+    }
+
+//    회원가입 값 전달
+    @PostMapping(value ="/memberjoinInfo" )
+    public String userJoin(@Valid UserDto userDto, Model model){
+
+//        로그 찍어보기
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + userDto.toString());
+
+        Users users = new Users();
+        users.setUsersEmail(userDto.getUsersEmail());
+        users.setUsersNickname(userDto.getUsersNickname());
+        users.setUsersName(userDto.getUsersName());
+        users.setUsersPassword(userDto.getUsersPassword());
+        users.setUsersPhone(userDto.getUsersPhone());
+
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + users.toString());
+
+//        성공 시 메인 페이지로 돌아간다
+        return "redirect:/";
     }
 
 // 이메일 등록
