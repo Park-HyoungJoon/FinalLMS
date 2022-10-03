@@ -1,10 +1,7 @@
 package com.edo.user.dto;
 
 import com.edo.user.entity.Users;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
@@ -15,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserDto {
 
 	@NotBlank(message = "이름은 필수 입력 값입니다.")

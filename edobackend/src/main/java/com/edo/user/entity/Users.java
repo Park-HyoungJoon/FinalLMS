@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 //회원
 public class Users extends BaseTimeEntity {
 

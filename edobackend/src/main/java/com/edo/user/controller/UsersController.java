@@ -5,6 +5,7 @@ import com.edo.user.entity.Users;
 import com.edo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 @Slf4j
 public class UsersController {
 
+    @Autowired
     private final UserService userService;
 
     @GetMapping(value="/login")
@@ -39,6 +41,7 @@ public class UsersController {
     public String MemberjoinInfo(){
         return "member/memberjoinInfo";
     }
+
     //    회원가입 값 전달
     @PostMapping(value ="/memberjoinInfo" )
     public String userJoin(@Valid UserDto userDto, Model model){
@@ -54,6 +57,8 @@ public class UsersController {
         users.setUsersPhone(userDto.getUsersPhone());
 
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + users.toString());
+
+        userService.saveMember(userDto);
 
 //        성공 시 메인 페이지로 돌아간다
         return "redirect:/";
