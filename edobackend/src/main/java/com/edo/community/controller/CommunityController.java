@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 //웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 @CrossOrigin
@@ -63,6 +65,11 @@ public class CommunityController {
         communityTest.setCommunityContent(communityTestDto.getCommunityContents());
         log.info(communityTest.toString());
         communityTestRepository.save(communityTest);
+
+        List<CommunityTestDto> communityMainList = communityService.getCommunityList(communityTest);
+        model.addAttribute("communityMainList",communityMainList);
+
+
 //          성공 시 메인 페이지로 돌아감
         return "community/communityMain";
     }

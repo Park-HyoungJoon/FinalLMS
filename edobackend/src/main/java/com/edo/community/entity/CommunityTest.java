@@ -1,5 +1,6 @@
 package com.edo.community.entity;
 
+import com.edo.community.dto.CommunityTestDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,5 +35,25 @@ public class CommunityTest {
         this.communityTitle = communityTitle;
         this.communityContent = communityContent;
     }
+
+
+//    communityTest 객체를 communityDto로 변환해주는 메소드(기본)
+    public CommunityTestDto toDto(){
+        CommunityTestDto communityTestDto = new CommunityTestDto();
+        communityTestDto.setCommunityId(this.communityId);
+        communityTestDto.setCommunityTitle( this.communityTitle);
+        communityTestDto.setCommunityContents(this.communityContent);
+        return communityTestDto;
+    }
+
+    
+//    communitymain에서 list로 받아오기 위해 communityDto로 변환해주는 메소드
+    public CommunityTestDto toDtoNoContents(){
+        CommunityTestDto communityTestDto = new CommunityTestDto();
+        communityTestDto.setCommunityId(this.communityId);
+        communityTestDto.setCommunityTitle(this.communityTitle);
+        return communityTestDto;
+    }
+
 
 }

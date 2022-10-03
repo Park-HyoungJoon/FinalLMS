@@ -91,10 +91,10 @@
                                 </tr>
                                 </thead>
                                 <tbody id="listArea">
-<!--                                <tr th:object="${communityTestDto}">-->
-<!--                                    <td th:text="${communityTestDto.communityId}"></td>-->
-<!--                                    <td th:text="${communityTestDto.communityTitle}"></td>-->
-<!--                                </tr>-->
+                                <tr th:each ="communityMain : ${communityMainList}">
+                                    <td th:text="${communityMain.communityId}"></td>
+                                    <td th:text="${communityMain.communityTitle}"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

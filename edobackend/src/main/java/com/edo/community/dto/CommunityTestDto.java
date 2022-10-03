@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class CommunityTestDto {
 
-//   private Long communityId;
+   private Long communityId;
    
    @NotBlank(message = "제목을 입력해주세요")
     private String communityTitle;
