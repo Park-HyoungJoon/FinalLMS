@@ -33,11 +33,11 @@ public class Community extends BaseTimeEntity {
 //    private Users nickname;
 
 //    제목
-    @Column(name = "community_Title")
+    @Column
     private String title;
 
 //    내용
-    @Column(name = "community_content")
+    @Column
     private String content;
 
 ////    조회수

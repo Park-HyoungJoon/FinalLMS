@@ -21,11 +21,11 @@ public class CommunityTest {
     private Long communityId;
 
     //    제목
-    @Column(name = "community_Title")
+    @Column
     private String communityTitle;
 
     //    내용
-    @Column(name = "community_content")
+    @Column
     private String communityContent;
 
 

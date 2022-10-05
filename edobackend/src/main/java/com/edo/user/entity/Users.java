@@ -25,23 +25,23 @@ public class Users extends BaseTimeEntity {
     @Column(name = "users_id")
     private Long usersId;
 
-    @Column(name = "users_email", length = 255)
+    @Column( length = 255)
 	private String usersEmail;
 
     //비밀번호
-    @Column(name = "users_password",length = 255)
+    @Column(length = 255)
     private String usersPassword;
 
     //닉네임(Unique)`
-    @Column(name = "users_nickname", unique = true , length = 10)
+    @Column(unique = true , length = 10)
 	private String usersNickname;
 
     //이름
-    @Column(name = "users_name",length = 60)
+    @Column(length = 60)
     private String usersName;
 
     //핸드폰
-    @Column(name = "users_phone",length = 15)
+    @Column(length = 15)
     private Long usersPhone;
 
 //    @Enumerated(EnumType.STRING)
