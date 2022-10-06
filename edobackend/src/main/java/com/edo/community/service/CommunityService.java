@@ -28,7 +28,7 @@ public class CommunityService {
         return communityTest.getCommunityId();
     }
 
-    //    게시글 조회
+    //    게시글 리스트로 나타내기
     public List<CommunityTestDto> getCommunityList(CommunityTest communityTest)  {
 
         List<CommunityTest> testList = communityTestRepository.findAllByOrderByCommunityId();
@@ -38,5 +38,8 @@ public class CommunityService {
         log.info(communityTestDtos.toString());
         return communityTestDtos;
     }
+
+//    게시글 세부 조회
+
 
 }
