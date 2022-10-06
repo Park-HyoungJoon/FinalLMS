@@ -1,4 +1,6 @@
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basiclayout}">
 
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -89,228 +91,199 @@
 </head>
 
 <body class="vsc-initialized">
-<div id="wrapper">
-    <div th:replace="/fragments/header.html :: fragment-nav"></div>
+<div layout:fragment="content">
+    <div id="wrapper">
+        <div id="container">
+            <div class="lecture_search2" style="text-align: center;">
+                <div class="search_icon2">
+                    <h3>강좌검색</h3><br>
+                </div><!-- //search_icon -->
+                <div class="input-group" style="width: 500px; margin: auto;">
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                           aria-describedby="search-addon"/>
+                    <button type="button" class="btn btn-primary">search</button>
+                </div>
+            </div><!-- //lecture_search -->
+        </div>
+        <hr>
 
-    <div id="container">
-        <div class="lecture_search2" style="text-align: center;">
-            <div class="search_icon2">
-                <h3>강좌검색</h3><br>
-            </div><!-- //search_icon -->
-            <div class="input-group" style="width: 500px; margin: auto;">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                       aria-describedby="search-addon"/>
-                <button type="button" class="btn btn-primary">search</button>
+        <div class="sub_head">
+            <h3>학교강좌 </h3>
+            <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
+                                                                       alt="더보기"></a></div>
+        </div>
+        <div class="asset-top">
+            <div class="container">
+                <div class="school_lecture">
+                    <div class="row">
+                        <dl class="col">
+                            <dt>
+                                <a href="javascript:;" onclick="goCourseView(6);">
+
+                                    <img src="data:image/jpeg;base64,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"
+                                         alt="썸네일">
+
+                                </a>
+                            </dt>
+                            <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(6);">AI융합 기초 캠프</a>
+                            </dd>
+                            <dd class="lecture_writer">김기태</dd>
+                            <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(6);">블록 기반으로 된 Edub를
+                                활용하여 파이썬과 데이터 분석을 위한 기초를 익히고, 데이터 분석에 필요한 파이썬 핵심 문법과 클로링, numpy, pandas,
+                                matplotli</a></dd>
+                            <dd class="lecture_hit"><span>1</span><span>0</span></dd>
+                        </dl>
+
+                        <dl class="col">
+                            <dt>
+                                <a href="javascript:;" onclick="goCourseView(20);">
+
+                                    <img src="http://crhs.aimind.co.kr/images/sample_image0.png" alt="썸네일">
+
+                                </a>
+                            </dt>
+                            <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(20);">[Level 1] 프로그래밍
+                                쉽게 배우자</a></dd>
+                            <dd class="lecture_writer">이세훈</dd>
+                            <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(20);">프로그래밍 개요 강의 입니다.
+                            </a></dd>
+                            <dd class="lecture_hit"><span>0</span><span>0</span></dd>
+                        </dl>
+
+                        <dl class="col">
+                            <dt>
+                                <a href="javascript:;" onclick="goCourseView(30);">
+
+                                    <img src="http://crhs.aimind.co.kr/images/sample_image0.png" alt="썸네일">
+
+                                </a>
+                            </dt>
+                            <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(30);">[Level 2] 프로그래밍과
+                                AI의 세계로 발 담그기</a></dd>
+                            <dd class="lecture_writer">이세훈</dd>
+                            <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(30);"></a></dd>
+                            <dd class="lecture_hit"><span>0</span><span>0</span></dd>
+                        </dl>
+
+
+                        <dl class="col"></dl>
+                    </div>
+
+                </div><!-- //school_lecture -->
             </div>
-        </div><!-- //lecture_search -->
+            <p>
+            </p>
+        </div><!-- //asset_top -->
     </div>
+
     <hr>
 
     <div class="sub_head">
-        <h3>학교강좌 </h3>
+        <h3>인기 포트폴리오 </h3>
         <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
                                                                    alt="더보기"></a></div>
     </div>
-    <div class="asset-top">
-        <div class="container">
-            <div class="school_lecture">
-                <div class="row">
-                    <dl class="col">
-                        <dt>
-                            <a href="javascript:;" onclick="goCourseView(6);">
-
-                                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB6AO4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDy1hkEHvUcB/d7T1Q7alxUf3Lj2cfqK89bWPSZJS4oHNLikFypOgHPpUFXJ1+Q/SqWeK1gaReg5uQRUcB4ZfQ07NRx/LMw9RW0SJMsV6Los/m2Fu+esYzXnPWu18KvJNYRois5RipwM962puz1OTEfCmdUrVDqI32LfX+hqzHZXJH+rx9SKlk0yaWBkygJx1NN4ikt5I4nJFG1k32sTf7IrQkObdaitdGuIYFjaRCV9M1baym8raNpP1rJ4ik/tFKce5nsaiarEtvNH96JgPXrVVjzSUk9UzdNPYYxqMmnsaZipbNEChSSXbaigs7egHJNcXBI2ta5c6gykIW2QKeyDgD8hW74kuXisI9OhP8ApF6eQO0YP9T+gpNOtlto1jKcBQBWFWdlY3pQu7koRoyNwJUdquwGKWPKseOcUFVKHHAPaliUIpC4/lXKdDGkHPAHToaaSGjB2D05pWVgcnkVGHKnjkelIY10TG4DFR+XxycVKGBGAMD0ppU46ZFIYzymHTke1HljvU64xjv+tTIQ3BHPpVxWpLZVVSOBilyFbpV0xRlc/dpiW3z5DDp3rSxNzlfEGlNpOqSRhSIH+eJuoK+n4VjTcKHHVDu/x/SvTPEth9v0iUDBkgJkjI56dR+VecYzwR1pwkYxd0A56VIBiorfOzaeqHb/AIVKeKbHcguDhT9KzVOVq1ey7UIz1qjGc5A65raC0LiyQnFaGlaBqWs3Cm0t2MYOGlbhB+Pf8K6vwx4DNyEvNXRlTqtueCf970+lekQW0VtCscMaoijAVRgCsKmKUdI6s4a+LSdoanG6T4As7ULJft9pl/u9EH4d6623tIbaIRwxJGg6KihR+QqbGTTsVxTqzn8TPPnUlN+8xoUCnAUuKUCoIAClxQBS0XATFQTWcE3341J9RwasYopqTWwJtbGBdaNIpLQNvH909azjti3NOdkcYLSE/wAIHWuwNZeuaLHrOmzWpkaFpAPnQc8cgH1FdVLEtaTOqniGtJHnVhN/a2qz6nP8u47IVPRVHT9K6ZIk25BBFZ0Onf2dILSSMKY+M46j1qzlP4ePoaJT5nc9mCXKrFnYD1FIyYHB/CmRyOoI3dfalM2PvL+IpaF6jfmXqM0hCEfMtPEkbDhhn0oK0gIfLjbo2PrTGR16HI96mZFPbFIVPGDQMr7wuCykVZiKlg2Rn1NRuo/iFQtC+cq1VF2E1c0WOQFHI61LAGyQOeO1ZsTzY+YgjOMmrMNwAx6jjqOc1qmjJqxtCXzWLKVwM5DCvNNWsjYapPD/AAbtyY/unpXoZYId6rtPWuc8VxJc2UF8g5jby2Psf/r/AM6yhLWxzwdmceDsuD6OP1H/ANb+VEsgVTUU8gVQ+eVOaz7q538KeK6VG5qiK5m8xye3avQvAPhHKpq1/Hy3MEbDoP7x/pXMeDdBGva0POXNrb4eT/aOeF/H+QNe4wxiNAoAAArLE1eVckTgxVdr3IjlQKKGNOPApuK884BoFLilpaYABS0UoFABRS0UAFGKXFFADcUYp1FAGRrWnC7ti6D96o4Pr7VyixkNgZwOtegMoIwa5W/tVS6kA45zWkNdD08BWetNmYGwBxQ5AGRmpTGV5HIqGTI44FaWPTECiRwCPrVjYCcg49s1HCg2bieTTmDDpzTQDyCOuDSZx2NMLHof1pVm9QKd0FhCRnmlBwOMGnbkbtn60bFJ+XI9waaExpAbjpUkcQPQcYpvkuOQwNSxI/8AdI4rSKIbL2qWdy07yW4Hk/eIB5Fc54okW18JKGPztJGMe/JNd5exYtnWMnc3QivN/ibIkaWdrBysZzKQejY4H5ZrOlC80ckdzgpp2c8mqrNxQWqNjXpJWLlI9o+HWnraeGYJSP3lyTKx9s4H6D9a7QHArE8NRiHQrFBji3j6f7orZzXiVZXm2zx5u8mwJyaWkxSioJFpcUClxTAO1KKMUuKACilpaYCUUuKKAExRilxRikAmK53WQVuQQR+VdHXNa1J/pI6+nH+ferp/EdWD/jIzCxznAJ9RUZfOf5Gl3bj60049DXVytns3ImYqOBiohPKCd6jb2Iqcxhhx+lRiLYPlY/Q1nKLRaaYonB68UBgetRv8uAVGSe1KCq/MTxU6laEvH8JpRuHbNMwCA3Q+lOXOetWriZOjnGKtRyYAPXj61WQ7hyB6VahVWbGcYFdCMWdIzkKyg5JBPrXm2sWY1G4vUPKzEgsezZ+U/nxXo0Uao5klfYF6EntXKG50mXVrqOzkSWFzhmRsruPUA/WubVao5G9TxqVWikeNxhlJVh6EVFXR+M9KbTtZaQf6q4+cHHGe/wDj+Nc3Xqwd0mJu57x4NuPtHhjT5D/zxCn6jj+ldGOa87+G+qo+ifYWb97BI2B6qef5mvQo2BFeHWjy1JI8yatJokAp2KQU4CpIDFOxRS0DCilpaYCUtFLiiwhMUUtL2osA2jFLSmgZFKwjQk1xt9Obi6kw33Dj8etbPiLV49OsJJWI4GFX+83YVx9rdMlqpb5pZP3jE+p5rrweFq4ipamrm9CtToXq1HZIuNhVy5AHqaha5QfcBb9BUDM8rbnYk0Yr6/C5JSgr1nd/geXis+qzdqKsvxHm4lbptH0FN3SHrI350mKcK9SOFowXuwS+R5csZXqP3pv7xvP94/nQRznJ/OnUVfIuxHtZdxN7j+M/jzThOy9VB/SmUGsamDoVPjgma08diKXwTaLkNzET8x2/Wr8TAjIIrDxUkLyRMfLcrn0rzK+SU5a0Xb1PWw+fzWlZX80c/rup3+ooy3F1Iy/3c4X8hWJo169jehc/KT0ravYsE8ZrAubdomEgGOa+Xg048rPeaO+1qyj8ReH9qkCeL50OP0rymaJ4JnikUq6nBBr0rw/eGS3TDYIHzDpVDxF4c/tOBr+z2rNHkSIxwGA9/WtKE+X3WSzm/DGpPp2pBkOCeQPX1Fe2aVqUV7bJLG2VP5j2r54yyOCCQwPbtXa+HfEM1qFlRsjpInY1GMoc3vo5qsL6ntSkEVIKw9J1m31CAPE/J6qeorZjcMODXmnLsSUoFAFOApgJRilxS4piExS0uKULTsA2lxTttNeRIxyaLAGMCqF/qEVpA8juERRlmPaqup65b2SHzHw2PuA8/wD1q821nWrnXr9LNWKw5ywXgBa1oUJVpqEOom0ld7Fi8u38Q3/2qTIs4ziGM/xH+8asquBSRRrHGqKAFUYAFSYr9DwWEhhaShH5nzuJxEq0rvboJilpaO9dZzjaWiigYUlLRSC4lJS4oxQAlKnWkxTl600Iy7pAVLd6p3VuJbbPtzVoyMW5xxVizTeNu3I9+lfm6R+gmPpMjWspXNdNFie3VWOUlT5lHQjpg/hWDeWJgudwXchPBY/0FbMDNHao5zwcqvQt+HYYAxTvqJnmOpWv2LUri2HIjcgfTtRYXP2e5GT8jcNWh4pRk1yRmABdVbj8v6Vi16C1jqZs7G1vZrSUSQyFDnqOjV1+leNZE2pdLn/aFedWk7SWwkXBZfldT0NX4yrbdjbSRkI56/Q/41yVcMpaoxnTueyWXiOyuVBEoHsa1YryGQZWRT+NeIx3DwsFYlG9DxWjDqs6D/WsPoa4pUZRMHA9lWVD3pfMj/vCvJ0127UcTHFSHX784/0h/wDvo0rMnlPVDNEoyWqCTUreIZLqPqa8tfWr1usxqtJfXEnLyufxotJhynot54ntYQcSbj6Cua1DxVPICIcID3HX865OW8VfvPz6dTWfdahIPlACE926/lWsKEpFKDZc1TVSFJdsk9qf4bgZoZLuT70pwPZRXOzbpMu5LN6mu40yEQWMUY7KBX0uS4VKo5vocWaS9nRUV1LQFKKKUV9MfO3CilpDQAlFLRQAlJS0UDEooooASlXrRilXrQhM5PTL9dQgHIWVeGXP6/St2z3lgy8KDgf7R9v51wuhgHWYgehzx+FdpYszLOWYkgqoye2elfntSCjLQ/QLmnMhlAbI2nuOw7UpilKqiJJL6DaTWhpEcbTzbkU4bjI6da3ogNo4FaUqCnrczlOx5ZrPhPX9a1qa5SzCxYVULyKuQAB0z9aij+Gmtv8Aee2T/gZP9K9fAp46V3KmkrGfOzyu0+HusWhP7y2cN1w5/wAKdJ4R1aOFke1DgH5Sjgn8q9SoIo5EHMzxf7JfWE4huI5Y4ycbZUyv5HinOyxHDwEe8bkfoc17BPGjoQyKwPYjNedeJIo4tQlWONEX0VQBWcqae4aPcxoZ45G2pJMDjoUB/rVgOgHzXe0+hiNVLYAXHAqzdgcnFZ+wg1sLkQonhZtv2mVmz0SEc/iTTZpo0baYpXI4zJJgfkB/WorQDzjxUlyB5p4pqjBa2HyobE8kr7UVIl7+WMHH16/rWTKubl8Do1blsAAeKyl/1j/7xq0kkUJMgihUkdWFdtaf8e6+tcbf/cj+tdhZf6kV7WUbz+R4mdfDD5liloor2j58KMU6k70DExSYp1IaAEpKWg0AJRRS0DEoUc0Uq9aEJn//2Q=="
-                                     alt="썸네일">
-
-                            </a>
-                        </dt>
-                        <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(6);">AI융합 기초 캠프</a>
-                        </dd>
-                        <dd class="lecture_writer">김기태</dd>
-                        <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(6);">블록 기반으로 된 Edub를
-                            활용하여 파이썬과 데이터 분석을 위한 기초를 익히고, 데이터 분석에 필요한 파이썬 핵심 문법과 클로링, numpy, pandas,
-                            matplotli</a></dd>
-                        <dd class="lecture_hit"><span>1</span><span>0</span></dd>
-                    </dl>
-
-                    <dl class="col">
-                        <dt>
-                            <a href="javascript:;" onclick="goCourseView(20);">
-
-                                <img src="http://crhs.aimind.co.kr/images/sample_image0.png" alt="썸네일">
-
-                            </a>
-                        </dt>
-                        <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(20);">[Level 1] 프로그래밍
-                            쉽게 배우자</a></dd>
-                        <dd class="lecture_writer">이세훈</dd>
-                        <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(20);">프로그래밍 개요 강의 입니다.
-                        </a></dd>
-                        <dd class="lecture_hit"><span>0</span><span>0</span></dd>
-                    </dl>
-
-                    <dl class="col">
-                        <dt>
-                            <a href="javascript:;" onclick="goCourseView(30);">
-
-                                <img src="http://crhs.aimind.co.kr/images/sample_image0.png" alt="썸네일">
-
-                            </a>
-                        </dt>
-                        <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(30);">[Level 2] 프로그래밍과
-                            AI의 세계로 발 담그기</a></dd>
-                        <dd class="lecture_writer">이세훈</dd>
-                        <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(30);"></a></dd>
-                        <dd class="lecture_hit"><span>0</span><span>0</span></dd>
-                    </dl>
+    <div class="asset_center">
 
 
-                    <dl class="col"></dl>
-                </div>
-
-            </div><!-- //school_lecture -->
-        </div>
-        <p>
-        </p>
-    </div><!-- //asset_top -->
-</div>
-
-<hr>
-
-<div class="sub_head">
-    <h3>인기 포트폴리오 </h3>
-    <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                               alt="더보기"></a></div>
-</div>
-<div class="asset_center">
+        <div class="asset_center_box">
+            <img src="http://crhs.aimind.co.kr/images/popular_lec.png" alt="">
+            <div class="portfolio row">
 
 
-    <div class="asset_center_box">
-        <img src="http://crhs.aimind.co.kr/images/popular_lec.png" alt="">
-        <div class="portfolio row">
+                <dl class="col"></dl>
+
+                <dl class="col"></dl>
+
+                <dl class="col"></dl>
 
 
-            <dl class="col"></dl>
+            </div><!-- //portfolio -->
+        </div><!-- //asset_center -->
 
-            <dl class="col"></dl>
-
-            <dl class="col"></dl>
-
-
-        </div><!-- //portfolio -->
     </div><!-- //asset_center -->
 
-</div><!-- //asset_center -->
+
+    <hr>
+    <div class="sub_head">
+        <h3>공지사항 </h3>
+        <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
+                                                                   alt="더보기"></a></div>
+    </div>
+    <div class="asset_bottom">
+        <div class="notice row">
+
+            <dl class="col">
+                <dt>
+                    <a href="javascript:;" onclick="goNoticeView(33)">
+
+                        <img src="http://crhs.aimind.co.kr/upload/2022/07/15/thumb_f693ce4762af8102cbd01dada80c08b2.jpg"
+                             alt="썸네일">
+
+                    </a>
+                </dt>
+                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(33)">메타버스 시험운영을 시작합니다.</a></dd>
+                <dd class="notice_writer"><span>admin / 2022.07.15</span></dd>
+                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(33)">청라고등학교 AI융합교육 메타버스릐 시험운영을
+                    시작합니다. 위 이미지를 클릭하시면 메타버스로 연결됩니다. </a></dd>
+            </dl>
+
+            <dl class="col">
+                <dt>
+                    <a href="javascript:;" onclick="goNoticeView(31)">
+
+                        <img src="http://crhs.aimind.co.kr/images/sample_image01.png" alt="썸네일">
+
+                    </a>
+                </dt>
+                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(31)">2022 AI융합 기초캠프 신청안내</a></dd>
+                <dd class="notice_writer"><span>admin / 2022.06.13</span></dd>
+                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(31)">2022 AI융합 기초캠프 신청안내입니다. 첨부파일을
+                    확인하세요 </a></dd>
+            </dl>
+
+            <dl class="col">
+                <dt>
+                    <a href="javascript:;" onclick="goNoticeView(30)">
+
+                        <img src="http://crhs.aimind.co.kr/upload/2022/06/13/thumb_9efb372c2dc16c2f74484940b0165377.jpg"
+                             alt="썸네일">
+
+                    </a>
+                </dt>
+                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(30)">2020 AI융합기초캠프(09.10~11.19)</a>
+                </dd>
+                <dd class="notice_writer"><span>admin / 2022.06.13</span></dd>
+                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(30)">2020 AI융합 기초캠프 </a></dd>
+            </dl>
+
+            <dl class="col">
+                <dt>
+                    <a href="javascript:;" onclick="goNoticeView(24)">
+
+                        <img src="http://crhs.aimind.co.kr/upload/2022/06/02/thumb_96e2e3ba49378f963acf75ca6bc65eda.jpg"
+                             alt="썸네일">
+
+                    </a>
+                </dt>
+                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(24)">강좌 서비스 준비 중</a></dd>
+                <dd class="notice_writer"><span>admin / 2022.05.26</span></dd>
+                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(24)">강좌 서비스 구성중입니다. </a></dd>
+            </dl>
 
 
-<hr>
-<div class="sub_head">
-    <h3>공지사항 </h3>
-    <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                               alt="더보기"></a></div>
-</div>
-<div class="asset_bottom">
-    <div class="notice row">
-
-        <dl class="col">
-            <dt>
-                <a href="javascript:;" onclick="goNoticeView(33)">
-
-                    <img src="http://crhs.aimind.co.kr/upload/2022/07/15/thumb_f693ce4762af8102cbd01dada80c08b2.jpg"
-                         alt="썸네일">
-
-                </a>
-            </dt>
-            <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(33)">메타버스 시험운영을 시작합니다.</a></dd>
-            <dd class="notice_writer"><span>admin / 2022.07.15</span></dd>
-            <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(33)">청라고등학교 AI융합교육 메타버스릐 시험운영을
-                시작합니다. 위 이미지를 클릭하시면 메타버스로 연결됩니다. </a></dd>
-        </dl>
-
-        <dl class="col">
-            <dt>
-                <a href="javascript:;" onclick="goNoticeView(31)">
-
-                    <img src="http://crhs.aimind.co.kr/images/sample_image01.png" alt="썸네일">
-
-                </a>
-            </dt>
-            <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(31)">2022 AI융합 기초캠프 신청안내</a></dd>
-            <dd class="notice_writer"><span>admin / 2022.06.13</span></dd>
-            <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(31)">2022 AI융합 기초캠프 신청안내입니다. 첨부파일을
-                확인하세요 </a></dd>
-        </dl>
-
-        <dl class="col">
-            <dt>
-                <a href="javascript:;" onclick="goNoticeView(30)">
-
-                    <img src="http://crhs.aimind.co.kr/upload/2022/06/13/thumb_9efb372c2dc16c2f74484940b0165377.jpg"
-                         alt="썸네일">
-
-                </a>
-            </dt>
-            <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(30)">2020 AI융합기초캠프(09.10~11.19)</a>
-            </dd>
-            <dd class="notice_writer"><span>admin / 2022.06.13</span></dd>
-            <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(30)">2020 AI융합 기초캠프 </a></dd>
-        </dl>
-
-        <dl class="col">
-            <dt>
-                <a href="javascript:;" onclick="goNoticeView(24)">
-
-                    <img src="http://crhs.aimind.co.kr/upload/2022/06/02/thumb_96e2e3ba49378f963acf75ca6bc65eda.jpg"
-                         alt="썸네일">
-
-                </a>
-            </dt>
-            <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(24)">강좌 서비스 준비 중</a></dd>
-            <dd class="notice_writer"><span>admin / 2022.05.26</span></dd>
-            <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(24)">강좌 서비스 구성중입니다. </a></dd>
-        </dl>
+            <dl class="col"></dl>
 
 
-        <dl class="col"></dl>
-
-
-    </div><!-- //notice -->
-    </p>
-</div><!-- //asset_bottom -->
+        </div><!-- //notice -->
+        </p>
+    </div><!-- //asset_bottom -->
 
 </div><!-- //container -->
 
-<div id="footer">
-    <div class="footer_box">
-        <div class="footer_logo">
-            <img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
-        </div><!-- //footer_logo -->
-
-
-        <div class="copyright">
-            <ul>
-                <li><a href="javascript:;"
-                       onclick="window.open('http://crhs.aimind.co.kr/popup/privacyPolicy.pop', 'privacy', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">개인정보처리방침</a>
-                </li>
-                <li><a href="javascript:;"
-                       onclick="window.open('http://crhs.aimind.co.kr/popup/stipulation.pop', 'stipulation', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">서비스
-                    이용약관</a></li>
-                <li><a href="javascript:;"
-                       onclick="window.open('http://crhs.aimind.co.kr/popup/rejectEmail.pop', 'email', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">이메일주소
-                    무단수집거부</a></li>
-            </ul>
-
-
-            <address>경기도 부천시 양지로 205 서영아너시티2 913호 (주)에듀웍스<br>
-                TEL) 032-872-3072~4, FAX) 032-872-3060<br>
-                Copyright by Eduwalks. All rights reserved.
-            </address>
-        </div><!-- //copyright -->
-    </div><!-- //footer_box -->
-</div><!-- //footer -->
 </div><!-- //wrapper -->
 
-
+</div><!-- layout1 -->
 </body>
 
 </html>
