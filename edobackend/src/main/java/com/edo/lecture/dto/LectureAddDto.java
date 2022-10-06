@@ -1,9 +1,12 @@
 package com.edo.lecture.dto;
 
+import com.edo.community.dto.CommunityTestDto;
+import com.edo.community.entity.CommunityTest;
 import com.edo.lecture.entity.Lecture;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Blob;
@@ -30,6 +33,9 @@ import java.util.List;
 @Getter
 @Setter
 public class LectureAddDto {
+    Long id;
+    @JsonProperty("thisId")
+    String thisId;
     String lectureTitle;
     String part;
     String lectureInfo;
@@ -39,7 +45,7 @@ public class LectureAddDto {
     String manageStartDateAndmanageFinalDate;
     boolean manageyn;
     String lectureTime;
-    String lectureImg;
+    String lectureImage;
     String teacherName;
 
     String teacherInfo;
@@ -54,6 +60,8 @@ public class LectureAddDto {
     MultipartFile realTeacherImg;
     @JsonProperty("lectureInfoHidden")
     String lectureInfoHidden;
+    @JsonProperty("lectureImgStr")
+    String lectureImgStr;
     public List<LocalDate> StrToTime(String data){
         String[] str = data.split(" ");
         List<LocalDate> date = new ArrayList<>();
@@ -61,21 +69,13 @@ public class LectureAddDto {
         date.add(LocalDate.parse(str[2], DateTimeFormatter.ISO_LOCAL_DATE));
         return date;
     }
-    public Lecture LectureAddDtoToLecture(LectureAddDto lectureAddDto){
-        return Lecture.builder().lectureYN(lectureAddDto.lectureyn)
-                .lectureDetail(lectureAddDto.lectureDetail)
-                .lectureInfo(lectureAddDto.lectureInfo)
-                .lecturePart(lectureAddDto.part)
-                .lectureTime(lectureAddDto.lectureTime)
-                .lectureTitle(lectureAddDto.lectureTitle)
-                .lectureImage(lectureAddDto.lectureImg)
-                .startDate(lectureAddDto.startDate)
-                .finalDate(lectureAddDto.finalDate)
-                .manageStartDate(lectureAddDto.manageStartDate)
-                .manageFinalDate(lectureAddDto.manageFinalDate)
-                .subYN(lectureAddDto.subyn)
-                .manageYN(lectureAddDto.manageyn)
-                .build();
+
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public Lecture dtoToLecture() { return modelMapper.map(this,Lecture.class);}
+
+    public static LectureAddDto of (Lecture lecture){
+        return modelMapper.map(lecture,LectureAddDto.class);
     }
 }
 

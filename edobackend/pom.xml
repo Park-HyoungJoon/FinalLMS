@@ -136,6 +136,12 @@
 			<artifactId>webjars-locator</artifactId>
 			<version>0.40</version>
 		</dependency>
+		<!-- thymeleaf-layout-direct-->
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 
 
 

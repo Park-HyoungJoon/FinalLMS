@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>    <!-- CSS only -->
+</head>
+<body>
+<div layout:fragment="content">
+  <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
+        class="needs-validation" enctype="multipart/form-data" novalidate>
+    <input type="hidden" id="ContentsListSize" name="ContentsListSize" th:value="${lectureContentsList.size()}">
+    <div data-name="fileDiv" class="form-group">
+      <input type="hidden" id="ContentsSeq" name="ContentsSeq" value="1"/>
+      <input type="hidden" th:name="lectureId" th:value="${lectureId}" id="lectureId"/>
+      <!--    <div th:if="${not #lists.isEmpty(getId)}">
+              <input type="hidden" id="contentsIdSize" th:value="${getSize}"/>
+              <div th:each="vo : ${getId}">
+                  <input type="hidden" th:id="contentsId${vo.getId}" th:value="${vo.getId}">
+              </div>
+          </div>-->
+      <button type="button" onclick="addFile();"
+              class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+      <div data-name="contentsDiv">
+        <div style="display: block">
+          <label>강의제목</label>
+          <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"></div>
+        <div style="display:block;">
+          <label>차시제목</label>
+          <input type="text" name="lectureContentsTitle1" id="lectureContentsTitle1"></div>
+        <div style="display: block">
+          <label>차시 파일</label>
+          <input type='file' id="lectureContentsFile1" name="lectureContentsFile1"/>
+          <div class="form-group">
+            <label class="form-label mt-4">차시 설명</label>
+            <textarea name="content" id="editor1">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
+          </div>
+          <input type="submit" id="nextButton" class="nextButton"/>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script
+          src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    let editor = [];
+    ClassicEditor
+            .create(document.querySelector('#editor1'))
+            .then(newEditor => {
+              editor[1] = newEditor;
+            })
+            .catch(error => {
+              console.error(error);
+            });
+  </script>
+  <script>
+    $(document).ready(function (){
+      listSize =
+    })
+  </script>
+  <script th:inline="javascript">
+    let fileIdx = 1; /*[- 파일 인덱스 처리용 전역 변수 -]*/
+    function addFile() {
+
+      const fileDivs = $('div[data-name="fileDiv"]');
+      if (fileDivs.length > 4) {
+        alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
+        return false;
+      }
+
+      fileIdx++;
+
+      const fileHtml = `
+    <div data-name="fileDiv" class="form-group">
+		<button type="button" onclick="removeFile(this)"
+			class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+			<i class="fa fa-minus" aria-hidden="true"></i>
+		</button>
+<div data-name="contentsDiv">
+    <div style="display: block">
+    <label>차시제목</label>
+    <input type="text" name="lectureContentsTitle${fileIdx}" id="lectureContentsTitle${fileIdx}"></div>
+    <div style="display: block">
+        <label>차시 파일</label>
+                <input type='file' id="lectureContentsFile${fileIdx}" name="lectureContentsFile${fileIdx}"/>
+                <input type="hidden" id="ContentsSeq${fileIdx}" name="ContentsSeq${fileIdx}" value="${fileIdx}"/>
+
+            <div class="form-group">
+                <label class="form-label mt-4">차시 설명</label>
+                                <textarea name="content${fileIdx}" id="editor${fileIdx}">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
+            </div>
+    </div>
+</div>
+</div>
+`;
+// If you use jQuery, you can use the jQuery plugin Dropzone ships with:
+      $('#nextButton').before(fileHtml);
+
+      ClassicEditor
+              .create(document.querySelector('#editor' + fileIdx))
+              .then(newEditor => {
+                editor[fileIdx] = newEditor;
+              })
+              .catch(error => {
+                console.error(error);
+              });
+
+    }
+
+    function removeFile(elem) {
+
+      const prevTag = $(elem).prev().prop('tagName');
+      if (prevTag === 'BUTTON') {
+        theEditor.setData('');
+        return false;
+      }
+      if (fileIdx === 0) {
+
+      } else {
+        $(elem).parent().remove();
+      }
+      fileIdx--;
+    }
+  </script>
+
+  <!--submit의 이벤트를 잠시 멈추고 진행한 다음에 재전송하는 함수-->
+  <script th:inline="javascript">
+    $("#uploadContents").submit(function (event) {
+      event.preventDefault();
+      let lectureDivideTitle = $("#lectureDivideTitle").val();
+      let lectureContentsTitle = [];
+      let lectureContentsInfo = [];
+      let lectureId = $("#lectureId").val();
+      for (let i = 1; i <= fileIdx; i++) {
+        lectureContentsInfo.push(editor[i].getData());
+        lectureContentsTitle.push($("#lectureContentsTitle" + i).val());
+      }
+      let param = {
+        "lectureDivideTitle": lectureDivideTitle,
+        "lectureContentsTitle": lectureContentsTitle,
+        "lectureContentsInfo": lectureContentsInfo,
+        "lectureId": lectureId,
+      }
+      let isSubmit = false;
+      $.ajax({
+        anyne: true,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(param),
+        url: "/lecture/contents",
+        dataType: "text",
+        async: false,
+        success: function (data) {
+          let form = document.uploadContents;
+          form.ContentsSeq.value = fileIdx;
+          var message = 'Success'
+
+          // 결과값이 성공이면 전송 여부는 true
+          if (message == 'Success') {
+            isSubmit = true;
+          } else {
+            // 결과값이 실패이면 전송 여부는 false
+            // 앞서 초기값을 false로 해 놓았지만 한번 더 선언을 한다.
+            isSubmit = false;
+          }
+        },
+      });
+
+      if (isSubmit) this.submit();
+    })
+  </script>
+</div>
+</body>
+
+</html>

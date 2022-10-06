@@ -5,6 +5,7 @@ import com.edo.lecture.entity.LectureContentsFile;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
@@ -14,6 +15,11 @@ public class LectureContentsFileDto {
 
 
 
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public static LectureContentsFileDto of (LectureContentsFile lectureContentsFile){
+        return modelMapper.map(lectureContentsFile,LectureContentsFileDto.class);
+    }
     public LectureContentsFile toLectureContentsFile(MultipartFile file, LectureContents lectureContents){
             if(file==null){
                 return null;

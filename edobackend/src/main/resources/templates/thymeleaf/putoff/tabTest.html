@@ -1,0 +1,386 @@
+<html lang="ko"><head>
+  <title>AiMind에 오신 것을 환영합니다.</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="AiMind">
+  <meta name="Keywords" content="AiMind">
+  <meta name="Description" content="AiMind">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
+  <noscript><meta http-equiv="X-Frame-Options" content="DENY" /></noscript>
+
+  <link rel="stylesheet" type="text/css" href="http://crhs.aimind.co.kr/css/sub.css">
+  <link rel="shortcut icon" href="http://crhs.aimind.co.kr/images/favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/jquery/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/design/lnb.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/util.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/jsbn.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rsa.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/prng4.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/js/rsa/rng.js"></script>
+  <script type="text/javascript" src="http://crhs.aimind.co.kr/loginScript.do"></script>
+  <script type="text/javascript">
+    $(window).load(function(){
+      try {
+
+      }catch(e) {	}
+    });
+  </script>
+  <script>
+    if( top != window ) {
+      top.location = window.location;
+    }
+  </script>
+  <script type="text/javascript">
+    function goTab(id) {
+      try {
+        location.href = 'http://crhs.aimind.co.kr/course/list.htm?menu=10&searchType='+id;
+      } catch (e) {
+        alert(e);
+      }
+    }
+  </script>
+
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AiMind : 강좌">
+  <meta property="og:description" content="">
+  <meta property="og:url" content="http://crhs.aimind.co.kr/course/list.htm?menu=10&amp;searchType=C01&amp;searchCId=">
+  <script type="text/javascript">
+    function goView(id) {
+      try {
+        $('#id').val(id);
+        $('#searchForm').attr('method','get');
+        $('#searchForm').attr('action','http://crhs.aimind.co.kr/course/view.htm').submit();
+      }catch(e) {
+        alert(e);
+      }
+    }
+
+    function goWrite() {
+      try {
+        $('#searchForm').attr('method','get');
+        $('#searchForm').attr('action','http://crhs.aimind.co.kr/course/write.htm').submit();
+      }catch(e) {
+        alert(e);
+      }
+    }
+
+    function searchFormCheck() {
+      try {
+        return true;
+      }catch(e) {
+        return false;
+      }
+    }
+
+    function goSearch() {
+      try {
+        $('#pageNo').val(1);
+        $('#searchForm').attr("action", "http://crhs.aimind.co.kr/course/list.htm");
+        $('#searchForm').submit();
+      }catch(e) {
+        alert(e);
+      }
+    }
+
+    function goCurriculum(val) {
+      try {
+        $('#pageNo').val(1);
+        $('#searchKeyword').val('');
+        $('#searchCId').val(val);
+        $('#searchForm').attr("action", "http://crhs.aimind.co.kr/course/list.htm");
+        $('#searchForm').submit();
+      }catch(e) {
+        alert(e);
+      }
+    }
+
+    $(document).on("click", '.btn_study', function () {
+      try {
+        $('#id').val($(this).data('study'));
+        console.log($('#id').val());
+        $('#searchForm').attr("method", "GET");
+        $('#searchForm').attr("action", "http://crhs.aimind.co.kr/course/study/study.htm");
+        $('#searchForm').submit();
+      }catch(e) {
+        alert(e);
+      }
+    });
+
+  </script>
+
+</head>
+<body class="vsc-initialized">
+<div id="wrapper">
+  <div id="header">
+    <div class="gnb_box">
+      <span class="top_recommend">한국인공지능교육학회추천 “디지털°AI융합교육플랫폼”</span>
+      <div class="spot_menu">
+        <ul>
+          <li><a href="http://crhs.aimind.co.kr/index.htm">홈</a></li>
+          <li><a href="http://crhs.aimind.co.kr/login.htm">로그인</a></li>
+          <li><a href="http://crhs.aimind.co.kr/join/joinStep1.htm">회원가입</a></li>
+        </ul>
+      </div><!-- //spot_menu -->
+      <div class="clear"></div>
+      <hr>
+
+      <h1><a href="http://crhs.aimind.co.kr/index.htm" style="color:#fff;"><img class="school_logo" src="http://crhs.aimind.co.kr/upload/2022/08/26/872247e8255f4f85a06aa04208cdc8f0.png" alt=""></a></h1>
+      <hr>
+
+      <h2 class="hidden">주메뉴</h2>
+      <div class="gnb">
+        <ul>
+          <li><a class="on" href="http://crhs.aimind.co.kr/course/list.htm?menu=10" target="_self" title="강좌 메뉴 링크"><span>강좌</span></a></li>
+          <li><a href="http://crhs.aimind.co.kr/portfolio/list.htm?menu=20" target="_self" title="포트폴리오 메뉴 링크"><span>포트폴리오</span></a></li>
+          <li><a href="http://crhs.aimind.co.kr/bbs/list.htm?menu=31" target="_self" title="공지/소식 메뉴 링크"><span>커뮤니티</span></a></li>
+          <li><a href="http://crhs.aimind.co.kr/html/view.htm?menu=40" target="_self" title="소개 메뉴 링크"><span>소개</span></a></li>
+        </ul>
+
+        <div class="side">
+          <a class="experience" href="http://crhs.aimind.co.kr/edub/experience/request.do"><span>체험하기</span></a>
+        </div>
+      </div><!-- //gnb -->
+    </div><!-- //gnb_box -->
+    <hr>
+
+    <div class="main_visual">
+      <div class="main_visual_in">
+        <div class="main_image">
+          <img src="http://crhs.aimind.co.kr/upload/2022/06/14/96872a00625998ff734e4f4fe640ef70.png" alt="이미지1">
+        </div><!-- //main_image -->
+        <hr>
+
+        <div class="main_visual_tit">
+          <div class="slogan">꿈, 열정
+            그리고 비상하는 DRAGONS
+            청라인</div>
+        </div><!-- //main_visual_tit -->
+        <hr>
+        <hr>
+      </div>
+    </div>
+  </div><!-- //header -->
+  <hr><div id="container">
+  <h3 style="background:url(http://crhs.aimind.co.kr/images/menu_icon1.png) no-repeat 530px 6px">강좌</h3>
+  <hr>
+  <div class="asset_tab">
+    <h4 class="blind">탭어셋</h4>
+    <ul class="tabs">
+      <li class="tab_link" data-tab="asset0" onclick="goTab('');">전체강좌</li>
+      <li class="tab_link current" data-tab="asset1" onclick="goTab('C01');">학교강좌</li>
+      <li class="tab_link" data-tab="asset2" onclick="goTab('C02');">추천강좌</li>
+      <li class="tab_link" data-tab="asset3" onclick="goTab('C03');">공개강좌</li>
+    </ul>
+
+
+    <div id="asset0" class="tab_content">
+    </div><!-- //asset1 -->
+
+
+    <div id="asset1" class="tab_content current">
+
+
+      <div class="board_search">
+        <form id="searchForm" name="searchForm" method="post" action="http://crhs.aimind.co.kr/course/list.htm" onsubmit="return searchFormCheck();">
+          <input type="hidden" name="menu" value="10">
+          <input type="hidden" name="pageNo" value="1">
+          <input type="hidden" name="scale" value="15">
+
+          <input type="hidden" name="searchType" id="searchType" value="C01">
+
+          <input type="hidden" name="id" id="id" value="">
+          <input type="hidden" name="cPwd" id="cPwd" value="">
+          <fieldset>
+            <legend>게시글 검색</legend>
+
+            <label class="blind" for="searchCId">검색분류선택</label>
+            <select class="search_select" id="searchCId" name="searchCId">
+              <option value="">전체</option>
+
+              <option value="7">파이썬</option>
+
+              <option value="8">인공지능</option>
+
+              <option value="9">데이터분석</option>
+
+              <option value="4">기타</option>
+
+            </select>
+
+
+            <label class="blind" for="searchKeyword">검색어</label>
+            <input class="search_txt" id="searchKeyword" name="searchKeyword" value="" title="검색어 입력" placeholder="검색어 입력" autocomplete="off" type="text">
+            <a class="btn search_btn" href="javascript:;" onclick="goSearch();">검색</a>
+          </fieldset>
+        </form>
+      </div><!-- //board_search -->
+
+
+
+
+      <ul class="tabs_in">
+        <li class="tab-link current" onclick="goCurriculum('');" data-tab="tab_1"><span>전체</span></li>
+
+
+
+        <li class="tab-link" onclick="goCurriculum('7');" data-tab="tab_2"><span>파이썬</span></li>
+
+
+        <li class="tab-link" onclick="goCurriculum('8');" data-tab="tab_3"><span>인공지능</span></li>
+
+
+        <li class="tab-link" onclick="goCurriculum('9');" data-tab="tab_4"><span>데이터분석</span></li>
+
+
+        <li class="tab-link" onclick="goCurriculum('4');" data-tab="tab_5"><span>기타</span></li>
+
+
+      </ul>
+
+
+
+      <div id="tab_1" class="tab-content current">
+
+
+        <div class="school_lecture">
+
+          <dl>
+            <dt>
+
+              <a href="javascript:;" onclick="goView(6);">
+
+                <img src="data:image/jpeg;base64,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" alt="썸네일">
+
+              </a>
+            </dt>
+            <dd class="lecture_field">
+
+              <span class="sc_lecture">학교</span>
+              <span class="field">데이터분석</span>
+            </dd>
+            <dd class="lecture_tit"><a href="javascript:;" onclick="goView(6);">AI융합 기초 캠프</a></dd>
+            <dd class="lecture_writer">김기태</dd>
+            <dd class="lecture_cont"><a href="javascript:;" onclick="goView(6);">블록 기반으로 된 Edub를 활용하여 파이썬과 데이터 분석을 위한 기초를 익히고, 데이터 분석에 필요한 파이썬 핵심 문법과 클로링, numpy, pandas, matplotli</a></dd>
+            <dd class="lecture_hit"><span>1</span><span>2</span><span data-scrap_count="6">1</span></dd>
+            <dd class="scrap">
+
+
+
+              <a href="javascript:;" onclick="goView(6);">상세</a>
+            </dd>
+          </dl>
+
+
+
+          <dl>
+            <dt>
+
+              <a href="javascript:;" onclick="goView(43);">
+
+                <img src="data:image/jpeg;base64,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" alt="썸네일">
+
+              </a>
+            </dt>
+            <dd class="lecture_field">
+
+              <span class="sc_lecture">학교</span>
+              <span class="field">인공지능</span>
+            </dd>
+            <dd class="lecture_tit"><a href="javascript:;" onclick="goView(43);">AI 융합 심화 캠프</a></dd>
+            <dd class="lecture_writer">김기태</dd>
+            <dd class="lecture_cont"><a href="javascript:;" onclick="goView(43);">AI 융합 심화 캠프 </a></dd>
+            <dd class="lecture_hit"><span>3</span><span>8</span><span data-scrap_count="43">0</span></dd>
+            <dd class="scrap">
+
+
+
+              <a href="javascript:;" onclick="goView(43);">상세</a>
+            </dd>
+          </dl>
+
+        </div><!-- //school_lecture -->
+
+
+      </div>
+
+
+
+
+
+
+
+      <div class="paging">
+
+
+
+        <div class="num_box" id="divNumBox">
+
+
+
+          <a class="num active" title="현재페이지" href="#">1</a>
+
+
+
+
+        </div><!-- //num_box -->
+
+
+
+      </div><!-- //paging -->
+
+
+
+
+      <div id="writePwdDiv" class="lecture_area_r_box" style="display:none;">
+        <span class="tit_in_s">수강신청암호</span>
+        <div style="padding:15px;">
+          <input type="text" id="coursePwd" value="" class="text" style="width:80%;">
+          <a href="javascript:;" onclick="setPwd();" class="btn btn_gray_on_s">확인</a>
+        </div>
+      </div><!-- //lecture_area_r_box -->
+
+    </div><!-- //asset1 -->
+
+
+    <div id="asset2" class="tab_content">
+    </div><!-- //asset2 -->
+
+
+    <div id="asset3" class="tab_content">
+    </div><!-- //asset3 -->
+
+  </div>
+</div><!-- //container -->
+
+  <div id="footer">
+    <div class="footer_box">
+      <h5 class="hidden">주소&amp;카피라이트</h5>
+      <div class="footer_logo">
+        <img src="http://crhs.aimind.co.kr/images/code_logo.png" alt="하단로고">
+      </div><!-- //footer_logo -->
+
+
+      <div class="copyright">
+        <ul>
+          <li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/privacyPolicy.pop', 'privacy', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">개인정보처리방침</a></li>
+          <li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/stipulation.pop', 'stipulation', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">서비스 이용약관</a></li>
+          <li><a href="javascript:;" onclick="window.open('http://crhs.aimind.co.kr/popup/rejectEmail.pop', 'email', 'width=900, height=800, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=no, location=no, scrollbars=no');">이메일주소 무단수집거부</a></li>
+        </ul>
+
+
+        <address>경기도 부천시 양지로 205 서영아너시티2 913호 (주)에듀웍스<br>
+          TEL) 032-872-3072~4, FAX) 032-872-3060<br>
+          Copyright by Eduwalks. All rights reserved.</address>
+      </div><!-- //copyright -->
+
+      <img class="recommend" src="http://crhs.aimind.co.kr/images/recommend.png" alt="한국인공지능교육학회추천">
+    </div><!-- //footer_box -->
+  </div><!-- //footer --></div><!-- //wrapper -->
+
+
+</body></html>
