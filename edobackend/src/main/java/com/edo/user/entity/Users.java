@@ -7,7 +7,6 @@ import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
 import com.edo.user.dto.UserDto;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Setter

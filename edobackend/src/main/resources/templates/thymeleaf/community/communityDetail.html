@@ -76,10 +76,11 @@
                         <col width="15%"/>
                         <col width="35%"/>
                     </colgroup>
-<!--                    <caption>게시글 상세내용</caption>-->
+                    <!--                    <caption>게시글 상세내용</caption>-->
                     <tbody>
                     <tr>
                         <th scope="row">글 번호</th>
+                        <!--                       for문 사용하여 그냥 숫자로 바꿀 예정-->
                         <td th:text="${communityTest.communityId}"></td>
                         <th scope="row">조회수</th>
                         <td></td>
@@ -99,7 +100,7 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="view_text">
-							<textarea title="내용" id="contents" name="contents"
+							<textarea title="내용" id="editor1" name="contents"
                                       th:text="${communityTest.communityContent }"></textarea>
                         </td>
                     </tr>
@@ -122,6 +123,17 @@
     <!--footer-->
     <div th:replace="/fragments/footer.html"></div>
 
+    <script>
+        let editor = [];
+        ClassicEditor
+            .create(document.querySelector('#editor1'))
+            .then(newEditor => {
+                editor[1] = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 
 </body>
 
