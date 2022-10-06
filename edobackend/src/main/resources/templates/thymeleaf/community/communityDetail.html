@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basiclayout}">
 <head>
     <title>커뮤니티</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -38,16 +39,13 @@
             top.location = window.location;
         }
 
-        function
     </script>
 
 </head>
 <body class="vsc-initialized">
+<div layout:fragment="content">
 
 <div id="wraaper">
-    <!--    header   -->
-    <div th:replace="/fragments/header.html :: fragment-nav"></div>
-
     <!--  community field  -->
     <div id="container">
 
@@ -106,7 +104,7 @@
                     </tr>
                     </tbody>
                 </table>
-            </div>
+            </div><!-- table style block -->
 
             <div style="display:block;">
                 <div align="center" style="margin-top: 10px">
@@ -114,14 +112,11 @@
                         목록으로
                         돌아가기
                     </button>
-                </div>
-            </div>
+                </div> <!-- button sytle -->
+            </div><!-- style block -->
+        </div><!-- div all style block -->
+    </div><!-- container -->
 
-
-        </div>
-    </div>
-    <!--footer-->
-    <div th:replace="/fragments/footer.html"></div>
 
     <script>
         let editor = [];
@@ -134,6 +129,8 @@
                 console.error(error);
             });
     </script>
+</div>
+</div><!-- latyout1 -->
 
 </body>
 
