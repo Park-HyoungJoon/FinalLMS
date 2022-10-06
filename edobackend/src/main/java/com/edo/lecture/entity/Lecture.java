@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "lecture")
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

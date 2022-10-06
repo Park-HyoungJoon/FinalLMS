@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                     layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div layout:fragment="content">
+
+    <p>강의 제목</p>
+    <dd th:text="${lecture.getLectureTitle()}"></dd>
+
+    <p>강의 소개</p>
+    <div class="form-group">
+        <label class="form-label mt-4">강의 설명</label>
+        <div id="lectureInfo" >
+            <dd th:utext="${lecture.getLectureInfo()}"></dd>
+        </div>
+    </div>
+    <p>강의 디바이드</p>
+    <dd th:text="${lectureDivide.getLectureDivideTitle()}"></dd>
+
+    <p>강의 차시</p>
+    <div th:each="vo , status : ${lectureContentsList}">
+
+        <p>강의 차시 제목</p>
+        <dd th:text="${vo.getLectureContentsTitle()}"></dd>
+
+        <p>강의 차시 설명</p>
+        <dd th:utext="${vo.getLectureContentsInfo()}"></dd>
+
+        <div th:text="${lectureContentsFileList.get(status.index).getFileName()}"></div>
+    </div>
+    <script type="text/javascript">
+        $("#uploadLecture").submit(function (event) {
+            event.preventDefault();
+            $("#lectureInfoHidden").val(editor[0].getData());
+            this.submit();
+        });
+    </script>
+    <script>
+
+        ClassicEditor
+            .create( document.querySelector( '#lectureInfo' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+</div>
+
+</body>
+
+</html>

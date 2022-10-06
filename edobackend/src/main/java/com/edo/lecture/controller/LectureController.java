@@ -55,17 +55,23 @@ public class LectureController {
     @Autowired
     LectureRepository lectureRepository;
     @GetMapping(value="/lecture")
-    public String Lecture(@RequestParam(value = "pageNumber",required = false,defaultValue = "1") int pageNumber,
+    public String Lecture
+            (@RequestParam(value = "tabNum",required = false,defaultValue = "tab1") String tabNum,
+                    @RequestParam(value = "pageNumber",required = false,defaultValue = "1") int pageNumber,
                           @RequestParam(value = "size", required = false, defaultValue = "3") int size,
-                          Model model){
-
-        List<Lecture> lectureList = lectureRepository.findAll();
-        model.addAttribute("posts",lectureService.getPage(pageNumber,size));
-        model.addAttribute("python",lectureService.getPageByPart(pageNumber,size,"파이썬"));
-        model.addAttribute("list",lectureList);
+                              Model model){
+            List<Lecture> lectureList = lectureRepository.findAll();
+            model.addAttribute("posts",lectureService.getPage(pageNumber,size));
+            model.addAttribute("python",lectureService.getPageByPart(pageNumber,size,"파이썬"));
+            model.addAttribute("aiPage",lectureService.getPageByPart(pageNumber,size,"인공지능"));
+            model.addAttribute("daPage",lectureService.getPageByPart(pageNumber,size,"데이터분석"));
+            model.addAttribute("list",lectureList);
+            model.addAttribute("tabNum",tabNum);
 
         return "lecture/lecture";
     }
+
+
 
     @GetMapping(value="/lecture/add")
     public String LectureAdd2(Model model)
@@ -96,10 +102,6 @@ public class LectureController {
          * subyn은 접수기간의 상시체크
          */
         log.info(lectureAddDto.getStartDateAndfinalDate());
-        log.info("#??????????????????????????????????????????" + lectureAddDto.isSubyn());
-        log.info("#><>@>>#@?#>@?>#?@>#?>@?>#?@>#?@>>#?@>#?" + lectureAddDto.getApproval());
-        log.info("#L#PKP#KO#KO#KO#KO#KOK#OKO#KO#KO#KOK#OK#OK" + lectureAddDto.getPart());
-        log.info("#RKEOKREORKEOKREOKREOKROKEOREOKROEKROE" + lectureAddDto.getLectureInfoHidden());
 
         List<LocalDate> subDate = lectureAddDto.StrToTime(lectureAddDto.getStartDateAndfinalDate());
         List<LocalDate> manageDate = lectureAddDto.StrToTime(lectureAddDto.getManageStartDateAndmanageFinalDate());
@@ -110,13 +112,17 @@ public class LectureController {
          *
          * file
          */
-        String uuidFileName = null;
-        String uuidFileName2 = null;
         try {
             String resourcePath = System.getProperty("user.dir") + imgRoot;
-
+            if(lectureAddDto.getLectureImgStr()!=null){
+                File file = new File(resourcePath + lectureAddDto.getLectureImgStr());
+                if(file.exists()){
+                    file.delete();
+                }
+            }
             String uuid = UUID.randomUUID().toString();
-            uuidFileName = uuid + "_" + lectureAddDto.getRealLectureImg().getOriginalFilename();
+            String uuidFileName = uuid + "_" + lectureAddDto.getRealLectureImg().getOriginalFilename();
+            lectureAddDto.setLectureImage(uuidFileName);
             Path savePath = Paths.get(resourcePath + uuidFileName);
             File Folder = new File(resourcePath);
             if (!Folder.exists()) {
@@ -134,7 +140,8 @@ public class LectureController {
             file.delete();
             ImageIO.write(resizeImage, "jpg", new File(resourcePath + uuidFileName));
 
-            uuidFileName2 = uuid + "_" + lectureAddDto.getRealTeacherImg().getOriginalFilename();
+            String uuidFileName2 = uuid + "_" + lectureAddDto.getRealTeacherImg().getOriginalFilename();
+            lectureAddDto.setTeacherImg(uuidFileName2);
             file = new File(resourcePath , uuidFileName2);
             //Entity transfer(파일)
             lectureAddDto.getRealTeacherImg().transferTo(file);
@@ -146,26 +153,33 @@ public class LectureController {
         } finally {
             //강좌 생성 내용
             //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
-            lectureAddDto.setLectureImg(uuidFileName);
-            lectureAddDto.setLectureTitle(lectureAddDto.getLectureTitle());
-            lectureAddDto.setPart(lectureAddDto.getPart());
-            lectureAddDto.setLectureTime(lectureAddDto.getLectureTime());
+            if(lectureAddDto.getThisId()!=null) {
+                Long id = Long.parseLong(lectureAddDto.getThisId());
+                lectureAddDto.setId(id);
+            }
             lectureAddDto.setSubyn(lectureAddDto.isSubyn());
             lectureAddDto.setManageyn(lectureAddDto.isManageyn());
-            lectureAddDto.setLectureDetail(lectureAddDto.getLectureDetail());
             lectureAddDto.setLectureInfo(lectureAddDto.getLectureInfoHidden());
             lectureAddDto.setStartDate(subDate.get(0));
             lectureAddDto.setFinalDate(subDate.get(1));
             lectureAddDto.setManageStartDate(manageDate.get(0));
             lectureAddDto.setManageFinalDate(manageDate.get(1));
 
-            //선생 업데이트 내용
-            lectureAddDto.setTeacherImg(uuidFileName2);
 
-            lectureService.lectureAdd(lectureAddDto);
+            Lecture lecture = lectureService.lectureAdd(lectureAddDto);
+            model.addAttribute("lectureId",lecture.getId());
+            if(lectureAddDto.getThisId()==null) {
+                return "lecture/lectureContents";
+            }
+            else{
+                Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
+                LectureDivide lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture1);
+                List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
 
-            model.addAttribute("LectureTitle", lectureAddDto.getLectureTitle());
-            return "lecture/lectureContents";
+                model.addAttribute("lectureDivide",lectureDivide);
+                model.addAttribute("lectureContentsList",lectureContentsList);
+                return "lecture/lectureContentsEdit";
+            }
         }
     }
 
@@ -177,10 +191,12 @@ public class LectureController {
 
     @PostMapping(value="/lecture/contents" )
     public String LectureDivideAndContentsAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto,Model model) {
+        Long lectureId = Long.parseLong(lectureContentsAddDto.getLectureId());
         LectureDivideDto lectureDivideDto = new LectureDivideDto();
+        lectureDivideDto.setLectureId(lectureId);
+        lectureDivideDto.setLectureDivideTitle(lectureContentsAddDto.getLectureDivideTitle());
         LectureContentsDto lectureContentsDto = new LectureContentsDto();
-        lectureDivideDto.setLectureTitle(lectureContentsAddDto.getLectureTitle());
-        LectureDivide lectureDivide = lectureDivideDto.lectureDivideDtoTolectureDivide(lectureDivideDto);
+        LectureDivide lectureDivide = lectureDivideDto.dtoToLectureContents(lectureDivideDto);
         LectureDivide getLectureDivide = lectureDivideService.save(lectureDivide);
         List<LectureContents> lectureContents3 = new ArrayList<>();
         for (int i=0; i<lectureContentsAddDto.getLectureContentsInfo().length; i++){
@@ -189,12 +205,10 @@ public class LectureController {
             lectureContentsDto.setLectureDivide(getLectureDivide);
             lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
             lectureContentsDto.setLectrueContentsTitle(lectureContentsTitle);
-            LectureContents lectureContents = lectureContentsDto.lectureContentsDtoTolectureContents(lectureContentsDto);
+            LectureContents lectureContents = lectureContentsDto.dtoToLectureContents();
            lectureContents3.add(lectureContentsService.save(lectureContents));
         }
         lectureContents3.size();
-        log.info("////////////////////////////"+lectureContents3.size());
-        log.info("///////////2/"+lectureContents3.get(0).getId());
         List<GetIdDto> getId = new ArrayList<>();
         GetIdDto getIdDto = new GetIdDto();
         for (int i=0; i<lectureContents3.size(); i++){
@@ -258,5 +272,43 @@ public class LectureController {
             }
 
         return "redirect:/lecture";
+    }
+
+
+    @GetMapping(value = "/lecture/lectureDetail/{id}")
+    public String goDetail(@PathVariable("id") Long id,Model model){
+        log.info("??????????????????????????????????????????.//"+System.getProperty("user.dir"));
+        Lecture lecture = lectureService.getLectureById(id);
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
+        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
+        List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+        for (LectureContents lectureContents1 : lectureContents){
+            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
+            lectureContentsFileList.add(lectureContentsFile);
+        }
+
+        model.addAttribute("lecture",lecture);
+        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureContentsList",lectureContents);
+        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
+        return "/lecture/lectureDetail";
+    }
+
+    @GetMapping(value = "/lecture/lectureEdit/{id}")
+    public String goLectureEdit(@PathVariable("id") Long id,Model model){
+        Lecture lecture = lectureService.getLectureById(id);
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
+        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
+        List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+        for (LectureContents lectureContents1 : lectureContents){
+            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
+            lectureContentsFileList.add(lectureContentsFile);
+        }
+
+        model.addAttribute("lecture",lecture);
+        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureContentsList",lectureContents);
+        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
+        return "lecture/lectureEdit";
     }
 }

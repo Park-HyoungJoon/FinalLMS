@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.resource.PathResourceResolver;
 
 /***
  * 이미지 뷰를 재시작하지 않는 이상 파일 이름을 못 읽어오는 현상 제거를 위해 제작
@@ -20,11 +21,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${part4.upload.path}")
     private String imgUploadPath;
 
+    @Value("${part5.upload.path}")
+    private String outImgPath;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("resources/**");
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("file:///"+System.getProperty("user.dir") + imgUploadPath);
+        registry.addResourceHandler("/file/**")
+                .addResourceLocations("file:///C:" + outImgPath)
+                .setCachePeriod(3600).resourceChain(true).addResolver(new PathResourceResolver());
+
+
     }
 
 }

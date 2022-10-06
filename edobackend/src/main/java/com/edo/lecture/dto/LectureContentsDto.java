@@ -1,9 +1,11 @@
 package com.edo.lecture.dto;
 
+import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.entity.LectureContents;
 import com.edo.lecture.entity.LectureDivide;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
@@ -13,10 +15,11 @@ public class LectureContentsDto {
     String lectureContentsInfo;
     LectureDivide lectureDivide;
 
-   public LectureContents lectureContentsDtoTolectureContents (LectureContentsDto lectureContentsDto){
-        return LectureContents.builder().lectureContentsTitle(lectureContentsDto.lectrueContentsTitle)
-                .lectureDivide(lectureContentsDto.lectureDivide)
-                .lectureContentsInfo(lectureContentsDto.lectureContentsInfo)
-                .build();
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public LectureContents dtoToLectureContents() { return modelMapper.map(this,LectureContents.class);}
+
+    public static LectureContentsDto of (LectureContents lectureContents){
+        return modelMapper.map(lectureContents,LectureContentsDto.class);
     }
 }

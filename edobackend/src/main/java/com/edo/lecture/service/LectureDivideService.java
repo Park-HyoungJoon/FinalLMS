@@ -1,5 +1,6 @@
 package com.edo.lecture.service;
 
+import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.entity.LectureDivide;
 import com.edo.lecture.repository.LectureDivideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,10 @@ public class LectureDivideService {
     @Autowired
     LectureDivideRepository lectureDivideRepository;
 
+    public LectureDivide getLectureDivideByLecture(Lecture lecture){
+        LectureDivide lectureDivide = lectureDivideRepository.getLectureDivideByLecture(lecture);
+        return lectureDivide;
+    }
     public int selectSeq() {
         int seq = 0;
         try{
