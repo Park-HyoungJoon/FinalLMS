@@ -25,7 +25,7 @@ public class CommunityTest {
     private String communityTitle;
 
     //    내용
-    @Column
+    @Lob
     private String communityContent;
 
 

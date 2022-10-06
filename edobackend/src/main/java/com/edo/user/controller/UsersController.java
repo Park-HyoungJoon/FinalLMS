@@ -31,7 +31,8 @@ public class UsersController {
 //   이용약관
     @GetMapping(value="/memberjoin")
     public String MemberJoin(Model model){
-        model.addAttribute("UserDto", new UserDto());
+        log.info("<<<>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>");
+//        model.addAttribute("UserDto", new UserDto());
         return "member/memberjoin";
     }
 
@@ -44,10 +45,10 @@ public class UsersController {
 
     //    회원가입 값 전달
     @PostMapping(value ="/memberjoinInfo" )
-    public String userJoin(@Valid UserDto userDto, Model model){
+    public String userJoin( @Valid UserDto userDto, Model model){
 
 //        로그 찍어보기
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + userDto.toString());
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>+++++++++++++++>>>>>>>>>>>>>>>>");
 
         Users users = new Users();
         users.setUsersEmail(userDto.getUsersEmail());
