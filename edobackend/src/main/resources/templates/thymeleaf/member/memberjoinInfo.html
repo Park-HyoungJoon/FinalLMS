@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basiclayout}">
 <head>
     <title>회원가입</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -55,107 +56,104 @@
 
 </head>
 <body class="vsc-initialized">
+<div layout:fragment="content">
+    <div id="wraaper">
 
-<div id="wraaper">
-    <div th:replace="/fragments/header.html :: fragment-nav"></div>
+        <div id="container">
+            <h3>회원가입</h3>
 
-    <div id="container">
-        <h3>회원가입</h3>
+            <form id="joinForm" name="joinForm" action="/memberjoinInfo" method="post">
+                <table class="board_base board_color board_login">
+                    <colgroup>
+                        <col width="130px">
+                        <col width="*">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>· 이메일</th>
+                        <td>
+                            <input id="usersEmail" name="usersEmail" class="text text_s text_ss" title="이메일" type="text"
+                                   value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
+                                                     onclick="emailDuplCheck();return false;">중복확인</a>
 
-                <form id="joinForm" name="joinForm" action="/memberjoinInfo" method="post">
-                    <table class="board_base board_color board_login">
-                        <colgroup>
-                            <col width="130px">
-                            <col width="*">
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <th>· 이메일</th>
-                            <td>
-                                <input id="usersEmail" name="usersEmail" class="text text_s text_ss" title="이메일" type="text"
-                                       value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
-                                                         onclick="emailDuplCheck();return false;">중복확인</a>
+                        </td>
+                    </tr>
+                    <!--                &lt;!&ndash;                권한 탭 잠시 보류 &ndash;&gt;-->
+                    <!--                &lt;!&ndash;                <tr class="firstsite site" >&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                    <th>· 권한</th>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                    <td>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                        <select id="memberRank" name="memberRank">&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                            <option value="">권한</option>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                            <option value="R10">학생</option>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                            <option value="R20">강사</option>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                            <option value="R30">관리자</option>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                        </select>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
+                    <tr class="firstsite site">
+                        <th>· 비밀번호</th>
+                        <td>
+                            <input id="usersPassword" name="usersPassword" class="text text_s text_ss" title="비밀번호"
+                                   type="password" value="">&nbsp;&nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @,
+                            #,
+                            $, %, ^, &amp;, *, (, ), _, +)를 <br> 포함해야 합니다. 숫자의 경우 연속으로 5자를 초과하여 사용할 수 없습니다.</p>
 
-                            </td>
-                        </tr>
-        <!--                &lt;!&ndash;                권한 탭 잠시 보류 &ndash;&gt;-->
-        <!--                &lt;!&ndash;                <tr class="firstsite site" >&ndash;&gt;-->
-        <!--                &lt;!&ndash;                    <th>· 권한</th>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                    <td>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                        <select id="memberRank" name="memberRank">&ndash;&gt;-->
-        <!--                &lt;!&ndash;                            <option value="">권한</option>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                            <option value="R10">학생</option>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                            <option value="R20">강사</option>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                            <option value="R30">관리자</option>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                        </select>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
-                        <tr class="firstsite site">
-                            <th>· 비밀번호</th>
-                            <td>
-                                <input id="usersPassword" name="usersPassword" class="text text_s text_ss" title="비밀번호"
-                                       type="password" value="">&nbsp;&nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @, #,
-                                $, %, ^, &amp;, *, (, ), _, +)를 <br> 포함해야 합니다. 숫자의 경우 연속으로 5자를 초과하여 사용할 수 없습니다.</p>
-
-                            </td>
-                        </tr>
-        <!--                &lt;!&ndash;                <tr class="firstsite site">&ndash;&gt;-->
-        <!--                &lt;!&ndash;                    <th>· 비밀번호 확인</th>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                    <td>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                        <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인"&ndash;&gt;-->
-        <!--                &lt;!&ndash;                               type="password" value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"&ndash;&gt;-->
-        <!--                &lt;!&ndash;                                                                 onclick="passwordCheck();return false;">비밀번호 확인</a>&ndash;&gt;-->
-
-
-        <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
-        <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
-
-                        <tr class="firstsite">
-                            <th>· 닉네임</th>
-                            <td>
-                                <input id="usersNickname" name="usersNickname" class="text text_s" title="닉네임" type="text"
-                                       value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
-                                                         onclick="nickNameDuplCheck();return false;">중복확인</a>
-
-                            </td>
-                        </tr>
-                        <tr class="firstsite">
-                            <th>· 이름</th>
-                            <td>
-                                <input id="usersName" name="usersName" class="text text_s" title="이름" type="text" value="">
-
-                            </td>
-                        </tr>
-                        <tr class="firstsite">
-                            <th>· 연락처</th>
-                            <td>
-                                <input id="usersPhone" name="usersPhone" class="text text_s text_ss" title="연락처" type="text"
-                                       value="">
-
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
+                        </td>
+                    </tr>
+                    <!--                &lt;!&ndash;                <tr class="firstsite site">&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                    <th>· 비밀번호 확인</th>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                    <td>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                        <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인"&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                               type="password" value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                                                                 onclick="passwordCheck();return false;">비밀번호 확인</a>&ndash;&gt;-->
 
 
-                    <div class="board_btn board_btn_c firstsite site" align="center">
+                    <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
+                    <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
+
+                    <tr class="firstsite">
+                        <th>· 닉네임</th>
+                        <td>
+                            <input id="usersNickname" name="usersNickname" class="text text_s" title="닉네임" type="text"
+                                   value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
+                                                     onclick="nickNameDuplCheck();return false;">중복확인</a>
+
+                        </td>
+                    </tr>
+                    <tr class="firstsite">
+                        <th>· 이름</th>
+                        <td>
+                            <input id="usersName" name="usersName" class="text text_s" title="이름" type="text" value="">
+
+                        </td>
+                    </tr>
+                    <tr class="firstsite">
+                        <th>· 연락처</th>
+                        <td>
+                            <input id="usersPhone" name="usersPhone" class="text text_s text_ss" title="연락처" type="text"
+                                   value="">
+
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+
+                <div class="board_btn board_btn_c firstsite site" align="center">
                     <span>
                         <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton"/>
                     </span>
-                    </div>
-                </form>
-<!--        <form id="joinForm" name="joinForm" action="/memberjoinInfo2" method="GET">-->
-<!--            <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton"/>-->
-<!--        </form>-->
+                </div>
+            </form>
+            <!--        <form id="joinForm" name="joinForm" action="/memberjoinInfo2" method="GET">-->
+            <!--            <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton"/>-->
+            <!--        </form>-->
 
-    </div><!-- //board_btn -->
+        </div><!-- //board_btn -->
 
-</div>
+    </div>
 </div><!-- //container -->
-
-<!--footer-->
-<div th:replace="/fragments/footer.html"></div>
 <!-- js code -->
 <script>
     $(#joinForm).submit(function (event) {
@@ -190,7 +188,9 @@
                 alert("ERROR : " + textStatus + " : " + errorThrown);
             }
         });
+    })
 </script>
+</div>
 
 </body>
 

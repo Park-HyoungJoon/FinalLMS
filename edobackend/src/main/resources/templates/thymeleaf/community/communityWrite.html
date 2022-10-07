@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basiclayout}">
 <head>
     <title>커뮤니티</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -40,11 +41,8 @@
 
 </head>
 <body class="vsc-initialized">
-
+<div layout:fragment="content">
 <div id="wraaper">
-    <!--    header   -->
-    <div th:replace="/fragments/header.html :: fragment-nav"></div>
-
     <!--  community field  -->
     <div id="container">
 
@@ -80,16 +78,16 @@
                 <div align="center" style= "margin-top: 10px">
                     <input type = submit  value="등록" class="btn btn-secondary" id="nextButton" th:formaction="@{/communitywrite}" />
                 </div>
+                </div>
 
     </form>
 
 
     </div>
     </div>
-    <!--footer-->
-    <div th:replace="/fragments/footer.html"></div>
 
-</div>
+
+
 <!--<script>-->
 <!--    let editor =[];-->
 <!--    ClassicEditor-->
@@ -195,6 +193,7 @@
 
     });
 </script>
+</div>
 
 </body>
 
