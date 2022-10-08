@@ -183,6 +183,11 @@ public class LectureController {
         }
     }
 
+    @PostMapping(value = "lecture/divide/edit/{id}")
+    public String LectureContentsPartEdit(@PathVariable("id") String divideId){
+
+        return "/lecture/lectureContentsEdit";
+    }
     @GetMapping(value="/lecture/contents")
     public String LectureContents(@RequestParam String lectureTitle)
     {
@@ -190,21 +195,23 @@ public class LectureController {
     }
 
     @PostMapping(value="/lecture/contents" )
-    public String LectureDivideAndContentsAdd(@RequestBody LectureContentsAddDto lectureContentsAddDto,Model model) {
-        Long lectureId = Long.parseLong(lectureContentsAddDto.getLectureId());
-        LectureDivideDto lectureDivideDto = new LectureDivideDto();
+    public String LectureDivideAndContentsAdd(@RequestBody LectureDivideAndContentsDto lectureContentsAddDto,Model model) {
+        Long lectureId = Long.parseLong(lectureContentsAddDto.getStrLectureId());
+        LectureDivideAndContentsDto lectureDivideDto = new LectureDivideAndContentsDto();
         lectureDivideDto.setLectureId(lectureId);
         lectureDivideDto.setLectureDivideTitle(lectureContentsAddDto.getLectureDivideTitle());
-        LectureContentsDto lectureContentsDto = new LectureContentsDto();
-        LectureDivide lectureDivide = lectureDivideDto.dtoToLectureContents(lectureDivideDto);
+        LectureDivideAndContentsDto lectureContentsDto = new LectureDivideAndContentsDto();
+        LectureDivide lectureDivide = lectureDivideDto.dtoToLectureDivide(lectureDivideDto);
         LectureDivide getLectureDivide = lectureDivideService.save(lectureDivide);
         List<LectureContents> lectureContents3 = new ArrayList<>();
-        for (int i=0; i<lectureContentsAddDto.getLectureContentsInfo().length; i++){
-            String lectureContentsInfo = lectureContentsAddDto.getLectureContentsInfo()[i];
-            String lectureContentsTitle = lectureContentsAddDto.getLectureContentsTitle()[i];
+        log.info("##################################### lecture/Contents");
+        for (int i=0; i<lectureContentsAddDto.getListLectureContentsInfo().length; i++){
+            String lectureContentsInfo = lectureContentsAddDto.getListLectureContentsInfo()[i];
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+lectureContentsInfo);
+            String lectureContentsTitle = lectureContentsAddDto.getListLectureContentsTitle()[i];
             lectureContentsDto.setLectureDivide(getLectureDivide);
             lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
-            lectureContentsDto.setLectrueContentsTitle(lectureContentsTitle);
+            lectureContentsDto.setLectureContentsTitle(lectureContentsTitle);
             LectureContents lectureContents = lectureContentsDto.dtoToLectureContents();
            lectureContents3.add(lectureContentsService.save(lectureContents));
         }
@@ -263,7 +270,7 @@ public class LectureController {
                     Folder.mkdir();
                 }
                 files.get(i-1).transferTo(file);
-                LectureContentsFileDto lectureContentsFileDto = new LectureContentsFileDto();
+                LectureDivideAndContentsDto lectureContentsFileDto = new LectureDivideAndContentsDto();
                 lectureContentsFileDto.setUuidPath(uuidFileName);
                 LectureContentsFile lectureContentsfile = lectureContentsFileDto.toLectureContentsFile(
                         files.get(i-1), lectureContentsService.getContentsById(newContents-(idx-i))
