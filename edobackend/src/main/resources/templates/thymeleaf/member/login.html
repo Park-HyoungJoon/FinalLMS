@@ -36,27 +36,28 @@
 <!--  login field  -->
 <div id="container">
     <div class="log_form">
+        <form>
         <h4 class="log_tt">
             <div class="login_icon">
                 <img src="http://crhs.aimind.co.kr/images/login_icon.png" alt="자물쇠사진">
             </div>
+
             <div class="login_title">
                 <p>로그인</p>
                 <p>이메일과 비밀번호를 입력해주세요.</p>
             </div>
         </h4>
         <div class="log_area">
-            <form id="loginPageForm" name="loginPageForm" action="http://crhs.aimind.co.kr/login.htm" method="post" onsubmit="return loginDo('loginPageForm');">
                 <div class="log_in">
 
-                    <div class="iparea ip_id"><input id="email" name="email" tabindex="1" onkeypress="javascript:enPress();" placeholder="이메일" hname="이메일" required="Y" type="text" value=""></div>
-                    <div class="iparea ip_pass"><input id="password" name="password" tabindex="2" onkeypress="javascript:enPress();" placeholder="비밀번호" hname="비밀번호" required="Y" type="password" value=""></div>
+                    <div class="iparea ip_id"><input id="usersEmail" name="usersEmail" tabindex="1" onkeypress="javascript:enPress();" placeholder="이메일"  required="Y" type="text" value=""></div>
+                    <div class="iparea ip_pass"><input id="userpassword" name="userpassword" tabindex="2" onkeypress="javascript:enPress();" placeholder="비밀번호"  required="Y" type="password" value=""></div>
                 </div>
-                <p class="ip_submit"><a href="javascript:;" onclick="login();" class="button btn_login">로그인</a></p>
-
-
-            </form>
+                <div th:align="center">
+                    <input type="submit" class="btn btn_primary mb1 bg-blue" value="로그인"/>
+                </div>
         </div>
+        </form>
         <div style="margin:20px auto 0 auto;text-align:center;">
             <!-- <input type="button" class="button gray" style="width:199px;" onclick="#'" value="아이디/비밀번호 찾기"> -->
             <input type="button" class="button gray" style="width:198px;" onclick="memberEnter();" value="회원가입">
@@ -65,7 +66,7 @@
     </div>
 </div><!-- //container -->
 </div>
-
+</div>
 </body>
 
 </html>
