@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
-    <!--    <link rel="stylesheet" type="text/css" href="css/login.css">-->
+<!--        <link rel="stylesheet" type="text/css" href="css/login.css">-->
     <link rel="stylesheet" type="text/css" href="/css/users.css">
     <script type="text/javascript">
         $(window).load(function () {
@@ -76,18 +76,6 @@
 
                         </td>
                     </tr>
-                    <!--                &lt;!&ndash;                권한 탭 잠시 보류 &ndash;&gt;-->
-                    <!--                &lt;!&ndash;                <tr class="firstsite site" >&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                    <th>· 권한</th>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                    <td>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                        <select id="memberRank" name="memberRank">&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                            <option value="">권한</option>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                            <option value="R10">학생</option>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                            <option value="R20">강사</option>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                            <option value="R30">관리자</option>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                        </select>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
                     <tr class="firstsite site">
                         <th>· 비밀번호</th>
                         <td>
@@ -98,16 +86,16 @@
 
                         </td>
                     </tr>
-                    <!--                &lt;!&ndash;                <tr class="firstsite site">&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                    <th>· 비밀번호 확인</th>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                    <td>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                        <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인"&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                               type="password" value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                                                                 onclick="passwordCheck();return false;">비밀번호 확인</a>&ndash;&gt;-->
+                    <tr class="firstsite site">
+                        <th>· 비밀번호 확인</th>
+                        <td>
+                            <input id="passwordcheck" name="passwordcheck" class="text text_s" title="비밀번호 확인"
+                                   type="password" value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
+                                                                     onclick="passwordCheck();return false;">비밀번호 확인</a>
 
 
-                    <!--                &lt;!&ndash;                    </td>&ndash;&gt;-->
-                    <!--                &lt;!&ndash;                </tr>&ndash;&gt;-->
+                        </td>
+                    </tr>
 
                     <tr class="firstsite">
                         <th>· 닉네임</th>
@@ -143,6 +131,8 @@
                         <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton"/>
                     </span>
                 </div>
+<!--                csrf 방어-->
+<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
             </form>
 
         </div><!-- //board_btn -->
@@ -166,7 +156,7 @@
             "usersNickname": usersNickname
         }
 
-        console.log(param)
+        console.log(param);
 
         $.ajax({
             async: false,
@@ -184,6 +174,13 @@
             }
         });
     })
+    //회원가입 실패 시 에러 메세지 출력
+    // $(document).ready(function (){
+    //     let errorMessage = [[${errorMessage}]];
+    //     if(errorMessage != null){
+    //         alert(errorMessage);
+    //     }
+    // });
 </script>
 </div>
 

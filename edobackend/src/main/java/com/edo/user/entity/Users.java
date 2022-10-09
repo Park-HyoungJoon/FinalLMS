@@ -7,6 +7,7 @@ import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
 import com.edo.user.dto.UserDto;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Setter
@@ -43,9 +44,9 @@ public class Users extends BaseTimeEntity {
     @Column(length = 15)
     private Long usersPhone;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "users_role")
-//    private Role usersRole;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "users_role")
+    private Role usersRole;
 
     //대표이미지
     //image url 주소를 넣을예정
@@ -55,15 +56,16 @@ public class Users extends BaseTimeEntity {
 //    시큐리티 설정을 지웠기에 일단 주석처리(다시 사용할 예정)
 //    유저를 회원가입 할 때 비밀번호를 암호화하는 메서드
 
-//    public static Users createUser(UserDto userDto, PasswordEncoder passwordEncoder){
-//        Users users = new Users();
-//        users.setUsersName(userDto.getUsersName());
-//        users.setUsersNickname(userDto.getUsersNickname());
-//        users.setUsersPhone(userDto.getUsersPhone());
-//        String password = passwordEncoder.encode(userDto.getUsersPassword());
-//        users.setUsersPassword(password);
-//        return users;
-//    }
+    public static Users createUser(UserDto userDto, PasswordEncoder passwordEncoder){
+        Users users = new Users();
+        users.setUsersName(userDto.getUsersName());
+        users.setUsersNickname(userDto.getUsersNickname());
+        users.setUsersPhone(userDto.getUsersPhone());
+        String password = passwordEncoder.encode(userDto.getUsersPassword());
+        users.setUsersPassword(password);
+        users.setUsersRole(Role.ROLE_USER); // 기본값은 학생
+        return users;
+    }
 
 
     public void createUsers(String usersEmail, String usersPassword, String usersNickname, String usersName, Long usersPhone,
@@ -73,6 +75,6 @@ public class Users extends BaseTimeEntity {
         this.usersNickname = usersNickname;
         this.usersName = usersName;
         this.usersPhone = usersPhone;
-
+        this.usersRole = usersRole;
     }
 }
