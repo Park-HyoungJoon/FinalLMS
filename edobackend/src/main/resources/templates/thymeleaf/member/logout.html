@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basiclayout}">
+<head>
+    <title>로그인</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/basic.css">
+    <script type="text/javascript">
+        $(window).load(function () {
+            try {
+            } catch (e) {
+            }
+        });
+    </script>
+    <script>
+        if (top != window) {
+            top.location = window.location;
+        }
+    </script>
+</head>
+<body class="vsc-initialized">
+<div layout:fragment="content">
+    <div id="wraaper">
+        <!--  login field  -->
+        <div id="container">
+            <div class="log_form">
+                <h3>로그아웃 되었습니다.</h3>
+            </div>
+        </div><!-- //container -->
+    </div>
+</div>
+
+</body>
+
+</html>
