@@ -19,10 +19,13 @@ public class SecurityConfig {
     @Autowired
     UserService userService;
 
-    @Bean
 //    원래는 별개지만 지금 체이닝을 걸어놓은것.
 //    http 요청에 대한 보안 설정. 페이지 권한, 로그인 페이지, 로그아웃 메소드 설정 예정
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+@Bean
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http.csrf().disable();
+
         http.formLogin()
                 .loginPage("/login") //로그인 페이지  url 설정
                 .defaultSuccessUrl("/")//로그인 성공 시 이동할 url
@@ -33,10 +36,10 @@ public class SecurityConfig {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                 .logoutSuccessUrl("/"); //로그아웃 성공 시 연결될 화면
 
-//        이거 하면 css가 무너짐 -> 추후 수정 예정
-//        http.authorizeRequests()
-//                .mvcMatchers("/","/login","/memberjoin","/memberjoinInfo").permitAll()
-//                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/","/login","/memberjoin","/memberjoinInfo").permitAll()
+                .anyRequest().authenticated();
 
 //        http.exceptionHandling()
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) //인증되지 않은 사용자 접근 시 수행
