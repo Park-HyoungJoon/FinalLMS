@@ -6,14 +6,20 @@ import com.edo.lecture.repository.LectureDivideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LectureDivideService {
     @Autowired
     LectureDivideRepository lectureDivideRepository;
 
-    public LectureDivide getLectureDivideByLecture(Lecture lecture){
-        LectureDivide lectureDivide = lectureDivideRepository.getLectureDivideByLecture(lecture);
+    public List<LectureDivide> getLectureDivideByLecture(Lecture lecture){
+        List<LectureDivide> lectureDivide = lectureDivideRepository.getLectureDivideByLecture(lecture);
         return lectureDivide;
+    }
+    public List<Long> getLectureDivideIds(Long id){
+        List<Long> lectureDivideIds = lectureDivideRepository.getLectureDivideIdsByLecture(id);
+        return lectureDivideIds;
     }
     public int selectSeq() {
         int seq = 0;
