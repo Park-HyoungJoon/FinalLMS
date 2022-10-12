@@ -173,9 +173,10 @@ public class LectureController {
             }
             else{
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
-                LectureDivide lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture1);
-                List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
-
+                List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture1.getId());
+                List<LectureDivide> lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture1);
+                List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide.get(0));
+                model.addAttribute("lectureDivideIds",lectureDivideIds);
                 model.addAttribute("lectureDivide",lectureDivide);
                 model.addAttribute("lectureContentsList",lectureContentsList);
                 return "lecture/lectureContentsEdit";
@@ -286,8 +287,8 @@ public class LectureController {
     public String goDetail(@PathVariable("id") Long id,Model model){
         log.info("??????????????????????????????????????????.//"+System.getProperty("user.dir"));
         Lecture lecture = lectureService.getLectureById(id);
-        LectureDivide lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
-        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
+        List<LectureDivide> lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
+        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide.get(0));
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
         for (LectureContents lectureContents1 : lectureContents){
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
@@ -295,7 +296,7 @@ public class LectureController {
         }
 
         model.addAttribute("lecture",lecture);
-        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureDivide",lectureDivide.get(0));
         model.addAttribute("lectureContentsList",lectureContents);
         model.addAttribute("lectureContentsFileList",lectureContentsFileList);
         return "/lecture/lectureDetail";
@@ -304,8 +305,8 @@ public class LectureController {
     @GetMapping(value = "/lecture/lectureEdit/{id}")
     public String goLectureEdit(@PathVariable("id") Long id,Model model){
         Lecture lecture = lectureService.getLectureById(id);
-        LectureDivide lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
-        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
+        List<LectureDivide> lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
+        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide.get(0));
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
         for (LectureContents lectureContents1 : lectureContents){
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
@@ -313,7 +314,7 @@ public class LectureController {
         }
 
         model.addAttribute("lecture",lecture);
-        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureDivide",lectureDivide.get(0));
         model.addAttribute("lectureContentsList",lectureContents);
         model.addAttribute("lectureContentsFileList",lectureContentsFileList);
         return "lecture/lectureEdit";
