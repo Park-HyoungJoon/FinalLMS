@@ -44,6 +44,7 @@ public class UserService implements UserDetailsService {
             validateDuplicateUsers(users);
         } catch(Exception e){
             log.error(e.getMessage());
+            return null;
         }
 
 //        중복되지 않았다면 회원가입
@@ -68,6 +69,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    
+//    로그인
+    
     @Override
     public UserDetails loadUserByUsername(String usersEmail) throws UsernameNotFoundException {
         Users users = userRepository.findByusersEmail(usersEmail);
