@@ -4,22 +4,15 @@ package com.edo.user.service;
 import com.edo.user.dto.UserDto;
 import com.edo.user.entity.Users;
 import com.edo.user.repository.UsersRepository;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = false)
@@ -63,10 +56,10 @@ public class UserService implements UserDetailsService {
         }
 
 //        닉네임 중복 확인
-        Optional<Users> findUserNickname = userRepository.findByusersNickname(users.getUsersNickname());
-        if(findUserNickname != null){
-            throw  new IllegalStateException("중복된 닉네임입니다. 다른 닉네임으로 설정해주세요");
-        }
+//        Optional<Users> findUserNickname = userRepository.findByusersNickname(users.getUsersNickname());
+//        if(findUserNickname != null){
+//            throw  new IllegalStateException("중복된 닉네임입니다. 다른 닉네임으로 설정해주세요");
+//        }
     }
 
     

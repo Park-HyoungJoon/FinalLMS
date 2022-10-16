@@ -61,6 +61,7 @@ public class Users extends BaseTimeEntity {
         users.setUsersName(userDto.getUsersName());
         users.setUsersNickname(userDto.getUsersNickname());
         users.setUsersPhone(userDto.getUsersPhone());
+//        왜 passwordencoder가 안 먹는지?
         String password = passwordEncoder.encode(userDto.getUsersPassword());
         users.setUsersPassword(password);
         users.setUsersRole(Role.ROLE_USER); // 기본값은 학생
@@ -70,11 +71,14 @@ public class Users extends BaseTimeEntity {
 
     public void createUsers(String usersEmail, String usersPassword, String usersNickname, String usersName, Long usersPhone,
                  Role usersRole){
+        Users users = new Users();
+        PasswordEncoder passwordEncoder = null;
         this.usersEmail = usersEmail;
-        this.usersPassword = usersPassword;
+        this.usersPassword = passwordEncoder.encode(usersPassword);
         this.usersNickname = usersNickname;
         this.usersName = usersName;
         this.usersPhone = usersPhone;
-        this.usersRole = usersRole;
+//       왜 학생 Role을 못 받아오는지 차차 알아볼 예정
+        this.usersRole = Role.ROLE_USER;
     }
 }

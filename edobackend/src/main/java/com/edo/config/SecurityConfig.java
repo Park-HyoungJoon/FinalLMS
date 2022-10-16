@@ -1,4 +1,4 @@
-package com.edo.user.config;
+package com.edo.config;
 
 import com.edo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
