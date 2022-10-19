@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/basiclayout}">
-<head><meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+<head>
     <meta charset="UTF-8">
     <title>Title</title>    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -140,7 +139,6 @@
             let lectureId = $("#lectureId").val();
             for (let i = 1; i <= fileIdx; i++) {
                 lectureContentsInfo.push(editor[i].getData());
-                alert(lectureContentsInfo.length);
                 lectureContentsTitle.push($("#lectureContentsTitle" + i).val());
             }
             let param = {
@@ -158,11 +156,6 @@
                 url: "/lecture/contents",
                 dataType: "text",
                 async: false,
-                beforeSend: function (jqXHR, settings) {
-                    var header = $("meta[name='_csrf_header']").attr("content");
-                    var token = $("meta[name='_csrf']").attr("content");
-                    jqXHR.setRequestHeader(header, token);
-                },
                 success: function (data) {
                     alert('hi');
                     let form = document.uploadContents;

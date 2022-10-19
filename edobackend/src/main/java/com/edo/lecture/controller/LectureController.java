@@ -174,19 +174,26 @@ public class LectureController {
             else{
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
                 List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture1.getId());
-                List<LectureDivide> lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture1);
-                List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide.get(0));
+                LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture1);
+                List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
+                List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+                for(LectureContents lectureContents : lectureContentsList){
+                    LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
+                    lectureContentsFileList.add(lectureContentsFile);
+                }
+                model.addAttribute("firstDivideId",lectureDivideIds.get(0));
                 model.addAttribute("lectureDivideIds",lectureDivideIds);
                 model.addAttribute("lectureDivide",lectureDivide);
                 model.addAttribute("lectureContentsList",lectureContentsList);
+                model.addAttribute("lectureContentsFileList",lectureContentsFileList);
                 return "lecture/lectureContentsEdit";
             }
         }
     }
 
     @PostMapping(value = "lecture/divide/edit/{id}")
-    public String LectureContentsPartEdit(@PathVariable("id") String divideId){
-
+    public String LectureContentsPartEdit(@PathVariable("id") String divideId,Model model){
+        model.addAttribute("contentsEditDto",new ContentsEditDto());
         return "/lecture/lectureContentsEdit";
     }
     @GetMapping(value="/lecture/contents")
@@ -200,15 +207,22 @@ public class LectureController {
         Long lectureId = Long.parseLong(lectureContentsAddDto.getStrLectureId());
         LectureDivideAndContentsDto lectureDivideDto = new LectureDivideAndContentsDto();
         lectureDivideDto.setLectureId(lectureId);
+        if(lectureContentsAddDto.getDivideId()!=null){
+        lectureDivideDto.setId(Long.parseLong(lectureContentsAddDto.getDivideId()));}
         lectureDivideDto.setLectureDivideTitle(lectureContentsAddDto.getLectureDivideTitle());
         LectureDivideAndContentsDto lectureContentsDto = new LectureDivideAndContentsDto();
         LectureDivide lectureDivide = lectureDivideDto.dtoToLectureDivide(lectureDivideDto);
         LectureDivide getLectureDivide = lectureDivideService.save(lectureDivide);
+        List<Long> ContentsId = null;
+        if(lectureContentsService.getLectureContentsList(getLectureDivide)!=null){
+            ContentsId = lectureContentsService.getContentsIdsByDivideId(getLectureDivide.getId());
+            for(int i=0;i<ContentsId.size();i++){
+                lectureContentsService.removeAll(ContentsId);
+            }
+        }
         List<LectureContents> lectureContents3 = new ArrayList<>();
-        log.info("##################################### lecture/Contents");
         for (int i=0; i<lectureContentsAddDto.getListLectureContentsInfo().length; i++){
             String lectureContentsInfo = lectureContentsAddDto.getListLectureContentsInfo()[i];
-            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+lectureContentsInfo);
             String lectureContentsTitle = lectureContentsAddDto.getListLectureContentsTitle()[i];
             lectureContentsDto.setLectureDivide(getLectureDivide);
             lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
@@ -249,7 +263,7 @@ public class LectureController {
      * @throws IOException
      */
     @PostMapping(value="/contents/uploader", consumes = "multipart/form-data")
-            public String ContentsFileCreate(FileVO fileVO)
+            public String ContentsFileCreate(FileVO fileVO,ContentsEditDto contentsEditDto)
             throws IOException {
         Long newContents = lectureContentsService.getNewContents();
         int idx = Integer.parseInt(fileVO.getContentsSeq());
@@ -258,8 +272,6 @@ public class LectureController {
             UUID uuid = UUID.randomUUID();
         List<MultipartFile> files = fileVO.ContentsFileToList(fileVO);
             for (int i=1; i<=idx; i++){
-                log.info("#?///////////////////////////////////////"+newContents);
-                log.info("#?@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+idx+"i값"+i);
                 if(files.get(i-1)==null){
                     continue;
                 }
@@ -287,8 +299,8 @@ public class LectureController {
     public String goDetail(@PathVariable("id") Long id,Model model){
         log.info("??????????????????????????????????????????.//"+System.getProperty("user.dir"));
         Lecture lecture = lectureService.getLectureById(id);
-        List<LectureDivide> lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
-        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide.get(0));
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
+        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
         for (LectureContents lectureContents1 : lectureContents){
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
@@ -296,7 +308,7 @@ public class LectureController {
         }
 
         model.addAttribute("lecture",lecture);
-        model.addAttribute("lectureDivide",lectureDivide.get(0));
+        model.addAttribute("lectureDivide",lectureDivide);
         model.addAttribute("lectureContentsList",lectureContents);
         model.addAttribute("lectureContentsFileList",lectureContentsFileList);
         return "/lecture/lectureDetail";
@@ -305,8 +317,8 @@ public class LectureController {
     @GetMapping(value = "/lecture/lectureEdit/{id}")
     public String goLectureEdit(@PathVariable("id") Long id,Model model){
         Lecture lecture = lectureService.getLectureById(id);
-        List<LectureDivide> lectureDivide = lectureDivideService.getLectureDivideByLecture(lecture);
-        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide.get(0));
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
+        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
         for (LectureContents lectureContents1 : lectureContents){
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
@@ -314,7 +326,7 @@ public class LectureController {
         }
 
         model.addAttribute("lecture",lecture);
-        model.addAttribute("lectureDivide",lectureDivide.get(0));
+        model.addAttribute("lectureDivide",lectureDivide);
         model.addAttribute("lectureContentsList",lectureContents);
         model.addAttribute("lectureContentsFileList",lectureContentsFileList);
         return "lecture/lectureEdit";

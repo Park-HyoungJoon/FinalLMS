@@ -25,10 +25,14 @@ public class LectureDivideAndContentsDto {
     /**
      * LectureDivide
      */
+    private Long id;
     private Long lectureId;
     private String strLectureId;
     private String lectureDivideTitle;
     private Lecture lecture;
+
+    @JsonProperty("divideId")
+    private String divideId;
     //차시순번
     private int lectureDivideSeq;
 
@@ -38,12 +42,13 @@ public class LectureDivideAndContentsDto {
     LectureDivide lectureDivide;
     String lectureContentsTitle;
     String lectureContentsInfo;
-
     String uuidPath;
     @JsonProperty("ListLectureContentsTitle")
     private String[] ListLectureContentsTitle;
     @JsonProperty("ListLectureContentsInfo")
     private String[] ListLectureContentsInfo;
+    @JsonProperty("contentsIds")
+    private String[] contentsIds;
 
 
 

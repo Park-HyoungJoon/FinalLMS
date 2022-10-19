@@ -13,8 +13,8 @@ public class LectureDivideService {
     @Autowired
     LectureDivideRepository lectureDivideRepository;
 
-    public List<LectureDivide> getLectureDivideByLecture(Lecture lecture){
-        List<LectureDivide> lectureDivide = lectureDivideRepository.getLectureDivideByLecture(lecture);
+    public LectureDivide getLectureDivideFirstByLecture(Lecture lecture){
+        LectureDivide lectureDivide = lectureDivideRepository.getLectureDivideByLecture(lecture).get(0);
         return lectureDivide;
     }
     public List<Long> getLectureDivideIds(Long id){

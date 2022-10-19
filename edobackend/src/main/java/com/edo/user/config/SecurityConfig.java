@@ -38,8 +38,8 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/","/login","/memberjoin","/memberjoinInfo").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/","/login","/memberjoin","/memberjoinInfo").permitAll();
+//                .anyRequest().authenticated();
 
 //        http.exceptionHandling()
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) //인증되지 않은 사용자 접근 시 수행
