@@ -2,6 +2,7 @@ package com.edo.lecture.entity;
 
 import com.edo.lecture.service.LectureContentsService;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -23,7 +24,6 @@ public class LectureDivide {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="lecture_id")
     private Lecture lecture;
-    
     //차시제목
     @Column(length = 255)
     private String lectureDivideTitle;

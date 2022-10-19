@@ -22,15 +22,18 @@
     <dd th:text="${lectureDivide.getLectureDivideTitle()}"></dd>
 
     <p>강의 차시</p>
-    <div th:each="vo , status : ${lectureContentsList}">
 
+    <div th:each="vo , status : ${lectureContentsList}">
         <p>강의 차시 제목</p>
         <dd th:text="${vo.getLectureContentsTitle()}"></dd>
 
         <p>강의 차시 설명</p>
         <dd th:utext="${vo.getLectureContentsInfo()}"></dd>
-
+        <!--
+        <div th:if="${not #strings.isEmpty(lectureContentsFileList.get(status.index).getFileName())}">
         <div th:text="${lectureContentsFileList.get(status.index).getFileName()}"></div>
+        </div>
+        -->
     </div>
     <script type="text/javascript">
         $("#uploadLecture").submit(function (event) {

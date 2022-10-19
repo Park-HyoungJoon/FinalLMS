@@ -5,6 +5,7 @@ import com.edo.lecture.entity.LectureContentsFile;
 import com.edo.lecture.entity.LectureDivide;
 import com.edo.lecture.repository.LectureContentsFileRepository;
 import com.edo.lecture.repository.LectureContentsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class LectureContentsService {
     @Autowired
     LectureContentsRepository lectureContentsRepository;
@@ -28,7 +30,10 @@ public class LectureContentsService {
         List<LectureContents> lectureContentsList = lectureContentsRepository.findAllByLectureDivide(lectureDivide);
         return lectureContentsList;
     }
-
+    public List<Long> getContentsIdsByDivideId(Long divideId){
+        List<Long> ids = lectureContentsRepository.findLectureContentsIdByLectureDivide(divideId);
+        return ids;
+    }
     public LectureContentsFile getLectureContentsFileByLectureContents(LectureContents lectureContents) {
         LectureContentsFile lectureContentsFile = lectureContentsFileRepository.findByLectureContents(lectureContents);
         return lectureContentsFile;
@@ -42,4 +47,13 @@ public class LectureContentsService {
     }
     public void save(LectureContentsFile lectureContentsFile){lectureContentsFileRepository.save(lectureContentsFile);}
 
+    public void removeAll(List<Long> contentsId) {
+        for(Long id : contentsId){
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!!!!!!!!!!!!!!!!!!!!!!!!"+id);
+            try {
+                lectureContentsFileRepository.deleteContentsFileByContentsId(id);
+                lectureContentsRepository.deleteById(id);
+            }catch (Exception e){}
+        }
+       }
 }
