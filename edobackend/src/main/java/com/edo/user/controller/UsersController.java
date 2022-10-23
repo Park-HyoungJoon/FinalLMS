@@ -8,9 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -64,10 +62,43 @@ public class UsersController {
 
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + users.toString());
 
-        userService.saveMember(userDto);
+        try{
+            userService.saveMember(userDto);
+        } catch(IllegalStateException e){
+            return "member/memberjoinInfo";
+        }
 
 //        성공 시 로그인 페이지로 돌아간다
         return "redirect:/login";
+    }
+
+//    이메일 중복 확인을 위한 메소드
+    @ResponseBody //view가 아닌 data 그대로를 반환합니다.
+    @PostMapping(value = "/memberjoinInfo/validateEmail")
+    public Boolean ValidateEmail(@RequestBody UserDto userDto){
+        log.info(userDto.toString());
+        try{
+//        이메일 중복 검사 실행
+            userService.validateDuplicateUserEmail(userDto.getUsersEmail());
+
+        }catch(IllegalStateException e){
+            return false;
+        }
+        return true;
+    }
+
+    //    닉네임 중복 확인을 위한 메소드
+    @ResponseBody
+    @PostMapping(value = "/memberjoinInfo/validateNickname")
+    public Boolean ValidateNickname(@RequestBody UserDto userDto){
+        log.info(userDto.toString());
+        try{
+//        닉네임 중복 검사 실행
+            userService.validateDuplicateNickname(userDto.getUsersNickname());
+        }catch(IllegalStateException e){
+            return false;
+        }
+        return true;
     }
 
     // 마이페이지

@@ -25,7 +25,7 @@ public class UserDto {
 	private String usersPassword;
 
 	@NotNull(message = "핸드폰 번호는 필수 입력 값입니다.")
-	private Long usersPhone;
+	private String usersPhone;
 
 	@NotEmpty(message = "닉네임은 필수 입력 값입니다.")
 	private String usersNickname;

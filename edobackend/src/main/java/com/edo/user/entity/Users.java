@@ -42,7 +42,7 @@ public class Users extends BaseTimeEntity {
 
     //핸드폰
     @Column(length = 15)
-    private Long usersPhone;
+    private String usersPhone;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "users_role")
@@ -69,12 +69,11 @@ public class Users extends BaseTimeEntity {
     }
 
 
-    public void createUsers(String usersEmail, String usersPassword, String usersNickname, String usersName, Long usersPhone,
-                 Role usersRole){
+    public void createUsers(String usersEmail, String usersPassword, String usersNickname, String usersName, String usersPhone,
+                 Role usersRole, PasswordEncoder passwordEncoder){
         Users users = new Users();
-        PasswordEncoder passwordEncoder = null;
         this.usersEmail = usersEmail;
-        this.usersPassword = passwordEncoder.encode(usersPassword);
+        this.usersPassword = usersPassword;
         this.usersNickname = usersNickname;
         this.usersName = usersName;
         this.usersPhone = usersPhone;
