@@ -2,8 +2,11 @@ package com.edo.lecture.entity;
 
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +24,9 @@ public class LectureContents {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_divide_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private LectureDivide lectureDivide;
+
 
     //강의자료 제목
     @Column(length = 255)

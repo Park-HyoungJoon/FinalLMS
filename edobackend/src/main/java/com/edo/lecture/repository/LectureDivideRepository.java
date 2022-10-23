@@ -15,6 +15,11 @@ public interface LectureDivideRepository extends JpaRepository<LectureDivide,Lon
 
     List<LectureDivide> getLectureDivideByLecture(Lecture lecture);
 
-    @Query(value = "SELECT l.lecture_divide_id from lecture_divide l where l.lecture_id=?1 order by l.lecture_divide_seq asc", nativeQuery = true)
+    LectureDivide getLectureDivideById(Long id);
+
+    @Query(value = "SELECT l.lecture_divide_id from lecture_divide l where l.lecture_id=?1 order by l.lecture_divide_id asc", nativeQuery = true)
     List<Long>  getLectureDivideIdsByLecture(Long id);
+
+    @Query(value = "SELECT l.lecture_id from lecture_divide l where l.lecture_divide_id=?1",nativeQuery = true)
+    Long getLectureByDivideId(Long id);
 }

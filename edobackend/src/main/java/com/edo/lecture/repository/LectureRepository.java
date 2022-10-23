@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface LectureRepository extends JpaRepository<Lecture,Long> {
     Page<Lecture> findAll(Pageable request);
     Page<Lecture> findAllByLecturePart(Pageable request,String part);
     Lecture findByLectureTitle(String LectureTitle);
+
+    @Query(value = "select * from lecture where lecture_id=?1",nativeQuery = true)
+    Lecture findLectureById(Long id);
 }

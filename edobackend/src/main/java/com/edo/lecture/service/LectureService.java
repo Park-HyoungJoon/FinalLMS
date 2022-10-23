@@ -29,7 +29,7 @@ public class LectureService {
 
 
 
-    //LectureTitle을 이용하여 Lecture객체 얻기
+    //LectureId를 이용하여 Lecture객체 얻기
     public Lecture getLectureById(Long lectureId){
         log.info("@!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+lectureId);
         Optional<Lecture> lecture = lectureRepository.findById(lectureId);

@@ -12,8 +12,10 @@
         <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
               class="needs-validation" enctype="multipart/form-data" novalidate th:object="${contentsEditDto}">
             <input type="hidden" id="firstDivideId" name="firstDivideId" th:value="${firstDivideId}"/>
+            <div th:if="${not #strings.isEmpty(lectureContentsList)}">
             <input type="hidden" id="ContentsListSize" name="ContentsListSize"
                    th:value="${lectureContentsList.size()}">
+            </div>
             <div data-name="fileDiv">
                 <input type="hidden" id="ContentsSeq" name="ContentsSeq" value="1"/>
                 <input type="hidden" th:name="lectureId" th:value="${lectureId}" id="lectureId"/>
@@ -24,8 +26,9 @@
                 <div data-name="contentsDiv">
                     <label>강의제목</label>
                     <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"
-                           th:placeholder="${lectureDivide.getLectureDivideTitle()}"></div>
+                           th:placeholder="${lectureDivide?.getLectureDivideTitle()}">
                 <input type="submit" id="nextButton" class="nextButton"/>
+            </div>
             </div>
         </form>
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
@@ -43,6 +46,7 @@
                     </div>
                 </div>
             </div>
+            <a type="button" th:href="'/lecture/divideAdd/'+${lectureId}">추가</a>
         </div>
     </div>
     <script
