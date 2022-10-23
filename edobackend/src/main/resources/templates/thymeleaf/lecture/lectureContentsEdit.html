@@ -85,6 +85,15 @@
                                             <input type="text" placeholder="${testValue}"name="lectureContentsTitle${i}" id="lectureContentsTitle${i}"></div>
                                         <div style="display: block">
                                             <label>차시 파일</label>
+                                            <ul class="tabs">
+    <li class="tab-link current" data-tab="tab-1">tab1</li>
+    <li class="tab-link" data-tab="tab-2">tab2</li>
+    <li class="tab-link" data-tab="tab-3">tab3</li>
+  </ul>
+
+  <div id="tab-1" class="tab-content current">tab content1</div>
+  <div id="tab-2" class="tab-content">tab content2</div>
+  <div id="tab-3" class="tab-content">tab content3</div>
                                             <input type='file' id="lectureContentsFile${i}" name="lectureContentsFile${i}"/>
                                             <input type="hidden" class="statNum" value="${i}"/>
 
@@ -101,6 +110,15 @@
 `;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
                 $('#nextButton').before(fileHtml);
+                $('ul.tabs li').click(function(){
+                    var tab_id = $(this).attr('data-tab');
+
+                    $('ul.tabs li').removeClass('current');
+                    $('.tab-content').removeClass('current');
+
+                    $(this).addClass('current');
+                    $("#"+tab_id).addClass('current');
+                })
 
                 ClassicEditor
                     .create(document.querySelector('#editor' + i))
@@ -138,6 +156,15 @@
     <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
     <div style="display: block">
         <label>차시 파일</label>
+        <ul class="tabs">
+    <li class="tab-link current" data-tab="tab-1">tab1</li>
+    <li class="tab-link" data-tab="tab-2">tab2</li>
+    <li class="tab-link" data-tab="tab-3">tab3</li>
+  </ul>
+
+  <div id="tab-1" class="tab-content current">tab content1</div>
+  <div id="tab-2" class="tab-content">tab content2</div>
+  <div id="tab-3" class="tab-content">tab content3</div>
                 <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"/>
                 <input type="hidden" id="ContentsSeq${testCount}" name="ContentsSeq${testCount}" value="${testCount}"/>
 
