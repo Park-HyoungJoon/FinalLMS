@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -174,6 +175,9 @@ public class LectureController {
             else{
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
                 List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture1.getId());
+                for (int i=0; i<lectureDivideIds.size(); i++){
+                    log.info("############_#________________#" + i+"%%##############"+lectureDivideIds.get(i));
+                }
                 LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture1);
                 List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
                 List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
@@ -200,6 +204,28 @@ public class LectureController {
     public String LectureContents(@RequestParam String lectureTitle)
     {
         return "/lecture/lectureContents";
+    }
+
+    @GetMapping("/lecture/contentsEdit/{id}")
+    public String LectureContentsEditGetId(@PathVariable("id") Long divideId,Model model){
+        Lecture lecture = lectureDivideService.getLecture(divideId);
+        List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture.getId());
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(divideId);
+        List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
+        List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+        for (int i=0; i<lectureContentsList.size(); i++){
+            LectureContents lectureContents = lectureContentsList.get(i);
+            lectureContentsFileList.add(lectureContentsService.getLectureContentsFileByLectureContents(lectureContents));
+        }
+        log.info("#####################lectureId : ::  ::  :: : "+ lecture.getId());
+        model.addAttribute("lectureId",lecture.getId());
+        model.addAttribute("lectureDivideIds",lectureDivideIds);
+        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("firstDivideId",lectureDivide.getId());
+        model.addAttribute("lectureContentsList",lectureContentsList);
+        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
+
+        return "lecture/lectureContentsEdit";
     }
 
     @PostMapping(value="/lecture/contents" )
@@ -330,5 +356,36 @@ public class LectureController {
         model.addAttribute("lectureContentsList",lectureContents);
         model.addAttribute("lectureContentsFileList",lectureContentsFileList);
         return "lecture/lectureEdit";
+    }
+
+
+    /***
+     *  LectureId값을 받아 LectureDivide를 하나 더 추가하는 함수 lectureContetnsEdit에서 사용
+     * @param id  == LectureId값
+     * @param model
+     * @return
+     */
+    @GetMapping(value = "/lecture/divideAdd/{id}")
+    public String addDivide(@PathVariable("id") Long id,Model model){
+        LectureDivide lectureDivide = lectureDivideService.addDivide(id);
+        List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(id);
+
+        model.addAttribute("lectureId",id);
+        model.addAttribute("lectureDivideIds",lectureDivideIds);
+        model.addAttribute("lectureDivide",lectureDivide);
+
+        return "/lecture/lectureContentsEdit";
+    }
+
+    @GetMapping(value = "/lecture/contentsdelete/{id}")
+    public String deleteDivide(@PathVariable("id") Long id,Model model){
+        Lecture lecture = lectureDivideService.getLecture(id);
+        lectureDivideService.deleteDivide(id);
+        List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture.getId());
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
+        model.addAttribute("lectureId",lecture.getId());
+        model.addAttribute("lectureDivideIds",lectureDivideIds);
+        model.addAttribute("lectureDivide",lectureDivide);
+        return "/lecture/lectureContentsEdit";
     }
 }

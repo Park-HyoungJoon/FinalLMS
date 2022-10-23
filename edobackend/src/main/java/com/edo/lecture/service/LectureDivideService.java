@@ -3,6 +3,7 @@ package com.edo.lecture.service;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.entity.LectureDivide;
 import com.edo.lecture.repository.LectureDivideRepository;
+import com.edo.lecture.repository.LectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,11 @@ import java.util.List;
 public class LectureDivideService {
     @Autowired
     LectureDivideRepository lectureDivideRepository;
+    @Autowired
+    LectureService lectureService;
 
+    @Autowired
+    LectureRepository lectureRepository;
     public LectureDivide getLectureDivideFirstByLecture(Lecture lecture){
         LectureDivide lectureDivide = lectureDivideRepository.getLectureDivideByLecture(lecture).get(0);
         return lectureDivide;
@@ -34,8 +39,32 @@ public class LectureDivideService {
         }
     }
 
+    public LectureDivide getLectureDivideById(Long id){
+        LectureDivide lectureDivide = lectureDivideRepository.getLectureDivideById(id);
+        return lectureDivide;
+    }
+
     public LectureDivide save(LectureDivide lectureDivide) {
 
         return lectureDivideRepository.save(lectureDivide);
+    }
+
+    public LectureDivide addDivide(Long id) {
+        Lecture lecture = lectureService.getLectureById(id);
+        LectureDivide lectureDivide = new LectureDivide();
+        lectureDivide.setLecture(lecture);
+        LectureDivide lectureDivide1 = lectureDivideRepository.save(lectureDivide);
+    return lectureDivide1;
+    }
+
+    public void deleteDivide(Long id) {
+        LectureDivide lectureDivide = lectureDivideRepository.getLectureDivideById(id);
+        lectureDivideRepository.delete(lectureDivide);
+    }
+
+    public Lecture getLecture(Long id) {
+        Long lectureId = lectureDivideRepository.getLectureByDivideId(id);
+        Lecture lecture = lectureRepository.findLectureById(lectureId);
+        return lecture;
     }
 }
