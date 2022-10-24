@@ -1,6 +1,5 @@
 package com.edo.config;
 
-import com.edo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.edo.user.handler.LoginFailHandler;
+import com.edo.user.service.UserService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -19,8 +21,8 @@ public class SecurityConfig {
     @Autowired
     UserService userService;
 
-    //    원래는 별개지만 지금 체이닝을 걸어놓은것.
-//    http 요청에 대한 보안 설정. 페이지 권한, 로그인 페이지, 로그아웃 메소드 설정 예정
+    // 원래는 별개지만 지금 체이닝을 걸어놓은것.
+    // http 요청에 대한 보안 설정. 페이지 권한, 로그인 페이지, 로그아웃 메소드 설정 예정
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -30,19 +32,24 @@ public class SecurityConfig {
                 .loginPage("/login") //로그인 페이지  url 설정
                 .defaultSuccessUrl("/")//로그인 성공 시 이동할 url
                 .usernameParameter("usersEmail")//로그인 시 사용할 파라미터 이름으로 email 을 지정
-                .failureUrl("/login/error")//실패 시 이동할 url
+                .failureHandler(loginFailHandler())//로그인 실패 시 처리하는 핸들러 등록.
+                //.failureUrl("/login/error")//실패 시 이동할 url
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) 
                 .logoutSuccessUrl("/"); //로그아웃 성공 시 연결될 화면
 
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/", "/login/**", "/memberjoin", "/memberjoinInfo", "/lecture").permitAll();
-//                .anyRequest().authenticated(); 아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
-//        http.exceptionHandling()
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) //인증되지 않은 사용자 접근 시 수행
-//        ;
+                .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture", "/mypage", "/communitymain").permitAll()
+                .anyRequest()
+                .authenticated() //아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
+                .and()
+                .httpBasic(); 
+        
+        http.exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()); //인증되지 않은 사용자 접근 시 수행
+        
 
         return http.build();
 
@@ -53,5 +60,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
+    @Bean
+    public LoginFailHandler loginFailHandler(){
+        return new LoginFailHandler();
+    }
 }

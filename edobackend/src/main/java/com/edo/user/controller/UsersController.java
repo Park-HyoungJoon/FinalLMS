@@ -1,18 +1,25 @@
 package com.edo.user.controller;
 
-import com.edo.user.constant.Role;
-import com.edo.user.dto.UserDto;
-import com.edo.user.entity.Users;
-import com.edo.user.service.UserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.validation.Valid;
+import com.edo.user.constant.Role;
+import com.edo.user.dto.UserDto;
+import com.edo.user.entity.Users;
+import com.edo.user.service.UserService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin
 @Controller
@@ -23,11 +30,15 @@ public class UsersController {
     @Autowired
     private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;  
 
 
     @GetMapping(value="/login")
-    public String Login(){
+    public String Login(@RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "exception", required = false) String exception, Model model) {
+    	model.addAttribute("error", error);
+    	model.addAttribute("exception", exception);    	
+    	log.info("loginForm view resolve");
         return "member/login";
     }
 
@@ -51,14 +62,14 @@ public class UsersController {
     public String MemberJoinPost( @Valid UserDto userDto, Model model){
 
 
-        Users users = new Users();
-        users.setUsersEmail(userDto.getUsersEmail());
-        users.setUsersNickname(userDto.getUsersNickname());
-        users.setUsersName(userDto.getUsersName());
-        String password = passwordEncoder.encode(userDto.getUsersPassword());
-        users.setUsersPassword(password);
-        users.setUsersPhone(userDto.getUsersPhone());
-        users.setUsersRole(Role.USER);
+        Users users = Users.createUser(userDto, passwordEncoder);
+//        users.setUsersEmail(userDto.getUsersEmail());
+//        users.setUsersNickname(userDto.getUsersNickname());
+//        users.setUsersName(userDto.getUsersName());
+//        String password = passwordEncoder.encode(userDto.getUsersPassword());
+//        users.setUsersPassword(password);
+//        users.setUsersPhone(userDto.getUsersPhone());
+//        users.setUsersRole(Role.USER);
 
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + users.toString());
 
@@ -69,7 +80,7 @@ public class UsersController {
         }
 
 //        성공 시 로그인 페이지로 돌아간다
-        return "redirect:/login";
+        return "member/login";
     }
 
 //    이메일 중복 확인을 위한 메소드
@@ -102,16 +113,18 @@ public class UsersController {
     }
 
     // 마이페이지
-    @GetMapping(value="/mypage")
+    @GetMapping(value="/mypage") 
     public String MypageGet(){
         return "mypage/mypageMain";
     }
 
-    //로그인 실패 시 에러 메세지 나타냄
+    //로그인 실패 시 에러 메세지 나타냄 
     @GetMapping(value = "/login/error")
-    public String loginErrorGet(Model model){
-        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 다시 확인해주세요");
-        return "redirect:/login";
+    public String loginErrorGet(@RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "exception", required = false) String exception, Model model){
+    	log.info("=================> 오류 발생" + error + ", " + exception);
+        model.addAttribute("loginErrorMsg", exception);
+        return "/member/login";
     }
 }
 

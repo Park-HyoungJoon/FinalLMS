@@ -58,6 +58,7 @@ public class Users extends BaseTimeEntity {
 
     public static Users createUser(UserDto userDto, PasswordEncoder passwordEncoder){
         Users users = new Users();
+        users.setUsersEmail(userDto.getUsersEmail());
         users.setUsersName(userDto.getUsersName());
         users.setUsersNickname(userDto.getUsersNickname());
         users.setUsersPhone(userDto.getUsersPhone());
