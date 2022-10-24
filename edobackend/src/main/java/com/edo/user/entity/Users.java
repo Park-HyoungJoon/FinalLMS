@@ -61,23 +61,26 @@ public class Users extends BaseTimeEntity {
         users.setUsersName(userDto.getUsersName());
         users.setUsersNickname(userDto.getUsersNickname());
         users.setUsersPhone(userDto.getUsersPhone());
-//        왜 passwordencoder가 안 먹는지?
         String password = passwordEncoder.encode(userDto.getUsersPassword());
         users.setUsersPassword(password);
-        users.setUsersRole(Role.ROLE_USER); // 기본값은 학생
+        users.setUsersRole(Role.USER); // 기본값은 학생
         return users;
     }
 
 
     public void createUsers(String usersEmail, String usersPassword, String usersNickname, String usersName, String usersPhone,
                  Role usersRole, PasswordEncoder passwordEncoder){
+
         Users users = new Users();
         this.usersEmail = usersEmail;
-        this.usersPassword = usersPassword;
+//        왜 안먹을까요...
+        this.usersPassword = passwordEncoder.encode(usersPassword);
         this.usersNickname = usersNickname;
         this.usersName = usersName;
         this.usersPhone = usersPhone;
-//       왜 학생 Role을 못 받아오는지 차차 알아볼 예정
-        this.usersRole = Role.ROLE_USER;
+//       왜 Role이 안 들어가지요...
+        this.usersRole = Role.USER;
+
+        System.out.println("지금 이 메소드 출력하는 중!!!!!!!!!!!!!!!!!! >>>>>>>>>>>>>>>>>>>>>"  );
     }
 }

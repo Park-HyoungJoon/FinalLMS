@@ -45,7 +45,7 @@
                 </ul>
                 <span>
                     <!--                    로그인이 되어있지 않은 경우만 로그인 설정 -->
-                             <a type="button" class="button" href="/login" sec:authorize = "isAnonymous()">Login</a>
+                             <a type="button" class="button" href="/member/login" sec:authorize = "isAnonymous()">Login</a>
                         </span>
                 <span>
                     <!--                    로그인이 되어있는 경우만 로그아웃으로 설정 -->
@@ -90,128 +90,7 @@
 
     <script type="text/javascript">
 
-        // var emailconfirm = document.getElementById("sendmail");
-        // var sendmail_text = document.getElementById("sendmail_text");
-        // var sendmailvar = document.getElementById('btt');
-        // var btn = document.getElementById('aa');
-        // var mes = document.getElementById("mes");
-        //
-        // var fild1 = document.getElementById("fild_1");
-        // var fild2 = document.getElementById("fild_2");
-        // var fild3 = document.getElementById("fild_3");
-        //
-        // var fild1_t = document.getElementById("fild_1_text");
-        // var fild2_t = document.getElementById("fild_2_text");
-        // var fild3_t = document.getElementById("fild_3_text");
-        //
-        // function zz() {
-        //     mes.style.display = 'none';
-        //     sendmailvar.style.display = 'flex';
-        //     emailconfirm.style.display = 'flex';
-        //     sendmail_text.style.display = 'flex';
-        //
-        //     fild1.style.display = 'none';
-        //     fild1_t.style.display = 'none';
-        //
-        //     fild2.style.display = 'none';
-        //     fild2_t.style.display = 'none';
-        //
-        //     fild3.style.display = 'none';
-        //     fild3_t.style.display = 'none';
-        // }
-        //
-        //
-        // //var sendemaildata = { sendemail : $("#sendemail").val()};
-        //
-        // sendmailvar.addEventListener('click', function () {
-        //     var xhr = new XMLHttpRequest();
-        //     var value = 'sendmail=' + emailconfirm.value;
-        //     console.log(value);
-        //     //alert("a");
-        //
-        //     xhr.open('POST', '/sendmail', true);
-        //     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        //     console.log(value);
-        //     xhr.send(value); /// ajax data부분
-        //     xhr.onload = function () {
-        //         if (xhr.status == 200) {
-        //             //alert(xhr.response);
-        //             if (xhr.response != 'false') {
-        //                 mes.style.display = 'none';
-        //                 sendmailvar.style.display = 'none';
-        //                 emailconfirm.style.display = 'none';
-        //                 sendmail_text.style.display = 'none';
-        //
-        //
-        //                 fild1.style.display = 'flex';
-        //                 fild1_t.style.display = 'flex';
-        //
-        //                 fild2.style.display = 'flex';
-        //                 fild2_t.style.display = 'flex';
-        //
-        //                 fild3.style.display = 'flex';
-        //                 fild3_t.style.display = 'flex';
-        //             } else {
-        //                 mes.style.display = 'flex';
-        //             }
-        //         }
-        //     }
-        // })
-        //
-        // function btnSubmit() {
-        //     var xhr = new XMLHttpRequest();
-        //     var value = {
-        //         'email': emailconfirm.value,
-        //         'pass': fild_1.value,
-        //     };
-        //     var jsonString = JSON.stringify(value);
-        //
-        //     //alert("a");
-        //     xhr.open('POST', '/passchange', true);
-        //     xhr.setRequestHeader("Content-Type", "application/json");
-        //     xhr.send(jsonString); /// ajax data부분
-        //
-        //     xhr.onload = function () {
-        //         if (xhr.status == 200) {
-        //             //alert(xhr.response);
-        //             if (xhr.response == 'true') {
-        //                 if (fild_2.value == fild_3.value) {
-        //                     //////////////////////////////////////////////////////////////
-        //                     var x = new XMLHttpRequest();
-        //                     var v = {
-        //                         'email': emailconfirm.value,
-        //                         'pw': fild_2.value,
-        //                     };
-        //
-        //                     var js = JSON.stringify(v);
-        //
-        //                     x.open('POST', '/pwchange', true);
-        //                     x.setRequestHeader("Content-Type", "application/json");
-        //                     x.send(js); /// ajax data부분
-        //                     if (x.status == 200) {
-        //                         if (x.response == true) {
-        //                             alert("ㅂㅂ");
-        //                             return true;
-        //                         } else {
-        //                             alert("실패");
-        //                             return false;
-        //                         }
-        //                     }
-        //
-        //                     ////////////////////////////////////////////////////////////////
-        //                 } else {
-        //                     alert("비밀번호가 다릅니다");
-        //                     return false;
-        //                 }
-        //             } else {
-        //                 alert("인증번호가 다릅니다");
-        //                 return false;
-        //             }
-        //         }
-        //         return false;
-        //     }
-        //     return false;
-        // }
+
     </script>
 </div><!-- //header -->
 </div>

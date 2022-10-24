@@ -5,11 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.edo.user.entity.Users;
 
-import java.util.Optional;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, String> {
-//	Optional<Users> findByusersEmail(String usersEmail);
 
     Users findByusersEmail(String usersEmail);
 

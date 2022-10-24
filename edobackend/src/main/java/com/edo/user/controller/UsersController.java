@@ -1,11 +1,13 @@
 package com.edo.user.controller;
 
+import com.edo.user.constant.Role;
 import com.edo.user.dto.UserDto;
 import com.edo.user.entity.Users;
 import com.edo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +23,19 @@ public class UsersController {
     @Autowired
     private final UserService userService;
 
-    @GetMapping(value="/login")
+    private final PasswordEncoder passwordEncoder;
+
+
+    @GetMapping(value="/member/login")
     public String Login(){
         return "member/login";
     }
 
-    @PostMapping(value = "/login")
-    public String LoginPost(){
-        return null;
-    }
 
 //   이용약관
     @GetMapping(value="/memberjoin")
     public String MemberJoinGet(Model model){
         log.info("<<<>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>");
-//        model.addAttribute("UserDto", new UserDto());
         return "member/memberjoin";
     }
 
@@ -50,20 +50,20 @@ public class UsersController {
     @PostMapping(value ="/memberjoinInfo" )
     public String MemberJoinPost( @Valid UserDto userDto, Model model){
 
-//        로그 찍어보기
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>+++++++++++++++>>>>>>>>>>>>>>>>");
 
         Users users = new Users();
         users.setUsersEmail(userDto.getUsersEmail());
         users.setUsersNickname(userDto.getUsersNickname());
         users.setUsersName(userDto.getUsersName());
-        users.setUsersPassword(userDto.getUsersPassword());
+        String password = passwordEncoder.encode(userDto.getUsersPassword());
+        users.setUsersPassword(password);
         users.setUsersPhone(userDto.getUsersPhone());
+        users.setUsersRole(Role.USER);
 
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + users.toString());
 
         try{
-            userService.saveMember(userDto);
+            userService.saveMember(users);
         } catch(IllegalStateException e){
             return "member/memberjoinInfo";
         }
