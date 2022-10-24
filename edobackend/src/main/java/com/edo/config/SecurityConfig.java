@@ -27,10 +27,10 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.formLogin()
-                .loginPage("/member/login") //로그인 페이지  url 설정
+                .loginPage("/login") //로그인 페이지  url 설정
                 .defaultSuccessUrl("/")//로그인 성공 시 이동할 url
                 .usernameParameter("usersEmail")//로그인 시 사용할 파라미터 이름으로 email 을 지정
-                .failureUrl("/")//실패 시 이동할 url
+                .failureUrl("/login/error")//실패 시 이동할 url
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
@@ -38,7 +38,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/", "/login", "/memberjoin", "/memberjoinInfo", "/lecture").permitAll();
+                .antMatchers("/", "/login/**", "/memberjoin", "/memberjoinInfo", "/lecture").permitAll();
 //                .anyRequest().authenticated(); 아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
 //        http.exceptionHandling()
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) //인증되지 않은 사용자 접근 시 수행
