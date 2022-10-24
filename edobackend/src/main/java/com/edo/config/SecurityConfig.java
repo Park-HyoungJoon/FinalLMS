@@ -19,18 +19,18 @@ public class SecurityConfig {
     @Autowired
     UserService userService;
 
-//    원래는 별개지만 지금 체이닝을 걸어놓은것.
+    //    원래는 별개지만 지금 체이닝을 걸어놓은것.
 //    http 요청에 대한 보안 설정. 페이지 권한, 로그인 페이지, 로그아웃 메소드 설정 예정
-@Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
 
         http.formLogin()
-                .loginPage("/login") //로그인 페이지  url 설정
+                .loginPage("/member/login") //로그인 페이지  url 설정
                 .defaultSuccessUrl("/")//로그인 성공 시 이동할 url
                 .usernameParameter("usersEmail")//로그인 시 사용할 파라미터 이름으로 email 을 지정
-                .failureUrl("/login")//실패 시 이동할 url
+                .failureUrl("/")//실패 시 이동할 url
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
@@ -38,15 +38,13 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/","/login","/memberjoin","/memberjoinInfo","/lecture").permitAll();
+                .antMatchers("/", "/login", "/memberjoin", "/memberjoinInfo", "/lecture").permitAll();
 //                .anyRequest().authenticated(); 아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
 //        http.exceptionHandling()
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) //인증되지 않은 사용자 접근 시 수행
 //        ;
 
-
         return http.build();
-
 
     }
 

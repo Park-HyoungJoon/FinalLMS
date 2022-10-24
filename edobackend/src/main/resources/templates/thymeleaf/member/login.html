@@ -33,39 +33,58 @@
             <div class="log_form">
 
                     <div class="loginclass">
-                    <h4 class="log_tt">
-                        <div class="login_icon">
-                            <img src="http://crhs.aimind.co.kr/images/login_icon.png" alt="자물쇠사진">
-                        </div>
+<!--                        원래 쓰던 HTML 코드 -->
+<!--                    <h4 class="log_tt">-->
+<!--                        <div class="login_icon">-->
+<!--                            <img src="http://crhs.aimind.co.kr/images/login_icon.png" alt="자물쇠사진">-->
+<!--                        </div>-->
 
-                        <div class="login_title">
-                            <p>로그인</p>
-                            <p>이메일과 비밀번호를 입력해주세요.</p>
-                        </div>
-                    </h4>
-                    <div class="log_area">
-                        <form method="post" action="/login">
-                        <div class="log_in">
-                            <div class="iparea ip_id">
-                                <input type="email" id="usersEmail" name="usersEmail" tabindex="1"
-                                       onkeypress="javascript:enPress();" placeholder="이메일을 입력해주세요"
-                                       required="Y" >
-                            </div>
-                            <div class="iparea ip_pass">
-                                <input type="password" id="userpassword" name="userpassword" tabindex="2"
-                                       onkeypress="javascript:enPress();" placeholder="비밀번호를 입력해주세요"
-                                       required="Y" >
-                            </div>
-                        </div>
+<!--                        <div class="login_title">-->
+<!--                            <p>로그인</p>-->
+<!--                            <p>이메일과 비밀번호를 입력해주세요.</p>-->
+<!--                        </div>-->
+<!--                    </h4>-->
+<!--                    <div class="log_area">-->
+<!--                        <form method="post" action="/login">-->
+<!--                        <div class="log_in">-->
+<!--                            <div class="iparea ip_id">-->
+<!--                                <input type="email" id="usersEmail" name="usersEmail" tabindex="1"-->
+<!--                                       onkeypress="javascript:enPress();" placeholder="이메일을 입력해주세요"-->
+<!--                                       required="Y" >-->
+<!--                            </div>-->
+<!--                            <div class="iparea ip_pass">-->
+<!--                                <input type="password" id="userpassword" name="userpassword" tabindex="2"-->
+<!--                                       onkeypress="javascript:enPress();" placeholder="비밀번호를 입력해주세요"-->
+<!--                                       required="Y" >-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!--            로그인 실패 시 에러 메세지 -->
-                        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-                        <div th:align="center">
-                            <input type="submit" class="btn btn-primary" value="로그인"/>
-                        </div>
+<!--                        &lt;!&ndash;            로그인 실패 시 에러 메세지 &ndash;&gt;-->
+<!--                        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>-->
+<!--                        <div th:align="center">-->
+<!--&lt;!&ndash;                            <input type="submit" class="btn btn-primary" value="로그인"/>&ndash;&gt;-->
+<!--                            <button class="btn btn-primary">로그인</button>-->
+<!--                        </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+                    </div>
+
+
+<!--                현재 로그인 테스트로 쓰고 있는 로그인 코드 -->
+                        <form role="form" method="post" action="/member/login">
+                            <div class="form-group">
+                                <label th:for="email">이메일주소</label>
+                                <input type="email" name="usersEmail" class="form-control" placeholder="이메일을 입력해주세요">
+                            </div>
+                            <div class="form-group">
+                                <label th:for="password">비밀번호</label>
+                                <input type="password" name="userpassword" id="password" class="form-control" placeholder="비밀번호 입력">
+                            </div>
+                            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+                            <button class="btn btn-primary">로그인</button>
+                            <button type="button" class="btn btn-primary" onClick="location.href='/members/new'">회원가입</button>
+<!--                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
                         </form>
-                    </div>
-                    </div>
 
 
                 <div style="margin:20px auto 0 auto;text-align:center;">

@@ -1,7 +1,6 @@
 package com.edo.user.service;
 
 
-import com.edo.user.dto.UserDto;
 import com.edo.user.entity.Users;
 import com.edo.user.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = false)
@@ -30,10 +28,10 @@ public class UserService implements UserDetailsService {
 
 
     //    회원가입 시 멤버 저장
-    public Long saveMember(UserDto userDto) {
+    public Long saveMember(Users users) {
 
-        Users users = userDto.createUsers();
         log.info(users.toString());
+
 //        중복된 회원인지 먼저 확인
 
         validateDuplicateUserEmail(users.getUsersEmail());
@@ -70,16 +68,15 @@ public class UserService implements UserDetailsService {
         @Override
         public UserDetails loadUserByUsername (String usersEmail) throws UsernameNotFoundException {
             Users users = userRepository.findByusersEmail(usersEmail);
+            log.info(">>>>>>>>>>>>>>>> 로그인이 되지 않고 있어요" + users);
+
             if (users == null) {
+                log.info(">>>>>>>>>>>>>>>> 로그인이 되지 않고 있어요 IF문" + users);
                 throw new UsernameNotFoundException(usersEmail);
             }
 //        이 User은 Spring security의 User
-//        회원가입에 아직 roll 기능을 만들지 않아서 보류. 추후 기능 구현 시 추가할 예정
+            log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 로그인 할 때 찍어보기" + users.toString());
             return User.builder()
-                    .username(users.getUsersEmail())
-                    .password(users.getUsersPassword())
-                    .build();
+                    .username(users.getUsersEmail()).password(users.getUsersPassword()).roles(users.getUsersRole().toString()).build();
         }
-
-
     }
