@@ -26,7 +26,7 @@ public class UsersController {
     private final PasswordEncoder passwordEncoder;
 
 
-    @GetMapping(value="/login")
+    @GetMapping(value="/member/login")
     public String Login(){
         return "member/login";
     }
