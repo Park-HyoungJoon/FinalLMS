@@ -13,8 +13,8 @@
               class="needs-validation" enctype="multipart/form-data" novalidate th:object="${contentsEditDto}">
             <input type="hidden" id="firstDivideId" name="firstDivideId" th:value="${firstDivideId}"/>
             <div th:if="${not #strings.isEmpty(lectureContentsList)}">
-            <input type="hidden" id="ContentsListSize" name="ContentsListSize"
-                   th:value="${lectureContentsList.size()}">
+                <input type="hidden" id="ContentsListSize" name="ContentsListSize"
+                       th:value="${lectureContentsList.size()}">
             </div>
             <div data-name="fileDiv">
                 <input type="hidden" id="ContentsSeq" name="ContentsSeq" value="1"/>
@@ -27,8 +27,8 @@
                     <label>강의제목</label>
                     <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"
                            th:placeholder="${lectureDivide?.getLectureDivideTitle()}">
-                <input type="submit" id="nextButton" class="nextButton"/>
-            </div>
+                    <input type="submit" id="nextButton" class="nextButton"/>
+                </div>
             </div>
         </form>
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
@@ -68,8 +68,8 @@
                 return false;
             }
             for (let i = 1; i <= contentsList; i++) {
-                let testValue = [[${lectureContentsList}]][i-1]['lectureContentsTitle'];
-                let contentsInfo = [[${lectureContentsList}]][i-1]['lectureContentsInfo'];
+                let testValue = [[${lectureContentsList}]][i - 1]['lectureContentsTitle'];
+                let contentsInfo = [[${lectureContentsList}]][i - 1]['lectureContentsInfo'];
 
                 const fileHtml = `
                                     <div data-name="contentsDiv">
@@ -85,16 +85,17 @@
                                             <input type="text" placeholder="${testValue}"name="lectureContentsTitle${i}" id="lectureContentsTitle${i}"></div>
                                         <div style="display: block">
                                             <label>차시 파일</label>
-                                            <ul class="tabs">
-    <li class="tab-link current" data-tab="tab-1">tab1</li>
-    <li class="tab-link" data-tab="tab-2">tab2</li>
-    <li class="tab-link" data-tab="tab-3">tab3</li>
+                                              <ul class="tabs">
+    <li class="tab-link current" id="tabBar-${i}" data-tab="tab-${i}">파일</li>
+    <li class="tab-link" id="tabBar-${i+5}" data-tab="tab-${i+5}">링크</li>
   </ul>
 
-  <div id="tab-1" class="tab-content current">tab content1</div>
-  <div id="tab-2" class="tab-content">tab content2</div>
-  <div id="tab-3" class="tab-content">tab content3</div>
-                                            <input type='file' id="lectureContentsFile${i}" name="lectureContentsFile${i}"/>
+  <div id="tab-${i}" class="tab-content current">
+                                            <input type='file' id="lectureContentsFile${i}" name="lectureContentsFile${i}"
+                                            accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
+  <div id="tab-${i+5}" class="tab-content">
+  <input type="text" placeholder="링크입력">
+</div>
                                             <input type="hidden" class="statNum" value="${i}"/>
 
                                             <div class="form-group">
@@ -110,14 +111,17 @@
 `;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
                 $('#nextButton').before(fileHtml);
-                $('ul.tabs li').click(function(){
+                $('ul.tabs li').click(function () {
                     var tab_id = $(this).attr('data-tab');
-
-                    $('ul.tabs li').removeClass('current');
-                    $('.tab-content').removeClass('current');
+                    var tab_test = $("#tabBar-"+(i+5)).attr('data-tab');
+                    var tab_tet = $("#tabBar-"+(i)).attr('data-tab');
+                    $("#tabBar-"+(i)).removeClass('current');
+                    $("#tabBar-"+(i+5)).removeClass('current');
+                    $('#tab-'+(i)).removeClass('current');
+                    $('#tab-'+(i+5)).removeClass('current');
 
                     $(this).addClass('current');
-                    $("#"+tab_id).addClass('current');
+                    $("#" + tab_id).addClass('current');
                 })
 
                 ClassicEditor
@@ -133,18 +137,18 @@
         })
         /*]]>*/
     </script>
-    <script th:inline="javascript" > /*[- 파일 인덱스 처리용 전역 변수 -]*/
-        function addFile() {
+    <script th:inline="javascript"> /*[- 파일 인덱스 처리용 전역 변수 -]*/
+    function addFile() {
 
-            const fileDivs = $('div[data-name="fileDiv"]');
-            if (fileDivs.length > 4) {
-                alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
-                return false;
-            }
+        const fileDivs = $('div[data-name="fileDiv"]');
+        if (fileDivs.length > 4) {
+            alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
+            return false;
+        }
 
-            testCount++;
+        testCount++;
 
-            const fileHtml = `
+        const fileHtml = `
     <div data-name="fileDiv" class="form-group">
 		<button type="button" onclick="removeFile(this)"
 			class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
@@ -156,16 +160,17 @@
     <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
     <div style="display: block">
         <label>차시 파일</label>
-        <ul class="tabs">
-    <li class="tab-link current" data-tab="tab-1">tab1</li>
-    <li class="tab-link" data-tab="tab-2">tab2</li>
-    <li class="tab-link" data-tab="tab-3">tab3</li>
+                                                    <ul class="tabs">
+   <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
+    <li class="tab-link" id="tabBar-${testCount+5}" data-tab="tab-${testCount+5}">링크</li>
   </ul>
 
-  <div id="tab-1" class="tab-content current">tab content1</div>
-  <div id="tab-2" class="tab-content">tab content2</div>
-  <div id="tab-3" class="tab-content">tab content3</div>
-                <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"/>
+  <div id="tab-${testCount}" class="tab-content current">
+                                            <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
+                                            accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
+  <div id="tab-${testCount+5}" class="tab-content">
+  <input type="text" placeholder="링크입력">
+</div>
                 <input type="hidden" id="ContentsSeq${testCount}" name="ContentsSeq${testCount}" value="${testCount}"/>
 
             <div class="form-group">
@@ -179,34 +184,43 @@
 </div>
 `;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
-            $('#nextButton').before(fileHtml);
+        $('#nextButton').before(fileHtml);
+        $('ul.tabs li').click(function () {
+            var tab_id = $(this).attr('data-tab');
+            $("#tabBar-"+(testCount)).removeClass('current');
+            $("#tabBar-"+(testCount+5)).removeClass('current');
+            $('#tab-'+(testCount)).removeClass('current');
+            $('#tab-'+(testCount+5)).removeClass('current');
 
-            ClassicEditor
-                .create(document.querySelector('#editor' + testCount))
-                .then(newEditor => {
-                    console.log(testCount);
-                    editor[testCount] = newEditor;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            $(this).addClass('current');
+            $("#" + tab_id).addClass('current');
+        })
+        ClassicEditor
+            .create(document.querySelector('#editor' + testCount))
+            .then(newEditor => {
+                console.log(testCount);
+                editor[testCount] = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
+    }
+
+    function removeFile(elem) {
+
+        const prevTag = $(elem).prev().prop('tagName');
+        if (prevTag === 'BUTTON') {
+            theEditor.setData('');
+            return false;
         }
+        if (testCount === 0) {
 
-        function removeFile(elem) {
-
-            const prevTag = $(elem).prev().prop('tagName');
-            if (prevTag === 'BUTTON') {
-                theEditor.setData('');
-                return false;
-            }
-            if (testCount === 0) {
-
-            } else {
-                $(elem).parent().remove();
-            }
-            testCount--;
+        } else {
+            $(elem).parent().remove();
         }
+        testCount--;
+    }
     </script>
 
     <!--submit의 이벤트를 잠시 멈추고 진행한 다음에 재전송하는 함수-->
@@ -223,12 +237,12 @@
                 lectureContentsTitle.push($("#lectureContentsTitle" + i).val());
             }
             let param = {
-                "divideId" : divideId,
+                "divideId": divideId,
                 "lectureDivideTitle": lectureDivideTitle,
                 "ListLectureContentsTitle": lectureContentsTitle,
                 "ListLectureContentsInfo": lectureContentsInfo,
                 "strLectureId": lectureId,
-              }
+            }
             let isSubmit = false;
             $.ajax({
                 anyne: true,

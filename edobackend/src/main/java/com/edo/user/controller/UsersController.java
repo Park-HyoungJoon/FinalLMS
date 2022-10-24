@@ -26,7 +26,7 @@ public class UsersController {
     private final PasswordEncoder passwordEncoder;
 
 
-    @GetMapping(value="/member/login")
+    @GetMapping(value="/login")
     public String Login(){
         return "member/login";
     }
@@ -111,7 +111,7 @@ public class UsersController {
     @GetMapping(value = "/login/error")
     public String loginErrorGet(Model model){
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 다시 확인해주세요");
-        return "/login";
+        return "redirect:/login";
     }
 }
 
