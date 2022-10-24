@@ -33,12 +33,14 @@ public class UsersController {
     private final PasswordEncoder passwordEncoder;  
 
 
+
     @GetMapping(value="/login")
     public String Login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "exception", required = false) String exception, Model model) {
     	model.addAttribute("error", error);
     	model.addAttribute("exception", exception);    	
     	log.info("loginForm view resolve");
+
         return "member/login";
     }
 

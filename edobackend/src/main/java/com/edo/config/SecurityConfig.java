@@ -29,11 +29,16 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.formLogin()
-                .loginPage("/login") //로그인 페이지  url 설정
+                .loginPage("/member/login") //로그인 페이지  url 설정
                 .defaultSuccessUrl("/")//로그인 성공 시 이동할 url
                 .usernameParameter("usersEmail")//로그인 시 사용할 파라미터 이름으로 email 을 지정
+
                 .failureHandler(loginFailHandler())//로그인 실패 시 처리하는 핸들러 등록.
                 //.failureUrl("/login/error")//실패 시 이동할 url
+
+                .passwordParameter("usersPassword") //view단에서 plain text로 받아온 걸 encode해서 db랑 매칭
+                .failureUrl("/member/login")//실패 시 이동할 url
+
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) 
