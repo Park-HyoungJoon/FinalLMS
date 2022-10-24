@@ -20,7 +20,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         if("XMLHTTPRquest".equals(request.getHeader("x-requested-with"))){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         } else {
-            response.sendRedirect("/member/login");
+            response.sendRedirect("/login");
         }
 
     }
