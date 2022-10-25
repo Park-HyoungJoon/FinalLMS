@@ -94,7 +94,7 @@
                                             <input type='file' id="lectureContentsFile${i}" name="lectureContentsFile${i}"
                                             accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
   <div id="tab-${i+5}" class="tab-content">
-  <input type="text" placeholder="링크입력">
+  <input type="text" name="lectureContentsLink${i}" placeholder="링크입력">
 </div>
                                             <input type="hidden" class="statNum" value="${i}"/>
 
@@ -169,7 +169,7 @@
                                             <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
                                             accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
   <div id="tab-${testCount+5}" class="tab-content">
-  <input type="text" placeholder="링크입력">
+  <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
 </div>
                 <input type="hidden" id="ContentsSeq${testCount}" name="ContentsSeq${testCount}" value="${testCount}"/>
 
