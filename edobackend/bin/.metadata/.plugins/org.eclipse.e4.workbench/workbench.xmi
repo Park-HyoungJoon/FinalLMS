@@ -1600,7 +1600,7 @@
   <commands xmi:id="_XdQBRRVSEe2ECeDgAVaD_A" elementId="org.eclipse.wst.xml.ui.previousSibling" commandName="Previous Sibling" description="Go to Previous Sibling" category="_XdHeVBVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdQBRhVSEe2ECeDgAVaD_A" elementId="org.eclipse.egit.ui.RepositoriesViewConfigurePush" commandName="Configure Push..." category="_XdIFchVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdQBRxVSEe2ECeDgAVaD_A" elementId="org.eclipse.ui.edit.findIncrementalReverse" commandName="Incremental Find Reverse" description="Incremental find reverse" category="_XdHeVBVSEe2ECeDgAVaD_A"/>
-  <commands xmi:id="_XdQBSBVSEe2ECeDgAVaD_A" elementId="org.eclipse.epp.mpc.ui.command.importFavoritesWizard" commandName="Import Marketplace Favorites" description="Import another users's Marketplace Favorites List" category="_XdIFeRVSEe2ECeDgAVaD_A">
+  <commands xmi:id="_XdQBSBVSEe2ECeDgAVaD_A" elementId="org.eclipse.epp.mpc.ui.command.importFavoritesWizard" commandName="Import Marketplace Favorites" description="Import another member's Marketplace Favorites List" category="_XdIFeRVSEe2ECeDgAVaD_A">
     <parameters xmi:id="_XdQBSRVSEe2ECeDgAVaD_A" elementId="favoritesUrl" name="favoritesUrl"/>
   </commands>
   <commands xmi:id="_XdQBShVSEe2ECeDgAVaD_A" elementId="org.eclipse.ant.ui.antShortcut.run" commandName="Run Ant Build" description="Run Ant Build" category="_XdIFbxVSEe2ECeDgAVaD_A"/>
@@ -1942,7 +1942,7 @@
   <commands xmi:id="_XdUSyRVSEe2ECeDgAVaD_A" elementId="org.eclipse.text.quicksearch.commands.quicksearchCommand" commandName="Quick Search" category="_XdIFZhVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdUSyhVSEe2ECeDgAVaD_A" elementId="org.eclipse.egit.ui.team.PushTags" commandName="Push Tags..." category="_XdIFchVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdUSyxVSEe2ECeDgAVaD_A" elementId="org.eclipse.egit.ui.ContinueRebase" commandName="Continue Rebase" category="_XdIFchVSEe2ECeDgAVaD_A"/>
-  <commands xmi:id="_XdU5sBVSEe2ECeDgAVaD_A" elementId="org.eclipse.help.ui.closeTray" commandName="Close User Assistance Tray" description="Close the users assistance tray containing context help information and cheat sheets." category="_XdIFaRVSEe2ECeDgAVaD_A"/>
+  <commands xmi:id="_XdU5sBVSEe2ECeDgAVaD_A" elementId="org.eclipse.help.ui.closeTray" commandName="Close User Assistance Tray" description="Close the member assistance tray containing context help information and cheat sheets." category="_XdIFaRVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdU5sRVSEe2ECeDgAVaD_A" elementId="org.eclipse.egit.ui.history.CreatePatch" commandName="Create Patch..." category="_XdIFeRVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdU5shVSEe2ECeDgAVaD_A" elementId="org.eclipse.debug.ui.commands.Resume" commandName="Resume" description="Resume" category="_XdIFbxVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdU5sxVSEe2ECeDgAVaD_A" elementId="org.eclipse.wst.jsdt.ui.edit.text.java.toggle.comment" commandName="Toggle Comment" description="Toggle comment the selected lines" category="_XdHeXBVSEe2ECeDgAVaD_A"/>
@@ -2064,7 +2064,7 @@
   <commands xmi:id="_XdVg9BVSEe2ECeDgAVaD_A" elementId="org.eclipse.wst.xsd.ui.refactor.makeElementGlobal" commandName="Make Local Element &amp;Global" description="Promotes local element to global level and replaces its references" category="_XdHeVBVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdWH0BVSEe2ECeDgAVaD_A" elementId="org.eclipse.jdt.ui.correction.encapsulateField.assist" commandName="Quick Assist - Create getter/setter for field" description="Invokes quick assist and selects 'Create getter/setter for field'" category="_XdIFdxVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdWH0RVSEe2ECeDgAVaD_A" elementId="org.eclipse.oomph.setup.editor.openEditorDropdown" commandName="Open Setup Editor" category="_XdHeWRVSEe2ECeDgAVaD_A"/>
-  <commands xmi:id="_XdWH0hVSEe2ECeDgAVaD_A" elementId="org.eclipse.ui.help.quickStartAction" commandName="Welcome" description="Show help for beginning users" category="_XdIFaRVSEe2ECeDgAVaD_A"/>
+  <commands xmi:id="_XdWH0hVSEe2ECeDgAVaD_A" elementId="org.eclipse.ui.help.quickStartAction" commandName="Welcome" description="Show help for beginning member" category="_XdIFaRVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdWH0xVSEe2ECeDgAVaD_A" elementId="org.eclipse.egit.ui.team.ReplaceWithPrevious" commandName="Replace with Previous Revision" category="_XdIFchVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdWH1BVSEe2ECeDgAVaD_A" elementId="org.eclipse.m2e.sourcelookup.ui.openPom" commandName="Open Pom" category="_XdIFeRVSEe2ECeDgAVaD_A"/>
   <commands xmi:id="_XdWH1RVSEe2ECeDgAVaD_A" elementId="org.eclipse.oomph.setup.ui.questionnaire" commandName="Configuration Questionnaire" description="Review the IDE&amp;apos;s most fiercely contested preferences" category="_XdHeWRVSEe2ECeDgAVaD_A"/>

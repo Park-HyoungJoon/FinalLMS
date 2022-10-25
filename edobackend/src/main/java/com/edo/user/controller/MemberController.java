@@ -2,6 +2,7 @@ package com.edo.user.controller;
 
 import javax.validation.Valid;
 
+import com.edo.user.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.edo.user.constant.Role;
-import com.edo.user.dto.UserDto;
-import com.edo.user.entity.Users;
-import com.edo.user.service.UserService;
+import com.edo.user.entity.Member;
+import com.edo.user.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +24,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class UsersController {
+public class MemberController {
 
     @Autowired
-    private final UserService userService;
+    private final MemberService memberService;
 
     private final PasswordEncoder passwordEncoder;  
 
@@ -61,22 +60,22 @@ public class UsersController {
 
     //    회원가입 값 전달
     @PostMapping(value ="/memberjoinInfo" )
-    public String MemberJoinPost( @Valid UserDto userDto, Model model){
+    public String MemberJoinPost(@Valid MemberDto memberDto, Model model){
 
 
-        Users users = Users.createUser(userDto, passwordEncoder);
-//        users.setUsersEmail(userDto.getUsersEmail());
-//        users.setUsersNickname(userDto.getUsersNickname());
-//        users.setUsersName(userDto.getUsersName());
-//        String password = passwordEncoder.encode(userDto.getUsersPassword());
-//        users.setUsersPassword(password);
-//        users.setUsersPhone(userDto.getUsersPhone());
-//        users.setUsersRole(Role.USER);
+        Member member = Member.createUser(memberDto, passwordEncoder);
+//        member.setUsersEmail(memberDto.getUsersEmail());
+//        member.setUsersNickname(memberDto.getUsersNickname());
+//        member.setUsersName(memberDto.getUsersName());
+//        String password = passwordEncoder.encode(memberDto.getUsersPassword());
+//        member.setUsersPassword(password);
+//        member.setUsersPhone(memberDto.getUsersPhone());
+//        member.setUsersRole(Role.USER);
 
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + users.toString());
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + member.toString());
 
         try{
-            userService.saveMember(users);
+            memberService.saveMember(member);
         } catch(IllegalStateException e){
             return "member/memberjoinInfo";
         }
@@ -88,11 +87,11 @@ public class UsersController {
 //    이메일 중복 확인을 위한 메소드
     @ResponseBody //view가 아닌 data 그대로를 반환합니다.
     @PostMapping(value = "/memberjoinInfo/validateEmail")
-    public Boolean ValidateEmail(@RequestBody UserDto userDto){
-        log.info(userDto.toString());
+    public Boolean ValidateEmail(@RequestBody MemberDto memberDto){
+        log.info(memberDto.toString());
         try{
 //        이메일 중복 검사 실행
-            userService.validateDuplicateUserEmail(userDto.getUsersEmail());
+            memberService.validateDuplicateUserEmail(memberDto.getMemberEmail());
 
         }catch(IllegalStateException e){
             return false;
@@ -103,11 +102,11 @@ public class UsersController {
     //    닉네임 중복 확인을 위한 메소드
     @ResponseBody
     @PostMapping(value = "/memberjoinInfo/validateNickname")
-    public Boolean ValidateNickname(@RequestBody UserDto userDto){
-        log.info(userDto.toString());
+    public Boolean ValidateNickname(@RequestBody MemberDto memberDto){
+        log.info(memberDto.toString());
         try{
 //        닉네임 중복 검사 실행
-            userService.validateDuplicateNickname(userDto.getUsersNickname());
+            memberService.validateDuplicateNickname(memberDto.getMemberNickname());
         }catch(IllegalStateException e){
             return false;
         }

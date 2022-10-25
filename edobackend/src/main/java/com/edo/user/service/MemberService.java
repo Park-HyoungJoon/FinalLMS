@@ -1,0 +1,82 @@
+package com.edo.user.service;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.edo.user.entity.Member;
+import com.edo.user.repository.MemberRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Transactional(readOnly = false)
+@RequiredArgsConstructor
+@Slf4j
+public class MemberService implements UserDetailsService
+{
+
+	// @Autowired
+	private final MemberRepository memberRepository;
+
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+
+	// 회원가입 시 멤버 저장
+	public Long saveMember(Member member)
+	{
+
+		log.info(member.toString());
+
+//        중복된 회원인지 먼저 확인
+
+		validateDuplicateUserEmail(member.getMemberEmail());
+
+//        중복되지 않았다면 회원가입
+		Member saveMember = memberRepository.save(member);
+		log.info(saveMember.toString());
+		return saveMember.getMemberId();
+	}
+
+	// 가입된 회원에 한하여 예외 발생
+	public void validateDuplicateUserEmail(String memberEmail)
+	{
+//        이메일 중복 확인
+		Member findMember = memberRepository.findByusersEmail(memberEmail).get();
+		if (findMember != null)
+		{
+			throw new IllegalStateException("이미 가입된 회원입니다.");
+		}
+
+	}
+
+	// 닉네임 중복 확인
+	public void validateDuplicateNickname(String memberNickname)
+	{
+		Member findUserNickname = memberRepository.findByusersNickname(memberNickname);
+		if (findUserNickname != null)
+		{
+			throw new IllegalStateException("중복된 닉네임입니다. 다른 닉네임으로 설정해주세요");
+		}
+	}
+
+//    로그인
+
+	@Override
+	public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException
+	{
+		log.info("===========>" + memberEmail);
+		Member member = memberRepository.findByusersEmail(memberEmail).orElseThrow(()->new EntityNotFoundException("오류"));
+
+		log.info("===========>" + member.getMemberEmail() + ", " + member.getMemberRole().toString());
+		return User.builder() // User 객체 생성하기
+				.username(member.getMemberEmail()).password(member.getMemberPassword()).roles(member.getMemberRole().toString())
+				.build();
+	}
+}

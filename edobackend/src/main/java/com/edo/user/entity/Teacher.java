@@ -23,7 +23,7 @@ public class Teacher extends BaseTimeEntity {
     @MapsId
     @OneToOne
     @JoinColumn(name="users_id")
-    private Users users;
+    private Member member;
 
     //대표이미지
     @Column(columnDefinition = "LONGTEXT")

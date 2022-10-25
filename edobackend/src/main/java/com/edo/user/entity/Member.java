@@ -1,0 +1,87 @@
+package com.edo.user.entity;
+
+import javax.persistence.*;
+
+import com.edo.user.constant.Role;
+import com.edo.util.item.BaseTimeEntity;
+import lombok.*;
+
+import com.edo.user.dto.MemberDto;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "member")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+//회원
+public class Member extends BaseTimeEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long memberId;
+
+    @Column( length = 255)
+	private String memberEmail;
+
+    //비밀번호
+    @Column(length = 255)
+    private String memberPassword;
+
+    //닉네임(Unique)`
+    @Column(unique = true , length = 10)
+	private String memberNickname;
+
+    //이름
+    @Column(length = 60)
+    private String memberName;
+
+    //핸드폰
+    @Column(length = 15)
+    private String memberPhone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_role")
+    private Role memberRole;
+
+    //대표이미지
+    //image url 주소를 넣을예정
+//    @Column(columnDefinition = "LONGTEXT",name = "users_image")
+//	private String usersImageUrl;
+
+//    시큐리티 설정을 지웠기에 일단 주석처리(다시 사용할 예정)
+//    유저를 회원가입 할 때 비밀번호를 암호화하는 메서드
+
+    public static Member createUser(MemberDto memberDto, PasswordEncoder passwordEncoder){
+        Member member = new Member();
+        member.setMemberEmail(memberDto.getMemberEmail());
+        member.setMemberName(memberDto.getMemberName());
+        member.setMemberNickname(memberDto.getMemberNickname());
+        member.setMemberPhone(memberDto.getMemberPhone());
+        String password = passwordEncoder.encode(memberDto.getMemberPassword());
+        member.setMemberPassword(password);
+        member.setMemberRole(Role.USER); // 기본값은 학생
+        return member;
+    }
+
+
+    public void createUsers(String memberEmail, String memberPassword, String memberNickname, String memberName, String memberPhone,
+                 Role memberRole, PasswordEncoder passwordEncoder){
+
+        Member member = new Member();
+        this.memberEmail = memberEmail;
+//        왜 안먹을까요...
+        this.memberPassword = passwordEncoder.encode(memberPassword);
+        this.memberNickname = memberNickname;
+        this.memberName = memberName;
+        this.memberPhone = memberPhone;
+//       왜 Role이 안 들어가지요...
+        this.memberRole = Role.USER;
+
+        System.out.println("지금 이 메소드 출력하는 중!!!!!!!!!!!!!!!!!! >>>>>>>>>>>>>>>>>>>>>"  );
+    }
+}

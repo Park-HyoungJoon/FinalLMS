@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.edo.user.handler.LoginFailHandler;
-import com.edo.user.service.UserService;
+import com.edo.user.service.MemberService;
 
 
 @Configuration
@@ -19,7 +19,7 @@ import com.edo.user.service.UserService;
 public class SecurityConfig {
 
     @Autowired
-    UserService userService;
+    MemberService memberService;
 
     // 원래는 별개지만 지금 체이닝을 걸어놓은것.
     // http 요청에 대한 보안 설정. 페이지 권한, 로그인 페이지, 로그아웃 메소드 설정 예정
