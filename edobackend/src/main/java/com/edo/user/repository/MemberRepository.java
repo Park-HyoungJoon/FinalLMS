@@ -11,11 +11,11 @@ import com.edo.user.entity.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, String> {
 
-    Optional<Member> findByusersEmail(String usersEmail);
+    Optional<Member> findByMemberEmail(String usersEmail);
 
-    boolean existsByusersEmail(String usersEmail);
+    boolean existsByMemberEmail(String usersEmail);
 
 
     //	닉네임 중복된 회원이 있는지 검사하기 위한 쿼리 메소드 작성
-    Member findByusersNickname(String usersNickname);
+    Member findByMemberNickname(String usersNickname);
 }
