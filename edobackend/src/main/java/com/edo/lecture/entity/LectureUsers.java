@@ -1,6 +1,6 @@
 package com.edo.lecture.entity;
 
-import com.edo.user.entity.Users;
+import com.edo.user.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class LectureUsers {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_email")
-    private Users users;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lecture_id")

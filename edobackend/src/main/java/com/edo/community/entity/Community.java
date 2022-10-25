@@ -1,6 +1,6 @@
 package com.edo.community.entity;
 
-import com.edo.user.entity.Users;
+import com.edo.user.entity.Member;
 import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
@@ -24,13 +24,13 @@ public class Community extends BaseTimeEntity {
 // 외래키로 users의 id를 받아온다
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="users_id" )
-    private Users id;
+    private Member id;
 
 ////    외래키로 users의 nickname을 받아온다.
 ////    referencedColumnName = PK 가 아닌 필드를 참조할 때 사용하는 옵션
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "nickname", referencedColumnName = "nickname")
-//    private Users nickname;
+//    private Member nickname;
 
 //    제목
     @Column

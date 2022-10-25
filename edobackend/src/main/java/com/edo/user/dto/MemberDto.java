@@ -1,10 +1,8 @@
 package com.edo.user.dto;
 
-import com.edo.user.constant.Role;
-import com.edo.user.entity.Users;
+import com.edo.user.entity.Member;
 import lombok.*;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -15,22 +13,22 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UserDto {
+public class MemberDto {
 
 	@NotBlank(message = "이름은 필수 입력 값입니다.")
-	private String usersName;
+	private String memberName;
 
 	@NotEmpty(message = "이메일은 필수 입력 값입니다.")
-	private String usersEmail;
+	private String memberEmail;
 
 	@NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
-	private String usersPassword;
+	private String memberPassword;
 
 	@NotNull(message = "핸드폰 번호는 필수 입력 값입니다.")
-	private String usersPhone;
+	private String memberPhone;
 
 	@NotEmpty(message = "닉네임은 필수 입력 값입니다.")
-	private String usersNickname;
+	private String memberNickname;
 
 //	role이 안 들어감...
 //	@NotEmpty
@@ -38,11 +36,11 @@ public class UserDto {
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
-	public Users createUsers(){
-		return modelMapper.map(this, Users.class);
+	public Member createUsers(){
+		return modelMapper.map(this, Member.class);
 	}
 
-	public static UserDto of(Users users){
-		return modelMapper.map(users, UserDto.class);
+	public static MemberDto of(Member member){
+		return modelMapper.map(member, MemberDto.class);
 	}
 }

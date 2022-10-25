@@ -5,17 +5,17 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.edo.user.entity.Users;
+import com.edo.user.entity.Member;
 
 
 @Repository
-public interface UsersRepository extends JpaRepository<Users, String> {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
-    Optional<Users> findByusersEmail(String usersEmail);
+    Optional<Member> findByusersEmail(String usersEmail);
 
     boolean existsByusersEmail(String usersEmail);
 
 
     //	닉네임 중복된 회원이 있는지 검사하기 위한 쿼리 메소드 작성
-    Users findByusersNickname(String usersNickname);
+    Member findByusersNickname(String usersNickname);
 }
