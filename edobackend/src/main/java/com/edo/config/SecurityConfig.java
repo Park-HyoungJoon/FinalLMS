@@ -44,7 +44,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**","images/**").permitAll()
-                .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture", "/mypage", "/communitymain").permitAll()
+                .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture/**","/test2", "/mypage", "/communitymain").permitAll()
                 .anyRequest()
                 .authenticated() //아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
                 .and()

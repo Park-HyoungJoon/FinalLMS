@@ -15,4 +15,7 @@ public class MainController {
 	public String Home(){
 		return "index";
 	}
+
+	@GetMapping(value = "/test2")
+	public String test() {return "/lecture/lectureDetail2";}
 }

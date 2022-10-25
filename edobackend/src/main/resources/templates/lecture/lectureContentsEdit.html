@@ -87,13 +87,13 @@
                                             <label>차시 파일</label>
                                               <ul class="tabs">
     <li class="tab-link current" id="tabBar-${i}" data-tab="tab-${i}">파일</li>
-    <li class="tab-link" id="tabBar-${i+5}" data-tab="tab-${i+5}">링크</li>
+    <li class="tab-link" id="tabBar-${i + 5}" data-tab="tab-${i + 5}">링크</li>
   </ul>
 
   <div id="tab-${i}" class="tab-content current">
                                             <input type='file' id="lectureContentsFile${i}" name="lectureContentsFile${i}"
                                             accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
-  <div id="tab-${i+5}" class="tab-content">
+  <div id="tab-${i + 5}" class="tab-content">
   <input type="text" name="lectureContentsLink${i}" placeholder="링크입력">
 </div>
                                             <input type="hidden" class="statNum" value="${i}"/>
@@ -113,12 +113,12 @@
                 $('#nextButton').before(fileHtml);
                 $('ul.tabs li').click(function () {
                     var tab_id = $(this).attr('data-tab');
-                    var tab_test = $("#tabBar-"+(i+5)).attr('data-tab');
-                    var tab_tet = $("#tabBar-"+(i)).attr('data-tab');
-                    $("#tabBar-"+(i)).removeClass('current');
-                    $("#tabBar-"+(i+5)).removeClass('current');
-                    $('#tab-'+(i)).removeClass('current');
-                    $('#tab-'+(i+5)).removeClass('current');
+                    var tab_test = $("#tabBar-" + (i + 5)).attr('data-tab');
+                    var tab_tet = $("#tabBar-" + (i)).attr('data-tab');
+                    $("#tabBar-" + (i)).removeClass('current');
+                    $("#tabBar-" + (i + 5)).removeClass('current');
+                    $('#tab-' + (i)).removeClass('current');
+                    $('#tab-' + (i + 5)).removeClass('current');
 
                     $(this).addClass('current');
                     $("#" + tab_id).addClass('current');
@@ -162,13 +162,13 @@
         <label>차시 파일</label>
                                                     <ul class="tabs">
    <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
-    <li class="tab-link" id="tabBar-${testCount+5}" data-tab="tab-${testCount+5}">링크</li>
+    <li class="tab-link" id="tabBar-${testCount + 5}" data-tab="tab-${testCount + 5}">링크</li>
   </ul>
 
   <div id="tab-${testCount}" class="tab-content current">
                                             <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
                                             accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
-  <div id="tab-${testCount+5}" class="tab-content">
+  <div id="tab-${testCount + 5}" class="tab-content">
   <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
 </div>
                 <input type="hidden" id="ContentsSeq${testCount}" name="ContentsSeq${testCount}" value="${testCount}"/>
@@ -188,15 +188,15 @@
         $('ul.tabs li').click(function () {
             var tab_id = $(this).attr('data-tab');
 
-            let tabtest = parseInt(tab_id.substr(4,5));
-            console.log(parseInt(tabtest)+5);
+            let tabtest = parseInt(tab_id.substr(4, 5));
+            console.log(parseInt(tabtest) + 5);
 
-            $("#tabBar-"+(tabtest)).removeClass('current');
-            $("#tabBar-"+(tabtest+5)).removeClass('current');
-            $("#tabBar-"+(tabtest-5)).removeClass('current');
-            $('#tab-'+(tabtest)).removeClass('current');
-            $('#tab-'+(tabtest+5)).removeClass('current');
-            $('#tab-'+(tabtest-5)).removeClass('current');
+            $("#tabBar-" + (tabtest)).removeClass('current');
+            $("#tabBar-" + (tabtest + 5)).removeClass('current');
+            $("#tabBar-" + (tabtest - 5)).removeClass('current');
+            $('#tab-' + (tabtest)).removeClass('current');
+            $('#tab-' + (tabtest + 5)).removeClass('current');
+            $('#tab-' + (tabtest - 5)).removeClass('current');
 
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
