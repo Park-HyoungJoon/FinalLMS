@@ -23,7 +23,7 @@ public class Community extends BaseTimeEntity {
 
 // 외래키로 users의 id를 받아온다
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="users_id" )
+    @JoinColumn(name ="member_id" )
     private Member id;
 
 ////    외래키로 users의 nickname을 받아온다.

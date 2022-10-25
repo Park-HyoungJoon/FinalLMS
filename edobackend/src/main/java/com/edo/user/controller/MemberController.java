@@ -91,7 +91,7 @@ public class MemberController {
         log.info(memberDto.toString());
         try{
 //        이메일 중복 검사 실행
-            memberService.validateDuplicateUserEmail(memberDto.getMemberEmail());
+            memberService.validateDuplicateMemberEmail(memberDto.getMemberEmail());
 
         }catch(IllegalStateException e){
             return false;

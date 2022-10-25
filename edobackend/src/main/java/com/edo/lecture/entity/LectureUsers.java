@@ -20,7 +20,7 @@ public class LectureUsers {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_email")
+    @JoinColumn(name = "member_email")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)

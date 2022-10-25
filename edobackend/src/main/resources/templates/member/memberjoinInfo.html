@@ -32,16 +32,16 @@
 
         // 이메일 중복 체크
         function emailDuplCheck(event) {
-            let userEmail = document.getElementById('usersEmail').value;
-            if (usersEmail != null) {
-                if (validateEmail(userEmail)) {
+            let memberEmail = document.getElementById('memberEmail').value;
+            if (memberEmail != null) {
+                if (validateEmail(memberEmail)) {
                     fetch("/memberjoinInfo/validateEmail", {
                         headers: {
                             "Content-Type": "application/json",
                         },
                         method: "POST",
                         body: JSON.stringify({
-                            usersEmail: userEmail
+                            memberEmail: memberEmail
                         })
                     }).then(response => response.json()) //요청을 json으로 보냈으니까 응답이 json으로 와서 파싱.
                         .then(data => {
@@ -74,7 +74,7 @@
 
         //비밀번호 체크
         function passwordCheck() {
-            let password = document.getElementById('usersPassword').value;
+            let password = document.getElementById('memberPassword').value;
             let passwordCheck = document.getElementById('passwordcheck').value;
             console.log(password, passwordCheck);
             if (password != null) {
@@ -94,16 +94,16 @@
 
         //닉네임 중복체크
         function nickNameDuplCheck() {
-            let usersNickname = document.getElementById('usersNickname').value;
+            let memberNickname = document.getElementById('memberNickname').value;
 
-            if (usersNickname != null) {
+            if (memberNickname != null) {
                 fetch("memberjoinInfo/validateNickname", {
                     headers: {
                         "Content-Type": "application/json",
                     },
                     method: "POST",
                     body: JSON.stringify({
-                        usersNickname: usersNickname
+                        memberNickname: memberNickname
                     })
                 }).then(response => response.json())
                     .then(data => {
@@ -156,7 +156,7 @@
                     <tr>
                         <th>· 이메일</th>
                         <td>
-                            <input id="usersEmail" name="usersEmail" class="text text_s text_ss" title="이메일"
+                            <input id="memberEmail" name="memberEmail" class="text text_s text_ss" title="이메일"
                                    type="email"
                                    value="">
                             <a class="btn btn-secondary" href="javascript:;" onclick="emailDuplCheck()">중복확인</a>
@@ -166,7 +166,7 @@
                     <tr class="firstsite site">
                         <th>· 비밀번호</th>
                         <td>
-                            <input id="usersPassword" name="usersPassword" class="text text_s text_ss" title="비밀번호"
+                            <input id="memberPassword" name="memberPassword" class="text text_s text_ss" title="비밀번호"
                                    type="password" value="">&nbsp;&nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @,
                             #,
                             $, %, ^, &amp;, *, (, ), _, +)를 <br> 포함해야 합니다. 숫자의 경우 연속으로 5자를 초과하여 사용할 수 없습니다.</p>
@@ -187,7 +187,7 @@
                     <tr class="firstsite">
                         <th>· 닉네임</th>
                         <td>
-                            <input id="usersNickname" name="usersNickname" class="text text_s" title="닉네임" type="text"
+                            <input id="memberNickname" name="memberNickname" class="text text_s" title="닉네임" type="text"
                                    value="">&nbsp;<a class="btn btn-secondary" href="javascript:;"
                                                      onclick="nickNameDuplCheck()">중복확인</a>
 
@@ -196,14 +196,14 @@
                     <tr class="firstsite">
                         <th>· 이름</th>
                         <td>
-                            <input id="usersName" name="usersName" class="text text_s" title="이름" type="text" value="">
+                            <input id="memberName" name="memberName" class="text text_s" title="이름" type="text" value="">
 
                         </td>
                     </tr>
                     <tr class="firstsite">
                         <th>· 연락처</th>
                         <td>
-                            <input id="usersPhone" name="usersPhone" class="text text_s text_ss" title="연락처" type="text"
+                            <input id="memberPhone" name="memberPhone" class="text text_s text_ss" title="연락처" type="text"
                                    value="">
                             &nbsp;&nbsp; 예)010-2020-2017 -> 01020202017
                         </td>
@@ -215,7 +215,7 @@
 
                 <div class="board_btn board_btn_c firstsite site" align="center" style="margin-top: 10px">
                     <span>
-                        <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton"/>
+                        <input type="submit" value="회원가입" class="btn btn-primary" id="userJoinButton" disabled/>
                     </span>
                 </div>
                 <!--                                csrf 방어-->

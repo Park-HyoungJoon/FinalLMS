@@ -15,6 +15,8 @@ import com.edo.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = false)
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ public class MemberService implements UserDetailsService
 
 //        중복된 회원인지 먼저 확인
 
-		validateDuplicateUserEmail(member.getMemberEmail());
+		validateDuplicateMemberEmail(member.getMemberEmail());
 
 //        중복되지 않았다면 회원가입
 		Member saveMember = memberRepository.save(member);
@@ -45,11 +47,13 @@ public class MemberService implements UserDetailsService
 	}
 
 	// 가입된 회원에 한하여 예외 발생
-	public void validateDuplicateUserEmail(String memberEmail)
+	public void validateDuplicateMemberEmail(String memberEmail)
 	{
 //        이메일 중복 확인
-		Member findMember = memberRepository.findByMemberEmail(memberEmail).get();
-		if (findMember != null)
+//		Member findMember = memberRepository.findByMemberEmail(memberEmail).get();
+		Optional<Member> findMember = memberRepository.findByMemberEmail(memberEmail);
+		if (findMember.isPresent())
+
 		{
 			throw new IllegalStateException("이미 가입된 회원입니다.");
 		}
