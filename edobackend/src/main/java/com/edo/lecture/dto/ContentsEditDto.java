@@ -19,6 +19,7 @@ public class ContentsEditDto {
     List<LectureContentsFile> lectureContentsFileList;
 
     List<MultipartFile> lectureContentsFiles;
+    List<String> lectureContentsLink;
     @JsonProperty("ListLectureContentsTitle")
     private String[] ListLectureContentsTitle;
     @JsonProperty("ListLectureContentsInfo")

@@ -363,6 +363,7 @@ public class LectureController {
      *  LectureId값을 받아 LectureDivide를 하나 더 추가하는 함수 lectureContetnsEdit에서 사용
      * @param id  == LectureId값
      * @param model
+     * @param model
      * @return
      */
     @GetMapping(value = "/lecture/divideAdd/{id}")
