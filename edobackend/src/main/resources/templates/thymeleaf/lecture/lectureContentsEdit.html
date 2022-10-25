@@ -187,10 +187,16 @@
         $('#nextButton').before(fileHtml);
         $('ul.tabs li').click(function () {
             var tab_id = $(this).attr('data-tab');
-            $("#tabBar-"+(testCount)).removeClass('current');
-            $("#tabBar-"+(testCount+5)).removeClass('current');
-            $('#tab-'+(testCount)).removeClass('current');
-            $('#tab-'+(testCount+5)).removeClass('current');
+
+            let tabtest = parseInt(tab_id.substr(4,5));
+            console.log(parseInt(tabtest)+5);
+
+            $("#tabBar-"+(tabtest)).removeClass('current');
+            $("#tabBar-"+(tabtest+5)).removeClass('current');
+            $("#tabBar-"+(tabtest-5)).removeClass('current');
+            $('#tab-'+(tabtest)).removeClass('current');
+            $('#tab-'+(tabtest+5)).removeClass('current');
+            $('#tab-'+(tabtest-5)).removeClass('current');
 
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
