@@ -216,6 +216,7 @@ public class LectureController {
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
             lectureContentsFileList.add(lectureContentsFile);
         }
+        model.addAttribute("lectureId",lectureId);
         model.addAttribute("lectureDivideIds",lectureDivideIds);
         model.addAttribute("lectureDivide",lectureDivide);
         model.addAttribute("lectureContentsList",lectureContentsList);
@@ -290,7 +291,6 @@ public class LectureController {
 
     /***
      * lectureContents.html에서 form으로 파일 데이터를 받아 LectureContentsFile Entity에 저장해놓는 컨트롤러이다.
-     *
      * LectureContensFile에는 각 차시 별 파일에 대한 정보가 들어가야 한다.
      * 차시에 따라 파일 정보가 들어가야 하므로 contents_id가 필요하다.
      * contents_id는 lectureContentsService.getNewContents를 통해 가장 마지막에 저장되어있는 contents_id값을 가져온 후
@@ -310,13 +310,13 @@ public class LectureController {
         Long newContents = lectureContentsService.getNewContents();
         int idx = Integer.parseInt(fileVO.getContentsSeq());
         String resourcePath = fileRoot;
-            //uuid를 통한 랜덤값 지정
-            UUID uuid = UUID.randomUUID();
         List<MultipartFile> files = fileVO.ContentsFileToList(fileVO);
             for (int i=1; i<=idx; i++){
                 if(files.get(i-1)==null){
                     continue;
                 }
+                //uuid를 통한 랜덤값 지정
+                UUID uuid = UUID.randomUUID();
                 String uuidFileName = uuid+"_"+files.get(i-1).getOriginalFilename();
                 File file = new File(fileRoot+uuidFileName);
                 //file에 폴더 존재여부 확인
