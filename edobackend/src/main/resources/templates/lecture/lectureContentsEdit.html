@@ -27,6 +27,12 @@
                     <label>강의제목</label>
                     <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"
                            th:placeholder="${lectureDivide?.getLectureDivideTitle()}">
+                    <div class="form-group">
+                        <label class="form-label mt-4">차시 설명</label>
+                        <textarea name="content" id="editor1">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
+                    </div>
                     <input type="submit" id="nextButton" class="nextButton"/>
                 </div>
             </div>
@@ -52,12 +58,22 @@
     <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
+        let editor;
+        ClassicEditor
+            .create(document.querySelector('#editor1'))
+            .then(newEditor => {
+                editor = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    <script>
         function chk_form() {
             document.getElementById('uploadContents').onsubmit();
         }
     </script>
     <script th:inline="javascript">
-        let editor = [];
         let testCount = 0;
         /*<![CDATA[*/
         $(document).ready(function () {
@@ -69,7 +85,6 @@
             }
             for (let i = 1; i <= contentsList; i++) {
                 let testValue = [[${lectureContentsList}]][i - 1]['lectureContentsTitle'];
-                let contentsInfo = [[${lectureContentsList}]][i - 1]['lectureContentsInfo'];
 
                 const fileHtml = `
                                     <div data-name="contentsDiv">
@@ -98,12 +113,6 @@
 </div>
                                             <input type="hidden" class="statNum" value="${i}"/>
 
-                                            <div class="form-group">
-                                                <label class="form-label mt-4">차시 설명</label>
-                                                <textarea name="content" id="editor${i}">
-                                                ${contentsInfo}
-        </textarea>
-                                            </div>
                                         </div>
                                     </div>
                     </div>
@@ -113,8 +122,6 @@
                 $('#nextButton').before(fileHtml);
                 $('ul.tabs li').click(function () {
                     var tab_id = $(this).attr('data-tab');
-                    var tab_test = $("#tabBar-" + (i + 5)).attr('data-tab');
-                    var tab_tet = $("#tabBar-" + (i)).attr('data-tab');
                     $("#tabBar-" + (i)).removeClass('current');
                     $("#tabBar-" + (i + 5)).removeClass('current');
                     $('#tab-' + (i)).removeClass('current');
@@ -124,14 +131,6 @@
                     $("#" + tab_id).addClass('current');
                 })
 
-                ClassicEditor
-                    .create(document.querySelector('#editor' + i))
-                    .then(newEditor => {
-                        editor[i] = newEditor;
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
                 testCount++;
             }
         })
@@ -173,12 +172,6 @@
 </div>
                 <input type="hidden" id="ContentsSeq${testCount}" name="ContentsSeq${testCount}" value="${testCount}"/>
 
-            <div class="form-group">
-                <label class="form-label mt-4">차시 설명</label>
-                                <textarea name="content${testCount}" id="editor${testCount}">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
-        </textarea>
-            </div>
     </div>
 </div>
 </div>
@@ -201,15 +194,6 @@
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
         })
-        ClassicEditor
-            .create(document.querySelector('#editor' + testCount))
-            .then(newEditor => {
-                console.log(testCount);
-                editor[testCount] = newEditor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
 
     }
 
@@ -235,18 +219,18 @@
             event.preventDefault();
             let lectureDivideTitle = $("#lectureDivideTitle").val();
             let lectureContentsTitle = [];
-            let lectureContentsInfo = [];
+            let lectureDivideInfo = $("#editor1").val();
+            console.log(lectureDivideInfo);
             let lectureId = $("#lectureId").val();
             let divideId = $("#firstDivideId").val();
             for (let i = 1; i <= testCount; i++) {
-                lectureContentsInfo.push(editor[i].getData());
                 lectureContentsTitle.push($("#lectureContentsTitle" + i).val());
             }
             let param = {
                 "divideId": divideId,
                 "lectureDivideTitle": lectureDivideTitle,
                 "ListLectureContentsTitle": lectureContentsTitle,
-                "ListLectureContentsInfo": lectureContentsInfo,
+                "lectureDivideInfo": lectureDivideInfo,
                 "strLectureId": lectureId,
             }
             let isSubmit = false;

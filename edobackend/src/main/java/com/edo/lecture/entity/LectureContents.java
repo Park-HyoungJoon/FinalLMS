@@ -32,5 +32,4 @@ public class LectureContents {
     @Column(length = 255)
     private String lectureContentsTitle;
 
-    private String lectureContentsInfo;
 }

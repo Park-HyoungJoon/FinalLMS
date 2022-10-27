@@ -1,0 +1,36 @@
+.detailTop{
+    text-align: center;
+    margin-bottom: 30px;
+    display: inline;
+}
+.title-part{
+    text-align: center;
+}
+.title{
+    color: #5cb85c;
+    font-size: 50px;
+}
+.part{
+    background: red;
+    color: white;
+    display: inline;
+}
+.sidebox {
+    position: absolute;
+    border-radius: 30px;
+    float: left;
+    width: 200px;
+    height: auto;
+    margin: 10px;
+    margin-top : 500px;
+    margin-bottom: 0px;
+    border: 1px solid grey;
+    padding: 11px;
+    display: inline;
+}
+.sidebox h4{
+    text-align: center;
+}
+.sidebox a {
+    display: inline;
+}

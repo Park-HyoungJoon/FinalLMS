@@ -19,11 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -170,14 +167,12 @@ public class LectureController {
             Lecture lecture = lectureService.lectureAdd(lectureAddDto);
             model.addAttribute("lectureId",lecture.getId());
             if(lectureAddDto.getThisId()==null) {
-                return "lecture/lectureContents";
+                return "/lecture/lectureContentsAdd";
             }
             else{
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
                 List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture1.getId());
-                for (int i=0; i<lectureDivideIds.size(); i++){
-                    log.info("############_#________________#" + i+"%%##############"+lectureDivideIds.get(i));
-                }
+                try{
                 LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture1);
                 List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
                 List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
@@ -190,7 +185,10 @@ public class LectureController {
                 model.addAttribute("lectureDivide",lectureDivide);
                 model.addAttribute("lectureContentsList",lectureContentsList);
                 model.addAttribute("lectureContentsFileList",lectureContentsFileList);
-                return "lecture/lectureContentsEdit";
+                return "lecture/lectureContentsEdit";}
+                catch (IndexOutOfBoundsException e){
+                    return "lecture/lectureContentsEdit";
+                }
             }
         }
     }
@@ -200,9 +198,28 @@ public class LectureController {
         model.addAttribute("contentsEditDto",new ContentsEditDto());
         return "/lecture/lectureContentsEdit";
     }
-    @GetMapping(value="/lecture/contents")
-    public String LectureContents(@RequestParam String lectureTitle)
+
+    /***
+     * 강의 시청 페이지 호출
+     * @param model
+     * @return
+     */
+    @CrossOrigin
+    @GetMapping(value="/lecture/contents/{id}/{lectureDivideId}")
+    public String LectureContents(@PathVariable("id") Long lectureId,@PathVariable("lectureDivideId") Long lectureDivideId, Model model)
     {
+        List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lectureId);
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(lectureDivideId);
+        List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
+        List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+        for(LectureContents lectureContents : lectureContentsList){
+            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
+            lectureContentsFileList.add(lectureContentsFile);
+        }
+        model.addAttribute("lectureDivideIds",lectureDivideIds);
+        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureContentsList",lectureContentsList);
+        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
         return "/lecture/lectureContents";
     }
 
@@ -236,6 +253,7 @@ public class LectureController {
         if(lectureContentsAddDto.getDivideId()!=null){
         lectureDivideDto.setId(Long.parseLong(lectureContentsAddDto.getDivideId()));}
         lectureDivideDto.setLectureDivideTitle(lectureContentsAddDto.getLectureDivideTitle());
+        lectureDivideDto.setLectureDivideInfo(lectureContentsAddDto.getLectureDivideInfo());
         LectureDivideAndContentsDto lectureContentsDto = new LectureDivideAndContentsDto();
         LectureDivide lectureDivide = lectureDivideDto.dtoToLectureDivide(lectureDivideDto);
         LectureDivide getLectureDivide = lectureDivideService.save(lectureDivide);
@@ -247,11 +265,9 @@ public class LectureController {
             }
         }
         List<LectureContents> lectureContents3 = new ArrayList<>();
-        for (int i=0; i<lectureContentsAddDto.getListLectureContentsInfo().length; i++){
-            String lectureContentsInfo = lectureContentsAddDto.getListLectureContentsInfo()[i];
+        for (int i=0; i<lectureContentsAddDto.getListLectureContentsTitle().length; i++){
             String lectureContentsTitle = lectureContentsAddDto.getListLectureContentsTitle()[i];
             lectureContentsDto.setLectureDivide(getLectureDivide);
-            lectureContentsDto.setLectureContentsInfo(lectureContentsInfo);
             lectureContentsDto.setLectureContentsTitle(lectureContentsTitle);
             LectureContents lectureContents = lectureContentsDto.dtoToLectureContents();
            lectureContents3.add(lectureContentsService.save(lectureContents));
@@ -265,7 +281,7 @@ public class LectureController {
         }
         model.addAttribute("getSize",lectureContents3.size());
         model.addAttribute("getId",getId);
-        return "lecture/lectureContents";
+        return "/lecture/lectureContentsAdd";
     }
     @GetMapping(value = "/contents/uploader")
     public void ContentsFileCreate(){
@@ -323,39 +339,39 @@ public class LectureController {
 
     @GetMapping(value = "/lecture/lectureDetail/{id}")
     public String goDetail(@PathVariable("id") Long id,Model model){
-        log.info("??????????????????????????????????????????.//"+System.getProperty("user.dir"));
         Lecture lecture = lectureService.getLectureById(id);
-        LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
-        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
-        List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
-        for (LectureContents lectureContents1 : lectureContents){
-            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
-            lectureContentsFileList.add(lectureContentsFile);
+        try {
+            List<LectureDivide> lectureDivide = lectureDivideService.getListDivide(lecture);
+            model.addAttribute("lecture", lecture);
+            model.addAttribute("lectureDivide", lectureDivide);
+            return "/lecture/lectureDetail";
+        }catch (IndexOutOfBoundsException e){
+            model.addAttribute("lecture", lecture);
+            return "/lecture/lectureDetail";
         }
-
-        model.addAttribute("lecture",lecture);
-        model.addAttribute("lectureDivide",lectureDivide);
-        model.addAttribute("lectureContentsList",lectureContents);
-        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
-        return "/lecture/lectureDetail";
     }
 
     @GetMapping(value = "/lecture/lectureEdit/{id}")
     public String goLectureEdit(@PathVariable("id") Long id,Model model){
         Lecture lecture = lectureService.getLectureById(id);
-        LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
-        List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
-        List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
-        for (LectureContents lectureContents1 : lectureContents){
-            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
-            lectureContentsFileList.add(lectureContentsFile);
-        }
+        try {
+            LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
+            List<LectureContents> lectureContents = lectureContentsService.getLectureContentsList(lectureDivide);
+            List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+            for (LectureContents lectureContents1 : lectureContents) {
+                LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents1);
+                lectureContentsFileList.add(lectureContentsFile);
+            }
 
-        model.addAttribute("lecture",lecture);
-        model.addAttribute("lectureDivide",lectureDivide);
-        model.addAttribute("lectureContentsList",lectureContents);
-        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
-        return "lecture/lectureEdit";
+            model.addAttribute("lecture", lecture);
+            model.addAttribute("lectureDivide", lectureDivide);
+            model.addAttribute("lectureContentsList", lectureContents);
+            model.addAttribute("lectureContentsFileList", lectureContentsFileList);
+            return "lecture/lectureEdit";
+        }catch (IndexOutOfBoundsException e){
+            model.addAttribute("lecture", lecture);
+            return "lecture/lectureEdit";
+        }
     }
 
 

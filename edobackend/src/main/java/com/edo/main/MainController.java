@@ -17,5 +17,5 @@ public class MainController {
 	}
 
 	@GetMapping(value = "/test2")
-	public String test() {return "/lecture/lectureDetail2";}
+	public String test() {return "lectureContents";}
 }

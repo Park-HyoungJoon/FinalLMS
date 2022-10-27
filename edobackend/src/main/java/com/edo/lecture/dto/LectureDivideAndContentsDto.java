@@ -43,10 +43,10 @@ public class LectureDivideAndContentsDto {
     String lectureContentsTitle;
     String lectureContentsInfo;
     String uuidPath;
+    @JsonProperty("lectureDivideInfo")
+    private String lectureDivideInfo;
     @JsonProperty("ListLectureContentsTitle")
     private String[] ListLectureContentsTitle;
-    @JsonProperty("ListLectureContentsInfo")
-    private String[] ListLectureContentsInfo;
     @JsonProperty("contentsIds")
     private String[] contentsIds;
 
@@ -71,6 +71,7 @@ public class LectureDivideAndContentsDto {
         Lecture lecture1 = lectureService.getLectureById(lectureDivideDto.getLectureId());
         this.setLecture(lecture1);
         this.setLectureDivideSeq(MaxSeq);
+        this.setLectureDivideInfo(lectureDivideDto.getLectureDivideInfo());
         return modelMapper.map(this,LectureDivide.class);}
 
     /***

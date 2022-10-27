@@ -29,6 +29,9 @@ public class LectureDivide {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Lecture lecture;
 
+
+    @Lob
+    private String lectureDivideInfo;
     //차시제목
     @Column(length = 255)
     private String lectureDivideTitle;

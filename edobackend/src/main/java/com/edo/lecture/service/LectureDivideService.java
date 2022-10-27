@@ -7,6 +7,7 @@ import com.edo.lecture.repository.LectureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -66,5 +67,9 @@ public class LectureDivideService {
         Long lectureId = lectureDivideRepository.getLectureByDivideId(id);
         Lecture lecture = lectureRepository.findLectureById(lectureId);
         return lecture;
+    }
+    public List<LectureDivide> getListDivide(Lecture lecture){
+        List<LectureDivide> lectureDivideList = lectureDivideRepository.getLectureDivideByLecture(lecture);
+        return lectureDivideList;
     }
 }

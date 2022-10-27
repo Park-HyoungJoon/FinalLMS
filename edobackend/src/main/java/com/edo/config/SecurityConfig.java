@@ -43,8 +43,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/"); //로그아웃 성공 시 연결될 화면
 
         http.authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**","images/**").permitAll()
-                .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture/**","/test2", "/mypage", "/communitymain").permitAll()
+                .antMatchers("/css/**", "/js/**", "/img/**","/images/**","/file/**").permitAll()
+                .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture/**","/test2", "/mypage", "/communitymain","/contents/**").permitAll()
                 .anyRequest()
                 .authenticated() //아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
                 .and()
@@ -52,6 +52,7 @@ public class SecurityConfig {
         
         http.exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint()); //인증되지 않은 사용자 접근 시 수행
+        http.headers().frameOptions().sameOrigin();
         
 
         return http.build();

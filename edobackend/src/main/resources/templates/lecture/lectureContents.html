@@ -1,181 +1,103 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/basiclayout}">
+      layout:decorate="~{layouts/layout1}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    <meta charset="utf-8">
 </head>
-
 <body>
 <div layout:fragment="content">
-    <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
-          class="needs-validation" enctype="multipart/form-data" novalidate>
-        <div data-name="fileDiv" class="form-group">
-            <input type="hidden" id="ContentsSeq" name="ContentsSeq" value="1"/>
-            <input type="hidden" th:name="lectureId" th:value="${lectureId}" id="lectureId"/>
-            <!--    <div th:if="${not #lists.isEmpty(getId)}">
-                    <input type="hidden" id="contentsIdSize" th:value="${getSize}"/>
-                    <div th:each="vo : ${getId}">
-                        <input type="hidden" th:id="contentsId${vo.getId}" th:value="${vo.getId}">
+    <div th:if="${not #strings.isEmpty(lectureDivide)}">
+        <div class="row detailTop">
+            <div class="title-part">
+                <span class="title" th:text="${lectureDivide.getLectureDivideTitle()}"></span>
+            </div>
+        </div>
+        <div class="row margin-top">
+                    <div class="col-sm-10 col-md-10">
+                        <div class="row">
+                            <div th:if="${not #strings.isEmpty(lectureContentsList)}">
+                                <div class="row">
+                                    <div th:each="vo,status : ${lectureContentsList}">
+                                        <div th:each="fo : ${lectureContentsFileList}">
+                                            <div th:if="${vo.getId()}==${fo.getLectureContents().getId()}">
+                                                <div th:if="${fo.getFileType()}=='application/pdf'">
+                                                    <iframe width="100%" height="600" th:src="@{/file/}+${fo.getFileName()}"></iframe>
+                                                </div>
+                                                <div th:if="${fo.getFileType()}=='video/mp4'
+                                                 or ${fo.getFileType()}=='video/webM'
+                                                 or ${fo.getFileType()}=='video/avi'
+                                                 or ${fo.getFileType()}=='video/ogg'">
+                                                    <video controls width="100%" height="600"  th:src="@{/file/}+${fo.getFileName()}">
+                                                        <source th:src="@{/file/}+${fo.getFileName()}" th:type="${fo.getFileType()}">
+                                                    </video>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--
+                                        확장자 명으로 if문 해서 pdf, video, link 나누어서 출력하기
+                                        ==> file entity 확장 정보 추가 필요!
+
+                                    <div th:if="${vo.}"
+                                    -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h2>차시 소개</h2>
+                                <p>강의 차시 설명</p>
+                                <div class="form-group">
+                                    <div id="lectureInfo">
+                                        <dd th:utext="${lectureDivide.getLectureDivideInfo()}"></dd>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>-->
-            <button type="button" onclick="addFile();"
-                    class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-            <div data-name="contentsDiv">
-                <div style="display: block">
-                    <label>강의제목</label>
-                    <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"></div>
-                <div style="display:block;">
-                    <label>차시제목</label>
-                    <input type="text" name="lectureContentsTitle1" id="lectureContentsTitle1"></div>
-                <div style="display: block">
-                    <label>차시 파일</label>
-                    <input type='file' id="lectureContentsFile1" name="lectureContentsFile1"/>
-                    <div class="form-group">
-                        <label class="form-label mt-4">차시 설명</label>
-                        <textarea name="content" id="editor1">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
-        </textarea>
+
+            <div class="col-sm-2 col-md-2">
+                <div class="sidebox" id="scroll">
+                    <div th:if="${not #strings.isEmpty(lectureDivideIds)}">
+                        <div class="row">
+                            <div th:each="vo,status : ${lectureDivideIds}">
+                                <a th:href="'/lecture/contents/'+${vo}"
+                                   class="list-group-item list-group-item-action d-flex gap-3 py-3"
+                                   aria-current="true">
+                                    <div class="d-flex gap-2 w-100 justify-content-between">
+                                        <div>
+                                            <p th:text="'차시' + ${status.index+1}"
+                                               class="mb-0 opacity-75"></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <input type="submit" id="nextButton" class="nextButton"/>
                 </div>
             </div>
         </div>
-    </form>
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </div>
     <script>
-        let editor = [];
+        $(window).scroll(function () {
+            var position = $(document).scrollTop();
+            $("#scroll").css('top', position);
+        });
+    </script>
+    <script type="text/javascript">
+        $("#uploadLecture").submit(function (event) {
+            event.preventDefault();
+            $("#lectureInfoHidden").val(editor[0].getData());
+            this.submit();
+        });
+    </script>
+    <script>
         ClassicEditor
-            .create(document.querySelector('#editor1'))
-            .then(newEditor => {
-                editor[1] = newEditor;
-            })
+            .create(document.querySelector('#lectureInfo'))
             .catch(error => {
                 console.error(error);
             });
     </script>
-
-    <script th:inline="javascript">
-        let fileIdx = 1; /*[- 파일 인덱스 처리용 전역 변수 -]*/
-        function addFile() {
-
-            const fileDivs = $('div[data-name="fileDiv"]');
-            if (fileDivs.length > 4) {
-                alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
-                return false;
-            }
-
-            fileIdx++;
-
-            const fileHtml = `
-    <div data-name="fileDiv" class="form-group">
-		<button type="button" onclick="removeFile(this)"
-			class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-			<i class="fa fa-minus" aria-hidden="true"></i>
-		</button>
-<div data-name="contentsDiv">
-    <div style="display: block">
-    <label>차시제목</label>
-    <input type="text" name="lectureContentsTitle${fileIdx}" id="lectureContentsTitle${fileIdx}"></div>
-    <div style="display: block">
-        <label>차시 파일</label>
-                <input type='file' id="lectureContentsFile${fileIdx}" name="lectureContentsFile${fileIdx}"/>
-                <input type="hidden" id="ContentsSeq${fileIdx}" name="ContentsSeq${fileIdx}" value="${fileIdx}"/>
-
-            <div class="form-group">
-                <label class="form-label mt-4">차시 설명</label>
-                                <textarea name="content${fileIdx}" id="editor${fileIdx}">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
-        </textarea>
-            </div>
-    </div>
-</div>
-</div>
-`;
-// If you use jQuery, you can use the jQuery plugin Dropzone ships with:
-            $('#nextButton').before(fileHtml);
-
-            ClassicEditor
-                .create(document.querySelector('#editor' + fileIdx))
-                .then(newEditor => {
-                    editor[fileIdx] = newEditor;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-        }
-
-        function removeFile(elem) {
-
-            const prevTag = $(elem).prev().prop('tagName');
-            if (prevTag === 'BUTTON') {
-                theEditor.setData('');
-                return false;
-            }
-            if (fileIdx === 0) {
-
-            } else {
-                $(elem).parent().remove();
-            }
-            fileIdx--;
-        }
-    </script>
-
-    <!--submit의 이벤트를 잠시 멈추고 진행한 다음에 재전송하는 함수-->
-    <script th:inline="javascript">
-        $("#uploadContents").submit(function (event) {
-            event.preventDefault();
-            let lectureDivideTitle = $("#lectureDivideTitle").val();
-            let lectureContentsTitle = [];
-            let lectureContentsInfo = [];
-            let lectureId = $("#lectureId").val();
-            for (let i = 1; i <= fileIdx; i++) {
-                lectureContentsInfo.push(editor[i].getData());
-                lectureContentsTitle.push($("#lectureContentsTitle" + i).val());
-            }
-            let param = {
-                "lectureDivideTitle": lectureDivideTitle,
-                "ListLectureContentsTitle": lectureContentsTitle,
-                "ListLectureContentsInfo": lectureContentsInfo,
-                "strLectureId": lectureId,
-            }
-            let isSubmit = false;
-            $.ajax({
-                anyne: true,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(param),
-                url: "/lecture/contents",
-                dataType: "text",
-                async: false,
-                success: function (data) {
-                    alert('hi');
-                    let form = document.uploadContents;
-                    form.ContentsSeq.value = fileIdx;
-                    var message = 'Success'
-
-                    // 결과값이 성공이면 전송 여부는 true
-                    if (message == 'Success') {
-                        isSubmit = true;
-                    } else {
-                        // 결과값이 실패이면 전송 여부는 false
-                        // 앞서 초기값을 false로 해 놓았지만 한번 더 선언을 한다.
-                        isSubmit = false;
-                    }
-                },
-            });
-
-            if (isSubmit) this.submit();
-        })
-    </script>
 </div>
 </body>
+
 </html>

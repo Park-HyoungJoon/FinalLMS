@@ -20,9 +20,9 @@ public class ContentsEditDto {
 
     List<MultipartFile> lectureContentsFiles;
     List<String> lectureContentsLink;
+    @JsonProperty("lectureDivideInfo")
+    private String lectureDivideInfo;
     @JsonProperty("ListLectureContentsTitle")
     private String[] ListLectureContentsTitle;
-    @JsonProperty("ListLectureContentsInfo")
-    private String[] ListLectureContentsInfo;
 
 }
