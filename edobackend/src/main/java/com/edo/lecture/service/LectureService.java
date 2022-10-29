@@ -42,13 +42,19 @@ public class LectureService {
         return lecture1;
     }
     public Paged<Lecture> getPage(int pageNumber, int size) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.ASC, "id"));
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Lecture> postPage = lectureRepository.findAll(request);
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
     public Paged<Lecture> getPageByPart(int pageNumber, int size,String part) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.ASC, "id"));
-        Page<Lecture> postPage = lectureRepository.findAllByLecturePart(request,part);
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
+        Page<Lecture> postPage;
+        if(part.equals("All")){
+            postPage = lectureRepository.findAll(request);
+        }
+        else {
+            postPage = lectureRepository.findAllByLecturePart(request, part);
+        }
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
 }

@@ -53,20 +53,17 @@ public class LectureController {
     @Autowired
     LectureRepository lectureRepository;
 
-    @GetMapping(value = "/lecture")
+    @GetMapping(value = "/lecture/{part}")
     public String Lecture
-            (@RequestParam(value = "MenuValue", required = false, defaultValue = "All") String tabNum,
+            (@PathVariable(value = "part", required = false) String part,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
              @RequestParam(value = "size", required = false, defaultValue = "3") int size,
              Model model) {
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
-        model.addAttribute("python", lectureService.getPageByPart(pageNumber, size, "파이썬"));
-        model.addAttribute("aiPage", lectureService.getPageByPart(pageNumber, size, "인공지능"));
-        model.addAttribute("daPage", lectureService.getPageByPart(pageNumber, size, "데이터분석"));
+        model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
         model.addAttribute("list", lectureList);
-        model.addAttribute("MenuValue", tabNum);
-
+        model.addAttribute("part", part);
         return "lecture/lecture";
     }
 
