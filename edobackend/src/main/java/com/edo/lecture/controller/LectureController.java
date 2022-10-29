@@ -55,7 +55,7 @@ public class LectureController {
 
     @GetMapping(value = "/lecture")
     public String Lecture
-            (@RequestParam(value = "tabNum", required = false, defaultValue = "tab1") String tabNum,
+            (@RequestParam(value = "MenuValue", required = false, defaultValue = "All") String tabNum,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
              @RequestParam(value = "size", required = false, defaultValue = "3") int size,
              Model model) {
@@ -65,7 +65,7 @@ public class LectureController {
         model.addAttribute("aiPage", lectureService.getPageByPart(pageNumber, size, "인공지능"));
         model.addAttribute("daPage", lectureService.getPageByPart(pageNumber, size, "데이터분석"));
         model.addAttribute("list", lectureList);
-        model.addAttribute("tabNum", tabNum);
+        model.addAttribute("MenuValue", tabNum);
 
         return "lecture/lecture";
     }
