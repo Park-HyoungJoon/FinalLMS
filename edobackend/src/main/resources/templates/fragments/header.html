@@ -21,7 +21,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a href="/" target="_self"
-                           title="홈" class="button">홈</a>
+                           title="홈" class="button">
+                            <img
+                                src="/image/EDoLOGO_small.png"
+                                alt="상단로고"
+                            />
+
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="/lecture" target="_self"
@@ -36,17 +42,25 @@
                         <a href="https://zep.us/play/2YEXdq" class="button">메타버스</a>
                     </li>
                 </ul>
+                <ul class="dropdown-menu"  sec:authorize = "isAuthenticated()">
+                    <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                </ul>
                 <span>
                     <!--                    로그인이 되어있지 않은 경우만 로그인 설정 -->
                              <a type="button" class="button" href="/login" sec:authorize = "isAnonymous()">Login</a>
                         </span>
+
+
                 <span>
+
                     <!--                    로그인이 되어있는 경우만 로그아웃으로 설정 -->
                              <a type="button" class="button" href="/logout" sec:authorize = "isAuthenticated()">Logout</a>
                         </span>
 
                 <span>
-                            <a href="/memberjoin">회원가입</a>
+<!--                    로그인이 되어있지 않은 경우만 회원가입으로 설정-->
+                            <a href="/memberjoin" sec:authorize = "isAnonymous()">회원가입</a>
                         </span>
             </div>
         </div>
