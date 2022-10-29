@@ -60,7 +60,7 @@
     border: 0px solid #dbdbdb !important;
     padding: 0px 0 0px 10px;
     height: 40px;
-    width: 300px;
+    width: 270px;
     line-height: 40px;
     margin: 5px 0px;
 }
@@ -99,4 +99,7 @@
     font-size: 16px;
     font-weight: 500;
     color: #333;
+}
+.button_area{
+    margin-top: 10px;
 }

@@ -47,7 +47,7 @@ public class MemberController {
 //   이용약관
     @GetMapping(value="/memberjoin")
     public String MemberJoinGet(Model model){
-        log.info("<<<>>>>>>>>>><<<<<<<<<<<<<<<<<<<>>>>>>>");
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 회원가입 들어가는 중 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         return "member/memberjoin";
     }
 
