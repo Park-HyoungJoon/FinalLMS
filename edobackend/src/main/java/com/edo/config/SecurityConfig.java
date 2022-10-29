@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/"); //로그아웃 성공 시 연결될 화면
 
         http.authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/img/**","/images/**","/file/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/img/**","/image/**","/images/**","/file/**").permitAll()
                 .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture/**","/test2", "/mypage", "/communitymain","/contents/**").permitAll()
                 .anyRequest()
                 .authenticated() //아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화

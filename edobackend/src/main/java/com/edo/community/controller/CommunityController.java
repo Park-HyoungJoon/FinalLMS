@@ -81,7 +81,7 @@ public class CommunityController {
     @GetMapping(value = "/communitywrite/1")
     public String communityWrite(Model model){
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        CommunityTest communityTest = communityTestRepository.getById(1L);
+        CommunityTest communityTest = communityTestRepository.getById(2L);
         log.info(communityTest.toString());
 
         model.addAttribute("communityTest",communityTest);
