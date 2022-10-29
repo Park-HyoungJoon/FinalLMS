@@ -15,18 +15,17 @@
     <div style="display: block">
       <label class="form-label">강좌명</label> <input
             type="text" class="form-control" id="lectureTitle" name="lectureTitle"
-            th:placeholder="${lecture.getLectureTitle()}" required>
+            th:placeholder="${lecture.getLectureTitle()}" th:value="${lecture.getLectureTitle()}" required >
       <!--th:placeholder="${user[0].Nick}" required>-->
       <div class="invalid-feedback">Valid first name is required.</div>
     </div>
 
     <div style="display: block">
       <label class="form-label">분야</label>
-      <select class="form-select" id="part" name="part" th:placeholder="${lecture.getLecturePart()}">
-        <option>분야</option>
-        <option value="파이썬">파이썬</option>
-        <option value="인공지능">인공지능</option>
-        <option value="데이터분석">데이터분석</option>
+      <select class="form-select" id="part" name="part" th:value="${lecture.getLecturePart()}">
+        <option th:selected="${lecture.getLecturePart()}=='파이썬'">파이썬</option>
+        <option th:selected="${lecture.getLecturePart()}=='인공지능'">인공지능</option>
+        <option th:selected="${lecture.getLecturePart()}=='데이터분석'">데이터분석</option>
       </select>
     </div>
 
@@ -35,11 +34,11 @@
       <label class="form-label">접수기간</label>
       <input class="dateSelector"
              id="startDateAndfinalDate" name="startDateAndfinalDate"
-             th:placeholder="${lecture.getStartDate()}+' to '+${lecture.getFinalDate()}" style="width: 350px;"/>
+             th:value="${lecture.getStartDate()}+' to '+${lecture.getFinalDate()}" style="width: 350px;"/>
 
       <div class="form-check">
         <input type="checkbox" id="subyn" name="subyn"
-               class="form-check-input">
+               class="form-check-input" >
         <label for="subyn" class="form-check-label">상시</label>
       </div>
     </div>
@@ -49,7 +48,7 @@
       <label class="form-label">운영기간</label>
       <input class="dateSelector2"
              id="manageStartDateAndmanageFinalDate" name="manageStartDateAndmanageFinalDate"
-             th:placeholder="${lecture.getManageStartDate()}+' to '+${lecture.getManageFinalDate()}" style="width: 350px;"/>
+             th:value="${lecture.getManageStartDate()}+' to '+${lecture.getManageFinalDate()}" style="width: 350px;"/>
       <div class="form-check">
         <input type="checkbox" id="manageyn" name="manageyn"
                class="form-check-input">
@@ -69,7 +68,7 @@
 
     <div style="display:block;">
       <label>개요</label>
-      <input type='text' id="lectureDetail" name="lectureDetail" th:placeholder="${lecture.getLectureDetail()}"/>
+      <input type='text' id="lectureDetail" name="lectureDetail" th:value="${lecture.getLectureDetail()}"/>
     </div>
 
     <div style="display:block;">
@@ -96,7 +95,7 @@
     <input type="hidden" id="lectureInfoHidden" name="lectureInfoHidden">
     <div style="display: block">
       <label>수강승인</label>
-      <input type="radio" name="approval" id="automaticApproval" value="automaticApproval"> 자동승인
+      <input type="radio" name="approval" id="automaticApproval"> 자동승인
       <input type="radio" name="approval" id="managerApproval" value="managerApproval"> 관리자 승인
 
     </div>

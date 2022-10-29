@@ -52,43 +52,41 @@ public class LectureController {
 
     @Autowired
     LectureRepository lectureRepository;
-    @GetMapping(value="/lecture")
+
+    @GetMapping(value = "/lecture")
     public String Lecture
-            (@RequestParam(value = "tabNum",required = false,defaultValue = "tab1") String tabNum,
-                    @RequestParam(value = "pageNumber",required = false,defaultValue = "1") int pageNumber,
-                          @RequestParam(value = "size", required = false, defaultValue = "3") int size,
-                              Model model){
-            List<Lecture> lectureList = lectureRepository.findAll();
-            model.addAttribute("posts",lectureService.getPage(pageNumber,size));
-            model.addAttribute("python",lectureService.getPageByPart(pageNumber,size,"파이썬"));
-            model.addAttribute("aiPage",lectureService.getPageByPart(pageNumber,size,"인공지능"));
-            model.addAttribute("daPage",lectureService.getPageByPart(pageNumber,size,"데이터분석"));
-            model.addAttribute("list",lectureList);
-            model.addAttribute("tabNum",tabNum);
+            (@RequestParam(value = "tabNum", required = false, defaultValue = "tab1") String tabNum,
+             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+             @RequestParam(value = "size", required = false, defaultValue = "3") int size,
+             Model model) {
+        List<Lecture> lectureList = lectureRepository.findAll();
+        model.addAttribute("posts", lectureService.getPage(pageNumber, size));
+        model.addAttribute("python", lectureService.getPageByPart(pageNumber, size, "파이썬"));
+        model.addAttribute("aiPage", lectureService.getPageByPart(pageNumber, size, "인공지능"));
+        model.addAttribute("daPage", lectureService.getPageByPart(pageNumber, size, "데이터분석"));
+        model.addAttribute("list", lectureList);
+        model.addAttribute("tabNum", tabNum);
 
         return "lecture/lecture";
     }
 
 
-
-    @GetMapping(value="/lecture/add")
-    public String LectureAdd2(Model model)
-    {
-        model.addAttribute("lectureAddDto",new LectureAddDto());
+    @GetMapping(value = "/lecture/add")
+    public String LectureAdd2(Model model) {
+        model.addAttribute("lectureAddDto", new LectureAddDto());
         return "lecture/lectureAdd";
     }
 
     /**
-     *lectureAdd.html에서 강의 추가 정보를 가져온 후 강의 차시로 넘어가는 객체다.
+     * lectureAdd.html에서 강의 추가 정보를 가져온 후 강의 차시로 넘어가는 객체다.
      *
-     * @param lectureAddDto
-     * LectureAddDto는 LectureAdd에서 가져온 정보를 Lecture Entity의 모습으로 변경한 후
-     * 저장하기 위해 사용된다.
+     * @param lectureAddDto LectureAddDto는 LectureAdd에서 가져온 정보를 Lecture Entity의 모습으로 변경한 후
+     *                      저장하기 위해 사용된다.
      * @param model
      * @return
      * @throws IOException
      */
-    @PostMapping(value="/lecture/add" , consumes = "multipart/form-data")
+    @PostMapping(value = "/lecture/add", consumes = "multipart/form-data")
     public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException,
             NullPointerException {
         /**
@@ -112,9 +110,9 @@ public class LectureController {
          */
         try {
             String resourcePath = System.getProperty("user.dir") + imgRoot;
-            if(lectureAddDto.getLectureImgStr()!=null){
+            if (lectureAddDto.getLectureImgStr() != null) {
                 File file = new File(resourcePath + lectureAddDto.getLectureImgStr());
-                if(file.exists()){
+                if (file.exists()) {
                     file.delete();
                 }
             }
@@ -128,7 +126,7 @@ public class LectureController {
             }
 //        //lectureAddDto.getRealLectureImg를 통해 받아온 MultiPartFile을 file에 지정된 경로로 보낸다.
             lectureAddDto.getRealLectureImg().transferTo(savePath);
-            File file = new File(resourcePath,uuidFileName);
+            File file = new File(resourcePath, uuidFileName);
             InputStream inputStream = new FileInputStream(file);
             file.delete();
             int width = 335;
@@ -140,7 +138,7 @@ public class LectureController {
 
             String uuidFileName2 = uuid + "_" + lectureAddDto.getRealTeacherImg().getOriginalFilename();
             lectureAddDto.setTeacherImg(uuidFileName2);
-            file = new File(resourcePath , uuidFileName2);
+            file = new File(resourcePath, uuidFileName2);
             //Entity transfer(파일)
             lectureAddDto.getRealTeacherImg().transferTo(file);
             inputStream = new FileInputStream(file);
@@ -151,7 +149,7 @@ public class LectureController {
         } finally {
             //강좌 생성 내용
             //Lecture 테이블에 LecutreImg 필드에 해당 이미지의 경로를 넣기 위해 setLectureImg를 통해 저장
-            if(lectureAddDto.getThisId()!=null) {
+            if (lectureAddDto.getThisId() != null) {
                 Long id = Long.parseLong(lectureAddDto.getThisId());
                 lectureAddDto.setId(id);
             }
@@ -165,28 +163,27 @@ public class LectureController {
 
 
             Lecture lecture = lectureService.lectureAdd(lectureAddDto);
-            model.addAttribute("lectureId",lecture.getId());
-            if(lectureAddDto.getThisId()==null) {
+            model.addAttribute("lectureId", lecture.getId());
+            if (lectureAddDto.getThisId() == null) {
                 return "/lecture/lectureContentsAdd";
-            }
-            else{
+            } else {
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
                 List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture1.getId());
-                try{
-                LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture1);
-                List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
-                List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
-                for(LectureContents lectureContents : lectureContentsList){
-                    LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
-                    lectureContentsFileList.add(lectureContentsFile);
-                }
-                model.addAttribute("firstDivideId",lectureDivideIds.get(0));
-                model.addAttribute("lectureDivideIds",lectureDivideIds);
-                model.addAttribute("lectureDivide",lectureDivide);
-                model.addAttribute("lectureContentsList",lectureContentsList);
-                model.addAttribute("lectureContentsFileList",lectureContentsFileList);
-                return "lecture/lectureContentsEdit";}
-                catch (IndexOutOfBoundsException e){
+                try {
+                    LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture1);
+                    List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
+                    List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
+                    for (LectureContents lectureContents : lectureContentsList) {
+                        LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
+                        lectureContentsFileList.add(lectureContentsFile);
+                    }
+                    model.addAttribute("firstDivideId", lectureDivideIds.get(0));
+                    model.addAttribute("lectureDivideIds", lectureDivideIds);
+                    model.addAttribute("lectureDivide", lectureDivide);
+                    model.addAttribute("lectureContentsList", lectureContentsList);
+                    model.addAttribute("lectureContentsFileList", lectureContentsFileList);
+                    return "lecture/lectureContentsEdit";
+                } catch (IndexOutOfBoundsException e) {
                     return "lecture/lectureContentsEdit";
                 }
             }
@@ -194,8 +191,8 @@ public class LectureController {
     }
 
     @PostMapping(value = "lecture/divide/edit/{id}")
-    public String LectureContentsPartEdit(@PathVariable("id") String divideId,Model model){
-        model.addAttribute("contentsEditDto",new ContentsEditDto());
+    public String LectureContentsPartEdit(@PathVariable("id") String divideId, Model model) {
+        model.addAttribute("contentsEditDto", new ContentsEditDto());
         return "/lecture/lectureContentsEdit";
     }
 
@@ -205,87 +202,88 @@ public class LectureController {
      * @return
      */
     @CrossOrigin
-    @GetMapping(value="/lecture/contents/{id}/{lectureDivideId}")
-    public String LectureContents(@PathVariable("id") Long lectureId,@PathVariable("lectureDivideId") Long lectureDivideId, Model model)
-    {
+    @GetMapping(value = "/lecture/contents/{id}/{lectureDivideId}")
+    public String LectureContents(@PathVariable("id") Long lectureId, @PathVariable("lectureDivideId") Long lectureDivideId, Model model) {
         List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lectureId);
         LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(lectureDivideId);
         List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
-        for(LectureContents lectureContents : lectureContentsList){
+        for (LectureContents lectureContents : lectureContentsList) {
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
             lectureContentsFileList.add(lectureContentsFile);
         }
-        model.addAttribute("lectureId",lectureId);
-        model.addAttribute("lectureDivideIds",lectureDivideIds);
-        model.addAttribute("lectureDivide",lectureDivide);
-        model.addAttribute("lectureContentsList",lectureContentsList);
-        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
+        model.addAttribute("lectureId", lectureId);
+        model.addAttribute("lectureDivideIds", lectureDivideIds);
+        model.addAttribute("lectureDivide", lectureDivide);
+        model.addAttribute("lectureContentsList", lectureContentsList);
+        model.addAttribute("lectureContentsFileList", lectureContentsFileList);
         return "/lecture/lectureContents";
     }
 
     @GetMapping("/lecture/contentsEdit/{id}")
-    public String LectureContentsEditGetId(@PathVariable("id") Long divideId,Model model){
+    public String LectureContentsEditGetId(@PathVariable("id") Long divideId, Model model) {
         Lecture lecture = lectureDivideService.getLecture(divideId);
         List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture.getId());
         LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(divideId);
         List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
-        for (int i=0; i<lectureContentsList.size(); i++){
+        for (int i = 0; i < lectureContentsList.size(); i++) {
             LectureContents lectureContents = lectureContentsList.get(i);
             lectureContentsFileList.add(lectureContentsService.getLectureContentsFileByLectureContents(lectureContents));
         }
-        log.info("#####################lectureId : ::  ::  :: : "+ lecture.getId());
-        model.addAttribute("lectureId",lecture.getId());
-        model.addAttribute("lectureDivideIds",lectureDivideIds);
-        model.addAttribute("lectureDivide",lectureDivide);
-        model.addAttribute("firstDivideId",lectureDivide.getId());
-        model.addAttribute("lectureContentsList",lectureContentsList);
-        model.addAttribute("lectureContentsFileList",lectureContentsFileList);
+        log.info("#####################lectureId : ::  ::  :: : " + lecture.getId());
+        model.addAttribute("lectureId", lecture.getId());
+        model.addAttribute("lectureDivideIds", lectureDivideIds);
+        model.addAttribute("lectureDivide", lectureDivide);
+        model.addAttribute("firstDivideId", lectureDivide.getId());
+        model.addAttribute("lectureContentsList", lectureContentsList);
+        model.addAttribute("lectureContentsFileList", lectureContentsFileList);
 
         return "lecture/lectureContentsEdit";
     }
 
-    @PostMapping(value="/lecture/contents" )
-    public String LectureDivideAndContentsAdd(@RequestBody LectureDivideAndContentsDto lectureContentsAddDto,Model model) {
+    @PostMapping(value = "/lecture/contents")
+    public String LectureDivideAndContentsAdd(@RequestBody LectureDivideAndContentsDto lectureContentsAddDto, Model model) {
         Long lectureId = Long.parseLong(lectureContentsAddDto.getStrLectureId());
         LectureDivideAndContentsDto lectureDivideDto = new LectureDivideAndContentsDto();
         lectureDivideDto.setLectureId(lectureId);
-        if(lectureContentsAddDto.getDivideId()!=null){
-        lectureDivideDto.setId(Long.parseLong(lectureContentsAddDto.getDivideId()));}
+        if (lectureContentsAddDto.getDivideId() != null) {
+            lectureDivideDto.setId(Long.parseLong(lectureContentsAddDto.getDivideId()));
+        }
         lectureDivideDto.setLectureDivideTitle(lectureContentsAddDto.getLectureDivideTitle());
         lectureDivideDto.setLectureDivideInfo(lectureContentsAddDto.getLectureDivideInfo());
         LectureDivideAndContentsDto lectureContentsDto = new LectureDivideAndContentsDto();
         LectureDivide lectureDivide = lectureDivideDto.dtoToLectureDivide(lectureDivideDto);
         LectureDivide getLectureDivide = lectureDivideService.save(lectureDivide);
         List<Long> ContentsId = null;
-        if(lectureContentsService.getLectureContentsList(getLectureDivide)!=null){
+        if (lectureContentsService.getLectureContentsList(getLectureDivide) != null) {
             ContentsId = lectureContentsService.getContentsIdsByDivideId(getLectureDivide.getId());
-            for(int i=0;i<ContentsId.size();i++){
+            for (int i = 0; i < ContentsId.size(); i++) {
                 lectureContentsService.removeAll(ContentsId);
             }
         }
         List<LectureContents> lectureContents3 = new ArrayList<>();
-        for (int i=0; i<lectureContentsAddDto.getListLectureContentsTitle().length; i++){
+        for (int i = 0; i < lectureContentsAddDto.getListLectureContentsTitle().length; i++) {
             String lectureContentsTitle = lectureContentsAddDto.getListLectureContentsTitle()[i];
             lectureContentsDto.setLectureDivide(getLectureDivide);
             lectureContentsDto.setLectureContentsTitle(lectureContentsTitle);
             LectureContents lectureContents = lectureContentsDto.dtoToLectureContents();
-           lectureContents3.add(lectureContentsService.save(lectureContents));
+            lectureContents3.add(lectureContentsService.save(lectureContents));
         }
         lectureContents3.size();
         List<GetIdDto> getId = new ArrayList<>();
         GetIdDto getIdDto = new GetIdDto();
-        for (int i=0; i<lectureContents3.size(); i++){
+        for (int i = 0; i < lectureContents3.size(); i++) {
             getIdDto.setGetId(lectureContents3.get(i).getId());
             getId.add(getIdDto);
         }
-        model.addAttribute("getSize",lectureContents3.size());
-        model.addAttribute("getId",getId);
+        model.addAttribute("getSize", lectureContents3.size());
+        model.addAttribute("getId", getId);
         return "/lecture/lectureContentsAdd";
     }
+
     @GetMapping(value = "/contents/uploader")
-    public void ContentsFileCreate(){
+    public void ContentsFileCreate() {
 
     }
 
@@ -304,55 +302,70 @@ public class LectureController {
      * @return
      * @throws IOException
      */
-    @PostMapping(value="/contents/uploader", consumes = "multipart/form-data")
-            public String ContentsFileCreate(FileVO fileVO,ContentsEditDto contentsEditDto)
+    @PostMapping(value = "/contents/uploader", consumes = "multipart/form-data")
+    public String ContentsFileCreate(FileVO fileVO)
             throws IOException {
         Long newContents = lectureContentsService.getNewContents();
         int idx = Integer.parseInt(fileVO.getContentsSeq());
         String resourcePath = fileRoot;
+        List<LectureContents> lectureContentsList = fileVO.ContentsToList(fileVO);
         List<MultipartFile> files = fileVO.ContentsFileToList(fileVO);
-            for (int i=1; i<=idx; i++){
-                if(files.get(i-1)==null){
-                    continue;
-                }
-                //uuid를 통한 랜덤값 지정
-                UUID uuid = UUID.randomUUID();
-                String uuidFileName = uuid+"_"+files.get(i-1).getOriginalFilename();
-                File file = new File(fileRoot+uuidFileName);
-                //file에 폴더 존재여부 확인
-                File Folder = new File(resourcePath);
-                if(!Folder.exists()){
-                    Folder.mkdir();
-                }
-                files.get(i-1).transferTo(file);
-                LectureDivideAndContentsDto lectureContentsFileDto = new LectureDivideAndContentsDto();
-                lectureContentsFileDto.setUuidPath(uuidFileName);
+        for (int i = 1; i <= idx; i++) {
+            if (files.get(i - 1) == null) {
+                continue;
+            }
+            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContentsList.get(i - 1));
+            try{
+            File file = new File(fileRoot, lectureContentsFile.getFileName());
+            file.delete();}
+            catch (NullPointerException e){
+
+            }
+            //uuid를 통한 랜덤값 지정
+            UUID uuid = UUID.randomUUID();
+            String uuidFileName = uuid + "_" + files.get(i - 1).getOriginalFilename();
+            File file2 = new File(fileRoot + uuidFileName);
+            //file에 폴더 존재여부 확인
+            File Folder = new File(resourcePath);
+            if (!Folder.exists()) {
+                Folder.mkdir();
+            }
+            files.get(i - 1).transferTo(file2);
+            LectureDivideAndContentsDto lectureContentsFileDto = new LectureDivideAndContentsDto();
+            lectureContentsFileDto.setUuidPath(uuidFileName);
+            try{
                 LectureContentsFile lectureContentsfile = lectureContentsFileDto.toLectureContentsFile(
-                        files.get(i-1), lectureContentsService.getContentsById(newContents-(idx-i))
+                        files.get(i - 1), lectureContentsService.getContentsById(newContents - (idx - i)), lectureContentsFile.getId()
+                );
+                lectureContentsService.save(lectureContentsfile);
+            }catch (Exception e){
+                LectureContentsFile lectureContentsfile = lectureContentsFileDto.toLectureContentsFile(
+                        files.get(i - 1), lectureContentsService.getContentsById(newContents - (idx - i)), null
                 );
                 lectureContentsService.save(lectureContentsfile);
             }
+        }
 
         return "redirect:/lecture";
     }
 
 
     @GetMapping(value = "/lecture/lectureDetail/{id}")
-    public String goDetail(@PathVariable("id") Long id,Model model){
+    public String goDetail(@PathVariable("id") Long id, Model model) {
         Lecture lecture = lectureService.getLectureById(id);
         try {
             List<LectureDivide> lectureDivide = lectureDivideService.getListDivide(lecture);
             model.addAttribute("lecture", lecture);
             model.addAttribute("lectureDivide", lectureDivide);
             return "/lecture/lectureDetail";
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             model.addAttribute("lecture", lecture);
             return "/lecture/lectureDetail";
         }
     }
 
     @GetMapping(value = "/lecture/lectureEdit/{id}")
-    public String goLectureEdit(@PathVariable("id") Long id,Model model){
+    public String goLectureEdit(@PathVariable("id") Long id, Model model) {
         Lecture lecture = lectureService.getLectureById(id);
         try {
             LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
@@ -368,7 +381,7 @@ public class LectureController {
             model.addAttribute("lectureContentsList", lectureContents);
             model.addAttribute("lectureContentsFileList", lectureContentsFileList);
             return "lecture/lectureEdit";
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             model.addAttribute("lecture", lecture);
             return "lecture/lectureEdit";
         }
@@ -383,26 +396,26 @@ public class LectureController {
      * @return
      */
     @GetMapping(value = "/lecture/divideAdd/{id}")
-    public String addDivide(@PathVariable("id") Long id,Model model){
+    public String addDivide(@PathVariable("id") Long id, Model model) {
         LectureDivide lectureDivide = lectureDivideService.addDivide(id);
         List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(id);
 
-        model.addAttribute("lectureId",id);
-        model.addAttribute("lectureDivideIds",lectureDivideIds);
-        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureId", id);
+        model.addAttribute("lectureDivideIds", lectureDivideIds);
+        model.addAttribute("lectureDivide", lectureDivide);
 
         return "/lecture/lectureContentsEdit";
     }
 
     @GetMapping(value = "/lecture/contentsdelete/{id}")
-    public String deleteDivide(@PathVariable("id") Long id,Model model){
+    public String deleteDivide(@PathVariable("id") Long id, Model model) {
         Lecture lecture = lectureDivideService.getLecture(id);
         lectureDivideService.deleteDivide(id);
         List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture.getId());
         LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
-        model.addAttribute("lectureId",lecture.getId());
-        model.addAttribute("lectureDivideIds",lectureDivideIds);
-        model.addAttribute("lectureDivide",lectureDivide);
+        model.addAttribute("lectureId", lecture.getId());
+        model.addAttribute("lectureDivideIds", lectureDivideIds);
+        model.addAttribute("lectureDivide", lectureDivide);
         return "/lecture/lectureContentsEdit";
     }
 }

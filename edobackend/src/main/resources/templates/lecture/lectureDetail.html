@@ -41,20 +41,22 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-2 col-md-2 block7">
-                        <div class="sidebox" id="scroll">
-                            <h4>사이드 박스</h4>
-                            <div class="row">
-                                <div class="col">
-                                <a th:href="'/lecture/contents/'+${lecture.getId()}+'/'+${lectureDivide.get(0).getId()}">강의 듣기</a>
+                    <div th:if="${lectureDivide.size()>0}">
+                        <div class="col-sm-2 col-md-2 block7">
+                            <div class="sidebox" id="scroll">
+                                <h4>사이드 박스</h4>
+                                <div class="row">
+                                    <div class="col">
+                                        <a th:href="'/lecture/contents/'+${lecture.getId()}+'/'+${lectureDivide.get(0).getId()}">강의
+                                            듣기</a>
+                                    </div>
+                                    <div class="col">
+                                        <a>강의 관리</a>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                <a >강의 관리</a>
+                                <div class="row">
+                                    <a>강의 삭제</a>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <a>강의 삭제</a>
                             </div>
                         </div>
                     </div>
@@ -63,10 +65,10 @@
         </div>
     </div>
     <script>
-        $(window).scroll(function(){
-        var position = $(document).scrollTop();
-        $("#scroll").css('top',  position );
-    });
+        $(window).scroll(function () {
+            var position = $(document).scrollTop();
+            $("#scroll").css('top', position);
+        });
     </script>
     <script type="text/javascript">
         $("#uploadLecture").submit(function (event) {

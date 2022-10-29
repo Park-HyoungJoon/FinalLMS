@@ -89,7 +89,7 @@ public class LectureDivideAndContentsDto {
     public static LectureDivideAndContentsDto of (LectureContents lectureContents){
         return modelMapper.map(lectureContents,LectureDivideAndContentsDto.class);
     }
-    public LectureContentsFile toLectureContentsFile(MultipartFile file, LectureContents lectureContents){
+    public LectureContentsFile toLectureContentsFile(MultipartFile file, LectureContents lectureContents,Long id){
         if(file==null){
             return null;
         }
@@ -97,6 +97,9 @@ public class LectureDivideAndContentsDto {
         //파일 컨텐츠 타입file.getContentType();
         //파일 위치 file.getResource()
         LectureContentsFile lectureContentsFile = new LectureContentsFile();
+        if(id!=null){
+            lectureContentsFile.setId(id);
+        }
         lectureContentsFile.setFileName(this.uuidPath);
         lectureContentsFile.setLectureContents(lectureContents);
         lectureContentsFile.setFileLoc(String.valueOf(file.getResource()));

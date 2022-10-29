@@ -85,6 +85,7 @@
             }
             for (let i = 1; i <= contentsList; i++) {
                 let testValue = [[${lectureContentsList}]][i - 1]['lectureContentsTitle'];
+                let lectureContentsList = [[${lectureContentsList}]][i-1];
 
                 const fileHtml = `
                                     <div data-name="contentsDiv">
@@ -112,6 +113,8 @@
   <input type="text" name="lectureContentsLink${i}" placeholder="링크입력">
 </div>
                                             <input type="hidden" class="statNum" value="${i}"/>
+                                            <input type="hidden" id="lectureContents${i}" name="lectureContents${i}"
+                                             th:value="${lectureContentsList}"/>
 
                                         </div>
                                     </div>
