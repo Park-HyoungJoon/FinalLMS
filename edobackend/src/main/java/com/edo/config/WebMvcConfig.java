@@ -30,8 +30,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///"+System.getProperty("user.dir") + imgUploadPath);
         registry.addResourceHandler("/file/**")
                 .addResourceLocations("file:///" + outImgPath);
-
-
-    }
+   }
 
 }
