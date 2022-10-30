@@ -10,6 +10,25 @@
     color: #5cb85c;
     font-size: 50px;
 }
+.row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.teacher-box{
+    width: 100%;
+    background:#a5a5a5;
+    height: 400px;
+}
+.teacher-img{
+    background: white;
+    width: 250px;
+    height: 250px;
+    margin: 50px;
+
+}
+.teacher-info{
+    margin: 50px;
+}
 .part{
     background: red;
     color: white;
