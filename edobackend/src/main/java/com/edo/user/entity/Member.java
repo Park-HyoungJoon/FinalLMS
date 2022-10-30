@@ -84,4 +84,13 @@ public class Member extends BaseTimeEntity {
 
         System.out.println("지금 이 메소드 출력하는 중!!!!!!!!!!!!!!!!!! >>>>>>>>>>>>>>>>>>>>>"  );
     }
+
+//    mypage에서 list로 받아오기 위해 memberDto로 변환
+    public MemberDto toMemberDto(){
+        MemberDto memberDto = new MemberDto();
+        memberDto.setMemberName(this.memberName);
+        memberDto.setMemberNickname(this.memberNickname);
+        memberDto.setMemberPhone(this.memberPhone);
+        return memberDto;
+    }
 }

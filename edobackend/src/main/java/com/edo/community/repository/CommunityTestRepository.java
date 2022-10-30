@@ -14,8 +14,6 @@ public interface CommunityTestRepository extends JpaRepository<CommunityTest,Lon
 //    id로 조회할 예정이니까 매개변수가 아닌 쿼리메소드에 id를 넣는다
     List<CommunityTest> findAllByOrderByCommunityId();
 
-//    id만 오름차순으로 조회
-//    List<CommunityTest> findByCommunityIdOrderByCommunityId();
 
 
 }

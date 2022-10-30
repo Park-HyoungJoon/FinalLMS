@@ -1,7 +1,9 @@
 package com.edo.user.repository;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.edo.community.entity.CommunityTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +20,9 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     //	닉네임 중복된 회원이 있는지 검사하기 위한 쿼리 메소드 작성
     Member findByMemberNickname(String usersNickname);
+
+    List<Member> findAllByOrderByMemberId();
+
+
+
 }

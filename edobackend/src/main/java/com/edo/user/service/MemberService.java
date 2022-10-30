@@ -2,6 +2,9 @@ package com.edo.user.service;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.edo.community.dto.CommunityTestDto;
+import com.edo.community.entity.CommunityTest;
+import com.edo.user.dto.MemberDto;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +18,7 @@ import com.edo.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -83,4 +87,16 @@ public class MemberService implements UserDetailsService
 				.username(member.getMemberEmail()).password(member.getMemberPassword()).roles(member.getMemberRole().toString())
 				.build();
 	}
+
+//	마이페이지 member이름 가져오기
+//    게시글 리스트로 나타내기
+	public List<MemberDto> getMemberList(Member member){
+		List<Member> memberList = memberRepository.findAllByOrderByMemberId();
+
+//		entity에 작성한 코드를 list로 받아온다.
+		List<MemberDto> memberDtos  = memberList.stream().map((member1 -> member1.toMemberDto())).toList();
+		log.info(memberDtos.toString());
+		return memberDtos;
+	}
+
 }

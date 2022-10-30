@@ -2,6 +2,8 @@ package com.edo.user.controller;
 
 import javax.validation.Valid;
 
+import com.edo.community.dto.CommunityTestDto;
+import com.edo.community.entity.CommunityTest;
 import com.edo.user.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +16,8 @@ import com.edo.user.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @CrossOrigin
 @Controller
@@ -111,8 +115,20 @@ public class MemberController {
 
     // 마이페이지
     @GetMapping(value="/mypage") 
-    public String MypageGet(){
+    public String myPageGet(){
         return "mypage/mypageMain";
+    }
+
+    @PostMapping(value = "/mypage")
+    public String myPagePost(MemberDto memberDto, Model model){
+        log.info(memberDto.toString());
+
+        Member member = new Member() ;
+
+        CommunityTest communityTest = new CommunityTest();
+        List<MemberDto> memberDtoList = memberService.getMemberList(member);
+        model.addAttribute("memberDtoList",memberDtoList);
+        return "redirect:/member/mypage";
     }
 
     //로그인 실패 시 에러 메세지 나타냄 
