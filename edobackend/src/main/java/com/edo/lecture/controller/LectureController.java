@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -125,23 +126,24 @@ public class LectureController {
             lectureAddDto.getRealLectureImg().transferTo(savePath);
             File file = new File(resourcePath, uuidFileName);
             InputStream inputStream = new FileInputStream(file);
-            file.delete();
             int width = 335;
             int height = 225;
             ImageUtils utils = new ImageUtils();
             BufferedImage resizeImage = utils.resize(inputStream, width, height);
             file.delete();
-            ImageIO.write(resizeImage, "jpg", new File(resourcePath + uuidFileName));
+            ImageIO.write(resizeImage, "jpg", file);
+            file.delete();
 
             String uuidFileName2 = uuid + "_" + lectureAddDto.getRealTeacherImg().getOriginalFilename();
             lectureAddDto.setTeacherImg(uuidFileName2);
             file = new File(resourcePath, uuidFileName2);
+            log.info("#########################uuid"+uuidFileName2);
             //Entity transfer(파일)
             lectureAddDto.getRealTeacherImg().transferTo(file);
             inputStream = new FileInputStream(file);
             resizeImage = utils.resize(inputStream, width, height);
             file.delete();
-            ImageIO.write(resizeImage, "jpg", new File(resourcePath + uuidFileName2));
+            //ImageIO.write(resizeImage, "jpg", new File(resourcePath + uuidFileName2));
         } catch (Exception e) {
         } finally {
             //강좌 생성 내용
@@ -206,6 +208,7 @@ public class LectureController {
         List<LectureContents> lectureContentsList = lectureContentsService.getLectureContentsList(lectureDivide);
         List<LectureContentsFile> lectureContentsFileList = new ArrayList<>();
         for (LectureContents lectureContents : lectureContentsList) {
+            log.info(lectureContents.getId());
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
             lectureContentsFileList.add(lectureContentsFile);
         }
@@ -279,10 +282,6 @@ public class LectureController {
         return "/lecture/lectureContentsAdd";
     }
 
-    @GetMapping(value = "/contents/uploader")
-    public void ContentsFileCreate() {
-
-    }
 
     /***
      * lectureContents.html에서 form으로 파일 데이터를 받아 LectureContentsFile Entity에 저장해놓는 컨트롤러이다.
@@ -302,10 +301,30 @@ public class LectureController {
     @PostMapping(value = "/contents/uploader", consumes = "multipart/form-data")
     public String ContentsFileCreate(FileVO fileVO)
             throws IOException {
+        String resourcePath = fileRoot;
+        Long DivideId = Long.parseLong(fileVO.getFirstDivideId());
+        LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(DivideId);
+        log.info("divideId에 대한 정보입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+DivideId);
+        try{
+        List<LectureContents> lectureContentsList2= lectureContentsService.getLectureContentsList(lectureDivide);
+        for (LectureContents lectureContents : lectureContentsList2){
+            if(lectureContentsService.getLectureContentsFileByLectureContents(lectureContents).getId() == null)continue;
+            LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
+            log.info("#@###################################################"+lectureContentsFile.getFileName());
+            File file = new File(fileRoot,lectureContentsFile.getFileName());
+            if(file.exists()){
+                file.delete();
+            }
+        }}catch (NullPointerException e){
+
+        }
         Long newContents = lectureContentsService.getNewContents();
         int idx = Integer.parseInt(fileVO.getContentsSeq());
-        String resourcePath = fileRoot;
         List<LectureContents> lectureContentsList = fileVO.ContentsToList(fileVO);
+        /***
+         * 만약 차시 수가 더 줄어든 경우 오버된 차시 삭제
+         * lectureContents , lectureContentsFile DB내용 삭제 + 삭제된 DB 내용과 연관된 파일 삭제
+         */
         List<MultipartFile> files = fileVO.ContentsFileToList(fileVO);
         for (int i = 1; i <= idx; i++) {
             if (files.get(i - 1) == null) {
@@ -343,7 +362,7 @@ public class LectureController {
             }
         }
 
-        return "redirect:/lecture";
+        return "redirect:/lecture/All";
     }
 
 
