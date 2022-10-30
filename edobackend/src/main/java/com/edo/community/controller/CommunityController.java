@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 //로깅에 대한 추상체 제공
 @Slf4j
+@RequestMapping("/community")
 public class CommunityController {
 
     private final CommunityService communityService;
@@ -37,7 +35,7 @@ public class CommunityController {
         return "putoff/test";
     }
 
-    @GetMapping(value = "communitymain")
+    @GetMapping(value = "/main")
     public String CommunityMain(CommunityTestDto communityTestDto, Model model){
         log.info(communityTestDto.toString());
 
@@ -53,14 +51,14 @@ public class CommunityController {
     }
 
 
-    @GetMapping(value = "communitywrite")
+    @GetMapping(value = "/write")
     public String CommunityWrite(Model model){
         model.addAttribute("communityTestDto", new CommunityTestDto());
         return "community/communityWrite";
     }
 
 //    값 전달 테스트
-    @PostMapping(value = "communitywrite")
+    @PostMapping(value = "/write")
     public String CommunityWrite(@Valid CommunityTestDto communityTestDto, Model model){
         log.info(communityTestDto.toString());
 
@@ -75,10 +73,10 @@ public class CommunityController {
 
 
 //          성공 시 메인 페이지로 돌아감
-        return "redirect:/communitymain";
+        return "redirect:/main";
     }
 
-    @GetMapping(value = "/communitywrite/1")
+    @GetMapping(value = "/write/1")
     public String communityWrite(Model model){
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         CommunityTest communityTest = communityTestRepository.getById(2L);
@@ -89,7 +87,7 @@ public class CommunityController {
     }
 
 //    게시글 상세 조회
-    @GetMapping(value = "/communitywrite/{communityId}")
+    @GetMapping(value = "/write/{communityId}")
     public String communityDetail(@PathVariable("communityId") Long communityId, Model model){
         return null;
     }

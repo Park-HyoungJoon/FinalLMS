@@ -7,12 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.edo.user.entity.Member;
 import com.edo.user.service.MemberService;
@@ -24,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/member")
 public class MemberController {
 
     @Autowired
@@ -45,7 +41,7 @@ public class MemberController {
 
 
 //   이용약관
-    @GetMapping(value="/memberjoin")
+    @GetMapping(value="/join")
     public String MemberJoinGet(Model model){
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 회원가입 들어가는 중 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         return "member/memberjoin";
@@ -53,13 +49,13 @@ public class MemberController {
 
 
 // 이메일 등록
-    @GetMapping(value="/memberjoinInfo")
+    @GetMapping(value="/joinInfo")
     public String MemberjoinInfoGet(){
         return "member/memberjoinInfo";
     }
 
     //    회원가입 값 전달
-    @PostMapping(value ="/memberjoinInfo" )
+    @PostMapping(value ="/joinInfo" )
     public String MemberJoinPost(@Valid MemberDto memberDto, Model model){
 
 
@@ -86,7 +82,7 @@ public class MemberController {
 
 //    이메일 중복 확인을 위한 메소드
     @ResponseBody //view가 아닌 data 그대로를 반환합니다.
-    @PostMapping(value = "/memberjoinInfo/validateEmail")
+    @PostMapping(value = "/joinInfo/validateEmail")
     public Boolean ValidateEmail(@RequestBody MemberDto memberDto){
         log.info(memberDto.toString());
         try{
@@ -101,7 +97,7 @@ public class MemberController {
 
     //    닉네임 중복 확인을 위한 메소드
     @ResponseBody
-    @PostMapping(value = "/memberjoinInfo/validateNickname")
+    @PostMapping(value = "/joinInfo/validateNickname")
     public Boolean ValidateNickname(@RequestBody MemberDto memberDto){
         log.info(memberDto.toString());
         try{

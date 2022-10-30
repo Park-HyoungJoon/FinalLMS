@@ -29,7 +29,7 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.formLogin()
-                .loginPage("/login") 					//로그인 페이지  url 설정 
+                .loginPage("/member/login") 					//로그인 페이지  url 설정
                 .defaultSuccessUrl("/")					//로그인 성공 시 이동할 url
                 .usernameParameter("usersEmail")		//로그인 시 사용할 파라미터 이름으로 email 을 지정
                 .passwordParameter("usersPassword") 	//view단에서 plain text로 받아온 걸 encode해서 db랑 매칭
@@ -39,12 +39,13 @@ public class SecurityConfig {
 
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))   
+                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/"); //로그아웃 성공 시 연결될 화면
 
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**","/image/**","/images/**","/file/**").permitAll()
-                .antMatchers("/", "/login/**", "/memberjoin/**", "/memberjoinInfo/**", "/lecture/**","/test2", "/mypage", "/communitymain","/contents/**").permitAll()
+                .antMatchers("/", "/member/**", "/lecture/**","/test2", "/community/*","/contents/**").permitAll()
+                .antMatchers("/community/write").hasAnyRole()
                 .anyRequest()
                 .authenticated() //아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
                 .and()
@@ -66,6 +67,7 @@ public class SecurityConfig {
 
     @Bean
     public LoginFailHandler loginFailHandler(){
+
         return new LoginFailHandler();
     }
 }

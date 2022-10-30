@@ -34,12 +34,16 @@
                            title="강좌 메뉴 링크" class="button">강좌</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/communitymain" target="_self"
+                        <a href="/community/main" target="_self"
                            title="공지/소식 메뉴 링크" class="button">커뮤니티</a>
                     </li>
                     <li class="nav-item">
 <!--                        ZEP으로 변경 -> 구성 중 -->
                         <a href="https://zep.us/play/2YEXdq" class="button">메타버스</a>
+                    </li>
+                    <li class="nav-item">
+                        <!--                       마이페이지 임시로 연결  -->
+                        <a href="/member/mypage" class="button" sec:authorize = "isAuthenticated()">마이페이지</a>
                     </li>
                 </ul>
                 <ul class="dropdown-menu"  sec:authorize = "isAuthenticated()">
@@ -48,19 +52,19 @@
                 </ul>
                 <span>
                     <!--                    로그인이 되어있지 않은 경우만 로그인 설정 -->
-                             <a type="button" class="button" href="/login" sec:authorize = "isAnonymous()">Login</a>
+                             <a type="button" class="button" href="/member/login" sec:authorize = "isAnonymous()">Login</a>
                         </span>
 
 
                 <span>
 
                     <!--                    로그인이 되어있는 경우만 로그아웃으로 설정 -->
-                             <a type="button" class="button" href="/logout" sec:authorize = "isAuthenticated()">Logout</a>
+                             <a type="button" class="button" href="/member/logout" sec:authorize = "isAuthenticated()">Logout</a>
                         </span>
 
                 <span>
 <!--                    로그인이 되어있지 않은 경우만 회원가입으로 설정-->
-                            <a href="/memberjoin" sec:authorize = "isAnonymous()">회원가입</a>
+                            <a href="/member/join" sec:authorize = "isAnonymous()">회원가입</a>
                         </span>
             </div>
         </div>
