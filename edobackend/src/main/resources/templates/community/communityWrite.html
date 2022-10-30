@@ -76,7 +76,7 @@
                 </div>
                 <div style="display:block;">
                 <div align="center" style= "margin-top: 10px">
-                    <input type = submit  value="등록" class="btn btn-secondary" id="nextButton" th:formaction="@{/communitywrite}" />
+                    <input type = submit  value="등록" class="btn btn-secondary" id="nextButton" th:formaction="@{/community/write}" />
                 </div>
                 </div>
 
@@ -175,7 +175,7 @@
             type: 'POST',
             contentType : 'application/json',
             data: JSON.stringify(param),
-            url: "/communitywrite",
+            url: "/community/write",
             dataType: "text",
             success: function (data) {
                 let message = "success";

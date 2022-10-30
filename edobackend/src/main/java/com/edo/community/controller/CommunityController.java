@@ -73,13 +73,13 @@ public class CommunityController {
 
 
 //          성공 시 메인 페이지로 돌아감
-        return "redirect:/main";
+        return "redirect:/community/main";
     }
 
     @GetMapping(value = "/write/1")
     public String communityWrite(Model model){
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        CommunityTest communityTest = communityTestRepository.getById(2L);
+        CommunityTest communityTest = communityTestRepository.getById(1L);
         log.info(communityTest.toString());
 
         model.addAttribute("communityTest",communityTest);
