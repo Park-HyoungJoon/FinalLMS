@@ -35,7 +35,7 @@
             let memberEmail = document.getElementById('memberEmail').value;
             if (memberEmail != null) {
                 if (validateEmail(memberEmail)) {
-                    fetch("/memberjoinInfo/validateEmail", {
+                    fetch("/member/joinInfo/validateEmail", {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -97,7 +97,7 @@
             let memberNickname = document.getElementById('memberNickname').value;
 
             if (memberNickname != null) {
-                fetch("memberjoinInfo/validateNickname", {
+                fetch("/member/joinInfo/validateNickname", {
                     headers: {
                         "Content-Type": "application/json",
                     },
