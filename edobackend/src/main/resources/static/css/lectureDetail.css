@@ -15,22 +15,19 @@
     color: white;
     display: inline;
 }
-.sidebox {
-    position: absolute;
+.side-box {
     border-radius: 30px;
     float: left;
     width: 200px;
     height: auto;
     margin: 10px;
-    margin-top : 500px;
     margin-bottom: 0px;
     border: 1px solid grey;
     padding: 11px;
-    display: inline;
 }
-.sidebox h4{
+.side-box h4{
     text-align: center;
 }
-.sidebox a {
+.side-box a {
     display: inline;
 }

@@ -22,6 +22,9 @@ public class LectureContentsService {
     LectureContentsFileRepository lectureContentsFileRepository;
     public  void save(String originalFileName) {
     }
+    public void removeLectureContents(Long id){
+        lectureContentsRepository.deleteLectureContentsById(id);
+    }
 
     public LectureContents save(LectureContents lectureContents) {
         return lectureContentsRepository.save(lectureContents);

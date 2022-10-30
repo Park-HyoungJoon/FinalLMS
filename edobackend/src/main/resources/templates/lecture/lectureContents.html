@@ -14,50 +14,53 @@
             </div>
         </div>
         <div class="row margin-top">
-                    <div class="col-sm-10 col-md-10">
-                        <div class="row">
-                            <div th:if="${not #strings.isEmpty(lectureContentsList)}">
-                                <div class="row">
-                                    <div th:each="vo,status : ${lectureContentsList}">
+            <div class="col-sm-10 col-md-10">
+                <div class="row">
+                    <div th:if="${#lists.size(lectureContentsList)} > 0">
+                        <div th:if="${not #strings.isEmpty(lectureContentsList)}">
+                            <div class="row">
+                                <div th:each="vo,status : ${lectureContentsList}">
+                                    <div th:if="${#lists.size(lectureContentsFileList)} > 0">
                                         <div th:each="fo : ${lectureContentsFileList}">
-                                            <div th:if="${vo.getId()}==${fo.getLectureContents().getId()}">
-                                                <div th:if="${fo.getFileType()}=='application/pdf'">
-                                                    <iframe width="100%" height="600" th:src="@{/file/}+${fo.getFileName()}"></iframe>
-                                                </div>
-                                                <div th:if="${fo.getFileType()}=='video/mp4'
+                                            <div th:if="${not #strings.isEmpty(fo)}">
+                                                    <div th:if="${vo.getId()}==${fo.getLectureContents().getId()}">
+                                                    <div th:if="${fo.getFileType()}=='application/pdf'">
+                                                        <iframe width="100%" height="600"
+                                                                th:src="@{/file/}+${fo.getFileName()}"></iframe>
+                                                    </div>
+                                                    <div th:if="${fo.getFileType()}=='video/mp4'
                                                  or ${fo.getFileType()}=='video/webM'
                                                  or ${fo.getFileType()}=='video/avi'
                                                  or ${fo.getFileType()}=='video/ogg'">
-                                                    <video controls width="100%" height="600"  th:src="@{/file/}+${fo.getFileName()}">
-                                                        <source th:src="@{/file/}+${fo.getFileName()}" th:type="${fo.getFileType()}">
-                                                    </video>
+                                                        <video controls width="100%" height="600"
+                                                               th:src="@{/file/}+${fo.getFileName()}">
+                                                            <source th:src="@{/file/}+${fo.getFileName()}"
+                                                                    th:type="${fo.getFileType()}">
+                                                        </video>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--
-                                        확장자 명으로 if문 해서 pdf, video, link 나누어서 출력하기
-                                        ==> file entity 확장 정보 추가 필요!
-
-                                    <div th:if="${vo.}"
-                                    -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <h2>차시 소개</h2>
-                                <p>강의 차시 설명</p>
-                                <div class="form-group">
-                                    <div id="lectureInfo">
-                                        <dd th:utext="${lectureDivide.getLectureDivideInfo()}"></dd>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <h2>차시 소개</h2>
+                        <p>강의 차시 설명</p>
+                        <div class="form-group">
+                            <div id="lectureInfo">
+                                <dd th:utext="${lectureDivide.getLectureDivideInfo()}"></dd>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-sm-2 col-md-2">
                 <div class="sidebox" id="scroll">
-                    <div th:if="${not #strings.isEmpty(lectureDivideIds)}">
+                    <div th:if="${#lists.size(lectureDivideIds)} > 0">
                         <div class="row">
                             <div th:each="vo,status : ${lectureDivideIds}">
                                 <a th:href="'/lecture/contents/'+${lectureId}+'/'+${vo}"
