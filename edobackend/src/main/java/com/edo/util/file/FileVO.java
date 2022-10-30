@@ -13,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class FileVO {
+    @JsonProperty("firstDivideId")
+    private String firstDivideId;
     private MultipartFile lectureContentsFile1;
     private MultipartFile lectureContentsFile2;
     private MultipartFile lectureContentsFile3;

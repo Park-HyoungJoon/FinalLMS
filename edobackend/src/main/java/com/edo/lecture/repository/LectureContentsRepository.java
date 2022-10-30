@@ -25,5 +25,9 @@ public interface LectureContentsRepository extends JpaRepository<LectureContents
     @Query(value = "delete from lecture_contents where lecture_divide_id = ?1", nativeQuery = true)
     boolean deleteContentsByDivideId(Long id);
 
+    @Modifying
+    @Transactional
+    void deleteLectureContentsById(Long id);
+
     List<LectureContents> findAllByLectureDivide(LectureDivide lectureDivide);
 }
