@@ -1,3 +1,14 @@
+#header{
+    position: fixed;
+    background: white;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+.content{
+    margin-top: 70px;
+}
 #header .cate {
     margin-right: 20px;
     color: black;

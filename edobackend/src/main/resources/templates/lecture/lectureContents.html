@@ -23,20 +23,42 @@
                                     <div th:if="${#lists.size(lectureContentsFileList)} > 0">
                                         <div th:each="fo : ${lectureContentsFileList}">
                                             <div th:if="${not #strings.isEmpty(fo)}">
-                                                    <div th:if="${vo.getId()}==${fo.getLectureContents().getId()}">
-                                                    <div th:if="${fo.getFileType()}=='application/pdf'">
-                                                        <iframe width="100%" height="600"
-                                                                th:src="@{/file/}+${fo.getFileName()}"></iframe>
-                                                    </div>
-                                                    <div th:if="${fo.getFileType()}=='video/mp4'
-                                                 or ${fo.getFileType()}=='video/webM'
-                                                 or ${fo.getFileType()}=='video/avi'
-                                                 or ${fo.getFileType()}=='video/ogg'">
-                                                        <video controls width="100%" height="600"
-                                                               th:src="@{/file/}+${fo.getFileName()}">
-                                                            <source th:src="@{/file/}+${fo.getFileName()}"
-                                                                    th:type="${fo.getFileType()}">
-                                                        </video>
+                                                <div th:if="${vo.getId()}==${fo.getLectureContents().getId()}">
+
+                                                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header"
+                                                                th:id="'panelsStayOpen-heading'+${status.count}">
+                                                                <button class="accordion-button" type="button"
+                                                                        data-bs-toggle="collapse"
+                                                                        th:data-bs-target="'#panelsStayOpen-collapse'+${status.count}"
+                                                                        aria-expanded="true"
+                                                                        th:aria-controls="'panelsStayOpen-collapse'+${status.count}"
+                                                                        th:text="'강의'+${status.count}">
+                                                                </button>
+                                                            </h2>
+                                                            <div th:id="'panelsStayOpen-collapse'+${status.count}"
+                                                                 class="accordion-collapse collapse"
+                                                                 th:aria-labelledby="'panelsStayOpen-heading'+${status.count}">
+                                                                <div class="accordion-body">
+
+                                                                    <div th:if="${fo.getFileType()}=='application/pdf'">
+                                                                        <iframe width="100%" height="600"
+                                                                                th:src="@{/file/}+${fo.getFileName()}"></iframe>
+                                                                    </div>
+                                                                    <div th:if="${fo.getFileType()}=='video/mp4'
+                                                                        or ${fo.getFileType()}=='video/webM'
+                                                                          or ${fo.getFileType()}=='video/avi'
+                                                                         or ${fo.getFileType()}=='video/ogg'">
+                                                                        <video controls width="100%" height="600"
+                                                                               th:src="@{/file/}+${fo.getFileName()}">
+                                                                            <source th:src="@{/file/}+${fo.getFileName()}"
+                                                                                    th:type="${fo.getFileType()}">
+                                                                        </video>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -46,20 +68,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <h2>차시 소개</h2>
-                        <p>강의 차시 설명</p>
-                        <div class="form-group">
-                            <div id="lectureInfo">
-                                <dd th:utext="${lectureDivide.getLectureDivideInfo()}"></dd>
-                            </div>
+                </div>
+                <div class="row">
+                    <p>강의 차시 설명</p>
+                    <div class="form-group">
+                        <div id="lectureInfo">
+                            <dd th:utext="${lectureDivide.getLectureDivideInfo()}"></dd>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-sm-2 col-md-2">
-                <div class="sidebox" id="scroll">
+                <div class="side-box" id="scroll">
                     <div th:if="${#lists.size(lectureDivideIds)} > 0">
                         <div class="row">
                             <div th:each="vo,status : ${lectureDivideIds}">

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout1}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
 </head>
@@ -13,6 +14,14 @@
                 <span class="title" th:text="${lecture.getLectureTitle()}"></span>
                 <span class="part" th:text="${lecture.getLecturePart()}"></span></div>
             <h4 th:text="${lecture.getLectureDetail()}"></h4>
+        </div>
+        <div class="row teacher-box">
+            <div class="col-md-4 teacher-img" >
+                <h3 style="margin-top: 40px;">강사 이미지</h3>
+            </div>
+            <div class="col-md-8 teacher-info">
+                <h1>강사 설명</h1>
+            </div>
         </div>
         <div class="row margin-top">
             <div class="col-sm-12 block-contain">
@@ -28,17 +37,33 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
                         <div th:if="${not #strings.isEmpty(lectureDivide)}">
-                            <div class="row">
-
-                                <div th:each="vo,status : ${lectureDivide}">
-                                    <h2>강의 차시</h2>
-                                    <p>강의 차시 제목</p>
-                                    <dd th:text="${vo.getLectureDivideTitle()}"></dd>
-                                    <p>강의 차시 설명</p>
-                                    <dd th:utext="${vo.getLectureDivideInfo()}"></dd>
+                            <div th:each="vo,status : ${lectureDivide}">
+                                <div class="accordion" id="accordionPanelsStayOpenExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" th:id="'panelsStayOpen-heading'+${status.count}">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    th:data-bs-target="'#panelsStayOpen-collapse'+${status.count}" aria-expanded="true"
+                                                    th:aria-controls="'panelsStayOpen-collapse'+${status.count}"
+                                                    th:text="'강의'+${status.count}">
+                                            </button>
+                                        </h2>
+                                        <div th:id="'panelsStayOpen-collapse'+${status.count}" class="accordion-collapse collapse"
+                                             th:aria-labelledby="'panelsStayOpen-heading'+${status.count}">
+                                            <div class="accordion-body">
+                                                <h1>강의 소개</h1>
+                                                <h2>강의 제목</h2>
+                                                <h3 th:text="${vo.getLectureDivideTitle()}"></h3>
+                                                <br>
+                                                <h2>강의 설명</h2>
+                                                <dd th:utext="${vo.getLectureDivideInfo()}"></dd>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                     <div class="col-sm-2 col-md-2">
@@ -50,11 +75,11 @@
                                         <a th:href="'/lecture/contents/'+${lecture.getId()}+'/'+${lectureDivide.get(0).getId()}">강의
                                             듣기</a>
                                     </div>
-                                    <div class="col">
+                                    <div class="col" sec:authorize = "isAuthenticated()">
                                         <a>강의 관리</a>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" sec:authorize = "isAuthenticated()">
                                     <a>강의 삭제</a>
                                 </div>
                             </div>

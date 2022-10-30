@@ -1,173 +1,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/basiclayout}">
+      layout:decorate="~{layouts/layout1}">
 
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <meta http-equiv="Expires" content="-1">
-    <meta name="Generator" content="EditPlus">
-    <meta name="Author" content="AiMind">
-    <meta name="Keywords" content="AiMind">
-    <meta name="Description" content="AiMind">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,minimum-scale=1">
-    <noscript>
-        <meta http-equiv="X-Frame-Options" content="DENY"/>
-    </noscript>
-    <!-- JavaScript Bundle with Popper -->
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/footer.css">
-    <link rel="stylesheet" type="text/css" href="css/header.css">
-    <script type="text/javascript">
-        $(window).load(function () {
-            try {
-
-            } catch (e) {
-            }
-        });
-    </script>
-    <script>
-        if (top != window) {
-            top.location = window.location;
-        }
-    </script>
-    <script type="text/javascript">
-        function goCourseList() {
-            try {
-                location.href = "http://crhs.aimind.co.kr/course/list.htm?menu=10";
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-        function goCourseView(id) {
-            try {
-                location.href = "http://crhs.aimind.co.kr/course/view.htm?menu=10&id=" + id;
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-        function goPortfolioList() {
-            try {
-                location.href = "http://crhs.aimind.co.kr/portfolio/list.htm?menu=20";
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-        function goPortfolioView(id) {
-            try {
-                location.href = "http://crhs.aimind.co.kr/portfolio/view.htm?menu=20&seqNo=" + id;
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-        function goNoticeList() {
-            try {
-                location.href = "http://crhs.aimind.co.kr/bbs/list.htm?menu=31";
-            } catch (e) {
-                alert(e);
-            }
-        }
-
-        function goNoticeView(id) {
-            try {
-                location.href = "http://crhs.aimind.co.kr/bbs/view.htm?menu=31&id=" + id;
-            } catch (e) {
-                alert(e);
-            }
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 
 <body class="vsc-initialized">
 <div layout:fragment="content">
     <div id="wrapper">
-<!--        <div id="container">-->
-<!--            <div class="lecture_search2" style="text-align: center;">-->
-<!--                <div class="search_icon2">-->
-<!--                    <h3>강좌검색</h3><br>-->
-<!--                </div>&lt;!&ndash; //search_icon &ndash;&gt;-->
-<!--                <div class="input-group" style="width: 500px; margin: auto;">-->
-<!--                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"-->
-<!--                           aria-describedby="search-addon"/>-->
-<!--                    <button type="button" class="btn btn-primary">search</button>-->
-<!--                </div>-->
-<!--            </div>&lt;!&ndash; //lecture_search &ndash;&gt;-->
-<!--        </div>-->
         <hr>
 
         <div class="sub_head">
             <h3>학교강좌 </h3>
-            <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
+            <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
                                                                        alt="더보기"></a></div>
         </div>
         <div class="asset-top">
             <div class="container">
                 <div class="school_lecture">
                     <div class="row">
-                        <dl class="col">
-                            <dt>
-                                <a href="javascript:;" onclick="goCourseView(6);">
 
-                                    <img src="data:image/jpeg;base64,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"
-                                         alt="썸네일">
-
-                                </a>
-                            </dt>
-                            <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(6);">AI융합 기초 캠프</a>
-                            </dd>
-                            <dd class="lecture_writer">김기태</dd>
-                            <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(6);">블록 기반으로 된 Edub를
-                                활용하여 파이썬과 데이터 분석을 위한 기초를 익히고, 데이터 분석에 필요한 파이썬 핵심 문법과 클로링, numpy, pandas,
-                                matplotli</a></dd>
-                            <dd class="lecture_hit"><span>1</span><span>0</span></dd>
-                        </dl>
-
-                        <dl class="col">
-                            <dt>
-                                <a href="javascript:;" onclick="goCourseView(20);">
-
-                                    <img src="http://crhs.aimind.co.kr/images/sample_image0.png" alt="썸네일">
-
-                                </a>
-                            </dt>
-                            <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(20);">[Level 1] 프로그래밍
-                                쉽게 배우자</a></dd>
-                            <dd class="lecture_writer">이세훈</dd>
-                            <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(20);">프로그래밍 개요 강의 입니다.
-                            </a></dd>
-                            <dd class="lecture_hit"><span>0</span><span>0</span></dd>
-                        </dl>
-
-                        <dl class="col">
-                            <dt>
-                                <a href="javascript:;" onclick="goCourseView(30);">
-
-                                    <img src="http://crhs.aimind.co.kr/images/sample_image0.png" alt="썸네일">
-
-                                </a>
-                            </dt>
-                            <dd class="lecture_tit"><a href="javascript:;" onclick="goCourseView(30);">[Level 2] 프로그래밍과
-                                AI의 세계로 발 담그기</a></dd>
-                            <dd class="lecture_writer">이세훈</dd>
-                            <dd class="lecture_cont"><a href="javascript:;" onclick="goCourseView(30);"></a></dd>
-                            <dd class="lecture_hit"><span>0</span><span>0</span></dd>
-                        </dl>
-
-
-                        <dl class="col"></dl>
-                    </div>
+                        <div class="col" th:if="${#lists.size(lectureList)} > 0"
+                             th:each="vo : ${lectureList}"><!-- 리스트 배열의 수만큼 실행 -->
+                            <div class="card-flyer" style="width: 300px; z-index: 1;">
+                                <div class="card shadow-sm">
+                                    <div th:if="${vo.getLectureImage()==null}">
+                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                             xmlns="http://www.w3.org/2000/svg" role="img"
+                                             aria-label="Placeholder: Thumbnail"
+                                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>
+                                            Placeholder</title>
+                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                        </svg>
+                                    </div>
+                                    <!--${vo.getLectureImage()}-->
+                                    <div th:unless="${vo.getLectureImage()==null}" style="position: relative">
+                                        <img th:src="@{/img/} + ${vo.getLectureImage()}"
+                                             style="width: 100%;height: 225px;" class="card-img-top">
+                                        <span
+                                                style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
+                                                th:text="${vo.getLecturePart()}"></span>
+                                    </div>
+                                    <div class="card-body"
+                                         style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+                                        <h5 th:text="${vo.getLectureTitle()}"></h5>
+                                        <p class="card-text" th:text="${vo.getLectureDetail()}"></p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a class="btn btn-sm btn-outline-secondary"
+                                                   th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}">
+                                                    View
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <dl class="col" th:if="${#lists.size(lectureList)} <=4"></dl>
 
                 </div><!-- //school_lecture -->
             </div>
@@ -179,9 +71,9 @@
     <hr>
 
     <div class="sub_head">
-        <h3>인기 포트폴리오 </h3>
-        <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                                   alt="더보기"></a></div>
+        <h3>인기 강좌 </h3>
+        <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
+                                        alt="더보기"></a></div>
     </div>
     <div class="asset_center">
 
@@ -207,72 +99,29 @@
     <hr>
     <div class="sub_head">
         <h3>공지사항 </h3>
-        <div><a href="javascript:;" onclick="goCourseList();"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                                   alt="더보기"></a></div>
+        <div><a href="community/main"><img src="http://crhs.aimind.co.kr/images/more.png"
+                                        alt="더보기"></a></div>
     </div>
     <div class="asset_bottom">
         <div class="notice row">
 
-            <dl class="col">
-                <dt>
-                    <a href="javascript:;" onclick="goNoticeView(33)">
-
-                        <img src="http://crhs.aimind.co.kr/upload/2022/07/15/thumb_f693ce4762af8102cbd01dada80c08b2.jpg"
-                             alt="썸네일">
-
-                    </a>
-                </dt>
-                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(33)">메타버스 시험운영을 시작합니다.</a></dd>
-                <dd class="notice_writer"><span>admin / 2022.07.15</span></dd>
-                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(33)">청라고등학교 AI융합교육 메타버스릐 시험운영을
-                    시작합니다. 위 이미지를 클릭하시면 메타버스로 연결됩니다. </a></dd>
-            </dl>
-
-            <dl class="col">
-                <dt>
-                    <a href="javascript:;" onclick="goNoticeView(31)">
-
-                        <img src="http://crhs.aimind.co.kr/images/sample_image01.png" alt="썸네일">
-
-                    </a>
-                </dt>
-                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(31)">2022 AI융합 기초캠프 신청안내</a></dd>
-                <dd class="notice_writer"><span>admin / 2022.06.13</span></dd>
-                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(31)">2022 AI융합 기초캠프 신청안내입니다. 첨부파일을
-                    확인하세요 </a></dd>
-            </dl>
-
-            <dl class="col">
-                <dt>
-                    <a href="javascript:;" onclick="goNoticeView(30)">
-
-                        <img src="http://crhs.aimind.co.kr/upload/2022/06/13/thumb_9efb372c2dc16c2f74484940b0165377.jpg"
-                             alt="썸네일">
-
-                    </a>
-                </dt>
-                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(30)">2020 AI융합기초캠프(09.10~11.19)</a>
-                </dd>
-                <dd class="notice_writer"><span>admin / 2022.06.13</span></dd>
-                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(30)">2020 AI융합 기초캠프 </a></dd>
-            </dl>
-
-            <dl class="col">
-                <dt>
-                    <a href="javascript:;" onclick="goNoticeView(24)">
-
-                        <img src="http://crhs.aimind.co.kr/upload/2022/06/02/thumb_96e2e3ba49378f963acf75ca6bc65eda.jpg"
-                             alt="썸네일">
-
-                    </a>
-                </dt>
-                <dd class="notice_tit"><a href="javascript:;" onclick="goNoticeView(24)">강좌 서비스 준비 중</a></dd>
-                <dd class="notice_writer"><span>admin / 2022.05.26</span></dd>
-                <dd class="notice_cont"><a href="javascript:;" onclick="goNoticeView(24)">강좌 서비스 구성중입니다. </a></dd>
-            </dl>
-
-
-            <dl class="col"></dl>
+            <table id="example" class="display" style="width:100%" border="1">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <!--                            <th>작성자</th>-->
+                    <!--                            <th>작성일</th>-->
+                    <!--                            <th>조회수</th>-->
+                </tr>
+                </thead>
+                <tbody id="listArea">
+                <tr th:each="communityMain : ${communityMainList}">
+                    <td th:text="${communityMain.communityId}"></td>
+                    <td th:text="${communityMain.communityTitle}"></td>
+                </tr>
+                </tbody>
+            </table>
 
 
         </div><!-- //notice -->
