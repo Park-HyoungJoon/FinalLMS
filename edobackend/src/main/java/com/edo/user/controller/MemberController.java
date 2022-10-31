@@ -4,6 +4,9 @@ import javax.validation.Valid;
 
 import com.edo.community.dto.CommunityTestDto;
 import com.edo.community.entity.CommunityTest;
+import com.edo.community.repository.CommunityTestRepository;
+import com.edo.lecture.entity.Lecture;
+import com.edo.lecture.repository.LectureRepository;
 import com.edo.user.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +31,9 @@ public class MemberController {
 
     @Autowired
     private final MemberService memberService;
+
+    private final LectureRepository lectureRepository;
+    private final CommunityTestRepository communityTestRepository;
 
     private final PasswordEncoder passwordEncoder;  
 
@@ -114,22 +120,33 @@ public class MemberController {
     }
 
     // 마이페이지
-    @GetMapping(value="/mypage") 
-    public String myPageGet(){
-        return "mypage/mypageMain";
-    }
+    @GetMapping(value="/mypage")
 
-    @PostMapping(value = "/mypage")
-    public String myPagePost(MemberDto memberDto, Model model){
-        log.info(memberDto.toString());
+    public String myPageGet(MemberDto memberDto, Model model){
+        log.info(">>>>>>>>>>>>>>>>>>>memberDto<<<<<<<<<<<<<<<<<<<<<<<<<" + memberDto.toString());
 
         Member member = new Member() ;
 
-        CommunityTest communityTest = new CommunityTest();
-        List<MemberDto> memberDtoList = memberService.getMemberList(member);
-        model.addAttribute("memberDtoList",memberDtoList);
-        return "redirect:/member/mypage";
+        List<CommunityTest> communityMainList = communityTestRepository.findDescCommunity(4);
+        log.info(">>>>>>>>>>>>>>>>>communitylist<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
+        model.addAttribute("communityMainList",communityMainList);
+
+
+        List<Lecture> lectureList =  lectureRepository.findAllLectureTopFour(4);
+        log.info(">>>>>>>>>>>>>>>>>lectureList<<<<<<<<<<<<<<<<<<<<<<<" + lectureList.size());
+        model.addAttribute("lectureList",lectureList);
+
+
+
+        return "mypage/mypageMain";
     }
+
+//    @PostMapping(value = "/mypage")
+//    public String myPagePost(MemberDto memberDto, Model model){
+//
+//
+//        return "/mypage/mypageMain";
+//    }
 
     //로그인 실패 시 에러 메세지 나타냄 
     @GetMapping(value = "/login/error")

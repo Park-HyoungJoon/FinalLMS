@@ -25,7 +25,13 @@ h3 {
 .grid_item{
     display: inline-block;
 }
-button{
+#editButton{
     float: right;
     margin-bottom: 10px;
+}
+.sub_head{
+    margin: 0 auto;
+    padding: 40px 0 25px 0;
+    width: 1200px;
+    margin: 50px auto 45px auto;
 }
