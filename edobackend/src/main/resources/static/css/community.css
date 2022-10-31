@@ -13,46 +13,12 @@ h3 {
     width: 1200px;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-}
 .sub_head h3 {
     float:left;
 }
 .sub_head div {
     float:right;
     display:inline-block;
-}
-ul.tabs li.current {
-    border: 1px solid #838383;
-    border-bottom: 1px solid #fff;
-}
-ul.tabs li {
-    display: inline-block;
-    padding: 15px 60px;
-    border: 1px solid #dedede;
-    border-bottom: 1px solid #838383;
-    font-size: 18px;
-    color: #333;
-    cursor: pointer;
-}
-ul.tabs_in li span {
-    margin : 2px;
-    display: inline-block;
-    padding: 10px 0;
-    min-width: 155px;
-    border-radius: 3px;
-    background: #484848;
-    font-size: 17px;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-}
-li {
-    display: list-item;
-    text-align: -webkit-match-parent;
-    cursor: pointer;
 }
 .asset_tab {
     position: relative;
@@ -69,10 +35,4 @@ li {
 .board_search {
     margin: 20px 0 15px 0;
     text-align: right;
-}
-ul.tabs_in {
-    display: flex;
-    margin: 30px 0 0 0;
-    padding: 0;
-    list-style: none;
 }

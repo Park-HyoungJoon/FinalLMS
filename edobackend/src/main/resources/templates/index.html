@@ -12,18 +12,18 @@
         <hr>
 
         <div class="sub_head">
-            <h3>학교강좌 </h3>
+            <h1>전체강좌 </h1>
             <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                                       alt="더보기"></a></div>
+                                            alt="더보기"></a></div>
         </div>
         <div class="asset-top">
             <div class="container">
                 <div class="school_lecture">
                     <div class="row">
 
-                        <div class="col" th:if="${#lists.size(lectureList)} > 0"
+                        <div class="col" th:if="${#lists.size(lectureList)} > 0 and ${#lists.size(lectureList)}<=4"
                              th:each="vo : ${lectureList}"><!-- 리스트 배열의 수만큼 실행 -->
-                            <div class="card-flyer" style="width: 300px; z-index: 1;">
+                            <div class="card-flyer card-effect" style="width: 250px; margin-right: 20px; z-index: 1;">
                                 <div class="card shadow-sm">
                                     <div th:if="${vo.getLectureImage()==null}">
                                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
@@ -59,76 +59,72 @@
                                 </div>
                             </div>
                         </div>
-                        <dl class="col" th:if="${#lists.size(lectureList)} <=4"></dl>
+                    </div><!-- //school_lecture -->
+                </div>
+                <p>
+                </p>
+            </div><!-- //asset_top -->
+        </div>
 
-                </div><!-- //school_lecture -->
-            </div>
-            <p>
-            </p>
-        </div><!-- //asset_top -->
-    </div>
+        <hr>
 
-    <hr>
-
-    <div class="sub_head">
-        <h3>인기 강좌 </h3>
-        <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                        alt="더보기"></a></div>
-    </div>
-    <div class="asset_center">
-
-
-        <div class="asset_center_box">
-            <img src="http://crhs.aimind.co.kr/images/popular_lec.png" alt="">
-            <div class="portfolio row">
+        <div class="sub_head">
+            <h1>인기 강좌 </h1>
+            <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
+                                            alt="더보기"></a></div>
+        </div>
+        <div class="asset-top">
+            <div class="container">
+                <div class="school_lecture">
+                    <div class="row">
 
 
-                <dl class="col"></dl>
+                        <dl class="col card-flyer card-effect"
+                            style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
 
-                <dl class="col"></dl>
+                        <dl class="col  card-effect" style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
 
-                <dl class="col"></dl>
-
-
-            </div><!-- //portfolio -->
+                        <dl class="col  card-effect" style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
+                        <dl class="col  card-effect" style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
+                    </div>
+                </div><!-- //portfolio -->
+            </div><!-- //asset_center -->
         </div><!-- //asset_center -->
 
-    </div><!-- //asset_center -->
+
+        <hr>
+        <div class="sub_head">
+            <h1>커뮤니티 </h1>
+            <div><a href="community/main"><img src="http://crhs.aimind.co.kr/images/more.png"
+                                               alt="더보기"></a></div>
+        </div>
+        <div class="asset_bottom">
+            <div class="notice row">
+
+                <table id="example" class="display" style="width:100%" border="1">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <!--                            <th>작성자</th>-->
+                        <!--                            <th>작성일</th>-->
+                        <!--                            <th>조회수</th>-->
+                    </tr>
+                    </thead>
+                    <tbody id="listArea">
+                    <tr th:each="communityMain : ${communityMainList}">
+                        <td th:text="${communityMain.communityId}"></td>
+                        <td th:text="${communityMain.communityTitle}"></td>
+                    </tr>
+                    </tbody>
+                </table>
 
 
-    <hr>
-    <div class="sub_head">
-        <h3>공지사항 </h3>
-        <div><a href="community/main"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                        alt="더보기"></a></div>
-    </div>
-    <div class="asset_bottom">
-        <div class="notice row">
+            </div><!-- //notice -->
+            </p>
+        </div><!-- //asset_bottom -->
 
-            <table id="example" class="display" style="width:100%" border="1">
-                <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <!--                            <th>작성자</th>-->
-                    <!--                            <th>작성일</th>-->
-                    <!--                            <th>조회수</th>-->
-                </tr>
-                </thead>
-                <tbody id="listArea">
-                <tr th:each="communityMain : ${communityMainList}">
-                    <td th:text="${communityMain.communityId}"></td>
-                    <td th:text="${communityMain.communityTitle}"></td>
-                </tr>
-                </tbody>
-            </table>
-
-
-        </div><!-- //notice -->
-        </p>
-    </div><!-- //asset_bottom -->
-
-</div><!-- //container -->
+    </div><!-- //container -->
 
 </div><!-- //wrapper -->
 

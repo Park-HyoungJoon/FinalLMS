@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-.sub_head h3 {
-    float:left;
+.sub_head h1 {
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000000;
+    font-weight: bold;
+    margin-top: 20px;
 }
 .sub_head div {
     float:right; 

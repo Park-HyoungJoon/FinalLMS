@@ -58,7 +58,7 @@ public class LectureController {
     public String Lecture
             (@PathVariable(value = "part", required = false) String part,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-             @RequestParam(value = "size", required = false, defaultValue = "3") int size,
+             @RequestParam(value = "size", required = false, defaultValue = "12") int size,
              Model model) {
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));

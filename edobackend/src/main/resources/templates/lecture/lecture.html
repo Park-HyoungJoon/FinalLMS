@@ -6,27 +6,20 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/css/footer.css">
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/css/basic.css">
-    <link rel="stylesheet" type="text/css" href="/css/cardEffect.css">
-    <link rel="stylesheet" type="text/css" href="/css/btn.css">
-    <link rel="stylesheet" type="text/css" href="/css/tab.css">
 </head>
-<body class="vsc-initialized">
 <div layout:fragment="content">
     <div id="wrapper">
         <!-- //header -->
         <a href="/lecture/add" target="_self"
            title="강좌 메뉴 링크" class="button" sec:authorize = "isAuthenticated()">강좌추가</a>
-        <div class="album py-5 bg-light">
+        <div class="album py-5">
 
             <div class="cards_landscape_wrap-2">
                 <div class="container-fluid">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         <div class="col" th:if="${#lists.size(partPage.page)} > 0"
                              th:each="vo : ${partPage.page}"><!-- 리스트 배열의 수만큼 실행 -->
-                            <div class="card-flyer">
+                            <div class="card-flyer " style="min-width: 300px; max-width: 300px;">
                                 <div class="card shadow-sm">
                                     <div th:if="${vo.getLectureImage()==null}">
                                         <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
@@ -73,9 +66,9 @@
     </div>
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination" th:if="${posts.page.totalPages > 1}">
-            <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
-                <a class="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
-                   tabindex="-1">Previous</a>
+            <li class="p    age-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
+                <a class    ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
+                   tabin    dex="-1">Previous</a>
             </li>
             <th:block th:each="item : ${posts.paging.getItems()}">
                 <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
@@ -97,7 +90,6 @@
         </ul>
     </nav>
 </div>
-</body>
 <script th:inline="javascript">
     $(document).ready(function () {
         $("input[name='tabs']").click(function () {
