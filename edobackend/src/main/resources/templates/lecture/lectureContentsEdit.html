@@ -74,9 +74,9 @@
         }
     </script>
     <script th:inline="javascript">
+        var testCount = 0;
         /*<![CDATA[*/
         $(document).ready(function () {
-            let testCount = 0;
             let contentsList = $("#ContentsListSize").val();
             const fileDivs = $('div[data-name="fileDiv"]');
             if (fileDivs.length > 4) {
@@ -121,7 +121,6 @@
                     </div>
                 </div>
 `;
-                testCount++;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
                 $('#nextButton').before(fileHtml);
                 $('ul.tabs li').click(function () {
