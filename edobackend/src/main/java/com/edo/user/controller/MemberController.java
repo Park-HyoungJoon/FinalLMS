@@ -56,7 +56,7 @@ public class MemberController {
     @GetMapping(value="/join")
     public String MemberJoinGet(Model model){
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 회원가입 들어가는 중 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        return "member/memberjoin";
+        return "member/memberJoin";
     }
 
 
