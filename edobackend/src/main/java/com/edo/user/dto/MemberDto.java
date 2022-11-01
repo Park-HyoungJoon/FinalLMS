@@ -2,6 +2,7 @@ package com.edo.user.dto;
 
 import com.edo.user.entity.Member;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.NotBlank;
@@ -22,6 +23,7 @@ public class MemberDto {
 	private String memberEmail;
 
 	@NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
+	@Length(min = 8, max = 16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
 	private String memberPassword;
 
 	@NotNull(message = "핸드폰 번호는 필수 입력 값입니다.")

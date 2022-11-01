@@ -8,6 +8,7 @@ import com.edo.community.repository.CommunityTestRepository;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
 import com.edo.user.dto.MemberDto;
+import com.edo.user.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ public class MemberController {
 
     private final LectureRepository lectureRepository;
     private final CommunityTestRepository communityTestRepository;
+    private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;  
 
@@ -125,7 +127,9 @@ public class MemberController {
     public String myPageGet(MemberDto memberDto, Model model){
         log.info(">>>>>>>>>>>>>>>>>>>memberDto<<<<<<<<<<<<<<<<<<<<<<<<<" + memberDto.toString());
 
-        Member member = new Member() ;
+        List<Member> memberList = memberRepository.findAllByOrderByMemberId();
+        log.info(">>>>>>>>>>>>>>>>>memberList 가져오기 성공!<<<<<<<<<<<<<<<<<<<<<<<" + memberList.toString());
+        model.addAttribute("memberList", memberList);
 
         List<CommunityTest> communityMainList = communityTestRepository.findDescCommunity(4);
         log.info(">>>>>>>>>>>>>>>>>communitylist<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
