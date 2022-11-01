@@ -29,6 +29,7 @@
         let emailcheck = false;
         let passwordcheck = false;
         let nicknamecheck = false;
+        let passwordValicheck = false;
 
         // 이메일 중복 체크
         function emailDuplCheck(event) {
@@ -71,6 +72,25 @@
                 /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
         };
+
+        //비밀번호 유효성 검사
+        function passwordValiCheck(){
+            let memberPassword = document.getElementById('memberPassword').value;
+            //특수문자 포함 됐는지
+            let reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/
+            //같은 문자 연속 4번 들어갔는지
+            let reg2 = /(\w)\1\1\1/
+            console.log(memberPassword);
+            if(memberPassword != null){
+                if(!reg.test(memberPassword)){
+                    console.log(memberPassword)
+                    alert("되나?");
+                }
+
+            }else{
+                alert("비밀번호 입력해라 존말할때");
+            }
+        }
 
         //비밀번호 체크
         function passwordCheck() {
@@ -132,7 +152,7 @@
 
         //회원가입 버튼 제어
         function check() {
-            if (emailcheck && passwordcheck && nicknamecheck) {
+            if (emailcheck && passwordcheck && nicknamecheck && passwordValicheck) {
                 document.getElementById('userJoinButton').disabled = false;
             }
         }
@@ -155,7 +175,8 @@
             <br>
             비밀번호 <br>
             <input id="memberPassword" name="memberPassword" class="text text_s text_ss" title="비밀번호"
-                   type="password" value="">&nbsp;&nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @,
+                   type="password" value="">&nbsp;&nbsp;<a class="btn btn-secondary" href="javascript:;" onclick="passwordValiCheck()">비밀번호 유효성 검사</a>
+                &nbsp;<p class="ex">* 비밀번호는 8~ 15자로 영문, 숫자, 특수문자(!, @,
             #,
             $, %, ^, &amp;, *, (, ), _, +)를 <br> 포함해야 합니다. 숫자의 경우 연속으로 5자를 초과하여 사용할 수 없습니다.</p> <br>
             비밀번호 확인<br>

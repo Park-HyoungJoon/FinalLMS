@@ -104,3 +104,12 @@ a {
     justify-content: space-evenly;
     color: #333;
 }
+
+@font-face {
+    font-family: 'NanumSquare';
+    font-weight: 300;
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.eot);
+    src: url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.eot?#iefix) format('embedded-opentype'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.woff) format('woff'),
+    url(https://ettc.ecn.cdn.infralab.net/html/fonts/NanumSquareL.ttf) format('truetype');
+}

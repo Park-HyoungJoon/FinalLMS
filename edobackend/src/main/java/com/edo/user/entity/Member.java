@@ -29,7 +29,7 @@ public class Member extends BaseTimeEntity {
 	private String memberEmail;
 
     //비밀번호
-    @Column(length = 255)
+    @Column(length = 255 )
     private String memberPassword;
 
     //닉네임(Unique)`

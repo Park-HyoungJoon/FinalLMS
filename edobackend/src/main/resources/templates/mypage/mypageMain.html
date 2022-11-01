@@ -36,17 +36,18 @@
     <div id="wrapper">
 
         <div id="container">
-            <div class="myInfo">
+            <div class="myInfo"  th:each="ml : ${memberList}">
                 <h3><img th:src="@{/img/}+'EDoLOGO_small.png'" width="30px" height="30px"><b>마이페이지</b></h3>
-                <img class="user_img" th:src="@{/img/}+'login/people.png'"/>
+                <img class="user_img" id="memberName" th:src="@{/img/}+'login/people.png'"/>
                 <h4>이름</h4>
-                <input type="text">
+                <input type="text" id="memberNickname" th:value="${ml.memberName}" disabled>
                 <h4>닉네임 </h4>
-                <input type="text"> <button class="btn btn-primary">닉네임 변경하기</button>
+                <input type="text"  id="memberPassword" th:value="${ml.memberNickname}"> <button class="btn btn-primary">닉네임 변경하기</button>
                 <h4>비밀번호</h4>
-                <input type="text"> <button class="btn btn-primary">비밀번호 변경하기</button>
+<!--                여기는 update만 넣을 수 있도록 -->
+                <input type="password"> <button class="btn btn-primary">비밀번호 변경하기</button>
                 <h4>전화번호</h4>
-                <input type="text">
+                <input type="text" th:value="${ml.memberPhone}">
                 <button id="editButton" class="btn btn-primary">정보 수정하기</button>
             </div>
             <br>
