@@ -434,4 +434,21 @@ public class LectureController {
         model.addAttribute("lectureDivide", lectureDivide);
         return "/lecture/lectureContentsEdit";
     }
+
+    @GetMapping(value = "/lecture/lectureRemove/{id}/{part}/{pageNumber}")
+    public String deleteLecture
+            (       @PathVariable(value = "id",required = false) Long id,
+                    @PathVariable(value = "part", required = false) String part,
+             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+             @RequestParam(value = "size", required = false, defaultValue = "12") int size,
+             Model model) {
+        lectureRepository.deleteLectureById(id);
+        List<Lecture> lectureList = lectureRepository.findAll();
+        model.addAttribute("posts", lectureService.getPage(pageNumber, size));
+        model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
+        model.addAttribute("list", lectureList);
+        model.addAttribute("part", part);
+        return "lecture/lecture";
+    }
+
 }

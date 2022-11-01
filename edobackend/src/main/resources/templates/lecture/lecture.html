@@ -53,6 +53,10 @@
                                                    th:href="@{/lecture/lectureEdit/{id}(id=${vo.getId()})}" sec:authorize = "isAuthenticated()">
                                                     Edit
                                                 </a>
+                                                <a class="btn btn-sm btn-outline-danger"
+                                                   th:href="@{/lecture/lectureRemove/{id}/{part}/{pageNumber}(id=${vo.getId()},part=${part},pageNumber=${posts.paging.pageNumber})}" sec:authorize = "isAuthenticated()">
+                                                    Remove
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

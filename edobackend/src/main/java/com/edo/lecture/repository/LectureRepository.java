@@ -5,13 +5,18 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture,Long> {
+    @Modifying
+    @Transactional
+    void deleteLectureById(Long id);
     Page<Lecture> findAll(Pageable request);
     Page<Lecture> findAllByLecturePart(Pageable request,String part);
     Lecture findByLectureTitle(String LectureTitle);
