@@ -74,9 +74,9 @@
         }
     </script>
     <script th:inline="javascript">
-        let testCount = 0;
         /*<![CDATA[*/
         $(document).ready(function () {
+            let testCount = 0;
             let contentsList = $("#ContentsListSize").val();
             const fileDivs = $('div[data-name="fileDiv"]');
             if (fileDivs.length > 4) {
@@ -121,20 +121,26 @@
                     </div>
                 </div>
 `;
+                testCount++;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
                 $('#nextButton').before(fileHtml);
                 $('ul.tabs li').click(function () {
-                    var tab_id = $(this).attr('data-tab');
-                    $("#tabBar-" + (i)).removeClass('current');
-                    $("#tabBar-" + (i + 5)).removeClass('current');
-                    $('#tab-' + (i)).removeClass('current');
-                    $('#tab-' + (i + 5)).removeClass('current');
+                    console.log('hi');
+                    let tab_id = $(this).attr('data-tab');
+
+                    let tabtest = parseInt(tab_id.substr(4, 5));
+                    console.log(parseInt(tabtest) + 5);
+
+                    $("#tabBar-" + (tabtest)).removeClass('current');
+                    $("#tabBar-" + (tabtest + 5)).removeClass('current');
+                    $("#tabBar-" + (tabtest - 5)).removeClass('current');
+                    $('#tab-' + (tabtest)).removeClass('current');
+                    $('#tab-' + (tabtest + 5)).removeClass('current');
+                    $('#tab-' + (tabtest - 5)).removeClass('current');
 
                     $(this).addClass('current');
                     $("#" + tab_id).addClass('current');
                 })
-
-                testCount++;
                 $('#ContentsSeq').attr("value",testCount);
             }
         })
@@ -175,10 +181,12 @@
 </div>
 </div>
 `;
+        testCount++;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
         $('#nextButton').before(fileHtml);
         $('ul.tabs li').click(function () {
-            var tab_id = $(this).attr('data-tab');
+            console.log('hi');
+            let tab_id = $(this).attr('data-tab');
 
             let tabtest = parseInt(tab_id.substr(4, 5));
             console.log(parseInt(tabtest) + 5);
@@ -193,7 +201,6 @@
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
         })
-        testCount++;
 
     }
 

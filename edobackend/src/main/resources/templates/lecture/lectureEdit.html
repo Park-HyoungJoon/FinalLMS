@@ -1,6 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/addLayout}">
 <head>
   <header>
     <title>AiMind에 오신 것을 환영합니다.</title>
@@ -9,6 +9,11 @@
 </head>
 <body>
 <div layout:fragment="content">
+  <style>
+    .form-label{
+      font-weight: 1000;
+    }
+  </style>
   <form th:action="@{/lecture/add}" id="uploadLecture" name="uploadLecture"
         method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
     <input type="hidden" name="thisId" id="thisId" th:value="${lecture.getId()}"/>
@@ -19,9 +24,9 @@
       <!--th:placeholder="${user[0].Nick}" required>-->
       <div class="invalid-feedback">Valid first name is required.</div>
     </div>
-
+      <br/>
     <div style="display: block">
-      <label class="form-label">분야</label>
+      <p class="form-label">분야</p>
       <select class="form-select" id="part" name="part" th:value="${lecture.getLecturePart()}">
         <option th:selected="${lecture.getLecturePart()}=='파이썬'">파이썬</option>
         <option th:selected="${lecture.getLecturePart()}=='인공지능'">인공지능</option>
@@ -29,36 +34,42 @@
       </select>
     </div>
 
+    <br/>
 
     <div class="col-sm-6">
-      <label class="form-label">접수기간</label>
+      <p class="form-label">접수기간</p>
       <input class="dateSelector"
              id="startDateAndfinalDate" name="startDateAndfinalDate"
              th:value="${lecture.getStartDate()}+' to '+${lecture.getFinalDate()}" style="width: 350px;"/>
 
-      <div class="form-check">
         <input type="checkbox" id="subyn" name="subyn"
                class="form-check-input" >
         <label for="subyn" class="form-check-label">상시</label>
-      </div>
     </div>
 
+    <br/>
 
     <div class="col-sm-6">
-      <label class="form-label">운영기간</label>
+      <p class="form-label">운영기간</p>
       <input class="dateSelector2"
              id="manageStartDateAndmanageFinalDate" name="manageStartDateAndmanageFinalDate"
              th:value="${lecture.getManageStartDate()}+' to '+${lecture.getManageFinalDate()}" style="width: 350px;"/>
-      <div class="form-check">
         <input type="checkbox" id="manageyn" name="manageyn"
                class="form-check-input">
         <label for="manageyn" class="form-check-label">상시</label>
-      </div>
-    </div>
+     </div>
+
+
+    <br/>
+
+
     <div style="display: block">
-      <label>강의시간</label>
+      <p class="form-label">강의시간</p>
       <input type="text" name="lectureTime" id="lectureTime" th:placeholder="${lecture.getLectureTime() }">
     </div>
+
+
+    <br/>
     <div style="display:block;">
       <img id="preImage"/>
       <img th:src="@{/img/} + ${lecture.getLectureImage()}" alt="image_title">
@@ -66,19 +77,34 @@
       <input type="hidden" id="lectureImgStr" name="lectureImgStr" th:value="${lecture.getLectureImage()}">
     </div>
 
+    <br/>
+
+
     <div style="display:block;">
-      <label>개요</label>
+      <p class="form-label">부제목</p>
       <input type='text' id="lectureDetail" name="lectureDetail" th:value="${lecture.getLectureDetail()}"/>
     </div>
 
+
+    <br/>
+
+
     <div style="display:block;">
-      <label>강사이름</label>
+      <p class="form-label">강사이름</p>
       <input type='text' id="teacherName" name="teacherName" placeholder="강사이름"/>
     </div>
+
+    <br/>
+
+
     <div class="col-12">
-      <label class="form-label">강사소개 </label>
+      <p class="form-label">강사소개 </p>
       <textarea class="form-control" id="teacherInfo" name="teacherInfo" rows="3"></textarea>
     </div>
+
+
+    <br/>
+
 
     <div style="display:block;">
       <img id="teacherload"/>
@@ -86,21 +112,30 @@
       <input type='file' id="realTeacherImg" name="realTeacherImg"/>
     </div>
 
+
+    <br/>
+
+
     <div class="form-group">
-      <label class="form-label mt-4">강의 설명</label>
+      <p class="form-label mt-4">강의 설명</p>
       <div id="lectureInfo">
         <dd th:utext="${lecture.getLectureInfo()}"></dd>
       </div>
     </div>
+
+
+    <br/>
+
+
     <input type="hidden" id="lectureInfoHidden" name="lectureInfoHidden">
     <div style="display: block">
-      <label>수강승인</label>
+      <p class="form-label">수강승인</p>
       <input type="radio" name="approval" id="automaticApproval"> 자동승인
       <input type="radio" name="approval" id="managerApproval" value="managerApproval"> 관리자 승인
-
     </div>
+    <br/>
 
-    <button class="w-100 btn btn-primary btn-lg" type="submit">변경하기</button>
+    <button class="btn btn-primary btn-lg" type="submit">변경하기</button>
 
   </form>
   <!-- JavaScript Bundle with Popper -->
