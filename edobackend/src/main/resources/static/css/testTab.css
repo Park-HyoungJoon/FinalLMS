@@ -13,13 +13,13 @@ ul.tabs li{
 }
 
 ul.tabs li.current{
-    background: #ededed;
+    background: ghostwhite;
     color: #222;
 }
 
 .tab-content{
     display: none;
-    background: #ededed;
+    background: ghostwhite;
     padding: 15px;
 }
 

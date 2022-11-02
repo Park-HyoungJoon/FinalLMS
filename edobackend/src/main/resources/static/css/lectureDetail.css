@@ -50,3 +50,8 @@
 .side-box a {
     display: inline;
 }
+.border-box {
+    opacity: 10;
+    margin-top : 20px;
+    height: 300px;
+}

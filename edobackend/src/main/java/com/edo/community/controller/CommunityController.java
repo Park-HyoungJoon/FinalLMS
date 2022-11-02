@@ -92,5 +92,10 @@ public class CommunityController {
         return null;
     }
 
+    //쇼츠 조회
+    @GetMapping(value = "/shorts")
+    public String communityShorts(){
+        return "community/communityShorts";
+    }
 
 }
