@@ -141,12 +141,14 @@
                     $("#" + tab_id).addClass('current');
                 })
                 $('#ContentsSeq').attr("value",testCount);
+                console.log(testCount);
             }
         })
         /*]]>*/
     </script>
     <script th:inline="javascript"> /*[- 파일 인덱스 처리용 전역 변수 -]*/
     function addFile() {
+        testCount++;
 
         const fileDivs = $('div[data-name="fileDiv"]');
         if (fileDivs.length > 4) {
@@ -180,11 +182,9 @@
 </div>
 </div>
 `;
-        testCount++;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
         $('#nextButton').before(fileHtml);
         $('ul.tabs li').click(function () {
-            console.log('hi');
             let tab_id = $(this).attr('data-tab');
 
             let tabtest = parseInt(tab_id.substr(4, 5));
@@ -200,6 +200,7 @@
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
         })
+        console.log(testCount);
 
     }
 

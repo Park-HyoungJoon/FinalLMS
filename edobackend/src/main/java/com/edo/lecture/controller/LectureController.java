@@ -164,7 +164,7 @@ public class LectureController {
             Lecture lecture = lectureService.lectureAdd(lectureAddDto);
             model.addAttribute("lectureId", lecture.getId());
             if (lectureAddDto.getThisId() == null) {
-                return "/lecture/lectureContentsAdd";
+                return "/lecture/lectureContentsEdit";
             } else {
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
                 List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture1.getId());
@@ -279,7 +279,7 @@ public class LectureController {
         }
         model.addAttribute("getSize", lectureContents3.size());
         model.addAttribute("getId", getId);
-        return "/lecture/lectureContentsAdd";
+        return "/lecture/lectureContentsEdit";
     }
 
 
@@ -302,15 +302,13 @@ public class LectureController {
     public String ContentsFileCreate(FileVO fileVO)
             throws IOException {
         String resourcePath = fileRoot;
-        Long DivideId = Long.parseLong(fileVO.getFirstDivideId());
-        LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(DivideId);
-        log.info("divideId에 대한 정보입니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+DivideId);
-        try{
-        List<LectureContents> lectureContentsList2= lectureContentsService.getLectureContentsList(lectureDivide);
+       try{
+           Long DivideId = Long.parseLong(fileVO.getFirstDivideId());
+           LectureDivide lectureDivide = lectureDivideService.getLectureDivideById(DivideId);
+           List<LectureContents> lectureContentsList2= lectureContentsService.getLectureContentsList(lectureDivide);
         for (LectureContents lectureContents : lectureContentsList2){
             if(lectureContentsService.getLectureContentsFileByLectureContents(lectureContents).getId() == null)continue;
             LectureContentsFile lectureContentsFile = lectureContentsService.getLectureContentsFileByLectureContents(lectureContents);
-            log.info("#@###################################################"+lectureContentsFile.getFileName());
             File file = new File(fileRoot,lectureContentsFile.getFileName());
             if(file.exists()){
                 file.delete();

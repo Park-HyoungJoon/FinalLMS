@@ -79,8 +79,15 @@
                                         <a>강의 관리</a>
                                     </div>
                                 </div>
-                                <div class="row" sec:authorize = "isAuthenticated()">
-                                    <a>강의 삭제</a>
+                                <div class="row">
+                                    <div class="col">
+                                        <a th:href="'/lecture/All'">목록</a>
+                                    </div>
+                                    <div class="col" sec:authorize = "isAuthenticated()">
+                                        <a th:href="'/lecture/contents/'+${lecture.getId()}+'/'+${lectureDivide.get(0).getId()}">강의
+                                            삭제</a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
