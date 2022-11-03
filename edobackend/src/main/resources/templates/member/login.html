@@ -26,8 +26,9 @@
                     <div class="loginclass">
                     <h4 class="log_tt">
                         <div class="login_icon">
-                            <img th:src="@{/img/}+'login/login.png'" alt="자물쇠사진" width="80px" height="70px">
-                        </div>
+                       <!--     <img th:src="@{/img/}+'login/login.png'" alt="자물쇠사진" width="80px" height="70px">
+                       --><img src="/image/login.png" alt="자물쇠사진" width="80px" height="70px">
+                           </div>
 
                         <div class="login_title">
                             <p>로그인</p>
@@ -37,7 +38,8 @@
                     <div class="log_area">
                         <form method="post" action="/member/login">
                         <div class="log_in">
-                            <img th:src="@{/img/}+'login/mail.png'" alt="메일 이미지" width="30px" height="30px"/>
+                            <!--<img th:src="@{/img/}+'login/mail.png'" alt="메일 이미지" width="30px" height="30px"/>-->
+                            <img src="/image/mail.png" alt="메일 이미지" width="30px" height="30px"/>
 
                             <div class="iparea ip_id">
 
@@ -46,7 +48,8 @@
                                        required="Y" >
                             </div>
 
-                            <img th:src="@{/img/}+'login/people.png'" alt="메일 이미지" width="30px" height="30px"/>
+                            <!--<img th:src="@{/img/}+'login/people.png'" alt="메일 이미지" width="30px" height="30px"/>-->
+                            <img src="/image/people.png" alt="메일 이미지" width="30px" height="30px"/>
                             <div class="iparea ip_pass">
                                 <input type="password" id="usersPassword" name="usersPassword" tabindex="2"
                                        onkeypress="javascript:enPress();" placeholder="비밀번호를 입력해주세요"

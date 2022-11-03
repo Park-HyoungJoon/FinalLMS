@@ -18,11 +18,17 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 @Slf4j
 @PropertySource("classpath:/application.properties")
 public class WebMvcConfig implements WebMvcConfigurer {
+    private String connectPath = "/image/**";
+    private String resourcePath = "file:///home/phj/image/";
+
+
     @Value("${part4.upload.path}")
     private String imgUploadPath;
 
     @Value("${part5.upload.path}")
     private String outImgPath;
+    //윈도우
+    /*
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("resources/**");
@@ -30,6 +36,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:///"+System.getProperty("user.dir") + imgUploadPath);
         registry.addResourceHandler("/file/**")
                 .addResourceLocations("file:///" + outImgPath);
-   }
+   }*/
+
+    //리눅스
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry){
+        registry.addResourceHandler(connectPath)
+                .addResourceLocations(resourcePath);
+    }
+
 
 }

@@ -29,6 +29,10 @@ public class LectureService {
 
 
 
+    public String getLectureImgeById(Long lectureId){
+        String lectureImg = lectureRepository.findLectureImageById(lectureId);
+        return lectureImg;
+    }
     //LectureId를 이용하여 Lecture객체 얻기
     public Lecture getLectureById(Long lectureId){
         log.info("@!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+lectureId);
