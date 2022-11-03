@@ -94,7 +94,10 @@ public class CommunityController {
 
     //쇼츠 조회
     @GetMapping(value = "/shorts")
-    public String communityShorts(){
+    public String communityShorts(Model model){
+        int heart = 0;
+        model.addAttribute("heart",heart);
+
         return "community/communityShorts";
     }
 

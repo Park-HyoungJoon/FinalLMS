@@ -149,7 +149,7 @@
                                     </div>
                                     <!--${vo.getLectureImage()}-->
                                     <div th:unless="${vo.getLectureImage()==null}" style="position: relative">
-                                        <img th:src="@{/img/} + ${vo.getLectureImage()}"
+                                        <img th:src="'/image/'+ ${vo.getLectureImage()}"
                                              style="width: 100%;height: 225px;" class="card-img-top">
                                         <span
                                                 style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
@@ -158,6 +158,7 @@
                                     <div class="card-body"
                                          style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
                                         <h5 th:text="${vo.getLectureTitle()}"></h5>
+                                        <p>김무진</p>
                                         <p class="card-text" th:text="${vo.getLectureDetail()}"></p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
@@ -165,6 +166,9 @@
                                                    th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}">
                                                     View
                                                 </a>
+                                            </div>
+                                            <div>
+                                                <a></a>
                                             </div>
                                         </div>
                                     </div>

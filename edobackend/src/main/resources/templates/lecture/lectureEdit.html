@@ -72,7 +72,7 @@
     <br/>
     <div style="display:block;">
       <img id="preImage"/>
-      <img th:src="@{/img/} + ${lecture.getLectureImage()}" alt="image_title">
+      <img th:src="'/image/'+ ${lecture.getLectureImage()}" alt="image_title">
       <input type='file' id="realLectureImg" name="realLectureImg"/>
       <input type="hidden" id="lectureImgStr" name="lectureImgStr" th:value="${lecture.getLectureImage()}">
     </div>

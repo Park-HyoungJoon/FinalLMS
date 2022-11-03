@@ -1,5 +1,6 @@
 package com.edo.lecture.service;
 
+import com.edo.lecture.dto.LectureDivideAndContentsDto;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.entity.LectureDivide;
 import com.edo.lecture.repository.LectureDivideRepository;
@@ -71,5 +72,12 @@ public class LectureDivideService {
     public List<LectureDivide> getListDivide(Lecture lecture){
         List<LectureDivide> lectureDivideList = lectureDivideRepository.getLectureDivideByLecture(lecture);
         return lectureDivideList;
+    }
+
+    public LectureDivide insertFirstDivide(Long id) {
+        LectureDivideAndContentsDto lectureDivideAndContentsDto = new LectureDivideAndContentsDto();
+        lectureDivideAndContentsDto.setLectureId(id);
+        LectureDivide lectureDivide = lectureDivideAndContentsDto.dtoToLectureDivide(lectureDivideAndContentsDto);
+        return lectureDivide;
     }
 }

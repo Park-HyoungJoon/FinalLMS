@@ -17,6 +17,8 @@ public interface LectureRepository extends JpaRepository<Lecture,Long> {
     @Modifying
     @Transactional
     void deleteLectureById(Long id);
+    @Query(value = "select lecture_image from lecture where lecture_id=?1", nativeQuery = true)
+    String findLectureImageById(Long id);
     Page<Lecture> findAll(Pageable request);
     Page<Lecture> findAllByLecturePart(Pageable request,String part);
     Lecture findByLectureTitle(String LectureTitle);

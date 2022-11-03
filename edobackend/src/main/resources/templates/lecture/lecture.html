@@ -33,8 +33,11 @@
                                     </div>
                                     <!--${vo.getLectureImage()}-->
                                     <div th:unless="${vo.getLectureImage()==null}" style="position: relative">
+                                        <!--
                                         <img th:src="@{/img/} + ${vo.getLectureImage()}"
-                                             style="width: 100%;height: 225px;" class="card-img-top">
+                                             style="width: 100%;height: 225px;" class="card-img-top">--><!--윈도우-->
+                                        <img th:src="'/image/'+ ${vo.getLectureImage()}"
+                                             style="width: 100%;height: 225px;" class="card-img-top"><!--리눅스-->
                                         <span
                                                 style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
                                                 th:text="${vo.getLecturePart()}"></span>
