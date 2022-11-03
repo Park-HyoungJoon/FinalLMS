@@ -1,18 +1,23 @@
 package com.edo.community.controller;
 
 
-import com.edo.community.dto.CommunityTestDto;
+import com.edo.community.dto.CommunityDto;
 import com.edo.community.entity.Community;
 import com.edo.community.entity.CommunityTest;
+import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.community.service.CommunityService;
+import com.edo.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 //웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
@@ -27,6 +32,9 @@ public class CommunityController {
 
     private final CommunityService communityService;
     private final CommunityTestRepository communityTestRepository;
+    private final CommunityRepository communityRepository;
+
+    private final MemberService memberService;
 
 
 
@@ -36,15 +44,23 @@ public class CommunityController {
     }
 
     @GetMapping(value = "/main")
-    public String CommunityMain(CommunityTestDto communityTestDto, Model model){
-        log.info(communityTestDto.toString());
+    public String CommunityMain(CommunityDto communityDto, Model model, Principal principal){
+        log.info(communityDto.toString());
+
+        if(principal == null){
+            model.addAttribute("message", "사용자 없음");
+        }else{
+            model.addAttribute("message", principal.getName());
+            log.info(">>>>>>>>>>>>>> 사용자를 읽어오고 있어요 <<<<<<<<<<<<<<<<<<< " + principal.getName().toString());
+
+        }
 
         CommunityTest communityTest = new CommunityTest();
-//        communityTest.setCommunityTitle(communityTestDto.getCommunityTitle());
-//        communityTest.setCommunityContent(communityTestDto.getCommunityContents());
+//        communityTest.setCommunityTitle(communityDto.getCommunityTitle());
+//        communityTest.setCommunityContent(communityDto.getCommunityContents());
 //        log.info(communityTest.toString());
 
-        List<CommunityTestDto> communityMainList = communityService.getCommunityList(communityTest);
+        List<CommunityDto> communityMainList = communityService.getCommunityList(communityTest);
         model.addAttribute("communityMainList",communityMainList);
 
         return "community/communityMain";
@@ -53,23 +69,21 @@ public class CommunityController {
 
     @GetMapping(value = "/write")
     public String CommunityWrite(Model model){
-        model.addAttribute("communityTestDto", new CommunityTestDto());
+        model.addAttribute("communityDto", new CommunityDto());
         return "community/communityWrite";
     }
 
 //    값 전달 테스트
     @PostMapping(value = "/write")
-    public String CommunityWrite(@Valid CommunityTestDto communityTestDto, Model model){
-        log.info(communityTestDto.toString());
+    public String CommunityWrite(@Valid CommunityDto communityDto, Model model){
+        log.info(communityDto.toString());
 
-        CommunityTest communityTest = new CommunityTest();
-        communityTest.setCommunityTitle(communityTestDto.getCommunityTitle());
-        communityTest.setCommunityContent(communityTestDto.getCommunityContents());
-        log.info(communityTest.toString());
-        communityTestRepository.save(communityTest);
+        Community community = communityService.createRealContents(communityDto);
+        log.info(community.toString());
+        communityRepository.save(community);
 
-        List<CommunityTestDto> communityMainList = communityService.getCommunityList(communityTest);
-        model.addAttribute("communityMainList",communityMainList);
+//        List<CommunityDto> communityMainList = communityService.getCommunityList(community);
+//        model.addAttribute("communityMainList",communityMainList);
 
 
 //          성공 시 메인 페이지로 돌아감
