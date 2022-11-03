@@ -1,6 +1,5 @@
 package com.edo.main;
 
-import com.edo.community.dto.CommunityTestDto;
 import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.lecture.entity.Lecture;

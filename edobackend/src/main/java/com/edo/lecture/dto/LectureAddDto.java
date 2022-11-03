@@ -1,7 +1,5 @@
 package com.edo.lecture.dto;
 
-import com.edo.community.dto.CommunityTestDto;
-import com.edo.community.entity.CommunityTest;
 import com.edo.lecture.entity.Lecture;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -9,7 +7,6 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

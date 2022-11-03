@@ -2,12 +2,16 @@ package com.edo.user.entity;
 
 import javax.persistence.*;
 
+import com.edo.community.entity.Community;
 import com.edo.user.constant.Role;
 import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
 import com.edo.user.dto.MemberDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,12 +22,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Builder
 @ToString
 //회원
+
 public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long memberId;
+
+//    member id를 외래키로 잡게 하기 위함
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Community> communityList = new ArrayList<>();
 
     @Column( length = 255)
 	private String memberEmail;
@@ -35,6 +44,7 @@ public class Member extends BaseTimeEntity {
     //닉네임(Unique)`
     @Column(unique = true , length = 10)
 	private String memberNickname;
+
 
     //이름
     @Column(length = 60)

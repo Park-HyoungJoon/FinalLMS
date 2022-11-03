@@ -2,9 +2,10 @@ package com.edo.user.service;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.edo.community.dto.CommunityTestDto;
-import com.edo.community.entity.CommunityTest;
+import com.edo.community.dto.CommunityDto;
+import com.edo.community.entity.Community;
 import com.edo.user.dto.MemberDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -98,5 +99,12 @@ public class MemberService implements UserDetailsService
 		log.info(memberDtos.toString());
 		return memberDtos;
 	}
+
+//	커뮤니티로 닉네임 보내기
+	public String communityNickname(String memberEmail) {
+		Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
+		return member.get().getMemberNickname();
+	}
+
 
 }

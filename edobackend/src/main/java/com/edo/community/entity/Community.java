@@ -1,5 +1,6 @@
 package com.edo.community.entity;
 
+import com.edo.community.constant.Section;
 import com.edo.user.entity.Member;
 import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
@@ -20,31 +21,29 @@ public class Community extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "community_id")
     private int communityId;
-
-// 외래키로 users의 id를 받아온다
+    
+//    member의 id를 알아서 외래키로 잡아준다.
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="member_id" )
-    private Member id;
-
-//    외래키로 users의 nickname을 받아온다.
-//    referencedColumnName = PK 가 아닌 필드를 참조할 때 사용하는 옵션
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "nickname", referencedColumnName = "nickname")
-//    private Member nickname;
+    @JoinColumn(name = "member_id")
+//   member의 mappedBy가 member니까 member로 해야 한다.
+    private Member member;
 
 //    제목
     @Column
-    private String title;
+    private String communityTitle;
 
 //    내용
     @Column
-    private String content;
+    private String communityContents;
 
 //    조회수
-    @Column(name = "community_hits")
-    private int hits;
+    @Column
+    private int communityHits;
 
-////    삭제 여부 버튼
-//    @Column(name = "community_deleteYn", length = 1)
-//    private char deleteYn ='N';
+//    구분
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Section communitySection;
+
+
 }
