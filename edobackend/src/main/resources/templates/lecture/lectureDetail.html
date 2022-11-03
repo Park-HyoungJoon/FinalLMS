@@ -39,6 +39,7 @@
                         </div>
                         <div class="row">
                         <div th:if="${not #strings.isEmpty(lectureDivide)}">
+                            <p style="font-weight: 2000; font-size: 20px;">목차</p>
                             <div th:each="vo,status : ${lectureDivide}">
                                 <div class="accordion" id="accordionPanelsStayOpenExample">
                                     <div class="accordion-item">
@@ -52,11 +53,10 @@
                                         <div th:id="'panelsStayOpen-collapse'+${status.count}" class="accordion-collapse collapse"
                                              th:aria-labelledby="'panelsStayOpen-heading'+${status.count}">
                                             <div class="accordion-body">
-                                                <h1>강의 소개</h1>
-                                                <h2>강의 제목</h2>
-                                                <h3 th:text="${vo.getLectureDivideTitle()}"></h3>
+                                                <p style="font-weight: 1000;">강의 제목</p>
+                                                <p th:text="${vo.getLectureDivideTitle()}"></p>
                                                 <br>
-                                                <h2>강의 설명</h2>
+                                                <p style="font-weight: 1000;">강의 설명</p>
                                                 <dd th:utext="${vo.getLectureDivideInfo()}"></dd>
                                             </div>
                                         </div>

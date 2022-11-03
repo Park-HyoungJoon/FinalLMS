@@ -28,9 +28,9 @@
     <div style="display: block">
       <p class="form-label">분야</p>
       <select class="form-select" id="part" name="part" th:value="${lecture.getLecturePart()}">
-        <option th:selected="${lecture.getLecturePart()}=='파이썬'">파이썬</option>
-        <option th:selected="${lecture.getLecturePart()}=='인공지능'">인공지능</option>
-        <option th:selected="${lecture.getLecturePart()}=='데이터분석'">데이터분석</option>
+        <option th:selected="${lecture.getLecturePart()}=='파이썬'" value="python">파이썬</option>
+        <option th:selected="${lecture.getLecturePart()}=='인공지능'" value="ai">인공지능</option>
+        <option th:selected="${lecture.getLecturePart()}=='데이터분석'" value="data">데이터분석</option>
       </select>
     </div>
 
