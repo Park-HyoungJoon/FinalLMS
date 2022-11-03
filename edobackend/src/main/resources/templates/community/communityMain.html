@@ -21,13 +21,14 @@
     <div id="container">
 <!--        <div id="asset1" class="tab_content current">-->
 
-
-        <h3><img th:src="@{/img/}+'EDoLOGO_small.png'" width="30px" height="30px"><b>커뮤니티</b></h3>
+<!--
+        <h3><img th:src="@{/img/}+'EDoLOGO_small.png'" width="30px" height="30px"><b>커뮤니티</b></h3>-->
+        <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b></h3>
                     <div class="row ">
                         <div class="col-sm-12">
                             <div align="right">
                                 <button type="button" class="btn btn-secondary" id="writeBtn"
-                                        onclick="window.location.href ='/community/write'" sec:authorize = "isAuthenticated()">글쓰기
+                                        onclick="window.location.href ='community/write'" sec:authorize = "isAuthenticated()">글쓰기
                                 </button>
                             </div>
                             <button onclick="testEvent()">이벤트 테스트</button>
@@ -74,7 +75,7 @@
         //     }
         //
         // });
-        location.href = "/community/write/1";
+        location.href = "community/write/1";
     }
 
 

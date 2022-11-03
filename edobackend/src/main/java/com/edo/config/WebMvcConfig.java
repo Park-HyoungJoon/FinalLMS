@@ -18,15 +18,23 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 @Slf4j
 @PropertySource("classpath:/application.properties")
 public class WebMvcConfig implements WebMvcConfigurer {
-    private String connectPath = "/image/**";
-    private String resourcePath = "file:///home/phj/image/";
 
+    @Value("${linux.img.path}")
+    private String connectPath;
+    @Value("${linux.img.realPath}")
+    private String resourcePath;
+
+    @Value("${linux.video.path}")
+    private String connectPath1;
+    @Value("${linux.video.realPath}")
+    private String resourcePath1;
 
     @Value("${part4.upload.path}")
     private String imgUploadPath;
 
     @Value("${part5.upload.path}")
     private String outImgPath;
+
     //윈도우
     /*
     @Override
@@ -41,8 +49,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
     //리눅스
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler(connectPath)
-                .addResourceLocations(resourcePath);
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if(os.contains("win")){
+            registry.addResourceHandler("resources/**");
+            registry.addResourceHandler("/image/**")
+                    .addResourceLocations("file:///"+System.getProperty("user.dir") + imgUploadPath);
+            registry.addResourceHandler("/video/**")
+                    .addResourceLocations("file:///" + outImgPath);
+        }else{
+            registry.addResourceHandler(connectPath)
+                    .addResourceLocations(resourcePath);
+
+            registry.addResourceHandler(connectPath1)
+                    .addResourceLocations(resourcePath1);
+        }
     }
 
 
