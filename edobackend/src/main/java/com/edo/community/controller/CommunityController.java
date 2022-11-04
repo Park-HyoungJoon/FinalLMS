@@ -52,10 +52,11 @@ public class CommunityController {
         }else{
             model.addAttribute("message", principal.getName());
             log.info(">>>>>>>>>>>>>> 사용자를 읽어오고 있어요 <<<<<<<<<<<<<<<<<<< " + principal.getName().toString());
+            log.info(">>>>>>>>>>>>>> 이것도 가능하려나 " + memberService.communityNickname(principal.getName()) +" <<<<<<<<<<<<<<<<<<< ");
 
-        }
+    }
 
-        CommunityTest communityTest = new CommunityTest();
+    CommunityTest communityTest = new CommunityTest();
 //        communityTest.setCommunityTitle(communityDto.getCommunityTitle());
 //        communityTest.setCommunityContent(communityDto.getCommunityContents());
 //        log.info(communityTest.toString());
