@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="header" th:fragment="header" >
+  <nav class="navbar navbar-expand-lg navbar-light " >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img class="school_logo"
+             src="http://crhs.aimind.co.kr/upload/2022/08/05/4d152fb6710cff0cadd3cf66a8c1b300.png"
+             alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+              aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a href="/" target="_self"
+               title="홈" class="button">
+              <img
+                      src="/image/EDoLOGO_small.png"
+                      alt="상단로고"
+              />
+
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/lecture/{part}(part='All')}" target="_self"
+               title="강좌 메뉴 링크" class="button">강좌</a>
+          </li>
+          <li class="nav-item">
+            <a href="/community/main" target="_self"
+               title="공지/소식 메뉴 링크" class="button">커뮤니티</a>
+          </li>
+          <li class="nav-item">
+            <!--                        ZEP으로 변경 -> 구성 중 -->
+            <a href="https://zep.us/play/2YEXdq" class="button">메타버스</a>
+          </li>
+          <li class="nav-item">
+            <!--                       마이페이지 임시로 연결  -->
+            <a href="/member/mypage" class="button" sec:authorize = "isAuthenticated()">마이페이지</a>
+          </li>
+        </ul>
+        <ul class="dropdown-menu"  sec:authorize = "isAuthenticated()">
+          <li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
+          <li><a class="dropdown-item" href="/member/mypage">마이페이지</a></li>
+        </ul>
+        <span>
+                    <!--                    로그인이 되어있지 않은 경우만 로그인 설정 -->
+                             <a type="button" class="button" href="/member/login" sec:authorize = "isAnonymous()">Login</a>
+                        </span>
+
+
+        <span>
+
+                    <!--                    로그인이 되어있는 경우만 로그아웃으로 설정 -->
+                             <a type="button" class="button" href="/member/logout" sec:authorize = "isAuthenticated()">Logout</a>
+                        </span>
+
+        <span>
+<!--                    로그인이 되어있지 않은 경우만 회원가입으로 설정-->
+                            <a href="/member/join" sec:authorize = "isAnonymous()">회원가입</a>
+                        </span>
+      </div>
+    </div>
+  </nav>
+  <script type="text/javascript">
+
+
+  </script>
+</div><!-- //header -->
+</div>
+</body>
+</html>

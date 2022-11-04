@@ -1,111 +1,126 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/lectureSidebarLayout}"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      layout:decorate="~{layouts/lectureLayout}">
 
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-</head>
+<body>
 <div layout:fragment="content">
-    <div id="wrapper">
-        <!-- //header -->
-        <a href="/lecture/add" target="_self"
-           title="강좌 메뉴 링크" class="button" sec:authorize = "isAuthenticated()">강좌추가</a>
-        <div class="album py-5">
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-4 text-white animated slideInDown mb-3">강좌</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">강좌</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
 
-            <div class="cards_landscape_wrap-2">
-                <div class="container-fluid">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        <div class="col" th:if="${#lists.size(partPage.page)} > 0"
-                             th:each="vo : ${partPage.page}"><!-- 리스트 배열의 수만큼 실행 -->
-                            <div class="card-flyer " style="min-width: 300px; max-width: 300px;">
-                                <div class="card shadow-sm">
-                                    <div th:if="${vo.getLectureImage()==null}">
-                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                             xmlns="http://www.w3.org/2000/svg" role="img"
-                                             aria-label="Placeholder: Thumbnail"
-                                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                            Placeholder</title>
-                                            <rect width="100%" height="100%" fill="#55595c"></rect>
-                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                        </svg>
-                                    </div>
-                                    <!--${vo.getLectureImage()}-->
-                                    <div th:unless="${vo.getLectureImage()==null}" style="position: relative">
-                                        <!--
-                                        <img th:src="@{/img/} + ${vo.getLectureImage()}"
-                                             style="width: 100%;height: 225px;" class="card-img-top">--><!--윈도우-->
-                                        <img th:src="@{/image/}+ ${vo.getLectureImage()}"
-                                             style="width: 100%;height: 225px;" class="card-img-top"><!--리눅스-->
-                                        <span
-                                                style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
-                                                th:text="${vo.getLecturePart()}"></span>
-                                    </div>
-                                    <div class="card-body"
-                                         style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                                        <h5 th:text="${vo.getLectureTitle()}"></h5>
-                                        <p class="card-text" th:text="${vo.getLectureDetail()}"></p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                   th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}">
-                                                    View
-                                                </a>
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                   th:href="@{/lecture/lectureEdit/{id}(id=${vo.getId()})}" sec:authorize = "isAuthenticated()">
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-sm btn-outline-danger"
-                                                   th:href="@{/lecture/lectureRemove/{id}/{part}/{pageNumber}(id=${vo.getId()},part=${part},pageNumber=${posts.paging.pageNumber})}" sec:authorize = "isAuthenticated()">
-                                                    Remove
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Project Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                <h4 class="section-title bg-white text-center text-primary px-3">강좌목록</h4>
+            </div>
+
+            <div class="col-12 col-sm-6">
+                <select class="form-select" style="width: 200px; height: 55px;">
+                    <option selected>전체</option>
+                    <option value="1">파이썬</option>
+                    <option value="2">인공지능</option>
+                    <option value="3">데이터분석</option>
+                </select>
+            </div>
+
+            <div class="lecture project-carousel fadeInUp" data-wow-delay="0.1s">
+                <div class="project-item border rounded h-100 p-4" data-dot="01">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-1.jpg" alt="">
+                        <a href="/img/project-1.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
                     </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="02">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-2.jpg" alt="">
+                        <a href="/img/project-2.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="03">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-3.jpg" alt="">
+                        <a href="/img/project-2.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="04">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-4.jpg" alt="">
+                        <a href="/img/project-4.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="05">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-5.jpg" alt="">
+                        <a href="/img/project-5.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="06">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-6.jpg" alt="">
+                        <a href="/img/project-6.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="07">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-7.jpg" alt="">
+                        <a href="/img/project-7.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+                </div>
+                <div class="project-item border rounded h-100 p-4" data-dot="08">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded"
+                             src="/img/project-8.jpg" alt="">
+                        <a href="/img/project-8.jpg"
+                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6>모든 개발자의 실무를 위한 올인원</h6>
+                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
                 </div>
             </div>
         </div>
     </div>
-    <nav aria-label="Page navigation" class="paging">
-        <ul class="pagination" th:if="${posts.page.totalPages > 1}">
-            <li class="p    age-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
-                <a class    ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
-                   tabin    dex="-1">Previous</a>
-            </li>
-            <th:block th:each="item : ${posts.paging.getItems()}">
-                <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
-                    th:if="${item.pageItemType.name() == 'PAGE'}">
-                    <!-- <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
-                     <a class="page-link"
-                        id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>-->
-                    <a class="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${item.index}}"
-                       th:text="${item.index}"></a>
-                </li>
-                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                    <a class="page-link" href="#">...</a>
-                </li>
-            </th:block>
-            <li class="page-item" th:classappend="${!posts.paging.isNextEnabled()? 'disabled' : ''}">
-                <a class="page-link"
-                   th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber + 1}}">Next</a>
-            </li>
-        </ul>
-    </nav>
+    <!-- Project End -->
 </div>
-<script th:inline="javascript">
-    $(document).ready(function () {
-        $("input[name='tabs']").click(function () {
+</body>
 
-            let test = $(this).attr('id');
-            let item = [[${posts.paging.pageNumber}]];
-            $.ajax({})
-
-        })
-    })
-</script>
 </html>

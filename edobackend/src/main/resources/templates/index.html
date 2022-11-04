@@ -1,246 +1,257 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/headAndFootLayout}">
 
-<head>
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <link rel="stylesheet" type="text/css" href="/css/carousel.css">
-</head>
+
+<body>
+
 <div layout:fragment="content">
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-
-        .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-        }
-
-        .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-        }
-
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-    </style>
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+<!-- Carousel Start -->
+<div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-                    aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+                <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
+            </button>
+            <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="1" aria-label="Slide 2">
+                <img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
+            </button>
+            <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="2" aria-label="Slide 3">
+                <img class="img-fluid" src="img/carousel-3.jpg" alt="Image">
+            </button>
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <rect width="100%" height="100%" fill="#777"/>
-                </svg>
-
-                <div class="container">
-                    <div class="carousel-caption text-start">
-                        <h1>Example headline.</h1>
-                        <p>Some representative placeholder content for the first slide of the carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <img class="w-100" src="img/carousel-1.jpg" alt="Image">
+                <div class="carousel-caption">
+                    <div class="p-3" style="max-width: 900px;">
+                        <h4 class="text-white text-uppercase mb-4 animated zoomIn">마이크로소프트 개발자와 함께 쉽고 완벽하게</h4>
+                        <h4 class="display-1 text-white mb-0 animated zoomIn">수준높은 백엔드 개발자가<br />되고 싶은 당신을 위해</h4>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <rect width="100%" height="100%" fill="#777"/>
-                </svg>
-
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Some representative placeholder content for the second slide of the carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <img class="w-100" src="img/carousel-2.jpg" alt="Image">
+                <div class="carousel-caption">
+                    <div class="p-3" style="max-width: 900px;">
+                        <h4 class="text-white text-uppercase mb-4 animated zoomIn">마이크로소프트 개발자와 함께 쉽고 완벽하게</h4>
+                        <h4 class="display-1 text-white mb-0 animated zoomIn">수준높은 백엔드 개발자가<br />되고 싶은 당신을 위해</h4>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-                     aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <rect width="100%" height="100%" fill="#777"/>
-                </svg>
-
-                <div class="container">
-                    <div class="carousel-caption text-end">
-                        <h1>One more for good measure.</h1>
-                        <p>Some representative placeholder content for the third slide of this carousel.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                <img class="w-100" src="img/carousel-3.jpg" alt="Image">
+                <div class="carousel-caption">
+                    <div class="p-3" style="max-width: 900px;">
+                        <h4 class="text-white text-uppercase mb-4 animated zoomIn">마이크로소프트 개발자와 함께 쉽고 완벽하게</h4>
+                        <h4 class="display-1 text-white mb-0 animated zoomIn">수준높은 백엔드 개발자가<br />되고 싶은 당신을 위해</h4>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div id="wrapper">
+</div>
+<!-- Carousel End -->
 
-        <hr>
-
-        <div class="sub_head">
-            <h1>전체강좌 </h1>
-            <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                            alt="더보기"></a></div>
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title bg-white text-center text-primary px-3">전체강좌</h4>
+            <h6 class="display-6 mb-4" style="margin-top:15px;">아무것도 몰라도 따라오다 보면<br/>전문가가 될 수 있어요!</h6>
         </div>
-        <div class="asset-top">
-            <div class="container">
-                <div class="school_lecture">
-                    <div class="row">
-
-                        <div class="col" th:if="${#lists.size(lectureList)} > 0 and ${#lists.size(lectureList)}<=4"
-                             th:each="vo : ${lectureList}"><!-- 리스트 배열의 수만큼 실행 -->
-                            <div class="card-flyer card-effect" style="width: 250px; margin-right: 20px; z-index: 1;">
-                                <div class="card shadow-sm">
-                                    <div th:if="${vo.getLectureImage()==null}">
-                                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                             xmlns="http://www.w3.org/2000/svg" role="img"
-                                             aria-label="Placeholder: Thumbnail"
-                                             preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                            Placeholder</title>
-                                            <rect width="100%" height="100%" fill="#55595c"></rect>
-                                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                        </svg>
-                                    </div>
-                                    <!--${vo.getLectureImage()}-->
-                                    <div th:unless="${vo.getLectureImage()==null}" style="position: relative">
-                                        <img th:src="'/image/'+ ${vo.getLectureImage()}"
-                                             style="width: 100%;height: 225px;" class="card-img-top">
-                                        <span
-                                                style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
-                                                th:text="${vo.getLecturePart()}"></span>
-                                    </div>
-                                    <div class="card-body"
-                                         style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                                        <h5 th:text="${vo.getLectureTitle()}"></h5>
-                                        <p>김무진</p>
-                                        <p class="card-text" th:text="${vo.getLectureDetail()}"></p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                   th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}">
-                                                    View
-                                                </a>
-                                            </div>
-                                            <div>
-                                                <a></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- //school_lecture -->
-                </div>
-                <p>
-                </p>
-            </div><!-- //asset_top -->
-        </div>
-
-        <hr>
-
-        <div class="sub_head">
-            <h1>인기 강좌 </h1>
-            <div><a href="lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                            alt="더보기"></a></div>
-        </div>
-        <div class="asset-top">
-            <div class="container">
-                <div class="school_lecture">
-                    <div class="row">
-
-
-                        <dl class="col card-flyer card-effect"
-                            style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
-
-                        <dl class="col  card-effect" style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
-
-                        <dl class="col  card-effect" style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
-                        <dl class="col  card-effect" style="width: 250px; margin-right: 20px; z-index: 1;"></dl>
-                    </div>
-                </div><!-- //portfolio -->
-            </div><!-- //asset_center -->
-        </div><!-- //asset_center -->
-
-
-        <hr>
-        <div class="sub_head">
-            <h1>커뮤니티 </h1>
-            <div><a href="community/main"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                               alt="더보기"></a></div>
-        </div>
-        <div class="asset_bottom">
-            <div class="notice row">
-
-                <table id="example" class="display" style="width:100%" border="1">
-                    <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <!--                            <th>작성자</th>-->
-                        <!--                            <th>작성일</th>-->
-                        <!--                            <th>조회수</th>-->
-                    </tr>
-                    </thead>
-                    <tbody id="listArea">
-                    <tr th:each="communityMain : ${communityMainList}">
-                        <td th:text="${communityMain.communityId}"></td>
-                        <td th:text="${communityMain.communityTitle}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="service-item d-block rounded text-center h-100 p-4" href="">
+                    <img class="img-fluid rounded mb-4" src="img/service-1.jpg" alt="">
+                    <h4 class="mb-0">파이썬 기초</h4>
+                </a>
             </div>
-        </div><!-- //notice -->
-    </div><!-- //asset_bottom -->
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a class="service-item d-block rounded text-center h-100 p-4" href="">
+                    <img class="img-fluid rounded mb-4" src="img/service-2.jpg" alt="">
+                    <h4 class="mb-0">인공지능 관리</h4>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <a class="service-item d-block rounded text-center h-100 p-4" href="">
+                    <img class="img-fluid rounded mb-4" src="img/service-3.jpg" alt="">
+                    <h4 class="mb-0">데이터 분석</h4>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <a class="service-item d-block rounded text-center h-100 p-4" href="">
+                    <img class="img-fluid rounded mb-4" src="img/service-4.jpg" alt="">
+                    <h4 class="mb-0">데이터분석 기초</h4>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <a class="service-item d-block rounded text-center h-100 p-4" href="">
+                    <img class="img-fluid rounded mb-4" src="img/service-5.jpg" alt="">
+                    <h4 class="mb-0">모두의 깃 & 깃허브</h4>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <a class="service-item d-block rounded text-center h-100 p-4" href="">
+                    <img class="img-fluid rounded mb-4" src="img/service-6.jpg" alt="">
+                    <h4 class="mb-0">배워서 바로쓰는 SQL 쿼리</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
 
-</div><!-- //container -->
+<!-- Project Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title bg-white text-center text-primary px-3">인기강좌</h4>
+            <h6 class="display-6 mb-4" style="margin-top:15px;">따끈따끈,<br/>인기 강좌를 만나보세요!</h6>
+        </div>
+        <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <div class="project-item border rounded h-100 p-4" data-dot="01">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-1.jpg" alt="">
+                    <a href="img/project-1.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="02">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-2.jpg" alt="">
+                    <a href="img/project-2.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="03">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-3.jpg" alt="">
+                    <a href="img/project-2.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="04">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-4.jpg" alt="">
+                    <a href="img/project-4.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="05">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-5.jpg" alt="">
+                    <a href="img/project-5.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="06">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-6.jpg" alt="">
+                    <a href="img/project-6.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="07">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-7.jpg" alt="">
+                    <a href="img/project-7.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="08">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-8.jpg" alt="">
+                    <a href="img/project-8.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="09">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-9.jpg" alt="">
+                    <a href="img/project-9.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+            <div class="project-item border rounded h-100 p-4" data-dot="10">
+                <div class="position-relative mb-4">
+                    <img class="img-fluid rounded" src="img/project-10.jpg" alt="">
+                    <a href="img/project-10.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                </div>
+                <h6>모든 개발자의 실무를 위한 올인원</h6>
+                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Project End -->
 
-</div><!-- //wrapper -->
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h4 class="section-title bg-white text-center text-primary px-3">커뮤니티</h4>
+            <h6 class="display-6 mb-4" style="margin-top:15px;">이야기를 나눠요. 함께 토론해봐요.</h6>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <div class="testimonial-item bg-light rounded p-4">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="ms-4">
+                        <h5 class="mb-1">박형준</h5>
+                    </div>
+                </div>
+                <p class="mb-0">안녕하세요! riverpod과 관련해서 질문이 있어서 남깁니다. ref.watch로 데이터 변경이 감지되면 해당 위젯 전체(하위까지)가 모두 다시 빌드되나요? 아니면 해당 데이터를 사용하는 부분만 다시 빌드가 되나요??</p>
+            </div>
+            <div class="testimonial-item bg-light rounded p-4">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="ms-4">
+                        <h5 class="mb-1">김민주</h5>
+                    </div>
+                </div>
+                <p class="mb-0">안녕하세요! riverpod과 관련해서 질문이 있어서 남깁니다. ref.watch로 데이터 변경이 감지되면 해당 위젯 전체(하위까지)가 모두 다시 빌드되나요? 아니면 해당 데이터를 사용하는 부분만 다시 빌드가 되나요??</p>
+            </div>
+            <div class="testimonial-item bg-light rounded p-4">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="ms-4">
+                        <h5 class="mb-1">박형준</h5>
+                    </div>
+                </div>
+                <p class="mb-0">안녕하세요! riverpod과 관련해서 질문이 있어서 남깁니다. ref.watch로 데이터 변경이 감지되면 해당 위젯 전체(하위까지)가 모두 다시 빌드되나요? 아니면 해당 데이터를 사용하는 부분만 다시 빌드가 되나요??</p>
+            </div>
+            <div class="testimonial-item bg-light rounded p-4">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="ms-4">
+                        <h5 class="mb-1">김민주</h5>
+                    </div>
+                </div>
+                <p class="mb-0">안녕하세요! riverpod과 관련해서 질문이 있어서 남깁니다. ref.watch로 데이터 변경이 감지되면 해당 위젯 전체(하위까지)가 모두 다시 빌드되나요? 아니면 해당 데이터를 사용하는 부분만 다시 빌드가 되나요??</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+</div>
+</body>
 
-</div><!-- layout1 -->
 </html>

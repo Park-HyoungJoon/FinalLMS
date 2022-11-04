@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +60,10 @@ public class LectureController {
              @RequestParam(value = "size", required = false, defaultValue = "12") int size,
              Model model) {
 
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String path = auth.getName();
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ id : : : ", path);
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
