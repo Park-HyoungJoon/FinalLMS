@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layouts/headAndFootLayout}">
+      layout:decorate="~{layouts/addLayout}">
 <head>
     <header>
         <title>AiMind에 오신 것을 환영합니다.</title>
@@ -73,11 +73,9 @@
 
         <br/>
 
-        <div style="display:block;">
-            <p class="form-label">대표이미지</p>
-            <img id="preImage" style="width: 100px; height: 100px;"/>
-            <!--src="${pageContext.request.contextPath}/saveFile/${noticeVO.filename}" alt="image_title" onerror='this.src="${pageContext.request.contextPath}/images/no_img.jpg"'-->
-            <input type='file' id="realLectureImg" name="realLectureImg"/>
+        <div class="image-container">
+            <img style="width: 150px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
+            <input style="display: block;" type='file' id="realLectureImg" name="realLectureImg">
         </div>
 
 
@@ -142,6 +140,30 @@
     </form>
     <!-- JavaScript Bundle with Popper -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <!--이미지 업로드 시 미리보기-->
+    <script>
+        function readImage(input) {
+        // 인풋 태그에 파일이 있는 경우
+        if(input.files && input.files[0]) {
+            // 이미지 파일인지 검사 (생략)
+            // FileReader 인스턴스 생성
+            const reader = new FileReader()
+            // 이미지가 로드가 된 경우
+            reader.onload = e => {
+                const previewImage = document.getElementById("preview-image")
+                previewImage.src = e.target.result
+            }
+            // reader가 이미지 읽도록 하기
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    // input file에 change 이벤트 부여
+    const inputImage = document.getElementById("realLectureImg")
+    inputImage.addEventListener("change", e => {
+        readImage(e.target)
+    })
+    </script>
+    <!--end-->
     <script type="text/javascript">
         $("#uploadLecture").submit(function (event) {
             event.preventDefault();

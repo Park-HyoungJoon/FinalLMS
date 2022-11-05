@@ -58,8 +58,9 @@
     </div>
 </div>
 <!-- Page Header End -->
-<div class="row" id="main">
+<div class="row" id="main" style="min-height: 2250px;">
     <!--sidebars -->
+    <input type="hidden" id="part" th:value="${part}"/>
     <div class="col-3" id="sideStart">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
             <a id="side-head" href="/"
@@ -72,43 +73,35 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto" id="sideTag">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active" aria-current="page">
+                    <a th:href="@{/lecture/{part}(part='All')}"  class="nav-link link-dark" id="All"aria-current="page">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#home"/>
                         </svg>
-                        Home
+                        전체
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a th:href="@{/lecture/{part}(part='python')}" class="nav-link link-dark" id="python">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#speedometer2"/>
                         </svg>
-                        Dashboard
+                        파이썬
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a th:href="@{/lecture/{part}(part='ai')}" class="nav-link link-dark" id="ai">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#table"/>
                         </svg>
-                        Orders
+                        인공지능
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a th:href="@{/lecture/{part}(part='data')}" class="nav-link link-dark" id="data">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#grid"/>
                         </svg>
-                        Products
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link link-dark">
-                        <svg class="bi pe-none me-2" width="16" height="16">
-                            <use xlink:href="#people-circle"/>
-                        </svg>
-                        Customers
+                        데이터분석
                     </a>
                 </li>
             </ul>
@@ -132,7 +125,7 @@
         </div>
     </div>
     <!--end sidebars-->
-    <div class="col-9">
+    <div class="col-9" >
         <div layout:fragment="content" class="content">
         </div>
     </div>
@@ -145,12 +138,20 @@
 
 <!--sidebar 사이즈 별 숨김, 나타남-->
 <script type="text/javascript">
+    $(function (){
+
+        console.log($('input#part').val());
+        let text = $('input#part').val()
+        $('#'+text).addClass('active').siblings('a').removeClass('active');
+    })
     $(window).resize(function () {
         console.log(window.innerWidth)
         if (window.innerWidth < 940) {
+            document.getElementById('lectureAddBtn').style.display = 'none';
             document.getElementById('sideStart').style.display = 'none';
         }
         if (window.innerWidth > 940) {
+            document.getElementById('lectureAddBtn').style.display = 'none';
             document.getElementById('sideStart').style.display = 'block';
         }
     })

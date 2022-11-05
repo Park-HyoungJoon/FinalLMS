@@ -1,4 +1,3 @@
-<!--
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/lectureSidebarLayout}"
@@ -10,7 +9,7 @@
 </head>
 <div layout:fragment="content">
   <div id="wrapper">
-    &lt;!&ndash; //header &ndash;&gt;
+    <!-- //header -->
     <a href="/lecture/add" target="_self"
        title="강좌 메뉴 링크" class="button" sec:authorize = "isAuthenticated()">강좌추가</a>
     <div class="album py-5">
@@ -19,7 +18,7 @@
         <div class="container-fluid">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col" th:if="${#lists.size(partPage.page)} > 0"
-                 th:each="vo : ${partPage.page}">&lt;!&ndash; 리스트 배열의 수만큼 실행 &ndash;&gt;
+                 th:each="vo : ${partPage.page}"><!-- 리스트 배열의 수만큼 실행 -->
               <div class="card-flyer " style="min-width: 300px; max-width: 300px;">
                 <div class="card shadow-sm">
                   <div th:if="${vo.getLectureImage()==null}">
@@ -32,13 +31,13 @@
                       <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
                     </svg>
                   </div>
-                  &lt;!&ndash;${vo.getLectureImage()}&ndash;&gt;
+                  <!--${vo.getLectureImage()}-->
                   <div th:unless="${vo.getLectureImage()==null}" style="position: relative">
-                    &lt;!&ndash;
+                    <!--
                     <img th:src="@{/img/} + ${vo.getLectureImage()}"
-                         style="width: 100%;height: 225px;" class="card-img-top">&ndash;&gt;&lt;!&ndash;윈도우&ndash;&gt;
+                         style="width: 100%;height: 225px;" class="card-img-top">--><!--윈도우-->
                     <img th:src="@{/image/}+ ${vo.getLectureImage()}"
-                         style="width: 100%;height: 225px;" class="card-img-top">&lt;!&ndash;리눅스&ndash;&gt;
+                         style="width: 100%;height: 225px;" class="card-img-top"><!--리눅스-->
                     <span
                             style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
                             th:text="${vo.getLecturePart()}"></span>
@@ -81,9 +80,9 @@
       <th:block th:each="item : ${posts.paging.getItems()}">
         <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
             th:if="${item.pageItemType.name() == 'PAGE'}">
-          &lt;!&ndash; <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
+          <!-- <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
            <a class="page-link"
-              id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>&ndash;&gt;
+              id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>-->
           <a class="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${item.index}}"
              th:text="${item.index}"></a>
         </li>
@@ -110,4 +109,3 @@
   })
 </script>
 </html>
--->
