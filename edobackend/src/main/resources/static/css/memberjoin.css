@@ -1,0 +1,114 @@
+/* 컨테이너 영역*/
+#container {
+    margin: 0 auto;
+    padding: 40px 0 25px 0;
+    width: 1200px;
+    margin: 50px auto 45px auto;
+}
+
+/* 제목 폰트*/
+h3 {
+    font-size: 30px;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+
+/*    회원가입 동의 폼*/
+.tit_in {
+    margin-top: 40px;
+    font-size: 27px;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+
+.tit_in_t {
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: 400;
+    color: #333;
+}
+
+.tit_in .highlighter {
+    padding: 0 10px;
+    background: linear-gradient(to top, #00d8ff 40%, transparent 40%);
+}
+
+.tit_in_s {
+    padding: 0 10px;
+    background: linear-gradient(to top, #ffd84B 40%, transparent 40%);
+    font-size: 22px;
+}
+
+.c_term {
+    margin: 5px 0;
+    padding: 2%;
+    width: 96%;
+    height: 400px;
+    border: 1px solid #e3e3e3;
+    overflow-y: scroll;
+    line-height: 27px;
+}
+
+.c_term1 {
+    overflow-y: unset;
+    height: 150px;
+}
+
+.pop .c_term {
+    overflow-y: unset;
+}
+
+.c_term .title {
+    margin: 17px 0 5px 0;
+    font-size: 17px;
+}
+
+.c_term ol li {
+    list-style: none;
+}
+
+.c_term ol.li_num {
+    padding-left: 15px;
+}
+
+.ds_box > .inner {
+    text-align: center;
+    border: 6px solid #f1f1f1;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.tbl_col3 {
+    border-top: 2px solid #d2d2d2;
+    border-bottom: 2px solid #d2d2d2
+}
+
+.tbl_col3 td, .tbl_col3 th {
+    text-align: center;
+    line-height: 1.4;
+    padding: 5px 10px;
+    border-left: 1px solid #dbdbdb
+}
+
+.tbl_col3 th {
+    height: 42px;
+    border-bottom: 1px solid #dbdbdb;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4a4a4a;
+    background-color: #f5f5f5
+}
+
+.tbl_col3 td {
+    height: 42px;
+    border-bottom: 1px solid #dbdbdb;
+    letter-spacing: -.5px;
+    color: #494949;
+    background-color: #fff
+}
+
+.tbl_col3 td:first-child, .tbl_col3 th:first-child {
+    border-left: 0
+}
