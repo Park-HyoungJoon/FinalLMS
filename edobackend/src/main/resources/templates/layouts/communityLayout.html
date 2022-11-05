@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <title>E-DO 온라인학습 관리시스템</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--sidebars StyleSheet-->
+    <link href="/css/sidebars.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="fragments/header::header"></div>
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-3">커뮤니티</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">community</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="row" id="main">
+    <!--sidebars -->
+    <div class="col-3" id="sideStart">
+        <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+            <a id="side-head" href="/"
+               class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <svg class="bi pe-none me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"/>
+                </svg>
+                <span class="fs-4">E-Do</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" id="sideTag">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#home"/>
+                        </svg>
+                        공지
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#speedometer2"/>
+                        </svg>
+                        자유게시판
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#table"/>
+                        </svg>
+                        Q&A
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link link-dark">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#grid"/>
+                        </svg>
+                        쇼츠
+                    </a>
+                </li>
+            </ul>
+            <hr>
+<!--            <div class="dropdown">-->
+<!--                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"-->
+<!--                   data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                    <img src="/image/EDoLOGO.png" alt="/image/EDoLOGO.png" width="32" height="32"-->
+<!--                         class="rounded-circle me-2">-->
+<!--                    <strong>mdo</strong>-->
+<!--                </a>-->
+<!--                <ul class="dropdown-menu text-small shadow">-->
+<!--                    <li><a class="dropdown-item" href="#">공지</a></li>-->
+<!--                    <li><a class="dropdown-item" href="#">자유게시판</a></li>-->
+<!--                    <li><a class="dropdown-item" href="#">Q&A</a></li>-->
+<!--                    <li><a class="dropdown-item" href="#">쇼츠</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+        </div>
+    </div>
+    <!--end sidebars-->
+    <div class="col-9">
+        <div layout:fragment="content" class="content">
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments/footer::footer"></div>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+<!--sidebar 사이즈 별 숨김, 나타남-->
+<script type="text/javascript">
+    $(window).resize(function () {
+        console.log(window.innerWidth)
+        if (window.innerWidth < 940) {
+            document.getElementById('sideStart').style.display = 'none';
+        }
+        if (window.innerWidth > 940) {
+            document.getElementById('sideStart').style.display = 'block';
+        }
+    })
+</script>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/wow/wow.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/counterup/counterup.min.js"></script>
+<script src="/lib/lightbox/js/lightbox.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>
