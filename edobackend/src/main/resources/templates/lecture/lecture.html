@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/lectureLayout}">
 
 <body>
@@ -11,100 +12,77 @@
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h4 class="section-title bg-white text-center text-primary px-3">강좌목록</h4>
             </div>
-
-            <div class="col-12 col-sm-6">
-                <select class="form-select" style="width: 200px; height: 55px;">
-                    <option selected>전체</option>
-                    <option value="1">파이썬</option>
-                    <option value="2">인공지능</option>
-                    <option value="3">데이터분석</option>
-                </select>
+            <div class="row">
+                <div class="col">
+                    <select class="form-select" style="width: 200px; height: 55px;">
+                        <option value="0" selected>최신순</option>
+                        <option value="1">인기순</option>
+                    </select>
+                </div>
+                <div class="col" style="right: 0; max-width: 150px;">
+                    <a href="/lecture/add"
+                       title="강좌 메뉴 링크" class="btn btn-outline-primary" id="lectureAddBtn"
+                       sec:authorize="isAuthenticated()">강좌추가</a>
+                </div>
             </div>
-
-            <div class="lecture project-carousel fadeInUp" data-wow-delay="0.1s">
-                <div class="project-item border rounded h-100 p-4" data-dot="01">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-1.jpg" alt="">
-                        <a href="/img/project-1.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+            <div class="lecture project-carousel fadeInUp" data-wow-delay="0.1s" >
+                    <div th:if="${#lists.size(partPage.page)}>0"
+                         th:each="vo, status:${partPage.page}"
+                            class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px;" th:data-dot="${status.index}">
+                        <div class="position-relative mb-4">
+                            <img class="img-fluid rounded"
+                                 th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
+                            <a  th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
+                              ><i class="fa fa-eye fa-2x"></i></a>
+                        </div>
+                        <h6 th:text="${vo.getLectureTitle()}"></h6>
+                        <span th:text="${vo.getLectureDetail()}"></span>
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
+                               sec:authorize="isAuthenticated()">
+                                View
+                            </a>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="@{/lecture/lectureEdit/{id}(id=${vo.getId()})}"
+                               sec:authorize="isAuthenticated()">
+                                Edit
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger"
+                               th:href="@{/lecture/lectureRemove/{id}/{part}/{pageNumber}(id=${vo.getId()},part=${part},pageNumber=${posts.paging.pageNumber})}"
+                               sec:authorize="isAuthenticated()">
+                                Remove
+                            </a>
+                        </div>
                     </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="02">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-2.jpg" alt="">
-                        <a href="/img/project-2.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="03">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-3.jpg" alt="">
-                        <a href="/img/project-2.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="04">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-4.jpg" alt="">
-                        <a href="/img/project-4.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="05">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-5.jpg" alt="">
-                        <a href="/img/project-5.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="06">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-6.jpg" alt="">
-                        <a href="/img/project-6.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="07">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-7.jpg" alt="">
-                        <a href="/img/project-7.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
-                <div class="project-item border rounded h-100 p-4" data-dot="08">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded"
-                             src="/img/project-8.jpg" alt="">
-                        <a href="/img/project-8.jpg"
-                           data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                    </div>
-                    <h6>모든 개발자의 실무를 위한 올인원</h6>
-                    <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-                </div>
             </div>
         </div>
     </div>
+    <nav aria-label="Page navigation" class="paging">
+        <ul class="pagination" th:if="${posts.page.totalPages > 1}">
+            <li class="p    age-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
+                <a class    ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
+                   tabin    dex="-1">Previous</a>
+            </li>
+            <th:block th:each="item : ${posts.paging.getItems()}">
+                <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
+                    th:if="${item.pageItemType.name() == 'PAGE'}">
+                    <!-- <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
+                     <a class="page-link"
+                        id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>-->
+                    <a class="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${item.index}}"
+                       th:text="${item.index}"></a>
+                </li>
+                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                    <a class="page-link" href="#">...</a>
+                </li>
+            </th:block>
+            <li class="page-item" th:classappend="${!posts.paging.isNextEnabled()? 'disabled' : ''}">
+                <a class="page-link"
+                   th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber + 1}}">Next</a>
+            </li>
+        </ul>
+    </nav>
     <!-- Project End -->
 </div>
 </body>

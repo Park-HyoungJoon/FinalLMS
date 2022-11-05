@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layouts/headAndFootLayout}">
+      layout:decorate="~{layouts/addLayout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>    <!-- CSS only -->
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="main-container">
+    <div class="row main-container">
+        <div class="col">
         <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
               class="needs-validation" enctype="multipart/form-data" novalidate th:object="${contentsEditDto}">
             <input type="hidden" id="firstDivideId" name="firstDivideId" th:value="${firstDivideId}"/>
@@ -31,14 +32,18 @@
                     <div class="form-group">
                         <label class="form-label mt-4">차시 설명</label>
                         <textarea name="content" id="editor1">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
-        </textarea>
+                             &lt;p&gt;This is some sample content.&lt;/p&gt;
+                         </textarea>
                     </div>
-                    <input type="submit" id="nextButton" class="nextButton"/>
+                    <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 20px;">
+                    </div>
+                    <input type="submit" id="nextButton" class="btn btn-outline-primary nextButton" value="저장"/>
                 </div>
             </div>
         </form>
-        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+        </div>
+
+        <div class="col">
             <input type="hidden" id="divide1" name="divide1" th:value="${lectureDivideIds}">
             <div th:each="vo,status : ${lectureDivideIds}">
                 <div class="list-group list-group-flush border-bottom scrollarea">
@@ -53,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <a type="button" th:href="'/lecture/divideAdd/'+${lectureId}">추가</a>
+            <a type="button" class="btn-outline-primary" th:href="'/lecture/divideAdd/'+${lectureId}">차시 추가</a>
         </div>
     </div>
     <script
@@ -86,44 +91,50 @@
             }
             for (let i = 1; i <= contentsList; i++) {
                 let testValue = [[${lectureContentsList}]][i - 1]['lectureContentsTitle'];
-                let lectureContentsList = [[${lectureContentsList}]][i-1];
+                let lectureContentsList = [[${lectureContentsList}]][i - 1];
 
                 const fileHtml = `
-                                    <div data-name="contentsDiv">
-                        <div style="display: block">
-                                <div data-name="fileDiv" class="form-group">
-                                    <button type="button" onclick="removeFile(this)"
-                                            class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-                                    <div data-name="contentsDiv">
-                                        <div style="display: block">
-                                            <label>차시제목</label>
-                                            <input type="text" placeholder="${testValue}"name="lectureContentsTitle${i}" id="lectureContentsTitle${i}"></div>
-                                        <div style="display: block">
-                                            <label>차시 파일</label>
-                                              <ul class="tabs">
-    <li class="tab-link current" id="tabBar-${i}" data-tab="tab-${i}">파일</li>
-    <li class="tab-link" id="tabBar-${i + 5}" data-tab="tab-${i + 5}">링크</li>
-  </ul>
+<div class="accordion-item">
+     <button type="button" onclick="removeFile(this)"
+                    class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+     </button>
+    <h2 class="accordion-header" th:id="heading${testCount}">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${testCount}"
+                aria-expanded="true" aria-controls="collapse${testCount}">
+            파일 추가${testCount}
+        </button>
+    </h2>
+    <div id="collapse${testCount}" class="accordion-collapse collapse show" aria-labelledby="heading${testCount}"
+         data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div data-name="fileDiv" class="form-group">
+                <div data-name="contentsDiv">
+                    <div style="display: block">
+                        <label>차시제목</label>
+                        <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
+                    <div style="display: block">
+                        <label>차시 파일</label>
+                        <ul class="tabs">
+                            <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
+                            <li class="tab-link" id="tabBar-${testCount + 5}" data-tab="tab-${testCount + 5}">링크</li>
+                        </ul>
 
-  <div id="tab-${i}" class="tab-content current">
-                                            <input type='file' id="lectureContentsFile${i}" name="lectureContentsFile${i}"
-                                            accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
-  <div id="tab-${i + 5}" class="tab-content">
-  <input type="text" name="lectureContentsLink${i}" placeholder="링크입력">
-</div>
-                                            <input type="hidden" class="statNum" value="${i}"/>
-                                            <input type="hidden" id="lectureContents${i}" name="lectureContents${i}"
-                                             th:value="${lectureContentsList}"/>
-
-                                        </div>
-                                    </div>
+                        <div id="tab-${testCount}" class="tab-content current">
+                            <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
+                                   accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
+                        <div id="tab-${testCount + 5}" class="tab-content">
+                            <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 `;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
-                $('#nextButton').before(fileHtml);
+                $("#accordionExample").append(fileHtml);
                 $('ul.tabs li').click(function () {
                     console.log('hi');
                     let tab_id = $(this).attr('data-tab');
@@ -141,7 +152,7 @@
                     $(this).addClass('current');
                     $("#" + tab_id).addClass('current');
                 })
-                $('#ContentsSeq').attr("value",testCount);
+                $('#ContentsSeq').attr("value", testCount);
                 console.log(testCount);
             }
         })
@@ -149,42 +160,53 @@
     </script>
     <script th:inline="javascript"> /*[- 파일 인덱스 처리용 전역 변수 -]*/
     function addFile() {
-        testCount++;
-
         const fileDivs = $('div[data-name="fileDiv"]');
-        if (fileDivs.length > 4) {
+        if (fileDivs.length > 5) {
             alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
             return false;
         }
         const fileHtml = `
-    <div data-name="fileDiv" class="form-group">
-		<button type="button" onclick="removeFile(this)"
-			class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-			<i class="fa fa-minus" aria-hidden="true"></i>
-		</button>
-<div data-name="contentsDiv">
-    <div style="display: block">
-    <label>차시제목</label>
-    <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
-    <div style="display: block">
-        <label>차시 파일</label>
-                                                    <ul class="tabs">
-   <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
-    <li class="tab-link" id="tabBar-${testCount + 5}" data-tab="tab-${testCount + 5}">링크</li>
-  </ul>
+<div class="accordion-item">
+     <input type="hidden" id="fileCount${testCount}" value="${testCount}"/>
+     <button type="button" onclick="removeFile(this)"
+                    class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+     </button>
+    <h2 class="accordion-header" th:id="heading${testCount}">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${testCount}"
+                aria-expanded="true" aria-controls="collapse${testCount}">
+            파일 추가${testCount}
+        </button>
+    </h2>
+    <div id="collapse${testCount}" class="accordion-collapse collapse show" aria-labelledby="heading${testCount}"
+         data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div data-name="fileDiv" class="form-group">
+                <div data-name="contentsDiv">
+                    <div style="display: block">
+                        <label>차시제목</label>
+                        <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
+                    <div style="display: block">
+                        <label>차시 파일</label>
+                        <ul class="tabs">
+                            <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
+                            <li class="tab-link" id="tabBar-${testCount + 5}" data-tab="tab-${testCount + 5}">링크</li>
+                        </ul>
 
-  <div id="tab-${testCount}" class="tab-content current">
-                                            <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
-                                            accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
-  <div id="tab-${testCount + 5}" class="tab-content">
-  <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
-</div>
+                        <div id="tab-${testCount}" class="tab-content current">
+                            <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
+                                   accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
+                        <div id="tab-${testCount + 5}" class="tab-content">
+                            <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 `;
 // If you use jQuery, you can use the jQuery plugin Dropzone ships with:
-        $('#nextButton').before(fileHtml);
         $('ul.tabs li').click(function () {
             let tab_id = $(this).attr('data-tab');
 
@@ -201,6 +223,59 @@
             $(this).addClass('current');
             $("#" + tab_id).addClass('current');
         })
+        for(i=0;i<5;i++){
+            if($('input#fileCount'+i).val()){
+                console.log(i,"해당 객체 존재함");
+
+            }else{
+                testCount=i;
+                let fileHtml  = `
+<div class="accordion-item">
+     <input type="hidden" id="fileCount${testCount}" value="${testCount}"/>
+     <button type="button" onclick="removeFile(this)"
+                    class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+     </button>
+    <h2 class="accordion-header" th:id="heading${testCount}">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${testCount}"
+                aria-expanded="true" aria-controls="collapse${testCount}">
+            파일 추가${testCount}
+        </button>
+    </h2>
+    <div id="collapse${testCount}" class="accordion-collapse collapse show" aria-labelledby="heading${testCount}"
+         data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div data-name="fileDiv" class="form-group">
+                <div data-name="contentsDiv">
+                    <div style="display: block">
+                        <label>차시제목</label>
+                        <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
+                    <div style="display: block">
+                        <label>차시 파일</label>
+                        <ul class="tabs">
+                            <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
+                            <li class="tab-link" id="tabBar-${testCount + 5}" data-tab="tab-${testCount + 5}">링크</li>
+                        </ul>
+
+                        <div id="tab-${testCount}" class="tab-content current">
+                            <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
+                                   accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
+                        <div id="tab-${testCount + 5}" class="tab-content">
+                            <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+`;
+                $("#accordionExample").append(fileHtml);
+                console.log(testCount);
+                testCount++;
+                break;
+            }
+        }
         console.log(testCount);
 
     }
@@ -208,6 +283,7 @@
     function removeFile(elem) {
 
         const prevTag = $(elem).prev().prop('tagName');
+        console.log(prevTag, elem);
         if (prevTag === 'BUTTON') {
             theEditor.setData('');
             return false;
