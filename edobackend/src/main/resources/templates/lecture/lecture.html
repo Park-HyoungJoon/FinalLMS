@@ -30,7 +30,7 @@
                          th:each="vo, status:${partPage.page}"
                             class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px;" th:data-dot="${status.index}">
                         <div class="position-relative mb-4">
-                            <img class="img-fluid rounded"
+                            <img class="img-fluid rounded "
                                  th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
                             <a  th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
                               ><i class="fa fa-eye fa-2x"></i></a>
@@ -60,9 +60,9 @@
     </div>
     <nav aria-label="Page navigation" class="paging">
         <ul class="pagination" th:if="${posts.page.totalPages > 1}">
-            <li class="p    age-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
-                <a class    ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
-                   tabin    dex="-1">Previous</a>
+            <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
+                <a class ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
+                   tabindex="-1">Previous</a>
             </li>
             <th:block th:each="item : ${posts.paging.getItems()}">
                 <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"

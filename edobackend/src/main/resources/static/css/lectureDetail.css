@@ -14,20 +14,41 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.teacher-box{
+.top-box{
     width: 100%;
     background:#a5a5a5;
     height: 400px;
 }
-.teacher-img{
+.top-box-img{
     background: white;
     width: 250px;
     height: 250px;
     margin: 50px;
 
 }
-.teacher-info{
+.top-box-teacher{
+    font-weight: 4000;
+}
+.div_inner {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex: 1;
+    overflow: auto;
+    flex-direction: column;
+    border-radius: 15px;
+    background: #005d96;
+    box-shadow: inset 0px 0px 15px 15px #62b0cb;
+}
+.top-box-info{
     margin: 50px;
+}
+.top-box-bottom{
+    margin-top: 100px;
+    bottom: 0;
+}
+.teacher_img{
+    border-radius: 50%;
 }
 .part{
     background: red;

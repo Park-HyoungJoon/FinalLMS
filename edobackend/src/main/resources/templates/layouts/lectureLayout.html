@@ -73,7 +73,7 @@
             <hr>
             <ul class="nav nav-pills flex-column mb-auto" id="sideTag">
                 <li class="nav-item">
-                    <a th:href="@{/lecture/{part}(part='All')}"  class="nav-link link-dark" id="All"aria-current="page">
+                    <a th:href="@{/lecture/{part}(part='All')}" class="nav-link link-dark" id="All" aria-current="page">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#home"/>
                         </svg>
@@ -109,7 +109,8 @@
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/image/EDoLOGO.png" alt="/image/EDoLOGO.png" width="32" height="32" class="rounded-circle me-2">
+                    <img src="/image/EDoLOGO.png" alt="/image/EDoLOGO.png" width="32" height="32"
+                         class="rounded-circle me-2">
                     <strong>mdo</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow">
@@ -125,7 +126,7 @@
         </div>
     </div>
     <!--end sidebars-->
-    <div class="col-9" >
+    <div class="col-9">
         <div layout:fragment="content" class="content">
         </div>
     </div>
@@ -136,23 +137,29 @@
 <!-- Back to Top -->
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-<!--sidebar 사이즈 별 숨김, 나타남-->
 <script type="text/javascript">
-    $(function (){
-
+    <!-- sidebar 메뉴 선택에 다른 active 효과 변경-->
+    $(function () {
         console.log($('input#part').val());
         let text = $('input#part').val()
-        $('#'+text).addClass('active').siblings('a').removeClass('active');
+        $('#' + text).addClass('active').siblings('a').removeClass('active');
     })
+    //여기까지 active효과 넣어주기 끝 --------------------------------------------------------------------
+
+
+    // sidebar  window 창 사이즈에 따라 숨김, 나타남
     $(window).resize(function () {
+        const sidestart = document.getElementById('sideStart');
+        const addBtn = document.getElementById('lectureAddBtn');
+
         console.log(window.innerWidth)
         if (window.innerWidth < 940) {
-            document.getElementById('lectureAddBtn').style.display = 'none';
-            document.getElementById('sideStart').style.display = 'none';
+            sidestart.style.display = 'none';
+            addBtn.style.display = 'none';
         }
         if (window.innerWidth > 940) {
-            document.getElementById('lectureAddBtn').style.display = 'none';
-            document.getElementById('sideStart').style.display = 'block';
+            sidestart.style.display = 'block';
+            addBtn.style.display = 'block';
         }
     })
 </script>

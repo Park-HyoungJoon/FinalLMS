@@ -60,10 +60,8 @@ public class LectureController {
              @RequestParam(value = "size", required = false, defaultValue = "12") int size,
              Model model) {
 
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String path = auth.getName();
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ id : : : ", path);
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));

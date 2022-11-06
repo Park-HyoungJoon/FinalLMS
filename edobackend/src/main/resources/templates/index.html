@@ -122,86 +122,20 @@
             <h6 class="display-6 mb-4" style="margin-top:15px;">따끈따끈,<br/>인기 강좌를 만나보세요!</h6>
         </div>
         <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <div class="project-item border rounded h-100 p-4" data-dot="01">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-1.jpg" alt="">
-                    <a href="img/project-1.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
+                <div th:if="${#lists.size(posts.getPage())}>0"
+                     th:each="vo, status:${posts.getPage()}"
+                     class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px;" th:data-dot="${status.index}">
+                    <div class="position-relative mb-4">
+                        <img class="img-fluid rounded "
+                             th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
+                        <a  th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
+                        ><i class="fa fa-eye fa-2x"></i></a>
+                    </div>
+                    <h6 th:text="${vo.getLectureTitle()}"></h6>
+                    <span th:text="${vo.getLectureDetail()}"></span>
                 </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="02">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-2.jpg" alt="">
-                    <a href="img/project-2.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="03">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-3.jpg" alt="">
-                    <a href="img/project-2.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="04">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-4.jpg" alt="">
-                    <a href="img/project-4.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="05">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-5.jpg" alt="">
-                    <a href="img/project-5.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="06">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-6.jpg" alt="">
-                    <a href="img/project-6.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="07">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-7.jpg" alt="">
-                    <a href="img/project-7.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="08">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-8.jpg" alt="">
-                    <a href="img/project-8.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="09">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-9.jpg" alt="">
-                    <a href="img/project-9.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
-            <div class="project-item border rounded h-100 p-4" data-dot="10">
-                <div class="position-relative mb-4">
-                    <img class="img-fluid rounded" src="img/project-10.jpg" alt="">
-                    <a href="img/project-10.jpg" data-lightbox="project"><i class="fa fa-eye fa-2x"></i></a>
-                </div>
-                <h6>모든 개발자의 실무를 위한 올인원</h6>
-                <span>개발자라면 실무에서 꼭 알고 있어야 할 핵심 기본기를 쉽게 + 코드 위주로 다루는 강의입니다.</span>
-            </div>
+
+            \
         </div>
     </div>
 </div>
