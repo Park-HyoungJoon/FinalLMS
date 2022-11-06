@@ -2,7 +2,9 @@ package com.edo.user.controller;
 
 import javax.validation.Valid;
 
+import com.edo.community.entity.Community;
 import com.edo.community.entity.CommunityTest;
+import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
@@ -20,6 +22,7 @@ import com.edo.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -34,6 +37,7 @@ public class MemberController {
 
     private final LectureRepository lectureRepository;
     private final CommunityTestRepository communityTestRepository;
+    private final CommunityRepository communityRepository;
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;  
@@ -49,6 +53,8 @@ public class MemberController {
 
         return "member/login";
     }
+
+//    헤더
 
 
 //   이용약관
@@ -71,13 +77,6 @@ public class MemberController {
 
 
         Member member = Member.createUser(memberDto, passwordEncoder);
-//        member.setUsersEmail(memberDto.getUsersEmail());
-//        member.setUsersNickname(memberDto.getUsersNickname());
-//        member.setUsersName(memberDto.getUsersName());
-//        String password = passwordEncoder.encode(memberDto.getUsersPassword());
-//        member.setUsersPassword(password);
-//        member.setUsersPhone(memberDto.getUsersPhone());
-//        member.setUsersRole(Role.USER);
 
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + member.toString());
 
@@ -130,7 +129,7 @@ public class MemberController {
         log.info(">>>>>>>>>>>>>>>>>memberList 가져오기 성공!<<<<<<<<<<<<<<<<<<<<<<<" + memberList.toString());
         model.addAttribute("memberList", memberList);
 
-        List<CommunityTest> communityMainList = communityTestRepository.findDescCommunity(4);
+        List<Community> communityMainList = communityRepository.findDescCommunity(5);
         log.info(">>>>>>>>>>>>>>>>>communitylist<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
         model.addAttribute("communityMainList",communityMainList);
 

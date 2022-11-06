@@ -1,10 +1,15 @@
 package com.edo.main;
 
+import com.edo.community.entity.Community;
 import com.edo.community.entity.CommunityTest;
+import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
 import com.edo.lecture.service.LectureService;
+import com.edo.user.entity.Member;
+import com.edo.user.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +26,18 @@ import java.util.List;
 @CrossOrigin
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MainController {
 	@Autowired
 	LectureRepository lectureRepository;
 
 	@Autowired
 	CommunityTestRepository communityTestRepository;
+
+	@Autowired
+	CommunityRepository communityRepository;
+	MemberRepository memberRepository;
+
 
 	@Autowired
 	LectureService lectureService;
@@ -42,9 +53,19 @@ public class MainController {
 		model.addAttribute("posts", lectureService.getPage(pageNumber, size));
 		model.addAttribute("list", lectureList);
 
-		List<CommunityTest> communityMainList = communityTestRepository.findDescCommunity(4);
+		List<Community> communityMainList = communityRepository.findDescCommunity(4);
+		log.info("가장 최근 커뮤니티 불러오기 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityMainList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"  );
 		model.addAttribute("communityMainList",communityMainList);
+
 		return "index";
+	}
+
+	@GetMapping()
+	public String memberHeader(Model model){
+		List<Member> memberList = memberRepository.findAll();
+		model.addAttribute("memberList",memberList);
+
+		return "fragments/header";
 	}
 
 	@GetMapping(value = "/test2")

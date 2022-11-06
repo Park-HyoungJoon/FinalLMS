@@ -40,18 +40,18 @@ public class CommunityTest {
 //    communityTest 객체를 communityDto로 변환해주는 메소드(기본)
     public CommunityDto toDto(){
         CommunityDto communityDto = new CommunityDto();
-        communityDto.setCommunityId(this.communityId);
-        communityDto.setCommunityTitle( this.communityTitle);
-        communityDto.setCommunityContents(this.communityContent);
+        communityDto.setId(this.communityId);
+        communityDto.setTitle( this.communityTitle);
+        communityDto.setCategory(this.communityContent);
         return communityDto;
     }
 
-    
+
 //    communitymain에서 list로 받아오기 위해 communityDto로 변환해주는 메소드
     public CommunityDto toDtoNoContents(){
         CommunityDto communityDto = new CommunityDto();
-        communityDto.setCommunityId(this.communityId);
-        communityDto.setCommunityTitle(this.communityTitle);
+        communityDto.setId(this.communityId);
+        communityDto.setTitle(this.communityTitle);
         return communityDto;
     }
 
