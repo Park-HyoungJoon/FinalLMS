@@ -32,27 +32,24 @@
 </head>
 <body class="vsc-initialized">
 <div layout:fragment="content">
-    <div id="wraper">
+    <div id="wrapper">
         <!--  community field  -->
         <div id="container">
 
-            <h3><img th:src="@{/img/}+'EDoLOGO_small.png'" width="30px" height="30px"><b>글 작성하기</b></h3>
+            <h3 style="margin-top: 100px"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>글쓰기</b></h3>
 
             <form role="form" method="post" enctype="multipart/form-data" id="formId" th:object="${communityDto}">
                 <div style="display:block;">
 <!--                    현재 로그인 한 사용자의 이름을 받아올 것.-->
-                    <input type="hidden" th:field="*{communityNickname}" name="communityNickname" id="communityNickname"/>
-                    <label>구분</label>
-                    <select name="section">
-                        <option value="NOTICE">공지</option>
-                        <option value="QNA">Q&A</option>
-                        <option value="FREE">자유게시판</option>
-                        <option value="SHORT">쇼츠</option>
-                    </select>
+                    <input type="hidden" th:field="*{category}" name="communityCategory" id="communityCategory"/>
+<!--                    이거 멤버를 넘겨야 하나? 교수님께 질문해보기잉-->
+                    <br>
+                    <label>작성자</label>
+                    <input type="text" th:field="${communityDto.member}" name="communityNickname" id="communityNickname"></input>
 
                     <br>
                     <label>제목</label>
-                    <input type="text" th:field="*{communityTitle}" name="communityTitle" id="communityTitle"></input>
+                    <input type="text" th:field="*{title}" name="communityTitle" id="communityTitle"></input>
                 </div>
                 <!--        파일 업로드 부분 -->
                 <!--        <div style="display: block">-->
@@ -71,8 +68,7 @@
                     <!--                    민주 코드-->
                     <!--                <input type = textarea name="content" id="editor1" th:field="*{communityContents}">-->
                     <!--                    형준 코드-->
-                    <textarea name="communityContents" id="editor1">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
+                    <textarea name="content" id="editor1" placeholder="여기에 내용을 입력해주세요">
         </textarea>
                     </input>
                 </div>
@@ -107,11 +103,11 @@
             //자동 submit 시키는 것을 막음
             event.preventDefault();
             let communityTitle = $("#communityTitle").val();
-            let communityDetail = [];
-            communityDetail.push(editor.getData())
+            let content = [];
+            content.push(editor.getData())
             let param = {
                 "communityTitle": communityTitle,
-                "communityContents": communityDetail
+                "content": content
             }
 
             console.log(param)

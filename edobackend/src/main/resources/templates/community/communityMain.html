@@ -28,27 +28,29 @@
                         <div class="col-sm-12">
                             <div align="right">
                                 <button type="button" class="btn btn-secondary" id="writeBtn"
-                                        onclick="window.location.href ='community/write'" sec:authorize = "isAuthenticated()">글쓰기
+                                        onclick="window.location.href ='/community/write'" sec:authorize = "isAuthenticated()">글쓰기
                                 </button>
                             </div>
-                            <button onclick="testEvent()">이벤트 테스트</button>
-                            <table id="example" class="display" style="width:100%" border="1">
-                                <thead>
+                            <table class="table">
+                                <thead class="table-light">
                                 <tr>
-                                    <th>번호</th>
-                                    <th>카테고리</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
+                                    <th scope="col">작성일</th>
+                                    <th scope="col">조회수</th>
                                 </tr>
                                 </thead>
-                                <tbody id="listArea">
-                                <tr th:each="communityMain : ${communityMainList}">
-                                    <td th:text="${communityMain.communityId}"></td>
-                                    <td th:text="${communityMain.communityTitle}"></td>
+                                <tbody>
+                                <tr th:each="list : ${communityList}">
+                                    <td th:text="${list.id}"></td>
+                                    <td th:text="${list.title}"></td>
+                                    <td th:text="${list.member.memberNickname}"></td>
+                                    <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
+                                    <td th:text="${list.hit}"></td>
                                 </tr>
                                 </tbody>
+
                             </table>
                         </div>
 

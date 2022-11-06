@@ -4,6 +4,7 @@ package com.edo.community.service;
 import com.edo.community.dto.CommunityDto;
 import com.edo.community.entity.Community;
 import com.edo.community.entity.CommunityTest;
+import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,8 @@ public class CommunityService {
 
     private final CommunityTestRepository communityTestRepository;
 
+    private final CommunityRepository communityRepository;
+
     public Long saveContents(CommunityDto communityDto) throws Exception {
 
 //        게시글 등록
@@ -29,6 +32,12 @@ public class CommunityService {
 
         return communityTest.getCommunityId();
     }
+
+    public List<Community> getMainList(){
+        List<Community> communityList = communityRepository.findAll();
+        return communityList;
+    }
+
 
     //    게시글 리스트로 나타내기
     public List<CommunityDto> getCommunityList(CommunityTest communityTest)  {

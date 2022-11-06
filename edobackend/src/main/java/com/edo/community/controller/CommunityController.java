@@ -44,25 +44,11 @@ public class CommunityController {
     }
 
     @GetMapping(value = "/main")
-    public String CommunityMain(CommunityDto communityDto, Model model, Principal principal){
-        log.info(communityDto.toString());
+    public String CommunityMain(Model model){
 
-        if(principal == null){
-            model.addAttribute("message", "사용자 없음");
-        }else{
-            model.addAttribute("message", principal.getName());
-            log.info(">>>>>>>>>>>>>> 사용자를 읽어오고 있어요 <<<<<<<<<<<<<<<<<<< " + principal.getName().toString());
-            log.info(">>>>>>>>>>>>>> 이것도 가능하려나 " + memberService.communityNickname(principal.getName()) +" <<<<<<<<<<<<<<<<<<< ");
-
-    }
-
-    CommunityTest communityTest = new CommunityTest();
-//        communityTest.setCommunityTitle(communityDto.getCommunityTitle());
-//        communityTest.setCommunityContent(communityDto.getCommunityContents());
-//        log.info(communityTest.toString());
-
-        List<CommunityDto> communityMainList = communityService.getCommunityList(communityTest);
-        model.addAttribute("communityMainList",communityMainList);
+        List<Community> communityList = communityService.getMainList();
+        model.addAttribute("communityList",communityList);
+        log.info("리스트의 갯수는 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"  );
 
         return "community/communityMain";
     }
@@ -70,7 +56,9 @@ public class CommunityController {
 
     @GetMapping(value = "/write")
     public String CommunityWrite(Model model){
+
         model.addAttribute("communityDto", new CommunityDto());
+//        log.info("하 일단 출력이나 해보자 >>>>>>>>>." + new CommunityDto().toString() + "<<<<<<<<<<<<<<<<<<<<<<");
         return "community/communityWrite";
     }
 
