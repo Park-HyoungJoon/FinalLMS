@@ -54,8 +54,7 @@ public class MainController {
 		model.addAttribute("list", lectureList);
 
 		List<Community> communityMainList = communityRepository.findDescCommunity(4);
-		log.info("가장 최근 커뮤니티 불러오기 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityMainList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"  );
-		model.addAttribute("communityMainList",communityMainList);
+	model.addAttribute("communityMainList",communityMainList);
 
 		return "index";
 	}

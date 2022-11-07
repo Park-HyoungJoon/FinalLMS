@@ -51,8 +51,8 @@ public class CommunityController {
     public String CommunityMain(Model model) {
 
         List<Community> communityList = communityService.getMainList();
-        model.addAttribute("communityList", communityList);
         log.info("리스트를 잘 가져오고 있나요 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        model.addAttribute("communityList",communityList);
 
         return "community/communityMain";
     }
