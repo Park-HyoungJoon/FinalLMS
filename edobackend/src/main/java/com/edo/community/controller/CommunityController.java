@@ -7,32 +7,17 @@ import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.community.service.CommunityService;
-import com.edo.lecture.dto.LectureDivideAndContentsDto;
-import com.edo.lecture.entity.Lecture;
-import com.edo.lecture.entity.LectureContents;
-import com.edo.lecture.entity.LectureContentsFile;
-import com.edo.lecture.entity.LectureDivide;
-import com.edo.user.entity.Member;
 import com.edo.user.service.MemberService;
-import com.edo.util.file.FileVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
-import java.util.UUID;
 
 //웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 @CrossOrigin
@@ -51,6 +36,7 @@ public class CommunityController {
     private final MemberService memberService;
 
 
+
     String videoPath;
     @Value("${shorts.path}")
     private String fileRoot;
@@ -62,28 +48,49 @@ public class CommunityController {
     }
 
     @GetMapping(value = "/main")
-    public String CommunityMain(Model model){
+    public String CommunityMain(Model model) {
 
         List<Community> communityList = communityService.getMainList();
-        model.addAttribute("communityList",communityList);
-        log.info("리스트의 갯수는 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"  );
+        model.addAttribute("communityList", communityList);
+        log.info("리스트를 잘 가져오고 있나요 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
         return "community/communityMain";
     }
 
 
-    @GetMapping(value = "/write")
-    public String CommunityWrite(Model model){
 
-        model.addAttribute("communityDto", new CommunityDto());
+    @GetMapping(value = "/community/{part}")
+    public String communityPart
+            (@PathVariable(value = "part", required = false) String part,
+             @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+             Model model) {
+
+        List<Community> communityList = communityRepository.findAll();
+        model.addAttribute("posts", communityService.getPage(pageNumber, size));
+        model.addAttribute("partPage", communityService.getPageByPart(pageNumber, size,part));
+        model.addAttribute("communityList",communityList);
+        model.addAttribute("part",part);
+
+        return "community/communityMain";
+
+    }
+
+    @GetMapping(value = "/write")
+    public String getCommunityWrite(Principal principal, Model model) {
+        log.info("닉네임 가져오는지" + principal.getName() + "<<<<<<<<<<<<<<<<<<<<<");
+       String nickname = memberService.communityNickname(principal.getName());
+
+        model.addAttribute("nickname", nickname);
 //        log.info("하 일단 출력이나 해보자 >>>>>>>>>." + new CommunityDto().toString() + "<<<<<<<<<<<<<<<<<<<<<<");
         return "community/communityWrite";
     }
 
-//    값 전달 테스트
+    //    값 전달 테스트
     @PostMapping(value = "/write")
-    public String CommunityWrite(@Valid CommunityDto communityDto, Model model){
-        log.info(communityDto.toString());
+    public String CommunityWrite(@Valid CommunityDto communityDto, Model model) {
+
+
 
         Community community = communityService.createRealContents(communityDto);
         log.info(community.toString());
@@ -98,26 +105,29 @@ public class CommunityController {
     }
 
     @GetMapping(value = "/write/1")
-    public String communityWrite(Model model){
+    public String communityWrite(Model model) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         CommunityTest communityTest = communityTestRepository.getById(1L);
         log.info(communityTest.toString());
 
-        model.addAttribute("communityTest",communityTest);
+        model.addAttribute("communityTest", communityTest);
         return "community/communityDetail";
     }
 
-//    게시글 상세 조회
-    @GetMapping(value = "/write/{communityId}")
-    public String communityDetail(@PathVariable("communityId") Long communityId, Model model){
-        return null;
+    //    게시글 상세 조회
+    @GetMapping(value = "/detail/{id}")
+    public String communityDetail(@PathVariable(value = "id") Long id, Model model) {
+            List<Community> communityDetail = communityService.getContent(id);
+            log.info(">>>>>>>>>>>>>>>>>>>> 값을 잘 가져오나요? " + communityDetail.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            model.addAttribute("communityDetail",communityDetail);
+        return "community/communityDetail";
     }
 
     //쇼츠 조회
     @GetMapping(value = "/shorts")
-    public String communityShorts(Model model){
+    public String communityShorts(Model model) {
         int heart = 0;
-        model.addAttribute("heart",heart);
+        model.addAttribute("heart", heart);
 
         return "community/communityShorts";
     }

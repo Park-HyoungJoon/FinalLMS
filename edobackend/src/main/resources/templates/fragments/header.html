@@ -55,7 +55,7 @@
                             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                                data-bs-toggle="dropdown" aria-expanded="false">
 
-                                <strong>님</strong>
+                                <strong sec:authentication="principal.username">님</strong>
 <!--                                th:value="${list.memberNickname}"-->
                             </a>
                             <ul class="dropdown-menu text-small shadow">

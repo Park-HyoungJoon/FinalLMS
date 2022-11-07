@@ -6,9 +6,14 @@ import com.edo.community.entity.Community;
 import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
+import com.edo.util.pagination.Paged;
+import com.edo.util.pagination.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,17 +43,29 @@ public class CommunityService {
         return communityList;
     }
 
-
-    //    게시글 리스트로 나타내기
-    public List<CommunityDto> getCommunityList(CommunityTest communityTest)  {
-
-        List<CommunityTest> testList = communityTestRepository.findAllByOrderByCommunityId();
-
-//        communitytest -> communityDto형으로 바꿔줄건데 이 때 entity에 Dto로 변환하는 메소드를 작성해줘야한다.
-        List<CommunityDto> communityDtos = testList.stream().map((communityTest1)-> communityTest1.toDtoNoContents()).toList();
-        log.info(communityDtos.toString());
-        return communityDtos;
+//    Member를 받아온 communityList  조회
+    public List<Community> getContent(Long id){
+        List<Community> communityList = communityRepository.findAllById(id);
+        log.info(">>>>>>>>>>>>>>>>커뮤니티리스트 사이즈" + communityList.size());
+        return communityList;
     }
+
+//    페이징 처리(main) -> 내가 이게 필요한가?
+    public Paged<Community> getPage(int pageNumber, int size){
+        PageRequest request = PageRequest.of(pageNumber -1, size, Sort.by(Sort.Direction.DESC,"id"));
+        Page<Community> postPage = communityRepository.findAll(request);
+        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(),pageNumber,size));
+    }
+
+//    파트 페이징 처리
+    public Paged<Community> getPageByPart(int pageNumber, int size, String part){
+        PageRequest request = PageRequest.of(pageNumber -1, size, Sort.by(Sort.Direction.DESC,"id"));
+        Page<Community> postPage = communityRepository.findAll(request);
+        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(),pageNumber,size));
+    }
+
+
+
 
 //    게시글 세부 조회
 

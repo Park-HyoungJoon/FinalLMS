@@ -42,12 +42,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="list : ${communityList}">
-                                    <td th:text="${list.id}"></td>
+<!--                                listStat = -->
+                                <tr th:each="list, listStat : ${communityList}">
+                                    <a th:href="@{/community/detail/{id}(id=${list.id})}">
+                                        <td th:text="${listStat.count}"></td>
                                     <td th:text="${list.title}"></td>
                                     <td th:text="${list.member.memberNickname}"></td>
                                     <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${list.hit}"></td>
+                                    <td th:text="${list.hit}"></td></a>
                                 </tr>
                                 </tbody>
 
