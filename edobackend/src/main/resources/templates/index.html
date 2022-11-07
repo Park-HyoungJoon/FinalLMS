@@ -135,7 +135,6 @@
                     <span th:text="${vo.getLectureDetail()}"></span>
                 </div>
 
-            \
         </div>
     </div>
 </div>
@@ -145,7 +144,7 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h4 class="section-title bg-white text-center text-primary px-3">커뮤니티</h4>
+            <a th:href="@{/community/main}"><h4 class="section-title bg-white text-center text-primary px-3">커뮤니티</h4></a>
             <h6 class="display-6 mb-4" style="margin-top:15px;">이야기를 나눠요. 함께 토론해봐요.</h6>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
