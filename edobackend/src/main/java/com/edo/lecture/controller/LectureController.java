@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +59,9 @@ public class LectureController {
             (@PathVariable(value = "part", required = false) String part,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
              @RequestParam(value = "size", required = false, defaultValue = "12") int size,
-             Model model) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String path = auth.getName();
+             Model model
+            , Principal principal) {
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인 정보 :::::"+principal.getName());
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));

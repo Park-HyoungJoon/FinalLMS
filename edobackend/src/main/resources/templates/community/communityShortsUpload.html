@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/addLayout}">
+<head>
+    <header>
+        <title>AiMind에 오신 것을 환영합니다.</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    </header>
+</head>
+<body>
+<div layout:fragment="content">
+    <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
+          class="needs-validation" enctype="multipart/form-data" novalidate>
+
+    </form>
+</div>
+</body>
+</html>

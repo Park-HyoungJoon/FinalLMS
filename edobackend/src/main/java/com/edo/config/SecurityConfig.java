@@ -30,12 +30,12 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.formLogin()
-                .loginPage("/member/login") 					//로그인 페이지  url 설정
-                .defaultSuccessUrl("/")					//로그인 성공 시 이동할 url
-                .usernameParameter("usersEmail")		//로그인 시 사용할 파라미터 이름으로 email 을 지정
-                .passwordParameter("usersPassword") 	//view단에서 plain text로 받아온 걸 encode해서 db랑 매칭
+                .loginPage("/member/login")                //로그인 페이지  url 설정
+                .defaultSuccessUrl("/")               //로그인 성공 시 이동할 url
+                .usernameParameter("usersEmail")      //로그인 시 사용할 파라미터 이름으로 email 을 지정
+                .passwordParameter("usersPassword")    //view단에서 plain text로 받아온 걸 encode해서 db랑 매칭
 
-                .failureHandler(loginFailHandler())		//로그인 실패 시 처리하는 핸들러 등록.
+                .failureHandler(loginFailHandler())      //로그인 실패 시 처리하는 핸들러 등록.
                 //.failureUrl("/login/error")//실패 시 이동할 url
 
                 .and()
@@ -50,12 +50,12 @@ public class SecurityConfig {
                 .anyRequest()
                 .authenticated() //아직 로그인 완전히 구현 안 됐기 때문에 일단 비활성화
                 .and()
-                .httpBasic(); 
-        
+                .httpBasic();
+
         http.exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint()); //인증되지 않은 사용자 접근 시 수행
         http.headers().frameOptions().sameOrigin();
-        
+
 
         return http.build();
 

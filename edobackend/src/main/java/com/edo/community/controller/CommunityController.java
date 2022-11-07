@@ -7,18 +7,32 @@ import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.community.service.CommunityService;
+import com.edo.lecture.dto.LectureDivideAndContentsDto;
+import com.edo.lecture.entity.Lecture;
+import com.edo.lecture.entity.LectureContents;
+import com.edo.lecture.entity.LectureContentsFile;
+import com.edo.lecture.entity.LectureDivide;
+import com.edo.user.entity.Member;
 import com.edo.user.service.MemberService;
+import com.edo.util.file.FileVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 //웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 @CrossOrigin
@@ -36,6 +50,10 @@ public class CommunityController {
 
     private final MemberService memberService;
 
+
+    String videoPath;
+    @Value("${shorts.path}")
+    private String fileRoot;
 
 
     @GetMapping(value = "test")
@@ -115,5 +133,27 @@ public class CommunityController {
 
         return "community/communityShorts";
     }
+    //쇼츠 업로드
+
+/*    @PostMapping(value = "/shorts/uploader", consumes = "multipart/form-data")
+    public String ContentsFileCreate(FileVO fileVO, Model model)
+            throws IOException {
+            videoPath = fileRoot;
+
+        MultipartFile multipartFile = fileVO.getShorts();
+
+        String uuid = UUID.randomUUID().toString();
+        String uuidFileName = uuid + "_" + multipartFile.getOriginalFilename();
+
+        File file = new File(videoPath,uuidFileName);
+
+        multipartFile.transferTo(file);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String path = auth.getName();
+        Member member = memberService.getMemberByEmail(path);
+        return "lecture/lecture";
+    }*/
+
 
 }
