@@ -21,6 +21,8 @@ public class FileVO {
     private MultipartFile lectureContentsFile4;
     private MultipartFile lectureContentsFile5;
 
+    private MultipartFile shorts;
+
     private String lectureContentsLink1;
     private String lectureContentsLink2;
     private String lectureContentsLink3;

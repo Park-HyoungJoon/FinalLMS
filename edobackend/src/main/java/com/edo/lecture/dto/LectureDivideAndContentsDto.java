@@ -31,7 +31,7 @@ public class LectureDivideAndContentsDto {
     private String lectureDivideTitle;
     private Lecture lecture;
 
-    @JsonProperty("divideId")
+    @JsonProperty("firstDivideId")
     private String divideId;
     //차시순번
     private int lectureDivideSeq;
