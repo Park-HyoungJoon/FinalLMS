@@ -66,7 +66,6 @@ public class CommunityController {
 
         List<Community> communityList = communityService.getMainList();
         model.addAttribute("communityList",communityList);
-        log.info("리스트의 갯수는 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"  );
 
         return "community/communityMain";
     }

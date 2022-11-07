@@ -61,7 +61,6 @@ public class LectureController {
              @RequestParam(value = "size", required = false, defaultValue = "12") int size,
              Model model
             , Principal principal) {
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인 정보 :::::"+principal.getName());
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
