@@ -74,7 +74,8 @@
             });
     </script>
     <script>
-        function chk_form() {
+        function chk_form(event) {
+            event.preventDefault();
             document.getElementById('uploadContents').onsubmit();
         }
     </script>

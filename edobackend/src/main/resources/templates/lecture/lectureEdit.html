@@ -30,9 +30,10 @@
         <div style="display: block">
             <p class="form-label">분야</p>
             <select class="form-select" id="part" name="part" th:value="${lecture.getLecturePart()}">
-                <option th:selected="${lecture.getLecturePart()}=='파이썬'" value="python">파이썬</option>
-                <option th:selected="${lecture.getLecturePart()}=='인공지능'" value="ai">인공지능</option>
-                <option th:selected="${lecture.getLecturePart()}=='데이터분석'" value="data">데이터분석</option>
+                <option th:selected="${lecture.getLecturePart()}=='python'" value="python">파이썬</option>
+                <option th:selected="${lecture.getLecturePart()}=='ai'" value="ai">인공지능</option>
+                <option th:selected="${lecture.getLecturePart()}=='cote'" value="data">코딩테스트</option>
+                <option th:selected="${lecture.getLecturePart()}=='react'" value="data">리액트</option>
             </select>
         </div>
 
