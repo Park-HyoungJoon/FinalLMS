@@ -44,10 +44,10 @@ public class CommunityService {
     }
 
 //    Member를 받아온 communityList  조회
-    public List<Community> getContent(Long id){
-        List<Community> communityList = communityRepository.findAllById(id);
-        log.info(">>>>>>>>>>>>>>>>커뮤니티리스트 사이즈" + communityList.size());
-        return communityList;
+    public Community getContent(Long id){
+        Community community =  communityRepository.findById(id).get();
+        log.info(">>>>>>>>>>>>>>>>커뮤니티 내용 가져오기" + community);
+        return community;
     }
 
 //    페이징 처리(main) -> 내가 이게 필요한가?

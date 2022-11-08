@@ -32,10 +32,6 @@ public class MemberDto {
 	@NotEmpty(message = "닉네임은 필수 입력 값입니다.")
 	private String memberNickname;
 
-//	role이 안 들어감...
-//	@NotEmpty
-//	private Role userRole;
-
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	public Member createUsers(){

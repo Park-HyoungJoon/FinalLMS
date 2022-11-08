@@ -28,45 +28,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class MainController {
-	@Autowired
-	LectureRepository lectureRepository;
+    @Autowired
+    LectureRepository lectureRepository;
 
-	@Autowired
-	CommunityTestRepository communityTestRepository;
+    @Autowired
+    CommunityTestRepository communityTestRepository;
 
-	@Autowired
-	CommunityRepository communityRepository;
-	MemberRepository memberRepository;
+    @Autowired
+    CommunityRepository communityRepository;
+    MemberRepository memberRepository;
 
 
-	@Autowired
-	LectureService lectureService;
+    @Autowired
+    LectureService lectureService;
 
-	@GetMapping(value="/")
-	public String Home(Model model,
-					   @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-					   @RequestParam(value = "size", required = false, defaultValue = "4") int size)
-	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String path = auth.getName();
-		List<Lecture> lectureList = lectureRepository.findAll();
-		model.addAttribute("posts", lectureService.getPage(pageNumber, size));
-		model.addAttribute("list", lectureList);
+    @GetMapping(value = "/")
+    public String Home(Model model,
+                       @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                       @RequestParam(value = "size", required = false, defaultValue = "4") int size) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String path = auth.getName();
+        List<Lecture> lectureList = lectureRepository.findAll();
+        model.addAttribute("posts", lectureService.getPage(pageNumber, size));
+        model.addAttribute("list", lectureList);
 
-		List<Community> communityMainList = communityRepository.findDescCommunity(4);
-	model.addAttribute("communityMainList",communityMainList);
+        List<Community> communityMainList = communityRepository.findDescCommunity(4);
+		log.info("커뮤니티 리스트 사이즈 출력" + communityMainList.size());
+		Community community = communityMainList.get(0);
+		log.info("첫 번째 커뮤니티 리스트 출력" + community);
 
-		return "index";
-	}
+        model.addAttribute("communityMainList", communityMainList);
 
-	@GetMapping()
-	public String memberHeader(Model model){
-		List<Member> memberList = memberRepository.findAll();
-		model.addAttribute("memberList",memberList);
+        return "index";
+    }
 
-		return "fragments/header";
-	}
+    @GetMapping()
+    public String memberHeader(Model model) {
+        List<Member> memberList = memberRepository.findAll();
+        model.addAttribute("memberList", memberList);
 
-	@GetMapping(value = "/test2")
-	public String test() {return "lectureContents";}
+        return "fragments/header";
+    }
+
+    @GetMapping(value = "/test2")
+    public String test() {
+        return "lectureContents";
+    }
 }

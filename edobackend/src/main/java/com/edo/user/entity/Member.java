@@ -20,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString(exclude = "communityList")
 //회원
 
 public class Member extends BaseTimeEntity {
