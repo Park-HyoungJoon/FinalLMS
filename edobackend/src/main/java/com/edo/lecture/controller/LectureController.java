@@ -108,20 +108,6 @@ public class LectureController {
 
         List<LocalDate> subDate = lectureAddDto.StrToTime(lectureAddDto.getStartDateAndfinalDate());
         List<LocalDate> manageDate = lectureAddDto.StrToTime(lectureAddDto.getManageStartDateAndmanageFinalDate());
-        /***
-         * 강좌추가가 아닌 강좌수정으로 들어온 경우 기존에 있던 강좌 이미지 제거
-         */
-        try{
-            Long id = Long.parseLong(lectureAddDto.getThisId());
-            String fileName = lectureService.getLectureImgeById(id);
-            File existFile = new File(imgPath,fileName);
-            if(existFile.exists()){
-                existFile.delete();
-            }
-        }catch (Exception e){
-
-        }
-
 
         /**
          * resourcePath는 현재 프로젝트의 상대경로를 가져와 그 안에
@@ -136,6 +122,21 @@ public class LectureController {
             File saveFile = new File(imgPath,uuidFileName);
             lectureAddDto.setLectureImage(uuidFileName);
             try{
+                /***
+                 * 강좌추가가 아닌 강좌수정으로 들어온 경우 기존에 있던 강좌 이미지 제거
+                 */
+                try{
+                    Long id = Long.parseLong(lectureAddDto.getThisId());
+                    String fileName = lectureService.getLectureImgeById(id);
+                    File existFile = new File(imgPath,fileName);
+                    if(existFile.exists()){
+                        existFile.delete();
+                    }
+                }catch (Exception e){
+
+                }
+
+                //파일저장
                 multipartFile.transferTo(saveFile);
             }catch (Exception e){
                 log.error(e.getMessage());
@@ -161,9 +162,6 @@ public class LectureController {
             Lecture lecture = lectureService.lectureAdd(lectureAddDto);
             model.addAttribute("lectureId", lecture.getId());
             if (lectureAddDto.getThisId() == null) {
-                Long id = lecture.getId();
-                LectureDivide lectureDivide = lectureDivideService.insertFirstDivide(id);
-                LectureDivide lectureDivide2 = lectureDivideService.save(lectureDivide);
                 return "lecture/lectureContentsEdit";
             } else {
                 Lecture lecture1 = lectureService.getLectureById(Long.parseLong(lectureAddDto.getThisId()));
@@ -247,8 +245,9 @@ public class LectureController {
         Long lectureId = Long.parseLong(lectureContentsAddDto.getStrLectureId());
         LectureDivideAndContentsDto lectureDivideDto = new LectureDivideAndContentsDto();
         lectureDivideDto.setLectureId(lectureId);
-        if (lectureContentsAddDto.getDivideId() != null) {
+        if (!lectureContentsAddDto.getDivideId().equals("")) {
             lectureDivideDto.setId(Long.parseLong(lectureContentsAddDto.getDivideId()));
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>DivideId추가"+lectureContentsAddDto.getDivideId());
         }
         lectureDivideDto.setLectureDivideTitle(lectureContentsAddDto.getLectureDivideTitle());
         lectureDivideDto.setLectureDivideInfo(lectureContentsAddDto.getLectureDivideInfo());
@@ -301,6 +300,7 @@ public class LectureController {
     @PostMapping(value = "/contents/uploader", consumes = "multipart/form-data")
     public String ContentsFileCreate(FileVO fileVO,Model model)
             throws IOException {
+
         String os = System.getProperty("os.name").toLowerCase();
         if(os.contains("win")){
             imgPath =System.getProperty("user.dir") + imgRoot;
@@ -309,7 +309,6 @@ public class LectureController {
             imgPath = "/home/phj/image/";
             videoPath = "/home/phj/video/";
         }
-
         /***
          * 기존 이미 저장되어있는 정보 불러오는 부분
          * 첫 번째 강의ID 값 구해온 후 ->
@@ -437,6 +436,7 @@ public class LectureController {
         List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(id);
 
         model.addAttribute("lectureId", id);
+        model.addAttribute("firstDivideId", lectureDivide.getId());
         model.addAttribute("lectureDivideIds", lectureDivideIds);
         model.addAttribute("lectureDivide", lectureDivide);
 
@@ -450,6 +450,7 @@ public class LectureController {
         List<Long> lectureDivideIds = lectureDivideService.getLectureDivideIds(lecture.getId());
         LectureDivide lectureDivide = lectureDivideService.getLectureDivideFirstByLecture(lecture);
         model.addAttribute("lectureId", lecture.getId());
+        model.addAttribute("firstDivideId", lectureDivide.getId());
         model.addAttribute("lectureDivideIds", lectureDivideIds);
         model.addAttribute("lectureDivide", lectureDivide);
         return "lecture/lectureContentsEdit";
