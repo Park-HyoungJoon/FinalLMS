@@ -19,7 +19,7 @@ public class CommunityDto {
 
    private Long id;
 
-   private Member member;
+   private Long memberId;
    
    @NotBlank(message = "제목을 입력해주세요")
     private String title;
@@ -30,6 +30,7 @@ public class CommunityDto {
    private int hit;
 
    private String category;
+
 
    private static ModelMapper modelMapper = new ModelMapper();
 

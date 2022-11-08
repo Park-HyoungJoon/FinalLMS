@@ -43,7 +43,7 @@
                     <div style="display: block">
                         <label class="form-label">분야</label>
                         <!--th:placeholder="${user[0].Nick}" required>-->
-                        <select class="form-select" id="part" name="part">
+                        <select class="form-select" id="category" name="category">
                             <option value="공지">공지</option>
                             <option value="자유게시판">자유게시판</option>
                             <option value="QnA">Q&A</option>
@@ -51,14 +51,14 @@
                         </select>
                     </div>
                     <br/>
-<!--                    이거 멤버를 넘겨야 하나? 교수님께 질문해보기잉-->
                     <br>
                     <label>작성자</label>
-                    <input type="text" th:value="${nickname}" name="communityNickname" id="communityNickname" readonly></input>
+                    <input type="hidden" th:value="${member.memberId}" id="memberId" name="memberId"/>
+                    <input type="text" th:value="${member.memberNickname}" name="communityNickname" id="communityNickname" readonly></input>
 
                     <br>
                     <label>제목</label>
-                    <input type="text"  name="communityTitle" id="communityTitle"></input>
+                    <input type="text"  name="title" id="title"></input>
                 </div>
                 <!--        파일 업로드 부분 -->
                 <!--        <div style="display: block">-->
@@ -74,9 +74,6 @@
                 <!--            <div class="form-group">-->
                 <div style="display:block;">
                     <label class="form-label mt-4"> 내용 </label>
-                    <!--                    민주 코드-->
-                    <!--                <input type = textarea name="content" id="editor1" th:field="*{communityContents}">-->
-                    <!--                    형준 코드-->
                     <textarea name="content" id="editor1" placeholder="여기에 내용을 입력해주세요">
         </textarea>
                     </input>

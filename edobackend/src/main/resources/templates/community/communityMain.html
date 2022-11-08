@@ -16,49 +16,98 @@
 </head>
 <body class="vsc-initialized">
 <div layout:fragment="content">
-<div id="container-xxl py-5" style="height: 1062px">
-      <!--  community field  -->
-    <div id="container">
-<!--        <div id="asset1" class="tab_content current">-->
+    <div id="container-xxl py-5" style="height: 1062px">
+        <!--  community field  -->
+        <div id="container">
+            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b></h3>
+            <div class="row ">
+                <div class="col-sm-12">
+                    <div align="right">
+                        <button type="button" class="btn btn-secondary" id="writeBtn"
+                                onclick="window.location.href ='/community/write'" sec:authorize="isAuthenticated()">글쓰기
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead class="table-light">
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--                                listStat = -->
+                        <tr th:if="${#lists.size(posts.page)}>0"
+                            th:each="list, listStat : ${communityList}"
+                            class="project-item border rounded h-100 p-4" style="min-height: 300px; max-height: 300px;"
+                            th:data-dot="${listStat.index}">
+                            <a th:href="@{/community/detail/{id}(id=${list.id})}">
+                                <td th:text="${listStat.count}"></td>
+                                <td th:text="${list.title}"></td>
+                                <td th:text="${list.member.memberNickname}">이름 들어갈 자리</td>
+                                <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
+                                <td th:text="${list.hit}"></td>
+                            </a>
+                        </tr>
+                        </tbody>
 
-<!--
-        <h3><img th:src="@{/img/}+'EDoLOGO_small.png'" width="30px" height="30px"><b>커뮤니티</b></h3>-->
-        <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b></h3>
-                    <div class="row ">
-                        <div class="col-sm-12">
-                            <div align="right">
-                                <button type="button" class="btn btn-secondary" id="writeBtn"
-                                        onclick="window.location.href ='/community/write'" sec:authorize = "isAuthenticated()">글쓰기
-                                </button>
-                            </div>
-                            <table class="table">
-                                <thead class="table-light">
-                                <tr>
-                                    <th scope="col">번호</th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">작성자</th>
-                                    <th scope="col">작성일</th>
-                                    <th scope="col">조회수</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-<!--                                listStat = -->
-                                <tr th:each="list, listStat : ${communityList}">
-                                    <a th:href="@{/community/detail/{id}(id=${list.id})}">
-                                        <td th:text="${listStat.count}"></td>
-                                    <td th:text="${list.title}"></td>
-                                    <td th:text="${list.member.memberNickname}"></td>
-                                    <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${list.hit}"></td></a>
-                                </tr>
-                                </tbody>
-
-                            </table>
-                        </div>
+                    </table>
+                </div>
 
 
             </div>
         </div>
+        <div class="paging">
+            <ul class="pagination" th:if="${posts.page.totalPages > 1}">
+                <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{'/community/main' + '?pageNumber=' + ${posts.paging.pageNumber -1}}"
+                       tabindex="-1">Previous</a>
+                </li>
+                <th:block th:each="item : ${posts.paging.getItems()}">
+                    <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
+                        th:if="${item.pageItemType.name() == 'PAGE'}">
+                        <a class="page-link" th:href="@{'/community/main' + '?pageNumber=' + ${item.index}}"
+                           th:text="${item.index}"></a>
+                    </li>
+                    </li>
+                    <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                </th:block>
+                <li class="page-item" th:classappend="${!posts.paging.isNextEnabled()? 'disabled' : ''}">
+                    <a class="page-link"
+                       th:href="@{'/community/main' + '?pageNumber=' + ${posts.paging.pageNumber -1}}">Next</a>
+                </li>
+            </ul>
+        </div>
+        <!--    파트 페이지-->
+        <!--    <nav aria-label="Page navigation" class="paging">-->
+        <!--        <ul class="pagination" th:if="${posts.page.totalPages > 1}">-->
+        <!--            <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">-->
+        <!--                <a class ="page-link" th:href="@{'/community/' + ${category} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"-->
+        <!--                   tabindex="-1">Previous</a>-->
+        <!--            </li>-->
+        <!--            <th:block th:each="item : ${posts.paging.getItems()}">-->
+        <!--                <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"-->
+        <!--                    th:if="${item.pageItemType.name() == 'PAGE'}">-->
+        <!--                    &lt;!&ndash; <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">-->
+        <!--                     <a class="page-link"-->
+        <!--                        id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>&ndash;&gt;-->
+        <!--                    <a class="page-link" th:href="@{'/community/' + ${part} + '?pageNumber=' + ${item.index}}"-->
+        <!--                       th:text="${item.index}"></a>-->
+        <!--                </li>-->
+        <!--                <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">-->
+        <!--                    <a class="page-link" href="#">...</a>-->
+        <!--                </li>-->
+        <!--            </th:block>-->
+        <!--            <li class="page-item" th:classappend="${!posts.paging.isNextEnabled()? 'disabled' : ''}">-->
+        <!--                <a class="page-link"-->
+        <!--                   th:href="@{'/community/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber + 1}}">Next</a>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+        <!--    </nav>-->
     </div>
 
 </div>

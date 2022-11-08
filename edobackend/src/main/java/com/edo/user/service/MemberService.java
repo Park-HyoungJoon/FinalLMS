@@ -26,85 +26,82 @@ import java.util.Optional;
 @Transactional(readOnly = false)
 @RequiredArgsConstructor
 @Slf4j
-public class MemberService implements UserDetailsService
-{
+public class MemberService implements UserDetailsService {
 
-	// @Autowired
-	private final MemberRepository memberRepository;
+    // @Autowired
+    private final MemberRepository memberRepository;
 
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
-	// 회원가입 시 멤버 저장
-	public Long saveMember(Member member)
-	{
+    // 회원가입 시 멤버 저장
+    public Long saveMember(Member member) {
 
-		log.info(member.toString());
+        log.info(member.toString());
 
 //        중복된 회원인지 먼저 확인
 
-		validateDuplicateMemberEmail(member.getMemberEmail());
+        validateDuplicateMemberEmail(member.getMemberEmail());
 
 //        중복되지 않았다면 회원가입
-		Member saveMember = memberRepository.save(member);
-		log.info(saveMember.toString());
-		return saveMember.getMemberId();
-	}
+        Member saveMember = memberRepository.save(member);
+        log.info(saveMember.toString());
+        return saveMember.getMemberId();
+    }
 
-	// 가입된 회원에 한하여 예외 발생
-	public void validateDuplicateMemberEmail(String memberEmail)
-	{
+    // 가입된 회원에 한하여 예외 발생
+    public void validateDuplicateMemberEmail(String memberEmail) {
 //        이메일 중복 확인
 //		Member findMember = memberRepository.findByMemberEmail(memberEmail).get();
-		Optional<Member> findMember = memberRepository.findByMemberEmail(memberEmail);
-		if (findMember.isPresent())
+        Optional<Member> findMember = memberRepository.findByMemberEmail(memberEmail);
+        if (findMember.isPresent()) {
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
 
-		{
-			throw new IllegalStateException("이미 가입된 회원입니다.");
-		}
+    }
 
-	}
-
-	// 닉네임 중복 확인
-	public void validateDuplicateNickname(String memberNickname)
-	{
-		Member findUserNickname = memberRepository.findByMemberNickname(memberNickname);
-		if (findUserNickname != null)
-		{
-			throw new IllegalStateException("중복된 닉네임입니다. 다른 닉네임으로 설정해주세요");
-		}
-	}
+    // 닉네임 중복 확인
+    public void validateDuplicateNickname(String memberNickname) {
+        Member findUserNickname = memberRepository.findByMemberNickname(memberNickname);
+        if (findUserNickname != null) {
+            throw new IllegalStateException("중복된 닉네임입니다. 다른 닉네임으로 설정해주세요");
+        }
+    }
 
 //    로그인
 
-	@Override
-	public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException
-	{
-		log.info("===========>" + memberEmail);
-		Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(()->new EntityNotFoundException("오류"));
+    @Override
+    public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
+        log.info("===========>" + memberEmail);
+        Member member = memberRepository.findByMemberEmail(memberEmail).orElseThrow(() -> new EntityNotFoundException("오류"));
 
-		log.info("===========>" + member.getMemberEmail() + ", " + member.getMemberRole().toString());
-		return User.builder() // User 객체 생성하기
-				.username(member.getMemberEmail()).password(member.getMemberPassword()).roles(member.getMemberRole().toString())
-				.build();
-	}
+        log.info("===========>" + member.getMemberEmail() + ", " + member.getMemberRole().toString());
+        return User.builder() // User 객체 생성하기
+                .username(member.getMemberEmail()).password(member.getMemberPassword()).roles(member.getMemberRole().toString())
+                .build();
+    }
 
-//	마이페이지 member이름 가져오기
+    //	마이페이지 member이름 가져오기
 //    게시글 리스트로 나타내기
-	public List<MemberDto> getMemberList(Member member){
-		List<Member> memberList = memberRepository.findAllByOrderByMemberId();
+    public List<MemberDto> getMemberList(Member member) {
+        List<Member> memberList = memberRepository.findAllByOrderByMemberId();
 
 //		entity에 작성한 코드를 list로 받아온다.
-		List<MemberDto> memberDtos  = memberList.stream().map((member1 -> member1.toMemberDto())).toList();
-		log.info(memberDtos.toString());
-		return memberDtos;
-	}
+        List<MemberDto> memberDtos = memberList.stream().map((member1 -> member1.toMemberDto())).toList();
+        log.info(memberDtos.toString());
+        return memberDtos;
+    }
 
-//	커뮤니티로 닉네임 보내기
-	public String communityNickname(String memberEmail) {
-		Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
-		return member.get().getMemberNickname();
-	}
+    //	커뮤니티로 닉네임 보내기
+    public String communityNickname(String memberEmail) {
+        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
+        return member.get().getMemberNickname();
+    }
 
+    //	커뮤니티로 멤버 보내기
+    public Member communityMember(String memberEmail) {
+        Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
+        return member.get();
+    }
 
 }

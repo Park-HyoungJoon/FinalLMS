@@ -1,28 +1,23 @@
 package com.edo.user.controller;
 
-import javax.validation.Valid;
-
 import com.edo.community.entity.Community;
-import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
 import com.edo.user.dto.MemberDto;
+import com.edo.user.entity.Member;
 import com.edo.user.repository.MemberRepository;
+import com.edo.user.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.edo.user.entity.Member;
-import com.edo.user.service.MemberService;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin
@@ -40,49 +35,44 @@ public class MemberController {
     private final CommunityRepository communityRepository;
     private final MemberRepository memberRepository;
 
-    private final PasswordEncoder passwordEncoder;  
+    private final PasswordEncoder passwordEncoder;
 
 
-
-    @GetMapping(value="/login")
+    @GetMapping(value = "/login")
     public String Login(@RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "exception", required = false) String exception, Model model) {
-    	model.addAttribute("error", error);
-    	model.addAttribute("exception", exception);    	
-    	log.info("loginForm view resolve");
+                        @RequestParam(value = "exception", required = false) String exception, Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+        log.info("loginForm view resolve");
 
         return "member/login";
     }
 
-//    헤더
-
-
-//   이용약관
-    @GetMapping(value="/join")
-    public String MemberJoinGet(Model model){
+    //   이용약관
+    @GetMapping(value = "/join")
+    public String MemberJoinGet(Model model) {
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 회원가입 들어가는 중 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         return "member/memberJoin";
     }
 
 
-// 이메일 등록
-    @GetMapping(value="/joinInfo")
-    public String MemberjoinInfoGet(){
+    // 이메일 등록
+    @GetMapping(value = "/joinInfo")
+    public String memberJoinInfoGet() {
         return "member/memberjoinInfo";
     }
 
     //    회원가입 값 전달
-    @PostMapping(value ="/joinInfo" )
-    public String MemberJoinPost(@Valid MemberDto memberDto, Model model){
-
+    @PostMapping(value = "/joinInfo")
+    public String MemberJoinPost(@Valid MemberDto memberDto, Model model) {
 
         Member member = Member.createUser(memberDto, passwordEncoder);
 
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + member.toString());
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>" + member);
 
-        try{
+        try {
             memberService.saveMember(member);
-        } catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
             return "member/memberjoinInfo";
         }
 
@@ -90,16 +80,16 @@ public class MemberController {
         return "member/login";
     }
 
-//    이메일 중복 확인을 위한 메소드
+    //    이메일 중복 확인을 위한 메소드
     @ResponseBody //view가 아닌 data 그대로를 반환합니다.
     @PostMapping(value = "/joinInfo/validateEmail")
-    public Boolean ValidateEmail(@RequestBody MemberDto memberDto){
+    public Boolean ValidateEmail(@RequestBody MemberDto memberDto) {
         log.info(memberDto.toString());
-        try{
+        try {
 //        이메일 중복 검사 실행
             memberService.validateDuplicateMemberEmail(memberDto.getMemberEmail());
 
-        }catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
             return false;
         }
         return true;
@@ -108,21 +98,33 @@ public class MemberController {
     //    닉네임 중복 확인을 위한 메소드
     @ResponseBody
     @PostMapping(value = "/joinInfo/validateNickname")
-    public Boolean ValidateNickname(@RequestBody MemberDto memberDto){
+    public Boolean ValidateNickname(@RequestBody MemberDto memberDto) {
         log.info(memberDto.toString());
-        try{
+        try {
 //        닉네임 중복 검사 실행
             memberService.validateDuplicateNickname(memberDto.getMemberNickname());
-        }catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/mypage/editNickname")
+    public Boolean editNickname(@RequestBody MemberDto memberDto) {
+        log.info(memberDto.getMemberNickname() + "<<<<<<<<<<<<<<<<<<<<<<<<<");
+        try {
+            memberService.validateDuplicateNickname(memberDto.getMemberNickname());
+        } catch (IllegalStateException e) {
             return false;
         }
         return true;
     }
 
     // 마이페이지
-    @GetMapping(value="/mypage")
+    @GetMapping(value = "/mypage")
 
-    public String myPageGet(MemberDto memberDto, Model model){
+    public String myPageGet(MemberDto memberDto, Model model) {
         log.info(">>>>>>>>>>>>>>>>>>>memberDto<<<<<<<<<<<<<<<<<<<<<<<<<" + memberDto.toString());
 
         List<Member> memberList = memberRepository.findAllByOrderByMemberId();
@@ -130,14 +132,13 @@ public class MemberController {
         model.addAttribute("memberList", memberList);
 
         List<Community> communityMainList = communityRepository.findDescCommunity(5);
-        log.info(">>>>>>>>>>>>>>>>>communitylist<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
-        model.addAttribute("communityMainList",communityMainList);
+        log.info(">>>>>>>>>>>>>>>>>communitylist  사이즈 가져오기<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
+        model.addAttribute("communityMainList", communityMainList);
 
 
-        List<Lecture> lectureList =  lectureRepository.findAllLectureTopFour(4);
+        List<Lecture> lectureList = lectureRepository.findAllLectureTopFour(4);
         log.info(">>>>>>>>>>>>>>>>>lectureList<<<<<<<<<<<<<<<<<<<<<<<" + lectureList.size());
-        model.addAttribute("lectureList",lectureList);
-
+        model.addAttribute("lectureList", lectureList);
 
 
         return "mypage/mypageMain";
@@ -153,8 +154,8 @@ public class MemberController {
     //로그인 실패 시 에러 메세지 나타냄 
     @GetMapping(value = "/login/error")
     public String loginErrorGet(@RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "exception", required = false) String exception, Model model){
-    	log.info("=================> 오류 발생" + error + ", " + exception);
+                                @RequestParam(value = "exception", required = false) String exception, Model model) {
+        log.info("=================> 오류 발생" + error + ", " + exception);
         model.addAttribute("loginErrorMsg", exception);
         return "/member/login";
     }
