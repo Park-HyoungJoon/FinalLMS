@@ -28,7 +28,7 @@
             <div class="lecture project-carousel fadeInUp" data-wow-delay="0.1s" >
                     <div th:if="${#lists.size(partPage.page)}>0"
                          th:each="vo, status:${partPage.page}"
-                            class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px;" th:data-dot="${status.index}">
+                            class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px; overflow: hidden;" th:data-dot="${status.index}">
                         <div class="position-relative mb-4">
                             <img class="img-fluid rounded "
                                  th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
@@ -37,7 +37,7 @@
                         </div>
                         <h6 th:text="${vo.getLectureTitle()}"></h6>
                         <span th:text="${vo.getLectureDetail()}"></span>
-                        <div class="btn-group">
+                        <div class="btn-group" style="bottom: 0;" >
                             <a class="btn btn-sm btn-outline-secondary"
                                th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
                                sec:authorize="isAuthenticated()">

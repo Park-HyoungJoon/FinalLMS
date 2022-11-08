@@ -57,6 +57,7 @@ public class MainController {
 		Community community = communityMainList.get(0);
 		log.info("첫 번째 커뮤니티 리스트 출력" + community);
 
+
         model.addAttribute("communityMainList", communityMainList);
 
         return "index";
