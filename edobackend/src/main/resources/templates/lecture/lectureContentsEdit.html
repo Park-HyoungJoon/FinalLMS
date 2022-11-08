@@ -11,36 +11,35 @@
 <div layout:fragment="content">
     <div class="row main-container">
         <div class="col">
-        <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
-              class="needs-validation" enctype="multipart/form-data" novalidate th:object="${contentsEditDto}">
-            <input type="hidden" id="firstDivideId" name="firstDivideId" th:value="${firstDivideId}"/>
-            <div th:if="${not #strings.isEmpty(lectureContentsList)}">
-                <input type="hidden" id="ContentsListSize" name="ContentsListSize"
-                       th:value="${lectureContentsList.size()}">
-            </div>
-            <div data-name="fileDiv">
-                <input type="hidden" id="ContentsSeq" name="ContentsSeq" value="0"/>
-                <input type="hidden" th:name="lectureId" th:value="${lectureId}" id="lectureId"/>
-                <button type="button" onclick="addFile();"
-                        class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-                <div data-name="contentsDiv">
-                    <label>강의제목</label>
-                    <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"
-                           th:placeholder="${lectureDivide?.getLectureDivideTitle()}">
-                    <div class="form-group">
-                        <label class="form-label mt-4">차시 설명</label>
-                        <textarea name="content" id="editor1">
-                             &lt;p&gt;This is some sample content.&lt;/p&gt;
-                         </textarea>
-                    </div>
-                    <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 20px;">
-                    </div>
-                    <input type="submit" id="nextButton" class="btn btn-outline-primary nextButton" value="저장"/>
+            <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
+                  class="needs-validation" enctype="multipart/form-data" novalidate th:object="${contentsEditDto}">
+                <input type="hidden" id="firstDivideId" name="firstDivideId" th:value="${firstDivideId}"/>
+                <div th:if="${not #strings.isEmpty(lectureContentsList)}">
+                    <input type="hidden" id="ContentsListSize" name="ContentsListSize"
+                           th:value="${lectureContentsList.size()}">
                 </div>
-            </div>
-        </form>
+                <div data-name="fileDiv">
+                    <input type="hidden" id="ContentsSeq" name="ContentsSeq" value="0"/>
+                    <input type="hidden" th:name="lectureId" th:value="${lectureId}" id="lectureId"/>
+                    <button type="button" onclick="addFile();"
+                            class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <div data-name="contentsDiv">
+                        <label>강의제목</label>
+                        <input type="text" name="lectureDivideTitle" id="lectureDivideTitle"
+                               th:placeholder="${lectureDivide?.getLectureDivideTitle()}">
+                        <div class="form-group">
+                            <label class="form-label mt-4">차시 설명</label>
+                            <textarea name="content" id="editor1">
+                         </textarea>
+                        </div>
+                        <div class="accordion" id="accordionExample" style="margin-top: 20px; margin-bottom: 20px;">
+                        </div>
+                        <input type="submit" id="nextButton" class="btn btn-outline-primary nextButton" value="저장"/>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <div class="col">
@@ -165,71 +164,13 @@
             alert('차시는 최대 5개까지 업로드 할 수 있습니다.');
             return false;
         }
-        const fileHtml = `
-<div class="accordion-item">
-     <input type="hidden" id="fileCount${testCount}" value="${testCount}"/>
-     <button type="button" onclick="removeFile(this)"
-                    class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
-                <i class="fa fa-minus" aria-hidden="true"></i>
-     </button>
-    <h2 class="accordion-header" th:id="heading${testCount}">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${testCount}"
-                aria-expanded="true" aria-controls="collapse${testCount}">
-            파일 추가${testCount}
-        </button>
-    </h2>
-    <div id="collapse${testCount}" class="accordion-collapse collapse show" aria-labelledby="heading${testCount}"
-         data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-            <div data-name="fileDiv" class="form-group">
-                <div data-name="contentsDiv">
-                    <div style="display: block">
-                        <label>차시제목</label>
-                        <input type="text" name="lectureContentsTitle${testCount}" id="lectureContentsTitle${testCount}"></div>
-                    <div style="display: block">
-                        <label>차시 파일</label>
-                        <ul class="tabs">
-                            <li class="tab-link current" id="tabBar-${testCount}" data-tab="tab-${testCount}">파일</li>
-                            <li class="tab-link" id="tabBar-${testCount + 5}" data-tab="tab-${testCount + 5}">링크</li>
-                        </ul>
+        for (i = 0; i < 5; i++) {
+            if ($('input#fileCount' + i).val()) {
+                console.log(i, "해당 객체 존재함");
 
-                        <div id="tab-${testCount}" class="tab-content current">
-                            <input type='file' id="lectureContentsFile${testCount}" name="lectureContentsFile${testCount}"
-                                   accept=".pdf,.mp4,.webM,.avi,.ogg"/></div>
-                        <div id="tab-${testCount + 5}" class="tab-content">
-                            <input type="text" name="lectureContentsLink${testCount}" placeholder="링크입력">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-`;
-// If you use jQuery, you can use the jQuery plugin Dropzone ships with:
-        $('ul.tabs li').click(function () {
-            let tab_id = $(this).attr('data-tab');
-
-            let tabtest = parseInt(tab_id.substr(4, 5));
-            console.log(parseInt(tabtest) + 5);
-
-            $("#tabBar-" + (tabtest)).removeClass('current');
-            $("#tabBar-" + (tabtest + 5)).removeClass('current');
-            $("#tabBar-" + (tabtest - 5)).removeClass('current');
-            $('#tab-' + (tabtest)).removeClass('current');
-            $('#tab-' + (tabtest + 5)).removeClass('current');
-            $('#tab-' + (tabtest - 5)).removeClass('current');
-
-            $(this).addClass('current');
-            $("#" + tab_id).addClass('current');
-        })
-        for(i=0;i<5;i++){
-            if($('input#fileCount'+i).val()){
-                console.log(i,"해당 객체 존재함");
-
-            }else{
-                testCount=i;
-                let fileHtml  = `
+            } else {
+                testCount = i;
+                let fileHtml = `
 <div class="accordion-item">
      <input type="hidden" id="fileCount${testCount}" value="${testCount}"/>
      <button type="button" onclick="removeFile(this)"
@@ -271,12 +212,26 @@
 </div>
 `;
                 $("#accordionExample").append(fileHtml);
-                console.log(testCount);
                 testCount++;
                 break;
             }
         }
-        console.log(testCount);
+// If you use jQuery, you can use the jQuery plugin Dropzone ships with:
+        $('ul.tabs li').click(function () {
+            let tab_id = $(this).attr('data-tab');
+
+            let tabtest = parseInt(tab_id.substr(4, 5));
+
+            $("#tabBar-" + (tabtest)).removeClass('current');
+            $("#tabBar-" + (tabtest + 5)).removeClass('current');
+            $("#tabBar-" + (tabtest - 5)).removeClass('current');
+            $('#tab-' + (tabtest)).removeClass('current');
+            $('#tab-' + (tabtest + 5)).removeClass('current');
+            $('#tab-' + (tabtest - 5)).removeClass('current');
+
+            $(this).addClass('current');
+            $("#" + tab_id).addClass('current');
+        })
 
     }
 
