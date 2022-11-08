@@ -54,7 +54,8 @@ public class MainController {
 		model.addAttribute("list", lectureList);
 
 		List<Community> communityMainList = communityRepository.findDescCommunity(4);
-	model.addAttribute("communityMainList",communityMainList);
+		model.addAttribute("communityMainList",communityMainList);
+		log.info("################################community"+communityMainList.get(0).getContent());
 
 		return "index";
 	}
