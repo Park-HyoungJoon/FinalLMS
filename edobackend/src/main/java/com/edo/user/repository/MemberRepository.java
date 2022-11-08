@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.edo.community.entity.CommunityTest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.edo.user.entity.Member;
@@ -32,4 +33,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     public Optional<Member> findByMemberId(Long memberId);
 
+    //유저 이메일을 갖고 닉네임 찾기
+    @Query(value = "select member_nickname from member where member_email=?1", nativeQuery = true)
+    String findMemberNicknameByMemberEmail(String email);
 }

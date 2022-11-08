@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin
@@ -36,6 +37,7 @@ public class MainController {
 
     @Autowired
     CommunityRepository communityRepository;
+    @Autowired
     MemberRepository memberRepository;
 
 
@@ -45,9 +47,7 @@ public class MainController {
     @GetMapping(value = "/")
     public String Home(Model model,
                        @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-                       @RequestParam(value = "size", required = false, defaultValue = "4") int size) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String path = auth.getName();
+                       @RequestParam(value = "size", required = false, defaultValue = "4") int size, Principal principal) {
         List<Lecture> lectureList = lectureRepository.findAll();
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("list", lectureList);
@@ -56,12 +56,20 @@ public class MainController {
 		log.info("커뮤니티 리스트 사이즈 출력" + communityMainList.size());
 		Community community = communityMainList.get(0);
 		log.info("첫 번째 커뮤니티 리스트 출력" + community);
-
-
         model.addAttribute("communityMainList", communityMainList);
 
         return "index";
     }
 
+    @GetMapping()
+    public String memberHeader(Model model, Principal principal) {
+        List<Member> memberList = memberRepository.findAll();
+        model.addAttribute("memberList", memberList);
+        return "fragments/header";
+    }
 
+    @GetMapping(value = "/test2")
+    public String test() {
+        return "lectureContents";
+    }
 }

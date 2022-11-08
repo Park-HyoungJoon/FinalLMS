@@ -2,195 +2,207 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layouts/headAndFootLayout}">
+      layout:decorate="~{layouts/addLayout}">
 <head>
-  <header>
-    <title>AiMind에 오신 것을 환영합니다.</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  </header>
+    <header>
+        <title>AiMind에 오신 것을 환영합니다.</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    </header>
 </head>
 <body>
 <div layout:fragment="content">
-  <style>
-    .form-label{
-      font-weight: 1000;
-    }
-  </style>
-  <form th:action="@{/lecture/add}" id="uploadLecture" name="uploadLecture"
-        method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
-    <input type="hidden" name="thisId" id="thisId" th:value="${lecture.getId()}"/>
-    <div style="display: block">
-      <label class="form-label">강좌명</label> <input
-            type="text" class="form-control" id="lectureTitle" name="lectureTitle"
-            th:placeholder="${lecture.getLectureTitle()}" th:value="${lecture.getLectureTitle()}" required >
-      <!--th:placeholder="${user[0].Nick}" required>-->
-      <div class="invalid-feedback">Valid first name is required.</div>
-    </div>
-      <br/>
-    <div style="display: block">
-      <p class="form-label">분야</p>
-      <select class="form-select" id="part" name="part" th:value="${lecture.getLecturePart()}">
-        <option th:selected="${lecture.getLecturePart()}=='파이썬'" value="python">파이썬</option>
-        <option th:selected="${lecture.getLecturePart()}=='인공지능'" value="ai">인공지능</option>
-        <option th:selected="${lecture.getLecturePart()}=='데이터분석'" value="data">데이터분석</option>
-      </select>
-    </div>
-
-    <br/>
-
-    <div class="col-sm-6">
-      <p class="form-label">접수기간</p>
-      <input class="dateSelector"
-             id="startDateAndfinalDate" name="startDateAndfinalDate"
-             th:value="${lecture.getStartDate()}+' to '+${lecture.getFinalDate()}" style="width: 350px;"/>
-
-        <input type="checkbox" id="subyn" name="subyn"
-               class="form-check-input" >
-        <label for="subyn" class="form-check-label">상시</label>
-    </div>
-
-    <br/>
-
-    <div class="col-sm-6">
-      <p class="form-label">운영기간</p>
-      <input class="dateSelector2"
-             id="manageStartDateAndmanageFinalDate" name="manageStartDateAndmanageFinalDate"
-             th:value="${lecture.getManageStartDate()}+' to '+${lecture.getManageFinalDate()}" style="width: 350px;"/>
-        <input type="checkbox" id="manageyn" name="manageyn"
-               class="form-check-input">
-        <label for="manageyn" class="form-check-label">상시</label>
-     </div>
-
-
-    <br/>
-
-
-    <div style="display: block">
-      <p class="form-label">강의시간</p>
-      <input type="text" name="lectureTime" id="lectureTime" th:placeholder="${lecture.getLectureTime() }">
-    </div>
-
-
-    <br/>
-    <div style="display:block;">
-      <img id="preImage"/>
-      <img th:src="'/image/'+ ${lecture.getLectureImage()}" alt="image_title">
-      <input type='file' id="realLectureImg" name="realLectureImg"/>
-      <input type="hidden" id="lectureImgStr" name="lectureImgStr" th:value="${lecture.getLectureImage()}">
-    </div>
-
-    <br/>
-
-
-    <div style="display:block;">
-      <p class="form-label">부제목</p>
-      <input type='text' id="lectureDetail" name="lectureDetail" th:value="${lecture.getLectureDetail()}"/>
-    </div>
-
-
-    <br/>
-
-
-    <div style="display:block;">
-      <p class="form-label">강사이름</p>
-      <input type='text' id="teacherName" name="teacherName" placeholder="강사이름"/>
-    </div>
-
-    <br/>
-
-
-    <div class="col-12">
-      <p class="form-label">강사소개 </p>
-      <textarea class="form-control" id="teacherInfo" name="teacherInfo" rows="3"></textarea>
-    </div>
-
-
-    <br/>
-
-
-    <div style="display:block;">
-      <img id="teacherload"/>
-      <!--src="${pageContext.request.contextPath}/saveFile/${noticeVO.filename}" alt="image_title" onerror='this.src="${pageContext.request.contextPath}/images/no_img.jpg"'-->
-      <input type='file' id="realTeacherImg" name="realTeacherImg"/>
-    </div>
-
-
-    <br/>
-
-
-    <div class="form-group">
-      <p class="form-label mt-4">강의 설명</p>
-      <div id="lectureInfo">
-        <dd th:utext="${lecture.getLectureInfo()}"></dd>
-      </div>
-    </div>
-
-
-    <br/>
-
-
-    <input type="hidden" id="lectureInfoHidden" name="lectureInfoHidden">
-    <div style="display: block">
-      <p class="form-label">수강승인</p>
-      <input type="radio" name="approval" id="automaticApproval"> 자동승인
-      <input type="radio" name="approval" id="managerApproval" value="managerApproval"> 관리자 승인
-    </div>
-    <br/>
-
-    <button class="btn btn-primary btn-lg" type="submit">변경하기</button>
-
-  </form>
-  <!-- JavaScript Bundle with Popper -->
-  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-  <script type="text/javascript">
-    $("#uploadLecture").submit(function (event) {
-      event.preventDefault();
-      $("#lectureInfoHidden").val(editor[0].getData());
-      this.submit();
-    });
-  </script>
-  <script type="text/javascript">
-    var dateSelector = document.querySelector('.dateSelector');
-    dateSelector.flatpickr({
-      mode: "range",
-      minDate: "today",
-      dateFormat: "Y-m-d",
-    });
-    var dateSelector = document.querySelector('.dateSelector2');
-    dateSelector.flatpickr({
-      mode: "range",
-      minDate: "today",
-      dateFormat: "Y-m-d",
-    });
-  </script>
-  <script type="text/javascript">
-    $(function () {
-      $("#filename").on('change', function () {
-        readURL(this);
-      });
-    });
-
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $('#preImage').attr('src', e.target.result);
+    <style>
+        .form-label {
+            font-weight: 1000;
         }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-  </script>
-  <script>
-    let editor = [];
-    ClassicEditor
+    </style>
+    <form th:action="@{/lecture/add}" id="uploadLecture" name="uploadLecture"
+          method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+        <input type="hidden" name="thisId" id="thisId" th:value="${lecture.getId()}"/>
+        <div style="display: block">
+            <label class="form-label">강좌명</label> <input
+                type="text" class="form-control" id="lectureTitle" name="lectureTitle"
+                th:placeholder="${lecture.getLectureTitle()}" th:value="${lecture.getLectureTitle()}" required>
+            <!--th:placeholder="${user[0].Nick}" required>-->
+            <div class="invalid-feedback">Valid first name is required.</div>
+        </div>
+        <br/>
+        <div style="display: block">
+            <p class="form-label">분야</p>
+            <select class="form-select" id="part" name="part" th:value="${lecture.getLecturePart()}">
+                <option th:selected="${lecture.getLecturePart()}=='파이썬'" value="python">파이썬</option>
+                <option th:selected="${lecture.getLecturePart()}=='인공지능'" value="ai">인공지능</option>
+                <option th:selected="${lecture.getLecturePart()}=='데이터분석'" value="data">데이터분석</option>
+            </select>
+        </div>
+
+        <br/>
+
+        <div class="col-sm-6">
+            <p class="form-label">접수기간</p>
+            <input class="dateSelector"
+                   id="startDateAndfinalDate" name="startDateAndfinalDate"
+                   th:value="${lecture.getStartDate()}+' to '+${lecture.getFinalDate()}" style="width: 350px;"/>
+
+            <input type="checkbox" id="subyn" name="subyn"
+                   class="form-check-input">
+            <label for="subyn" class="form-check-label">상시</label>
+        </div>
+
+        <br/>
+
+        <div class="col-sm-6">
+            <p class="form-label">운영기간</p>
+            <input class="dateSelector2"
+                   id="manageStartDateAndmanageFinalDate" name="manageStartDateAndmanageFinalDate"
+                   th:value="${lecture.getManageStartDate()}+' to '+${lecture.getManageFinalDate()}"
+                   style="width: 350px;"/>
+            <input type="checkbox" id="manageyn" name="manageyn"
+                   class="form-check-input">
+            <label for="manageyn" class="form-check-label">상시</label>
+        </div>
+
+
+        <br/>
+
+
+        <div style="display: block">
+            <p class="form-label">강의시간</p>
+            <input type="text" name="lectureTime" id="lectureTime" th:placeholder="${lecture.getLectureTime() }">
+        </div>
+
+
+        <br/>
+        <div style="display:block;">
+            <img id="preImage"/>
+            <img th:src="'/image/'+ ${lecture.getLectureImage()}" alt="image_title">
+            <input type='file' id="realLectureImg" name="realLectureImg"/>
+            <input type="hidden" id="lectureImgStr" name="lectureImgStr" th:value="${lecture.getLectureImage()}">
+        </div>
+
+        <br/>
+
+
+        <div style="display:block;">
+            <p class="form-label">부제목</p>
+            <input type='text' id="lectureDetail" name="lectureDetail" th:value="${lecture.getLectureDetail()}"/>
+        </div>
+
+
+        <br/>
+
+
+        <div style="display:block;">
+            <p class="form-label">강사이름</p>
+            <input type='text' id="teacherName" name="teacherName" placeholder="강사이름"/>
+        </div>
+
+        <br/>
+
+
+        <div class="col-12">
+            <p class="form-label">강사소개 </p>
+            <textarea class="form-control" id="teacherInfo" name="teacherInfo" rows="3"></textarea>
+        </div>
+
+
+        <br/>
+
+
+        <div style="display:block;">
+            <img id="teacherload"/>
+            <!--src="${pageContext.request.contextPath}/saveFile/${noticeVO.filename}" alt="image_title" onerror='this.src="${pageContext.request.contextPath}/images/no_img.jpg"'-->
+            <input type='file' id="realTeacherImg" name="realTeacherImg"/>
+        </div>
+
+
+        <br/>
+
+
+        <div class="form-group">
+            <p class="form-label mt-4">강의 설명</p>
+            <div id="lectureInfo">
+                <dd th:utext="${lecture.getLectureInfo()}"></dd>
+            </div>
+        </div>
+
+
+        <br/>
+
+
+        <input type="hidden" id="lectureInfoHidden" name="lectureInfoHidden">
+        <div style="display: block">
+            <p class="form-label">수강승인</p>
+            <input type="radio" name="approval" id="automaticApproval"> 자동승인
+            <input type="radio" name="approval" id="managerApproval" value="managerApproval"> 관리자 승인
+        </div>
+        <br/>
+
+        <button class="btn btn-primary btn-lg" type="submit">변경하기</button>
+
+    </form>
+    <!-- JavaScript Bundle with Popper -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script>
+        let editor = [];
+        ClassicEditor
             .create(document.querySelector('#lectureInfo'))
             .then(newEditor => {
-              editor[0] = newEditor;
+                editor[0] = newEditor;
             })
             .catch(error => {
-              console.error(error);
+                console.error(error);
             });
-  </script>
+    </script>
+    <script type="text/javascript">
+        $("#uploadLecture").submit(function (event) {
+            event.preventDefault();
+            $("#lectureInfoHidden").val(editor[0].getData());
+            this.submit();
+        });
+    </script>
+    <script type="text/javascript">
+        var dateSelector = document.querySelector('.dateSelector');
+        dateSelector.flatpickr({
+            mode: "range",
+            minDate: "today",
+            dateFormat: "Y-m-d",
+        });
+        var dateSelector = document.querySelector('.dateSelector2');
+        dateSelector.flatpickr({
+            mode: "range",
+            minDate: "today",
+            dateFormat: "Y-m-d",
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#filename").on('change', function () {
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#preImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    <script>
+        let editor = [];
+        ClassicEditor
+            .create(document.querySelector('#lectureInfo'))
+            .then(newEditor => {
+                editor[0] = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 </div>
 </body>
 </html>
