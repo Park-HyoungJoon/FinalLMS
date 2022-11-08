@@ -38,45 +38,45 @@ public class CommunityService {
         return communityTest.getCommunityId();
     }
 
-    public List<Community> getMainList(){
+    public List<Community> getMainList() {
         List<Community> communityList = communityRepository.findAll();
         return communityList;
     }
 
-//    Member를 받아온 communityList  조회
-    public Community getContent(Long id){
-        Community community =  communityRepository.findById(id).get();
-        log.info(">>>>>>>>>>>>>>>>커뮤니티 내용 가져오기" + community);
-        return community;
-    }
 
-//    페이징 처리(main) -> 내가 이게 필요한가?
-    public Paged<Community> getPage(int pageNumber, int size){
-        PageRequest request = PageRequest.of(pageNumber -1, size, Sort.by(Sort.Direction.DESC,"id"));
+    //    페이징 처리(main) -> 내가 이게 필요한가?
+    public Paged<Community> getPage(int pageNumber, int size) {
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Community> postPage = communityRepository.findAll(request);
-        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(),pageNumber,size));
+        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
 
-//    파트 페이징 처리
-    public Paged<Community> getPageByPart(int pageNumber, int size, String part){
-        PageRequest request = PageRequest.of(pageNumber -1, size, Sort.by(Sort.Direction.DESC,"id"));
+    //    파트 페이징 처리
+    public Paged<Community> getPageByPart(int pageNumber, int size, String part) {
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Community> postPage = communityRepository.findAll(request);
-        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(),pageNumber,size));
+        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
-
-
 
 
 //    게시글 세부 조회
 
     //	Mapper로 넘기기
 //	Dto->community니까 생성자로 Dto 넘겨준다
-    public Community createRealContents(CommunityDto communityDto){
-        ModelMapper modelMapper  = new ModelMapper();
+    public Community createRealContents(CommunityDto communityDto) {
+        ModelMapper modelMapper = new ModelMapper();
         Community community = modelMapper.map(communityDto, Community.class);
         return community;
     }
 
+
+    //    게시글 조회수 올리기
+    public Community updateHit(Long id) {
+//        일단 커뮤니티에서 아이디로 가져옵니다
+        Community community = communityRepository.findById(id).get();
+        community.hitCount(community.getHit());
+        return community;
+    }
 
 
 }

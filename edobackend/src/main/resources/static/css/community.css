@@ -8,9 +8,10 @@ h3 {
 
 }
 #container {
+    text-align: left;
     margin: 0 auto;
     padding: 40px 0 25px 0;
-    width: 1200px;
+    width: 700px;
 }
 
 .sub_head h3 {
