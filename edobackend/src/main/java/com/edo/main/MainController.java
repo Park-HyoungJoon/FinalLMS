@@ -63,16 +63,5 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping()
-    public String memberHeader(Model model) {
-        List<Member> memberList = memberRepository.findAll();
-        model.addAttribute("memberList", memberList);
 
-        return "fragments/header";
-    }
-
-    @GetMapping(value = "/test2")
-    public String test() {
-        return "lectureContents";
-    }
 }
