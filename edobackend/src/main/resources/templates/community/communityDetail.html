@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layouts/headAndFootLayout}">
+      layout:decorate="~{layouts/communityNoCaraselLayout}">
 <head>
     <title>커뮤니티</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
@@ -18,9 +18,6 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
 
-
-<!--    <link rel="stylesheet" type="text/css" href="/css/footer.css">-->
-<!--    <link rel="stylesheet" type="text/css" href="/css/header.css">-->
     <link rel="stylesheet" type="text/css" href="/css/community.css">
 
     <script>
@@ -48,52 +45,49 @@
     <div id="wrapper">
         <!--  community field  -->
         <div id="container">
+            <label style="margin-top: 50px"><a href="/community/main">
+            <dd th:utext="${communityDetail.category}"></dd>
+        </a></label>
 
-            <h3 style="margin-top: 100px"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>글쓰기</b></h3>
+            <b><h1 th:utext="${communityDetail.title}"></h1></b>
 
-            <form role="form" method="post" enctype="multipart/form-data" id="formId" >
-                <div style="display:block;">
-                    <div style="display: block ">
-                        <label class="form-label">분야</label>
 
-                    </div>
-                    <br/>
-                    <label> 카테고리</label>
-                    <input type="text" th:value="${communityDetail.category}" readonly>
-                    <br>
-                    <label>작성자</label>
-                    <input type="text" th:value="${communityDetail.member.memberNickname}" name="communityNickname" id="communityNickname" readonly></input>
+            <div style="display:block;">
+                <!--                    <br/>-->
+                <!--                    <label> 카테고리</label>-->
+                <!--                    <dd th:utext="${communityDetail.category}"></dd>-->
+                <h5 style="opacity: 0.5">
+                    <dd th:utext="${communityDetail.member.memberNickname}"></dd>
+                </h5>
 
-                    <br>
-                    <label>제목</label>
-                    <input type="text" th:value="${communityDetail.title}" name="communityTitle" id="communityTitle"></input>
+                <hr style="opacity: 0.5"/>
+            </div>
+            <!--        파일 업로드 부분 -->
+            <!--        <div style="display: block">-->
+            <!--            <label>파일 업로드</label>-->
+            <!--            <form action="/upload" method="post" class="dropzone"-->
+            <!--                  enctype="multipart/form-data" >-->
+            <!--                <div id="fileDropzone">-->
+            <!--                    <div class="dz-message needsclick">-->
+            <!--                        Dropfiles here or click to upload.-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </form>`-->
+            <!--            <div class="form-group">-->
+            <div style="display:block;">
+                <dd th:utext="${communityDetail.content}"></dd>
+                <!--                     -->
+                </input>
+            </div>
+            <div style="display:block;">
+                <div align="center" style="margin-top: 10px">
+                    <!--                        <input type=submit value="목록으로돌아가기" class="btn btn-secondary" id="nextButton"-->
+                    <!--                               onclick="location.href='/community/main'"/>-->
+                    <button value="목록으로 돌아가기" class="btn btn-secondary" id="nextButton"
+                            onclick="location.href='/community/main'">목록으로 돌아가기
+                    </button>
                 </div>
-                <!--        파일 업로드 부분 -->
-                <!--        <div style="display: block">-->
-                <!--            <label>파일 업로드</label>-->
-                <!--            <form action="/upload" method="post" class="dropzone"-->
-                <!--                  enctype="multipart/form-data" >-->
-                <!--                <div id="fileDropzone">-->
-                <!--                    <div class="dz-message needsclick">-->
-                <!--                        Dropfiles here or click to upload.-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--            </form>`-->
-                <!--            <div class="form-group">-->
-                <div style="display:block;">
-                    <label class="form-label mt-4"> 내용 </label>
-                    <textarea name="content" id="editor1" th:value="${communityDetail.content}">
-        </textarea>
-                    </input>
-                </div>
-                <div style="display:block;">
-                    <div align="center" style="margin-top: 10px">
-                        <input type=submit value="목록으로돌아가기" class="btn btn-secondary" id="nextButton"
-                              href="/community/main"/>
-                    </div>
-                </div>
-
-            </form>
+            </div>
 
 
         </div>

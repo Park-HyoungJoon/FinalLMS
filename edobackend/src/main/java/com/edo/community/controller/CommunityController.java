@@ -68,15 +68,10 @@ public class CommunityController {
 
     @GetMapping(value = "/write")
     public String getCommunityWrite(Principal principal, Model model) {
-//        log.info("닉네임 가져오는지" + principal.getName() + "<<<<<<<<<<<<<<<<<<<<<");
-//       String nickname = memberService.communityNickname(principal.getName());
 
         Member member = memberService.communityMember(principal.getName());
         log.info("사용자정보" + member);
-
-//        model.addAttribute("nickname", nickname);
         model.addAttribute("member", member);
-//        log.info("하 일단 출력이나 해보자 >>>>>>>>>." + new CommunityDto().toString() + "<<<<<<<<<<<<<<<<<<<<<<");
         return "community/communityWrite";
     }
 
@@ -99,7 +94,7 @@ public class CommunityController {
     @GetMapping(value = "/detail/{id}")
     public String communityDetail(@PathVariable(value = "id") Long id, Model model) {
         log.info("커뮤니티 아이디를 가져오나요?" + id);
-            Community communityDetail = communityService.getContent(id);
+            Community communityDetail = communityService.updateHit(id);
 
             model.addAttribute("communityDetail",communityDetail);
         return "community/communityDetail";

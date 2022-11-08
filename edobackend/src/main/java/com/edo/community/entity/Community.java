@@ -46,5 +46,10 @@ public class Community extends BaseTimeEntity {
     @Column
     private String category;
 
+    public Community hitCount(int hit){
+        this.hit = hit + 1;
+        return this;
+    }
+
 
 }
