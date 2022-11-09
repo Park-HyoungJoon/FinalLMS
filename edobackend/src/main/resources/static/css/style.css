@@ -318,6 +318,9 @@
     opacity: 0;
     transition: .5s;
 }
+.cmlist a{
+    color: #777777;
+}
 
 .project-item:hover a {
     opacity: 1;
