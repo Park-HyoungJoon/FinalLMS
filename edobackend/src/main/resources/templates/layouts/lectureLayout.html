@@ -61,7 +61,7 @@
 <div class="row" id="main" style="min-height: 2250px;">
     <!--sidebars -->
     <input type="hidden" id="part" th:value="${part}"/>
-    <div class="col-3" id="sideStart">
+    <div class="col-2" id="sideStart">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
             <a id="side-head" href="/"
                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
@@ -117,7 +117,7 @@
         </div>
     </div>
     <!--end sidebars-->
-    <div class="col-9">
+    <div class="col-10">
         <div layout:fragment="content" class="content">
         </div>
     </div>
@@ -143,11 +143,11 @@
         const addBtn = document.getElementById('lectureAddBtn');
 
         console.log(window.innerWidth)
-        if (window.innerWidth < 940) {
+        if (window.innerWidth < 1440) {
             sidestart.style.display = 'none';
             addBtn.style.display = 'none';
         }
-        if (window.innerWidth > 940) {
+        if (window.innerWidth > 1430) {
             sidestart.style.display = 'block';
             addBtn.style.display = 'block';
         }

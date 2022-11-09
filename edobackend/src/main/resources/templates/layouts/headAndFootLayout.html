@@ -41,7 +41,6 @@
   <link href="/css/lectureDetail.css" rel="stylesheet">
 </head>
 <body>
-
 <div th:replace="fragments/header::header"></div>
 
 <div layout:fragment="content" class="content">
@@ -65,6 +64,18 @@
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
-
+<script>
+  $( document ).ready( function() {
+    var jbOffset = $( '.side-box' ).offset();
+    $( window ).scroll( function() {
+      if ( $( document ).scrollTop() > jbOffset.top ) {
+        $( '.side-box' ).addClass( 'jbFixed' );
+      }
+      else {
+        $( '.side-box' ).removeClass( 'jbFixed' );
+      }
+    });
+  } );
+</script>
 </body>
 </html>
