@@ -72,13 +72,13 @@
     <div id="wrapper">
 
         <div id="container">
-            <div class="myInfo" th:each="ml : ${memberList}">
+            <div class="myInfo" th:object="${member} ">
                 <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>마이페이지</b></h3>
                 <img class="user_img" id="memberName" src="/image/login/people.png"/>
                 <h4>이름</h4>
-                <input type="text" id="memberNickname" th:value="${ml.memberName}" disabled>
+                <dd th:utext="${ member.memberName}"></dd>
                 <h4>닉네임 </h4>
-                <input type="text" id="memberPassword" th:value="${ml.memberNickname}">
+                <input type="text" id="memberPassword" th:value="${member.memberNickname}">
 
                 <button class="btn btn-primary" onclick="nickNameDuplCheck()">닉네임 중복 확인</button>
                 <h4>비밀번호</h4>
@@ -86,7 +86,7 @@
             <input type="password">
             <button class="btn btn-primary">비밀번호 변경하기</button>
             <h4>전화번호</h4>
-            <input type="text" th:value="${ml.memberPhone}">
+            <input type="text" th:value="${member.memberPhone}">
             <button id="editButton" class="btn btn-primary" disabled>정보 수정하기</button>
         </div>
 
@@ -240,7 +240,8 @@
                                             <h5 class="mb-1" th:text="${cmlist.member.memberNickname}"></h5>
                                         </div>
                                     </div>
-                                    <p class="mb-0" th:text="${cmlist.getContent()}"></p>
+                                    <p class="mb-0" th:text="${cmlist.category}"></p>
+                                    <p class="mb-0" th:text="${cmlist.title}"></p>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +250,6 @@
             </div><!-- //container -->
     </div> <!-- layout 끝 -->
 </div>
->>>>>>> minju_community_detail
 </body>
 
 </html>

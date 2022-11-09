@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin
@@ -124,12 +125,13 @@ public class MemberController {
     // 마이페이지
     @GetMapping(value = "/mypage")
 
-    public String myPageGet(MemberDto memberDto, Model model) {
-        log.info(">>>>>>>>>>>>>>>>>>>memberDto<<<<<<<<<<<<<<<<<<<<<<<<<" + memberDto.toString());
+    public String myPageGet(Model model, Principal principal) {
 
+        Member member = memberService.communityMember(principal.getName());
+        log.info(">>>>>>>>>>>>>>>>>>>member를 가져오나요<<<<<<<<<<<<<<<<<<<<<<<<<" + member);
         List<Member> memberList = memberRepository.findAllByOrderByMemberId();
         log.info(">>>>>>>>>>>>>>>>>memberList 가져오기 성공!<<<<<<<<<<<<<<<<<<<<<<<" + memberList.toString());
-        model.addAttribute("memberList", memberList);
+        model.addAttribute("member", member);
 
         List<Community> communityMainList = communityRepository.findDescCommunity(5);
         log.info(">>>>>>>>>>>>>>>>>communitylist  사이즈 가져오기<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());

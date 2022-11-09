@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
 
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, String> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
 
     Optional<Member> findByMemberEmail(String usersEmail);
@@ -26,10 +26,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     Member findByMemberNickname(String usersNickname);
 
     List<Member> findAllByOrderByMemberId();
-    
-//    게시글 작성할 때 닉네임 찾는 쿼리메소드
-//public Optional<User> findByLoginId(String loginId) {
-
 
     public Optional<Member> findByMemberId(Long memberId);
 

@@ -81,17 +81,6 @@ public class MemberService implements UserDetailsService {
                 .build();
     }
 
-    //	마이페이지 member이름 가져오기
-//    게시글 리스트로 나타내기
-    public List<MemberDto> getMemberList(Member member) {
-        List<Member> memberList = memberRepository.findAllByOrderByMemberId();
-
-//		entity에 작성한 코드를 list로 받아온다.
-        List<MemberDto> memberDtos = memberList.stream().map((member1 -> member1.toMemberDto())).toList();
-        log.info(memberDtos.toString());
-        return memberDtos;
-    }
-
     //	커뮤니티로 닉네임 보내기
     public String communityNickname(String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
@@ -101,6 +90,10 @@ public class MemberService implements UserDetailsService {
     //	커뮤니티로 멤버 보내기
     public Member communityMember(String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
+        return member.get();
+
+    }public Member mypageMember(Long memberId) {
+        Optional<Member> member = memberRepository.findByMemberId(memberId);
         return member.get();
     }
 
