@@ -11,15 +11,16 @@
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 
-<!--    <link rel="stylesheet" type="text/css" href="/css/community.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="/css/community.css">-->
 
 </head>
 <body class="vsc-initialized">
 <div layout:fragment="content">
     <div id="container-xxl py-5" style="height: 1062px">
         <!--  community field  -->
-        <div id="container" >
-            <h3 style="text-align: center"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b></h3>
+        <div id="container">
+            <h3 style="text-align: center"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b>
+            </h3>
             <div class="row ">
                 <div class="col-sm-12">
                     <div align="right">
@@ -27,13 +28,13 @@
                                 onclick="window.location.href ='/community/write'" sec:authorize="isAuthenticated()">글쓰기
                         </button>
                     </div>
-                    <table class="table  caption-top table-hover" id="table" name = "table">
+                    <table class="table  caption-top table-hover" id="table" name="table">
                         <colgroup>
-                            <col width="2%" />
-                            <col width="25%" />
-                            <col width="5%" />
-                            <col width="5%" />
-                            <col width="5%" />
+                            <col width="2%"/>
+                            <col width="25%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
+                            <col width="5%"/>
                         </colgroup>
                         <thead>
                         <tr>
@@ -45,29 +46,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!--                                listStat = -->
-                        <tr th:if="${#lists.size(posts.page)}>0"
+                            <!--                                listStat = -->
+                            <tr th:if="${#lists.size(posts.page)}>0"
                             th:each="list, listStat : ${posts.page}"
-                            class="project-item border rounded h-100 p-4" style="min-height: 300px; max-height: 300px;"
-                            th:data-dot="${listStat.index}" scope = "row">
+                            class="project-item border rounded h-100 p-4 table-body" style="min-height: 300px; max-height: 300px;"
+                            th:data-dot="${listStat.index}" scope="row"
+                                th:onclick="'location.href=\'' + @{/community/detail/{id}(id=${list.id})} + '\''">
 
-                            <a th:href="@{/community/detail/{id}(id=${list.id})}"></a>
+                                <a th:href="@{/community/detail/{id}(id=${list.id})}"></a>
                                 <td th:text="${list.id}"></td>
                                 <td th:text="${list.title}"></td>
                                 <td th:text="${list.member.memberNickname}"></td>
                                 <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${list.hit}"></td>
-
-                        </tr>
+                            </tr>
                         </tbody>
-
                     </table>
                 </div>
 
 
             </div>
         </div>
-        <nav aria-label="Page navigation" class="container d-flex align-items-center justify-content-center" >
+        <nav aria-label="Page navigation" class="container d-flex align-items-center justify-content-center">
             <ul class="pagination" th:if="${posts.page.totalPages > 1}">
                 <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
                     <a class="page-link" th:href="@{'/community/main' + '?pageNumber=' + ${posts.paging.pageNumber -1}}"
@@ -142,7 +142,6 @@
 
 
 </script>
-
 <script type="text/javascript">
     $(window).load(function () {
         try {
