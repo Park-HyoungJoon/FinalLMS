@@ -1,22 +1,20 @@
 package com.edo.lecture.controller;
 
 import com.edo.lecture.dto.*;
-import com.edo.lecture.entity.Lecture;
-import com.edo.lecture.entity.LectureContents;
-import com.edo.lecture.entity.LectureContentsFile;
-import com.edo.lecture.entity.LectureDivide;
+import com.edo.lecture.entity.*;
 import com.edo.lecture.repository.LectureDivideRepository;
 import com.edo.lecture.repository.LectureRepository;
+import com.edo.lecture.repository.LectureSubscribeRepository;
 import com.edo.lecture.service.LectureDivideService;
 import com.edo.lecture.service.LectureService;
 import com.edo.lecture.service.LectureContentsService;
+import com.edo.user.entity.Member;
+import com.edo.user.repository.MemberRepository;
 import com.edo.util.file.FileVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +26,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @CrossOrigin
@@ -47,10 +46,14 @@ public class LectureController {
     LectureDivideService lectureDivideService;
 
     @Autowired
+    MemberRepository memberRepository;
+    @Autowired
     LectureContentsService lectureContentsService;
     @Autowired
     LectureDivideRepository lectureDivideRepository;
 
+    @Autowired
+    LectureSubscribeRepository lectureSubscribeRepository;
     @Autowired
     LectureRepository lectureRepository;
 
@@ -386,14 +389,27 @@ public class LectureController {
 
 
     @GetMapping(value = "/lecture/lectureDetail/{id}")
-    public String goDetail(@PathVariable("id") Long id, Model model) {
+    public String goDetail(@PathVariable("id") Long id, Model model,Principal principal) {
         Lecture lecture = lectureService.getLectureById(id);
+        int heart = 0;
+        try {
+            String email = principal.getName();
+            Optional<Member> member= memberRepository.findByMemberEmail(email);
+            Member member1 = member.get();
+            int like = lectureSubscribeRepository.searchHeartByLectureAndMember(member1.getMemberId(),id);
+            heart = like;
+        }
+        catch (Exception e){
+
+        }
         try {
             List<LectureDivide> lectureDivide = lectureDivideService.getListDivide(lecture);
             model.addAttribute("lecture", lecture);
             model.addAttribute("lectureDivide", lectureDivide);
+            model.addAttribute("heart",heart);
             return "lecture/lectureDetail";
         } catch (IndexOutOfBoundsException e) {
+            model.addAttribute("heart",heart);
             model.addAttribute("lecture", lecture);
             return "lecture/lectureDetail";
         }
@@ -507,6 +523,52 @@ public class LectureController {
         model.addAttribute("list", lectureList);
         model.addAttribute("part", part);
         return "lecture/lecture";
+    }
+
+
+    //좋아요 버튼 클릭 시
+    @PostMapping("/lecture/lectureHeart")
+    public String comheart(heartAndSubData data,Principal principal,Model model) {
+        //세션을 통해 현재 유저 정보 가져옴
+        String email = principal.getName();
+        int heart = data.getHeart();
+        Long id = memberRepository.findMemberIdByMemberEmail(email);
+        Lecture lecture = lectureRepository.findLectureById(data.getId());
+        Optional<Member> member = memberRepository.findByMemberEmail(email);
+        Member member1 = member.get();
+        try {
+           Long catchId = lectureService.findlikeId(id, data.getId());
+            log.info("#############################################id값 있음!!"+id+data.getId());
+            LectureMemberDto lectureMemberDto = new LectureMemberDto();
+            lectureMemberDto.setMember(member1);
+            lectureMemberDto.setId(catchId);
+            lectureMemberDto.setHeart(data.getHeart());
+            lectureMemberDto.setLecture(lecture);
+            lectureMemberDto.setSubscribe(0);
+            LectureMember lectureMember = lectureMemberDto.toEntity(lectureMemberDto);
+            log.info("#############################################id값 있음!!"+catchId);
+            lectureSubscribeRepository.save(lectureMember);
+        }catch (Exception e){
+            LectureMemberDto lectureMemberDto = new LectureMemberDto();
+            lectureMemberDto.setMember(member1);
+            lectureMemberDto.setHeart(data.getHeart());
+            lectureMemberDto.setLecture(lecture);
+            lectureMemberDto.setSubscribe(0);
+            LectureMember lectureMember = lectureMemberDto.toEntity(lectureMemberDto);
+            log.info("###########################################id값 없음!!");
+            lectureSubscribeRepository.save(lectureMember);
+        }
+        try {
+            List<LectureDivide> lectureDivide = lectureDivideService.getListDivide(lecture);
+            model.addAttribute("lecture", lecture);
+            model.addAttribute("lectureDivide", lectureDivide);
+            model.addAttribute("heart",heart);
+            return "lecture/lectureDetail";
+        } catch (IndexOutOfBoundsException e) {
+            model.addAttribute("lecture", lecture);
+            model.addAttribute("heart",heart);
+            return "lecture/lectureDetail";
+        }
     }
 
 }

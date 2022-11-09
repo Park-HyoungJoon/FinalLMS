@@ -32,4 +32,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     //유저 이메일을 갖고 닉네임 찾기
     @Query(value = "select member_nickname from member where member_email=?1", nativeQuery = true)
     String findMemberNicknameByMemberEmail(String email);
+
+    //유저 이메일을 갖고 id 찾기
+    @Query(value = "select member_id from member where member_email=?1", nativeQuery = true)
+    Long findMemberIdByMemberEmail(String email);
 }

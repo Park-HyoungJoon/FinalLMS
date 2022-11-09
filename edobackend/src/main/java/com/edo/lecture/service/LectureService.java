@@ -3,6 +3,7 @@ package com.edo.lecture.service;
 import com.edo.lecture.dto.LectureAddDto;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
+import com.edo.lecture.repository.LectureSubscribeRepository;
 import com.edo.util.pagination.Paged;
 import com.edo.util.pagination.Paging;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +23,9 @@ import java.util.Optional;
 public class LectureService {
     @Autowired
     LectureRepository lectureRepository;
+
+    @Autowired
+    LectureSubscribeRepository lectureSubscribeRepository;
 
     @Autowired
     public LectureService(LectureRepository lectureRepository){
@@ -60,5 +65,16 @@ public class LectureService {
             postPage = lectureRepository.findAllByLecturePart(request, part);
         }
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
+    }
+
+    public Long findlikeId(Long id, Long lectureId) {
+        try{
+            Long likeId = lectureSubscribeRepository.searchIdByLectureAndMember(id,lectureId);
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@likeId"+likeId);
+            return likeId;
+
+        }catch (Exception e){
+            return 0L;
+        }
     }
 }
