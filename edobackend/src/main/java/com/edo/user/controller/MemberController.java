@@ -2,7 +2,6 @@ package com.edo.user.controller;
 
 import com.edo.community.entity.Community;
 import com.edo.community.repository.CommunityRepository;
-import com.edo.community.repository.CommunityTestRepository;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
 import com.edo.user.dto.MemberDto;
@@ -32,7 +31,6 @@ public class MemberController {
     private final MemberService memberService;
 
     private final LectureRepository lectureRepository;
-    private final CommunityTestRepository communityTestRepository;
     private final CommunityRepository communityRepository;
     private final MemberRepository memberRepository;
 
@@ -128,7 +126,7 @@ public class MemberController {
     public String myPageGet(Model model, Principal principal) {
 
         Member member = memberService.communityMember(principal.getName());
-        log.info(">>>>>>>>>>>>>>>>>>>member를 가져오나요<<<<<<<<<<<<<<<<<<<<<<<<<" + member);
+        log.info(">>>>>>>>>>>>>>>>>>>member를 가져오나요<<<<<<<<<<<<<<<<<<<<<<<<<" + principal.getName());
         List<Member> memberList = memberRepository.findAllByOrderByMemberId();
         log.info(">>>>>>>>>>>>>>>>>memberList 가져오기 성공!<<<<<<<<<<<<<<<<<<<<<<<" + memberList.toString());
         model.addAttribute("member", member);

@@ -161,36 +161,58 @@
                     </div><!-- //asset_top -->
 
 
-                    <div class="asset_center">
-                        <div class="asset_center_box">
-                            <!--            좋아요 기능 구현 시 제대로 구현 예정 -->
-                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b></h3>
-                            <hr>
-                            <div><a href="/lecture/All"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                             alt="더보기"></a></div>
+<!--                    <div class="asset_center">-->
+<!--                        <div class="asset_center_box">-->
+<!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
+<!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
+<!--                                    href="/community/main" style="float: right"><img-->
+<!--                                    src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>-->
+<!--                            <hr>-->
+
+<!--                            <div class="portfolio row">-->
 
 
-                            <div class="portfolio row">
+<!--                                <dl class="col"></dl>-->
+
+<!--                                <dl class="col"></dl>-->
+
+<!--                                <dl class="col"></dl>-->
 
 
-                                <dl class="col"></dl>
+<!--                            </div>&lt;!&ndash; //portfolio &ndash;&gt;-->
+<!--                        </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
 
-                                <dl class="col"></dl>
+<!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
 
-                                <dl class="col"></dl>
+  <div class="asset_center">-->
+<!--                        <div class="asset_center_box">-->
+<!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
+<!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
+<!--                                    href="/community/main" style="float: right"><img-->
+<!--                                    src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>-->
+<!--                            <hr>-->
+
+<!--                            <div class="portfolio row">-->
 
 
-                            </div><!-- //portfolio -->
-                        </div><!-- //asset_center -->
+<!--                                <dl class="col"></dl>-->
 
-                    </div><!-- //asset_center -->
+<!--                                <dl class="col"></dl>-->
+
+<!--                                <dl class="col"></dl>-->
+
+
+<!--                            </div>&lt;!&ndash; //portfolio &ndash;&gt;-->
+<!--                        </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
+
+<!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
 
 
                     <div class="sub_head">
-                        <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>내가 작성한 글</b></h3>
-                        <hr>
-                        <div><a href="/community/main"><img src="http://crhs.aimind.co.kr/images/more.png"
-                                                            alt="더보기"></a></div>
+                        <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>내가 작성한 글</b> <a
+                                href="/community/main" style="float: right"><img
+                                src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>
+                        <hr/>
                     </div>
                     <div class="asset_bottom">
                         <div class="notice row">
@@ -206,7 +228,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="list : ${communityMainList}">
+                                <tr th:each="list : ${communityMainList}"
+                                >
                                     <td th:text="${list.id}"></td>
                                     <td th:text="${list.title}"></td>
                                     <td th:text="${list.member.memberNickname}"></td>
@@ -222,33 +245,7 @@
         </div><!-- //container -->
     </div>
 </div> <!-- layout 끝 -->
-=======
-                    <div class="sub_head">
-                        <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>내가 작성한 글</b> <a
-                                href="/community/main" style="float: right"><img
-                                src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>
-                        <hr>
-                    </div>
-                    <div class="container-xxl py-5">
-                        <div class="container">
-                            <div class="owl-carousel testimonial-carousel wow"
-                                 th:if="${#lists.size(communityMainList)} >0 and ${#lists.size(communityMainList)} <= 5">
-                                <div class="testimonial-item bg-light rounded p-4"
-                                     th:each="cmlist : ${communityMainList}">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <div class="ms-4">
-                                            <h5 class="mb-1" th:text="${cmlist.member.memberNickname}"></h5>
-                                        </div>
-                                    </div>
-                                    <p class="mb-0" th:text="${cmlist.category}"></p>
-                                    <p class="mb-0" th:text="${cmlist.title}"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- //container -->
-    </div> <!-- layout 끝 -->
+
 </div>
 </body>
 
