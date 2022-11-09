@@ -30,7 +30,7 @@
                          th:each="vo, status:${partPage.page}"
                             class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px; overflow: hidden;" th:data-dot="${status.index}">
                         <div class="position-relative mb-4">
-                            <img class="img-fluid rounded "
+                            <img class="img-fluid rounded " style="max-width: 190px; max-height: 150px;"
                                  th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
                             <a  th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
                               ><i class="fa fa-eye fa-2x"></i></a>

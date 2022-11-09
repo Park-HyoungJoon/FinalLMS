@@ -75,37 +75,43 @@
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="service-item d-block rounded text-center h-100 p-4" th:href="@{/lecture/{part}(part='python')}">
+                    <a class="service-item d-block rounded text-center h-100 p-4"
+                       th:href="@{/lecture/{part}(part='python')}">
                         <img class="img-fluid rounded mb-4" src="img/python.png" alt="">
                         <h4 class="mb-0">파이썬 기초</h4>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <a class="service-item d-block rounded text-center h-100 p-4" th:href="@{/lecture/{part}(part='cote')}">
+                    <a class="service-item d-block rounded text-center h-100 p-4"
+                       th:href="@{/lecture/{part}(part='cote')}">
                         <img class="img-fluid rounded mb-4" src="img/cote.png" alt="">
                         <h4 class="mb-0">코딩테스트</h4>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <a class="service-item d-block rounded text-center h-100 p-4" th:href="@{/lecture/{part}(part='ai')}">
+                    <a class="service-item d-block rounded text-center h-100 p-4"
+                       th:href="@{/lecture/{part}(part='ai')}">
                         <img class="img-fluid rounded mb-4" src="img/marchine.png" alt="">
                         <h4 class="mb-0">머신러닝</h4>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="service-item d-block rounded text-center h-100 p-4" th:href="@{/lecture/{part}(part='ai')}">
+                    <a class="service-item d-block rounded text-center h-100 p-4"
+                       th:href="@{/lecture/{part}(part='ai')}">
                         <img class="img-fluid rounded mb-4" src="img/bigdata.png" alt="">
                         <h4 class="mb-0">빅데이터</h4>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <a class="service-item d-block rounded text-center h-100 p-4" th:href="@{/lecture/{part}(part='react')}">
+                    <a class="service-item d-block rounded text-center h-100 p-4"
+                       th:href="@{/lecture/{part}(part='react')}">
                         <img class="img-fluid rounded mb-4" src="img/react.png" alt="">
                         <h4 class="mb-0">리액트</h4>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <a class="service-item d-block rounded text-center h-100 p-4" th:href="@{/lecture/{part}(part='ai')}">
+                    <a class="service-item d-block rounded text-center h-100 p-4"
+                       th:href="@{/lecture/{part}(part='ai')}">
                         <img class="img-fluid rounded mb-4" src="img/ai.png" alt="">
                         <h4 class="mb-0">인공지능</h4>
                     </a>
@@ -128,13 +134,13 @@
                      class="project-item border rounded h-100 p-4" style="min-height: 300px; max-height: 300px;"
                      th:data-dot="${status.index}">
                     <div class="position-relative mb-4">
-                        <img class="img-fluid rounded "
+                        <img class="img-fluid rounded " style="max-width: 250px; max-height: 150px;"
                              th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
                         <a th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
                         ><i class="fa fa-eye fa-2x"></i></a>
                     </div>
                     <h6 th:text="${vo.getLectureTitle()}"></h6>
-                    <span th:text="${vo.getLectureDetail()}"></span>
+                    <span th:text="${vo.getLectureDetail()}" style="text-overflow:ellipsis;"></span>
                 </div>
             </div>
         </div>
