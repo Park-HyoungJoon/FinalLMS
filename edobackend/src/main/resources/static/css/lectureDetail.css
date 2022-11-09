@@ -1,3 +1,53 @@
+.side-box .row{
+    height: 30px;
+    text-align: center;
+}
+a.button{
+    width:150px;
+    background: #fff;
+    border:1px solid #f1f3f5;
+    border-radius: 5px;
+    color: black;
+    margin : 5px auto 5px auto;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+.listenLecture{
+    margin : 5px auto 5px auto;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    border:1px solid #f1f3f5;
+    border-radius: 5px;
+    width:150px;
+    background: #2ecc71;
+    color: white;   
+}
+.deleteLecture{
+    margin : 5px auto 5px auto;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    border:1px solid #f1f3f5;
+    border-radius: 5px;
+    width:150px;
+    color: red;
+}
+a.button::before,
+a.button::after {
+    background: white;
+    color: #2ecc71;
+}
+
+a.button:hover {
+    background: #2ecc71;
+    color: white;
+    content: '';
+    z-index: -1;
+}
+
 .detailTop{
     text-align: center;
     margin-bottom: 30px;
@@ -56,14 +106,15 @@
     display: inline;
 }
 .side-box {
-    border-radius: 30px;
+    border-radius: 8px;
     float: left;
-    width: 200px;
+    width: 250px;
     height: auto;
-    margin: 10px;
-    margin-bottom: 0px;
-    border: 1px solid grey;
+    overflow: hidden;
+    border:1px solid #f1f3f5;
     padding: 11px;
+    position:sticky;
+    position: -webkit-sticky;
 }
 .side-box h4{
     text-align: center;
