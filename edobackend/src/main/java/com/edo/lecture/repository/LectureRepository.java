@@ -21,6 +21,7 @@ public interface LectureRepository extends JpaRepository<Lecture,Long> {
     String findLectureImageById(Long id);
     Page<Lecture> findAll(Pageable request);
     Page<Lecture> findAllByLecturePart(Pageable request,String part);
+
     Lecture findByLectureTitle(String LectureTitle);
     @Query(value = "select * from lecture order by lecture_id desc LIMIT ?1" ,nativeQuery = true)
     List<Lecture> findAllLectureTopFour(int limit_num);

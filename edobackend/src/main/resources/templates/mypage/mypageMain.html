@@ -83,12 +83,12 @@
                 <button class="btn btn-primary" onclick="nickNameDuplCheck()">닉네임 중복 확인</button>
                 <h4>비밀번호</h4>
                 <!--                여기는 update만 넣을 수 있도록 -->
-            <input type="password">
-            <button class="btn btn-primary">비밀번호 변경하기</button>
-            <h4>전화번호</h4>
-            <input type="text" th:value="${member.memberPhone}">
-            <button id="editButton" class="btn btn-primary" disabled>정보 수정하기</button>
-        </div>
+                <input type="password">
+                <button class="btn btn-primary">비밀번호 변경하기</button>
+                <h4>전화번호</h4>
+                <input type="text" th:value="${member.memberPhone}">
+                <button id="editButton" class="btn btn-primary" disabled>정보 수정하기</button>
+            </div>
 
             <br>
             <br>
@@ -101,150 +101,147 @@
 
             </div>
 
-                <!--                예시용 사진-->
-                <div class="asset-top">
-                    <div class="container">
-                        <div class="school_lecture">
-                            <div class="row">
+            <!--                예시용 사진-->
+            <div class="asset-top">
+                <div class="container">
+                    <div class="school_lecture">
+                        <div class="row">
 
-
-                                <!--                        수강신청 여부 확인 후 등록 예정-->
-                                <!--                                    th:if="${#lists.size('lectureList')} > 0"-->
-                                <div class="col"
-                                     th:each="vo : ${lectureList}"><!-- 리스트 배열의 수만큼 실행 -->
-
-                                <!--                        수강신청 여부 확인 후 등록 예정-->
-                                <!--                                    th:if="${#lists.size('lectureList')} > 0"-->
-                                <div class="col" th:each="vo : ${lectureList}"><!-- 리스트 배열의 수만큼 실행 -->
-                                    <div class="card-flyer" style="width: 300px; z-index: 1;">
-                                        <div class="card shadow-sm">
-                                            <div th:if="${vo.lectureImage == null}">
-                                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                                     xmlns="http://www.w3.org/2000/svg" role="img"
-                                                     aria-label="Placeholder: Thumbnail"
-                                                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>
-                                                    Placeholder</title>
-                                                    <rect width="100%" height="100%" fill="#55595c"></rect>
-                                                    <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                                                </svg>
-                                            </div>
-                                            <!--${vo.getLectureImage()}-->
-                                            <div th:unless="${vo.lectureImage == null}" style="position: relative">
-                                                <img th:src="'/image/' + ${vo.lectureImage}"
-                                                     style="width: 100%;height: 225px;" class="card-img-top">
-                                                <span
-                                                        style="padding: 1px 1px;background-color: red;color: white;text-align: center;position: absolute;  top: 0%; left: 0%;"
-                                                        th:text="${vo.lecturePart}"></span>
-                                            </div>
-                                            <div class="card-body"
-                                                 style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
-                                                <h5 th:text="${vo.lectureTitle}"></h5>
-                                                <p class="card-text" th:text="${vo.lectureDetail}"></p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="btn-group">
-                                                        <a class="btn btn-sm btn-outline-secondary"
-                                                           th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}">
-                                                            View
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
+                                <div th:if="${#lists.size(posts.getPage())}>0"
+                                     th:each="vo, status:${posts.getPage()}"
+                                     class="project-item border rounded h-100 p-4"
+                                     style="min-height: 300px; max-height: 300px;"
+                                     th:data-dot="${status.index}">
+                                    <div class="position-relative mb-4">
+                                        <img class="img-fluid rounded " style="max-width: 250px; max-height: 150px;"
+                                             th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
+                                        <a th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
+                                        ><i class="fa fa-eye fa-2x"></i></a>
                                     </div>
+                                    <h6 th:text="${vo.getLectureTitle()}"></h6>
+                                    <span th:text="${vo.getLectureDetail()}" style="text-overflow:ellipsis;"></span>
                                 </div>
-                                <dl class="col" th:if="${#lists.size('lectureList')} <=4"></dl>
-
-                            </div><!-- //school_lecture -->
+                            </div>
                         </div>
-                        <p>
-                        </p>
                     </div><!-- //asset_top -->
-
-
-<!--                    <div class="asset_center">-->
-<!--                        <div class="asset_center_box">-->
-<!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
-<!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
-<!--                                    href="/community/main" style="float: right"><img-->
-<!--                                    src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>-->
-<!--                            <hr>-->
-
-<!--                            <div class="portfolio row">-->
-
-
-<!--                                <dl class="col"></dl>-->
-
-<!--                                <dl class="col"></dl>-->
-
-<!--                                <dl class="col"></dl>-->
-
-
-<!--                            </div>&lt;!&ndash; //portfolio &ndash;&gt;-->
-<!--                        </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
-
-<!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
-
-  <div class="asset_center">-->
-<!--                        <div class="asset_center_box">-->
-<!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
-<!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
-<!--                                    href="/community/main" style="float: right"><img-->
-<!--                                    src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>-->
-<!--                            <hr>-->
-
-<!--                            <div class="portfolio row">-->
-
-
-<!--                                <dl class="col"></dl>-->
-
-<!--                                <dl class="col"></dl>-->
-
-<!--                                <dl class="col"></dl>-->
-
-
-<!--                            </div>&lt;!&ndash; //portfolio &ndash;&gt;-->
-<!--                        </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
-
-<!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
-
-
-                    <div class="sub_head">
-                        <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>내가 작성한 글</b> <a
-                                href="/community/main" style="float: right"><img
-                                src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>
-                        <hr/>
-                    </div>
-                    <div class="asset_bottom">
-                        <div class="notice row">
-
-                            <table class="table">
-                                <thead class="table-light">
-                                <tr>
-                                    <th scope="col">번호</th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">작성자</th>
-                                    <th scope="col">작성일</th>
-                                    <th scope="col">조회수</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="list : ${communityMainList}"
-                                >
-                                    <td th:text="${list.id}"></td>
-                                    <td th:text="${list.title}"></td>
-                                    <td th:text="${list.member.memberNickname}"></td>
-                                    <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
-                                    <td th:text="${list.hit}"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div><!-- //notice -->
-                    </div>
                 </div>
+            </div><!-- //container -->
+
+
+            <!--                    <div class="asset_center">-->
+            <!--                        <div class="asset_center_box">-->
+            <!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
+            <!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
+            <!--                                    href="/community/main" style="float: right"><img-->
+            <!--                                    src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>-->
+            <!--                            <hr>-->
+
+            <!--                            <div class="portfolio row">-->
+
+
+            <!--                                <dl class="col"></dl>-->
+
+            <!--                                <dl class="col"></dl>-->
+
+            <!--                                <dl class="col"></dl>-->
+
+
+            <!--                            </div>&lt;!&ndash; //portfolio &ndash;&gt;-->
+            <!--                        </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
+
+            <!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
+
+            <div class="sub_head">
+                <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>내가 찜한 강좌</b> <a
+                        href="/lecture/All" style="float: right"><img
+                        src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>
+                <hr>
+
             </div>
-        </div><!-- //container -->
-    </div>
-</div> <!-- layout 끝 -->
+            <div class="asset_center">
+                <div class="container">
+                    <div class="school_lecture">
+                        <div class="row">
+
+                            <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
+                                <div th:if="${#lists.size(postlike)}>0"
+                                     th:each="vo, status:${postlike}"
+                                     class="project-item border rounded h-100 p-4"
+                                     style="min-height: 300px; max-height: 300px;"
+                                     th:data-dot="${status.index}">
+                                    <div class="position-relative mb-4">
+                                        <img class="img-fluid rounded " style="max-width: 250px; max-height: 150px;"
+                                             th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
+                                        <a th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
+                                        ><i class="fa fa-eye fa-2x"></i></a>
+                                    </div>
+                                    <h6 th:text="${vo.getLectureTitle()}"></h6>
+                                    <span th:text="${vo.getLectureDetail()}" style="text-overflow:ellipsis;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- //asset_top -->
+                </div>
+
+            </div>
+            <!--                        <div class="asset_center_box">-->
+            <!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
+            <!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
+            <!--                                    href="/community/main" style="float: right"><img-->
+            <!--                                    src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>-->
+            <!--                            <hr>-->
+
+            <!--                            <div class="portfolio row">-->
+
+
+            <!--                                <dl class="col"></dl>-->
+
+            <!--                                <dl class="col"></dl>-->
+
+            <!--                                <dl class="col"></dl>-->
+
+
+            <!--                            </div>&lt;!&ndash; //portfolio &ndash;&gt;-->
+            <!--                        </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
+
+            <!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
+
+
+            <div class="sub_head">
+                <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>내가 작성한 글</b> <a
+                        href="/community/main" style="float: right"><img
+                        src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>
+                <hr/>
+            </div>
+            <div class="asset_bottom">
+                <div class="notice row">
+
+                    <table class="table">
+                        <thead class="table-light">
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">작성일</th>
+                            <th scope="col">조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="list : ${communityMainList}"
+                        >
+                            <td th:text="${list.id}"></td>
+                            <td th:text="${list.title}"></td>
+                            <td th:text="${list.member.memberNickname}"></td>
+                            <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${list.hit}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><!-- //notice -->
+            </div>
+        </div>
+    </div> <!-- layout 끝 -->
 
 </div>
 </body>

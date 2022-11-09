@@ -2,6 +2,7 @@ package com.edo.lecture.service;
 
 import com.edo.lecture.dto.LectureAddDto;
 import com.edo.lecture.entity.Lecture;
+import com.edo.lecture.entity.LectureMember;
 import com.edo.lecture.repository.LectureRepository;
 import com.edo.lecture.repository.LectureSubscribeRepository;
 import com.edo.util.pagination.Paged;
@@ -67,6 +68,7 @@ public class LectureService {
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
 
+    //Lecture_member_id찾기
     public Long findlikeId(Long id, Long lectureId) {
         try{
             Long likeId = lectureSubscribeRepository.searchIdByLectureAndMember(id,lectureId);
@@ -77,4 +79,5 @@ public class LectureService {
             return 0L;
         }
     }
+
 }

@@ -4,6 +4,8 @@ import com.edo.community.entity.Community;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.repository.LectureRepository;
+import com.edo.lecture.repository.LectureSubscribeRepository;
+import com.edo.lecture.service.LectureService;
 import com.edo.user.dto.MemberDto;
 import com.edo.user.entity.Member;
 import com.edo.user.repository.MemberRepository;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -27,7 +30,6 @@ import java.util.List;
 @RequestMapping("/member")
 public class MemberController {
 
-    @Autowired
     private final MemberService memberService;
 
     private final LectureRepository lectureRepository;
@@ -36,6 +38,9 @@ public class MemberController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final LectureService lectureService;
+
+    private final LectureSubscribeRepository lectureSubscribeRepository;
 
     @GetMapping(value = "/login")
     public String Login(@RequestParam(value = "error", required = false) String error,
@@ -123,7 +128,10 @@ public class MemberController {
     // 마이페이지
     @GetMapping(value = "/mypage")
 
-    public String myPageGet(Model model, Principal principal) {
+    public String myPageGet(Model model,
+                            @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                            @RequestParam(value = "size", required = false, defaultValue = "4") int size,
+                            Principal principal) {
 
         Member member = memberService.communityMember(principal.getName());
         log.info(">>>>>>>>>>>>>>>>>>>member를 가져오나요<<<<<<<<<<<<<<<<<<<<<<<<<" + principal.getName());
@@ -133,13 +141,17 @@ public class MemberController {
 
         List<Community> communityMainList = communityRepository.findDescCommunity(5);
         log.info(">>>>>>>>>>>>>>>>>communitylist  사이즈 가져오기<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
+
+        List<Long> lectureIds = lectureSubscribeRepository.searchLectureIdByMemberAndHeart(member.getMemberId());
+        List<Lecture> lectureList = new ArrayList<>();
+
+        for(Long lectureId : lectureIds){
+            Lecture lecture = lectureService.getLectureById(lectureId);
+            lectureList.add(lecture);
+        }
         model.addAttribute("communityMainList", communityMainList);
-
-
-        List<Lecture> lectureList = lectureRepository.findAllLectureTopFour(4);
-        log.info(">>>>>>>>>>>>>>>>>lectureList<<<<<<<<<<<<<<<<<<<<<<<" + lectureList.size());
-        model.addAttribute("lectureList", lectureList);
-
+        model.addAttribute("posts", lectureService.getPage(pageNumber, size));
+        model.addAttribute("postlike",lectureList);
 
         return "mypage/mypageMain";
     }
