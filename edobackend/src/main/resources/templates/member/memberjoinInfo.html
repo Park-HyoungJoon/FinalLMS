@@ -72,26 +72,6 @@
             );
         };
 
-        //비밀번호 유효성 검사
-        function passwordValiCheck(){
-            let memberPassword = document.getElementById('memberPassword').value;
-            //특수문자 포함 됐는지
-            let reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,}$/
-            //같은 문자 연속 4번 들어갔는지
-            let reg2 = /(\w)\1\1\1/
-            console.log(memberPassword);
-            if(memberPassword != null){
-                if(!reg.test(memberPassword)){
-                    console.log(memberPassword)
-                    alert("비밀번호는 8자 이상, 16자 이하로 설정해야 하며 영문 소문자, 대문자, 특수문자, 숫자가 모두 포함되어야 합니다. ");
-                }
-                passwordValicheck = true;
-                check();
-
-            }else{
-                alert("비밀번호 입력해라 존말할때");
-            }
-        }
 
         //비밀번호 체크
         function passwordCheck() {
@@ -153,7 +133,7 @@
 
         //회원가입 버튼 제어
         function check() {
-            if (emailcheck && passwordcheck && nicknamecheck && passwordValicheck) {
+            if (emailcheck && passwordcheck && nicknamecheck) {
                 document.getElementById('userJoinButton').disabled = false;
             }
         }

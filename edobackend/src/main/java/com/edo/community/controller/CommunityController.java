@@ -100,6 +100,15 @@ public class CommunityController {
         return "community/communityDetail";
 }
 
+    @GetMapping(value = "/update/{id}")
+    public String communityUpdate(@PathVariable(value = "id") Long id, Model model) {
+        log.info("커뮤니티 아이디를 가져오나요?" + id);
+        Community communityDetail = communityService.updateHit(id);
+
+        model.addAttribute("communityDetail",communityDetail);
+        return "community/communityUpdate";
+    }
+
     //쇼츠 조회
     @GetMapping(value = "/shorts")
     public String communityShorts(Model model) {

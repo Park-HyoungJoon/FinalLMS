@@ -3,6 +3,7 @@ package com.edo.util.item;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -29,4 +30,10 @@ public abstract class BaseTimeEntity {
     @LastModifiedDate
     @Column(columnDefinition = "timestamp")
     private LocalDateTime updateTime;
+
+//    regTime 출력
+    @PrePersist
+    public void createRegTime() {
+        this.regTime = LocalDateTime.now();
+    }
 }

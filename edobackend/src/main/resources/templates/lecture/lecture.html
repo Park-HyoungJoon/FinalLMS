@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <nav aria-label="Page navigation" class="paging"style="margin-left: 100px;">
+    <nav aria-label="Page navigation" class="container d-flex align-items-center justify-content-center" >
         <ul class="pagination" th:if="${posts.page.totalPages > 1}">
             <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
                 <a class ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"

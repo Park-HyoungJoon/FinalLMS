@@ -16,7 +16,7 @@
 </head>
 <body class="vsc-initialized">
 <div layout:fragment="content">
-    <div id="container-xxl py-5" >
+    <div id="container-xxl py-5" style="min-height: 800px;">
         <!--  community field  -->
         <div id="container">
             <h3 style="text-align: center"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b>
@@ -25,7 +25,7 @@
             <div class="row ">
                 <div class="col-sm-12">
                     <div align="right">
-                        <button type="button" class="btn btn-secondary" id="writeBtn"
+                        <button type="button" class="btn btn-outline-dark" id="writeBtn" style="margin-bottom: 8px"
                                 onclick="window.location.href ='/community/write'" sec:authorize="isAuthenticated()">글쓰기
                         </button>
                     </div>
@@ -55,7 +55,7 @@
                             th:data-dot="${listStat.index}" scope = "row">
 
                                 <td th:text="${list.id}"></td>
-                                <td >  <a th:href="@{/community/detail/{id}(id=${list.id})}" th:text="${list.title}"></a></td>
+                                <td ><a th:href="@{/community/detail/{id}(id=${list.id})}" th:text="${list.title}"></a></td>
                                 <td th:text="${list.member.memberNickname}"></td>
                                 <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${list.hit}"></td>

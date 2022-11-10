@@ -55,16 +55,14 @@ public class CommunityService {
     public Paged<Community> getPageByPart(int pageNumber, int size, String part) {
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Community> postPage;
-        if(part.equals("Notice")){
+        if (part.equals("Notice")) {
             postPage = communityRepository.findAll(request);
-        }else {
+        } else {
             postPage = communityRepository.findAllByCategory(request, part);
         }
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
 
-
-//    게시글 세부 조회
 
     //	Mapper로 넘기기
 //	Dto->community니까 생성자로 Dto 넘겨준다
