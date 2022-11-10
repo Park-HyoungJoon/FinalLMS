@@ -184,7 +184,7 @@
 
 <!--                    </div>&lt;!&ndash; //asset_center &ndash;&gt;-->
 
-  <div class="asset_center">-->
+  <div class="asset_center">
 <!--                        <div class="asset_center_box">-->
 <!--                            &lt;!&ndash;            좋아요 기능 구현 시 제대로 구현 예정 &ndash;&gt;-->
 <!--                            <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 선호 강좌</b> <a-->
@@ -231,7 +231,7 @@
                                 <tr th:each="list : ${communityMainList}"
                                 >
                                     <td th:text="${list.id}"></td>
-                                    <td th:text="${list.title}"></td>
+                                    <td >  <a th:href="@{/community/detail/{id}(id=${list.id})}" th:text="${list.title}"></a></td>
                                     <td th:text="${list.member.memberNickname}"></td>
                                     <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
                                     <td th:text="${list.hit}"></td>
