@@ -107,15 +107,6 @@
                                 <div class="row">
                                     <a class="button" th:href="'/lecture/All'">목록</a>
                                 </div>
-                                <div class="row">
-                                <div class="col" sec:authorize="isAuthenticated()">
-                                    <a class="button">강의 관리</a>
-                                </div>
-                                <div class="col" sec:authorize="isAuthenticated()">
-                                    <a th:href="'/lecture/contents/'+${lecture.getId()}+'/'+${lectureDivide.get(0).getId()}"
-                                       class="deleteLecture">강의삭제</a>
-                                </div>
-                                </div>
                                     <hr>
                                 <div class="row">
                                     <div class="cd-floating__sub-buttons">

@@ -2,6 +2,8 @@ package com.edo.lecture.entity;
 
 import com.edo.user.entity.Member;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -23,6 +25,7 @@ public class LectureMember {
     //강좌 매핑(다대일 / 강좌Id가 테이블에 등록됨)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="lecture_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Lecture lecture;
 
     //멤버 매핑(다대일 / 멤버Id가 테이블에 등록됨)
