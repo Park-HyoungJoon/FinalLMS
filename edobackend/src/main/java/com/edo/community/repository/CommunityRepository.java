@@ -19,4 +19,7 @@ public interface CommunityRepository extends JpaRepository<Community,Long> {
 
     Page<Community> findAll(Pageable request);
 
+//    파트 페이징
+    Page<Community> findAllByCategory(Pageable request, String part);
+
 }

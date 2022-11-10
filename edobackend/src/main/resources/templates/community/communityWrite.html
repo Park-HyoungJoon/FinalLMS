@@ -19,12 +19,11 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
 
 
-<!--    <link rel="stylesheet" type="text/css" href="/css/footer.css">-->
-<!--    <link rel="stylesheet" type="text/css" href="/css/header.css">-->
-    <link rel="stylesheet" type="text/css" href="/css/community.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
     <script>
-        if (top != window) {
+
+    if (top != window) {
             top.location = window.location;
         }
     </script>
@@ -34,31 +33,44 @@
 <div layout:fragment="content">
     <div id="wrapper">
         <!--  community field  -->
-        <div id="container">
+        <div id="container" style="margin: 100px;">
 
-            <h3 style="margin-top: 100px"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>글쓰기</b></h3>
+            <h3 style="margin-top: 100px; text-align: center "><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>글쓰기</b></h3>
 
             <form role="form" method="post" enctype="multipart/form-data" id="formId" th:object="${communityDto}">
                 <div style="display:block;">
-                    <div style="display: block">
-                        <label class="form-label">분야</label>
-                        <!--th:placeholder="${user[0].Nick}" required>-->
-                        <select class="form-select" id="category" name="category">
-                            <option value="공지">공지</option>
-                            <option value="자유게시판">자유게시판</option>
-                            <option value="QnA">Q&A</option>
-                            <option value="쇼츠">쇼츠A</option>
-                        </select>
-                    </div>
-                    <br/>
-                    <br>
-                    <label>작성자</label>
-                    <input type="hidden" th:value="${member.memberId}" id="memberId" name="memberId"/>
-                    <input type="text" th:value="${member.memberNickname}" name="communityNickname" id="communityNickname" readonly></input>
+<!--                    <div style="display: block">-->
+<!--                        <label class="form-label">분야</label>-->
+<!--                        &lt;!&ndash;th:placeholder="${user[0].Nick}" required>&ndash;&gt;-->
+<!--                        <select class="form-select" id="category" name="category">-->
+<!--                            <option value="notice">공지</option>-->
+<!--                            <option value="free">자유게시판</option>-->
+<!--                            <option value="qna">Q&A</option>-->
+<!--                            <option value="shorts">쇼츠A</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
+                    <div class="form-floating">
+                        <select class="form-select" id="category" name="category" aria-label="Floating label select example">
+                            <option value="notice">공지</option>
+                            <option value="free">자유게시판</option>
+                            <option value="qna">Q&A</option>
+                            <option value="shorts">쇼츠A</option>
+                        </select>
+                        <label for="category">카테고리 설정</label>
+                    </div>
                     <br>
-                    <label>제목</label>
-                    <input type="text"  name="title" id="title"></input>
+
+                    <div class="form-floating mb-3">
+                        <input type="hidden" th:value="${member.memberId}" id="memberId" name="memberId"/>
+                        <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput" th:value="${member.memberNickname}">
+                        <label for="floatingPlaintextInput">작성자</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="title" name="title" >
+                        <label for="title">제목을 입력해주세요</label>
+                    </div>
                 </div>
                 <!--        파일 업로드 부분 -->
                 <!--        <div style="display: block">-->
@@ -80,8 +92,9 @@
                 </div>
                 <div style="display:block;">
                     <div align="center" style="margin-top: 10px">
-                        <input type=submit value="등록" class="btn btn-secondary" id="nextButton"
+                        <input type=submit value="등록" class="btn btn-primary" id="nextButton"
                                th:formaction="@{/community/write}"/>
+                        <button onclick="location.href='/community/main'" type="button" class="btn btn-sm btn-secondary" id="btnList">목록</button>
                     </div>
                 </div>
 

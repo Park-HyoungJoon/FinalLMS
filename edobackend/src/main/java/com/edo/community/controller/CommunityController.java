@@ -53,7 +53,7 @@ public class CommunityController {
     public String communityPart
             (@PathVariable(value = "part", required = false) String part,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+             @RequestParam(value = "size", required = false, defaultValue = "9") int size,
              Model model) {
 
         List<Community> communityList = communityRepository.findAll();

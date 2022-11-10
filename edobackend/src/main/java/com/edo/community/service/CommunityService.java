@@ -54,7 +54,12 @@ public class CommunityService {
     //    파트 페이징 처리
     public Paged<Community> getPageByPart(int pageNumber, int size, String part) {
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
-        Page<Community> postPage = communityRepository.findAll(request);
+        Page<Community> postPage;
+        if(part.equals("Notice")){
+            postPage = communityRepository.findAll(request);
+        }else {
+            postPage = communityRepository.findAllByCategory(request, part);
+        }
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
 
