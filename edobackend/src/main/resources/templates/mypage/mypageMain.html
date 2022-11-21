@@ -23,6 +23,7 @@
         //닉네임 중복체크
         function nickNameDuplCheck() {
             let memberNickname = document.getElementById('memberNickname').value;
+            console.log(document.getElementById('memberNickname').value);
 
             if (memberNickname != null) {
                 fetch("/member/mypage/editNickname", {
@@ -36,20 +37,16 @@
                 }).then(response => response.json())
                     .then(data => {
                         if (data) {
-                            nicknamecheck = true;
                             alert("사용 가능한 닉네임 입니다.");
                         } else {
-                            nicknamecheck = false;
                             alert("이미 사용 중인 닉네임 입니다.");
                         }
                         check();
                     })
 
             } else {
-                nicknamecheck = false;
                 alert("닉네임을 입력해주세요");
             }
-            check();
         }
 
         //정보 수정 버튼 제어
@@ -82,8 +79,8 @@
                 <h4>닉네임 </h4>
 <!--                <dd th:utext="${ member.memberNickname}"></dd>-->
                 <input type="text" id="memberNickname" th:value="${member.memberNickname}">
+                <a class="btn btn-primary" href="javascript:;" onclick="nickNameDuplCheck()">닉네임 중복확인</a>
 
-                <button class="btn btn-primary" onclick="nickNameDuplCheck()">닉네임 중복 확인</button>
                 <h4>비밀번호</h4>
                 <!--                여기는 update만 넣을 수 있도록 -->
                 <input type="password">

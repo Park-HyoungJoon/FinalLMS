@@ -128,7 +128,9 @@ public class MemberController {
         log.info(">>>>>>>>>>>>>>>>>memberList 가져오기 성공!<<<<<<<<<<<<<<<<<<<<<<<" + memberList.toString());
         model.addAttribute("member", member);
 
-        List<Community> communityMainList = communityRepository.findAllById(5);
+        Long myId = memberRepository.findMemberIdByMemberEmail(principal.getName());
+        log.info(">>>>>>>>>>>>>>>>>현재 로그인 한 사용자의 id를 잘 가져오나요?<<<<<<<<<<<<<<<<<<<<<<<" + myId.toString());
+        List<Community> communityMainList = communityRepository.findAllById(myId,5);
         log.info(">>>>>>>>>>>>>>>>>communitylist  사이즈 가져오기<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
 
         List<Long> lectureIds = lectureSubscribeRepository.searchLectureIdByMemberAndHeart(member.getMemberId());
