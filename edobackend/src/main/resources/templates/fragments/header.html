@@ -49,6 +49,7 @@
                 <a href="/" class="nav-item nav-link headTag" id="tag" >Home</a>
                 <a th:href="@{/lecture/{part}(part='All')}" class="nav-item nav-link headTag" id="lectureTag">강좌</a>
                 <a href="/community/main" class="nav-item nav-link headTag">커뮤니티</a>
+                <a href="/manager/managerMain" class="nav-item nav-link headTag">매니저화면</a>
                 <a href="https://zep.us/play/2YEXdq" class="nav-item nav-link headTag" sec:authorize = "isAuthenticated()" >메타버스</a>
             </div>
             <a href="/member/login" sec:authorize = "isAnonymous()" class="btn btn-sm btn-light rounded-pill py-2 px-4 d-none d-lg-block">로그인/회원가입</a>

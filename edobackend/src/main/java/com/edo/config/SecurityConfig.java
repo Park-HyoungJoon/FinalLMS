@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/"); //로그아웃 성공 시 연결될 화면
 
         http.authorizeRequests()
-                .antMatchers("/lib/**","/css/**", "/js/**", "/img/**","/image/**","/images/**","/file/**","/video/**").permitAll()
+                .antMatchers("/lib/**","/css/**", "/js/**", "/img/**","/image/**","/images/**","/file/**","/video/**","/shorts/**").permitAll()
                 .antMatchers("/", "/member/**", "/lecture/**","/test2", "/community/**","/contents/**","/login/**").permitAll()
                 .antMatchers("/community/write").hasAnyRole()
                 .anyRequest()

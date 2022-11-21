@@ -4,6 +4,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/addLayout}">
 <head>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" href="/css/shortsUpload.css" >
+    </th:block>
     <header>
         <title>AiMind에 오신 것을 환영합니다.</title>
         <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -11,10 +14,69 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <form id="uploadContents" name="uploadContents" th:action="@{/contents/uploader}" method="post"
-          class="needs-validation" enctype="multipart/form-data" novalidate>
-
+    <form id="uploadShorts" name="uploadShorts" th:action="@{/community/shorts/uploader}" method="post"
+          class="needs-validation" enctype="multipart/form-data">
+        <div class="filebox">
+            <div class="upload-name border-primary">
+                <video style="width: 99%; height: 90%" id="video" controls poster=""  th:placeholder="첨부파일"></video>
+                <label for="shorts" class="bg-primary">파일찾기</label>
+                <input type="file" class="upload " id="shorts" name="shorts">
+            </div>
+        </div>
+        <input type="submit" class="bg-primary" value="SUBMIT"/>
     </form>
+
+
+    <script type="text/javascript">
+    const inputFile = document.getElementById("shorts");
+    const video = document.getElementById("video");
+
+    inputFile.addEventListener("change", function(){
+    const file = inputFile.files[0];
+    const videourl = URL.createObjectURL(file);
+    video.setAttribute("src", videourl);
+
+    })
+    </script>
+    <script type="text/javascript">
+
+        window.URL = window.URL || window.webkitURL;
+
+        document.getElementById('shorts').onchange = setFileInfo;
+
+        function setFileInfo() {
+            var files = this.files;
+            var video = document.createElement('video');
+            video.preload = 'metadata';
+            video.onloadedmetadata = function() {
+                window.URL.revokeObjectURL(video.src);
+                var duration = video.duration;
+                if(duration>91){
+                    alert('영상 길이가 1분 30초보다 깁니다.')
+                    document.getElementById('uploadShorts').reset();
+                }
+                console.log(duration);
+            }
+            video.src = URL.createObjectURL(files[0]);
+        }
+
+    </script>
+    <script type="text/javascript">
+    $("#uploadShorts").submit(function (event) {
+        event.preventDefault();
+        var video = document.createElement('video');
+        video.preload = 'metadata';
+        console.log(video.duration);
+        var videoIsNaN = video.duration;
+            if(isNaN(videoIsNaN)==true){
+                console.log('??');
+                alert('영상을 업로드해주세요.');
+            }
+            else{
+                this.submit();
+            }
+    });
+</script>
 </div>
 </body>
 </html>

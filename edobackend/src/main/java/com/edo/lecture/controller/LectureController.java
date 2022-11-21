@@ -57,17 +57,21 @@ public class LectureController {
     @Autowired
     LectureRepository lectureRepository;
 
+    /***
+     *
+     * @param part : 강의 분야 ex) 전체,파이썬,코딩테스트 등
+     * @param pageNumber : 현재 화면에 보이는 페이지 부분
+     * @param size : 한 페이지 당 몇 개의 요소를 뽑아 올 건지 ,default가 12이기 때문에 한 페이지 당 12개씩 보여줌
+     * @param model
+     * @return
+     */
     @GetMapping(value = "/lecture/{part}")
     public String Lecture
             (@PathVariable(value = "part", required = false) String part,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
              @RequestParam(value = "size", required = false, defaultValue = "12") int size,
-             Model model
-            , Principal principal) {
-        List<Lecture> lectureList = lectureRepository.findAll();
-        model.addAttribute("posts", lectureService.getPage(pageNumber, size));
+             Model model) {
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
-        model.addAttribute("list", lectureList);
         model.addAttribute("part", part);
         return "lecture/lecture";
     }
@@ -81,7 +85,6 @@ public class LectureController {
 
     /**
      * lectureAdd.html에서 강의 추가 정보를 가져온 후 강의 차시로 넘어가는 객체다.
-     *
      * @param lectureAddDto LectureAddDto는 LectureAdd에서 가져온 정보를 Lecture Entity의 모습으로 변경한 후
      *                      저장하기 위해 사용된다.
      * @param model
@@ -91,6 +94,7 @@ public class LectureController {
     @PostMapping(value = "/lecture/add", consumes = "multipart/form-data")
     public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException,
             NullPointerException {
+        //운영체제가 윈도우인지 , 리눅스인지에 따라 루트 변경
         String os = System.getProperty("os.name").toLowerCase();
         if(os.contains("win")){
             imgPath =System.getProperty("user.dir") + imgRoot;
@@ -99,6 +103,8 @@ public class LectureController {
             imgPath = "/home/phj/image/";
             videoPath = "/home/phj/video/";
         }
+
+
         /**
          * 접수기간
          * StrToTime 설명은 lectureAddDto 클래스에 있다.

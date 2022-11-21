@@ -43,6 +43,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private String uploadPathMinju;
 
 
+    @Value("${shorts.path}")
+    private String shortsPath;
     //윈도우
     /*
     @Override
@@ -67,6 +69,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     .addResourceLocations("file:///" + outImgPath);
             registry.addResourceHandler("/images/**")
                     .addResourceLocations("file:///" + System.getProperty("user.dir") + communityPath);
+            registry.addResourceHandler("/shorts/**")
+                    .addResourceLocations("file:///" + shortsPath);
         }else{
             registry.addResourceHandler(connectPath)
                     .addResourceLocations(resourcePath);

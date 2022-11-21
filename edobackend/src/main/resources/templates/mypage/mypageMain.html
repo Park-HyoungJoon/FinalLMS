@@ -12,7 +12,12 @@
 
     <link rel="stylesheet" type="text/css" href="/css/mypage.css">
     <script type="text/javascript">
-        $(window).load(function () {
+        function editButtonCheck() {
+            alert("정보 수정이 완료되었습니다.")
+
+    }
+
+    $(window).load(function () {
             try {
             } catch (e) {
             }
@@ -87,10 +92,14 @@
                 <button class="btn btn-primary">비밀번호 변경하기</button>
                 <h4>전화번호</h4>
                 <input type="text" th:value="${member.memberPhone}">
+<<<<<<< HEAD
                 <br>
                 <br>
 <!--                <button id="editButton" class="btn btn-primary" disabled>정보 수정하기</button>-->
                 <input type="submit" id="editButton" name="editButton" class="btn btn-primary" disabled value="정보 수정하기"/>
+=======
+                <button id="editButton" onclick="editButtonCheck()" class="btn btn-primary" >정보 수정하기</button>
+>>>>>>> HyoungJoon_shorts_edit
             </div>
             </form>
 
