@@ -53,7 +53,7 @@
                 var duration = video.duration;
                 if(duration>91){
                     alert('영상 길이가 1분 30초보다 깁니다.')
-                    document.getElementById('uploadShorts').reset();
+                    document.getElementById('video').onreset;
                 }
                 console.log(duration);
             }
@@ -64,15 +64,14 @@
     <script type="text/javascript">
     $("#uploadShorts").submit(function (event) {
         event.preventDefault();
-        var video = document.createElement('video');
+        var video = document.getElementById('video');
         video.preload = 'metadata';
         console.log(video.duration);
-        var videoIsNaN = video.duration;
-            if(isNaN(videoIsNaN)==true){
+            var videoIsNaN = video.duration;
+            if (isNaN(videoIsNaN) == true) {
                 console.log('??');
                 alert('영상을 업로드해주세요.');
-            }
-            else{
+            } else {
                 this.submit();
             }
     });
