@@ -6,6 +6,7 @@ import com.edo.community.entity.Community;
 import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityTestRepository;
+import com.edo.lecture.entity.Lecture;
 import com.edo.util.pagination.Paged;
 import com.edo.util.pagination.Paging;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,8 @@ public class CommunityService {
         Community community = modelMapper.map(communityDto, Community.class);
         return community;
     }
+
+
 
 
     //    게시글 조회수 올리기
