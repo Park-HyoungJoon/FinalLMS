@@ -31,6 +31,10 @@
             say.drop();
             say.focus();
         }
+
+        function deleteContents(){
+
+        }
     </script>
     <script>
         if (top != window) {
@@ -83,6 +87,10 @@
                 <div align="center" style="margin-top: 10px">
                     <!--                        <input type=submit value="목록으로돌아가기" class="btn btn-secondary" id="nextButton"-->
                     <!--                               onclick="location.href='/community/main'"/>-->
+
+<!--                    <a value="삭제하기" class="btn btn-secondary" id="deletButton" th:href="/community/contentDelete/{id}(id=communityDetail.getId())"-->
+<!--                            sec:authentication="isAuthenticated()">목록으로 돌아가기-->
+<!--                    </a>-->
                     <button value="목록으로 돌아가기" class="btn btn-secondary" id="nextButton"
                             onclick="location.href='/community/main'">목록으로 돌아가기
                     </button>

@@ -7,6 +7,8 @@ import com.edo.community.entity.CommunityShorts;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityShortsRepository;
 import com.edo.community.service.CommunityService;
+import com.edo.lecture.entity.Lecture;
+import com.edo.lecture.entity.LectureDivide;
 import com.edo.user.entity.Member;
 import com.edo.user.service.MemberService;
 import com.edo.util.file.FileVO;
@@ -22,9 +24,9 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Optional;
 
 //웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 @CrossOrigin
@@ -53,7 +55,7 @@ public class CommunityController {
 
         List<Community> communityList = communityService.getMainList();
         log.info("리스트를 잘 가져오고 있나요 >>>>>>>>>>>>>>>>>>>>>>>>>>> " + communityList.get(0).toString() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        model.addAttribute("posts", communityService.getPage(pageNumber, size));
+        model.addAttribute("partPage", communityService.getPage(pageNumber, size));
         return "community/communityMain";
     }
 
@@ -67,7 +69,6 @@ public class CommunityController {
              Model model) {
 
         List<Community> communityList = communityRepository.findAll();
-        model.addAttribute("posts", communityService.getPage(pageNumber, size));
         model.addAttribute("partPage", communityService.getPageByPart(pageNumber, size,part));
         model.addAttribute("communityList",communityList);
         model.addAttribute("part",part);
@@ -117,6 +118,16 @@ public class CommunityController {
 
         model.addAttribute("communityDetail",communityDetail);
         return "community/communityUpdate";
+    }
+
+    @GetMapping(value = "/contentDelete/{id}")
+    public String deleteDivide(@PathVariable("id") Long id, Model model) {
+
+        Optional<Community> community = communityRepository.findById(id);
+        if (community.equals(id)){
+            communityRepository.deleteCommunitiesById(id);
+        }
+        return "community/communityMain";
     }
 
     //쇼츠 조회
