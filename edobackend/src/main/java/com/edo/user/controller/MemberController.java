@@ -113,17 +113,6 @@ public class MemberController {
         return true;
     }
 
-    @ResponseBody
-    @PostMapping(value = "/mypage/editNickname")
-    public Boolean editNickname(@RequestBody MemberDto memberDto) {
-        log.info(memberDto.getMemberNickname() + "<<<<<<<<<<<<<<<<<<<<<<<<<");
-        try {
-            memberService.validateDuplicateNickname(memberDto.getMemberNickname());
-        } catch (IllegalStateException e) {
-            return false;
-        }
-        return true;
-    }
 
     // 마이페이지
     @GetMapping(value = "/mypage")
@@ -139,7 +128,7 @@ public class MemberController {
         log.info(">>>>>>>>>>>>>>>>>memberList 가져오기 성공!<<<<<<<<<<<<<<<<<<<<<<<" + memberList.toString());
         model.addAttribute("member", member);
 
-        List<Community> communityMainList = communityRepository.findDescCommunity(5);
+        List<Community> communityMainList = communityRepository.findAllById(5);
         log.info(">>>>>>>>>>>>>>>>>communitylist  사이즈 가져오기<<<<<<<<<<<<<<<<<<<<<<<" + communityMainList.size());
 
         List<Long> lectureIds = lectureSubscribeRepository.searchLectureIdByMemberAndHeart(member.getMemberId());
@@ -156,12 +145,25 @@ public class MemberController {
         return "mypage/mypageMain";
     }
 
-//    @PostMapping(value = "/mypage")
-//    public String myPagePost(MemberDto memberDto, Model model){
-//
-//
-//        return "/mypage/mypageMain";
-//    }
+    @ResponseBody
+    @PostMapping(value = "/mypage/editNickname")
+    public Boolean editNickname(@RequestBody MemberDto memberDto) {
+        log.info(memberDto.getMemberNickname() + "<<<<<<<<<<<<<<<<<<<<<<<<<");
+        try {
+            memberService.validateDuplicateNickname(memberDto.getMemberNickname());
+        } catch (IllegalStateException e) {
+            return false;
+        }
+        return true;
+    }
+
+
+    @PostMapping(value = "/mypage")
+    public String myPagePost(MemberDto memberDto, Model model){
+
+
+        return "/mypage/mypageMain";
+    }
 
     //로그인 실패 시 에러 메세지 나타냄 
     @GetMapping(value = "/login/error")

@@ -4,8 +4,10 @@ import com.edo.community.entity.Community;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,9 +15,15 @@ public interface CommunityRepository extends JpaRepository<Community,Long> {
     @Query(value = "select * from community order by community_id desc LIMIT ?1" , nativeQuery = true)
     List<Community> findDescCommunity(int limit_num);
 
-//    @Query(value = "select c from Community c inner join Member m on c.id = m.memberId where c.id = :id")
-    @Query(value = "select * from community c , member m where c.member_id = m.member_id and c.member_id = :id", nativeQuery = true)
-    List<Community> findAllById(@Param("id") Long communityId);
+    @Query(value = "select * from community c , member m where c.member_id = ?1 order by community_id desc LIMIT ?1", nativeQuery = true)
+    List<Community> findAllById(int limit_num);
+
+//    글 지우기
+    @Modifying
+    @Transactional
+    @Query(value = "delete from community where community_id = ?1", nativeQuery = true)
+    boolean deleteCommunitiesById(Long id);
+
 
     Page<Community> findAll(Pageable request);
 

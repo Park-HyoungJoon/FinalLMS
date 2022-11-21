@@ -2,14 +2,11 @@ package com.edo.user.service;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.edo.community.dto.CommunityDto;
-import com.edo.community.entity.Community;
-import com.edo.user.dto.MemberDto;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +16,6 @@ import com.edo.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +26,7 @@ public class MemberService implements UserDetailsService {
 
     // @Autowired
     private final MemberRepository memberRepository;
+
 
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
@@ -81,6 +78,22 @@ public class MemberService implements UserDetailsService {
                 .build();
     }
 
+//    멤버 수정하기
+//    public void MemberUpdate(Optional<Member> member){
+//        member = memberRepository.findByMemberId(member.get().getMemberId());
+//
+//
+//        if (member == null){
+//            throw new IllegalStateException("없는 회원입니다.");
+//        } else {
+//
+//            String planePw = member.get().getMemberPassword();
+////            String memberpassword =passwordEncoder.encode(planePw);
+//
+//
+//        }
+//    }
+
     //	커뮤니티로 닉네임 보내기
     public String communityNickname(String memberEmail) {
         Optional<Member> member = memberRepository.findByMemberEmail(memberEmail);
@@ -96,5 +109,6 @@ public class MemberService implements UserDetailsService {
         Optional<Member> member = memberRepository.findByMemberId(memberId);
         return member.get();
     }
+
 
 }

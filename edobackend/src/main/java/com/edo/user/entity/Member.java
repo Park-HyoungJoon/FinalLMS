@@ -79,21 +79,6 @@ public class Member extends BaseTimeEntity {
     }
 
 
-    public void createUsers(String memberEmail, String memberPassword, String memberNickname, String memberName, String memberPhone,
-                 Role memberRole, PasswordEncoder passwordEncoder){
-
-        Member member = new Member();
-        this.memberEmail = memberEmail;
-//        왜 안먹을까요...
-        this.memberPassword = passwordEncoder.encode(memberPassword);
-        this.memberNickname = memberNickname;
-        this.memberName = memberName;
-        this.memberPhone = memberPhone;
-//       왜 Role이 안 들어가지요...
-        this.memberRole = Role.USER;
-
-        System.out.println("지금 이 메소드 출력하는 중!!!!!!!!!!!!!!!!!! >>>>>>>>>>>>>>>>>>>>>"  );
-    }
 
 //    mypage에서 list로 받아오기 위해 memberDto로 변환
     public MemberDto toMemberDto(){
