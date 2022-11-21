@@ -35,6 +35,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${part5.upload.path}")
     private String outImgPath;
 
+    @Value("${shorts.path}")
+    private String shortsPath;
     //윈도우
     /*
     @Override
@@ -57,6 +59,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                     .addResourceLocations("file:///"+System.getProperty("user.dir") + imgUploadPath);
             registry.addResourceHandler("/video/**")
                     .addResourceLocations("file:///" + outImgPath);
+            registry.addResourceHandler("/shorts/**")
+                    .addResourceLocations("file:///" + shortsPath);
         }else{
             registry.addResourceHandler(connectPath)
                     .addResourceLocations(resourcePath);

@@ -59,6 +59,9 @@ public class LectureAddDto {
     String lectureInfoHidden;
     @JsonProperty("lectureImgStr")
     String lectureImgStr;
+    /*
+
+    * */
     public List<LocalDate> StrToTime(String data){
         String[] str = data.split(" ");
         List<LocalDate> date = new ArrayList<>();

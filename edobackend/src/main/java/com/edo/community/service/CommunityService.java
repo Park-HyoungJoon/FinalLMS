@@ -3,8 +3,10 @@ package com.edo.community.service;
 
 import com.edo.community.dto.CommunityDto;
 import com.edo.community.entity.Community;
+import com.edo.community.entity.CommunityShorts;
 import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
+import com.edo.community.repository.CommunityShortsRepository;
 import com.edo.community.repository.CommunityTestRepository;
 import com.edo.util.pagination.Paged;
 import com.edo.util.pagination.Paging;
@@ -29,6 +31,7 @@ public class CommunityService {
 
     private final CommunityRepository communityRepository;
 
+    private final CommunityShortsRepository communityShortsRepository;
     public Long saveContents(CommunityDto communityDto) throws Exception {
 
 //        게시글 등록
@@ -44,7 +47,7 @@ public class CommunityService {
     }
 
 
-    //    페이징 처리(main) -> 내가 이게 필요한가?
+    //    페이징 처리(main) -> 내가 이게 필요한가? 필요할듯
     public Paged<Community> getPage(int pageNumber, int size) {
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Community> postPage = communityRepository.findAll(request);
@@ -81,5 +84,8 @@ public class CommunityService {
         return community;
     }
 
-
+    //shorts 저장
+    public void shortsSave(CommunityShorts communityShorts){
+        communityShortsRepository.save(communityShorts);
+    }
 }

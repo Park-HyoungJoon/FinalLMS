@@ -26,6 +26,7 @@
                 </div>
             </div>
             <div class="lecture project-carousel fadeInUp" data-wow-delay="0.1s" >
+                <!--partPage.page의 정보가 존재하는 경우 div 표시 & List인 partPage.page foreach형식으로 정보를 하나씩 가져옴.-->
                     <div th:if="${#lists.size(partPage.page)}>0"
                          th:each="vo, status:${partPage.page}"
                             class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px; overflow: hidden;" th:data-dot="${status.index}">
@@ -49,7 +50,7 @@
                                 Edit
                             </a>
                             <a class="btn btn-sm btn-outline-danger"
-                               th:href="@{/lecture/lectureRemove/{id}/{part}/{pageNumber}(id=${vo.getId()},part=${part},pageNumber=${posts.paging.pageNumber})}"
+                               th:href="@{/lecture/lectureRemove/{id}/{part}/{pageNumber}(id=${vo.getId()},part=${part},pageNumber=${partPage.paging.pageNumber})}"
                                sec:authorize="isAuthenticated()">
                                 Remove
                             </a>
@@ -59,27 +60,32 @@
         </div>
     </div>
     <nav aria-label="Page navigation" class="container d-flex align-items-center justify-content-center" >
-        <ul class="pagination" th:if="${posts.page.totalPages > 1}">
-            <li class="page-item" th:classappend="${!posts.paging.isPrevEnabled()? 'disabled' : ''}">
-                <a class ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber - 1}}"
+        <!--현재 토탈페이지가 1보다 큰 경우 즉, 페이지가 잇는 경우-->
+        <ul class="pagination" th:if="${partPage.page.totalPages > 1}">
+            <!--페이지에서 이전 버튼 부분
+                isPrevEnabled가 false이면 disable class를 추가해 안보이게 , true인경우 표시-->
+            <li class="page-item" th:classappend="${!partPage.paging.isPrevEnabled()? 'disabled' : ''}">
+                <!--requestParam을 이용해 현재 있는 page보다 -1로 이동-->
+                <a class ="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${partPage.paging.pageNumber - 1}}"
                    tabindex="-1">Previous</a>
             </li>
-            <th:block th:each="item : ${posts.paging.getItems()}">
-                <li class="page-item" th:classappend="${item.index == posts.paging.pageNumber? 'active' : ''}"
+            <!--현재 가지고 있는 아이템 즉, 페이지의 수 만큼 foreach 형식으로 각 아이템을 뽑아옴.-->
+            <th:block th:each="item : ${partPage.paging.getItems()}">
+                <!--현재 페이지가 item과 일치하다면 active class를 추가해서 파란색 버튼으로 표시 -->
+                <li class="page-item" th:classappend="${item.index == partPage.paging.pageNumber? 'active' : ''}"
                     th:if="${item.pageItemType.name() == 'PAGE'}">
-                    <!-- <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
-                     <a class="page-link"
-                        id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>-->
-                    <a class="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${item.index}}"
+                     <a class="page-link" th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${item.index}}"
                        th:text="${item.index}"></a>
                 </li>
                 <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
                     <a class="page-link" href="#">...</a>
                 </li>
             </th:block>
-            <li class="page-item" th:classappend="${!posts.paging.isNextEnabled()? 'disabled' : ''}">
+            <!--페이지에서 다음 버튼 부분
+              isNextEnabled가 false이면 disable class를 추가해 안보이게 , true인경우 표시-->
+            <li class="page-item" th:classappend="${!partPage.paging.isNextEnabled()? 'disabled' : ''}">
                 <a class="page-link"
-                   th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${posts.paging.pageNumber + 1}}">Next</a>
+                   th:href="@{'/lecture/' + ${part} + '?pageNumber=' + ${partPage.paging.pageNumber + 1}}">Next</a>
             </li>
         </ul>
     </nav>

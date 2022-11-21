@@ -56,13 +56,26 @@ public class LectureService {
         Page<Lecture> postPage = lectureRepository.findAll(request);
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
     }
+
+    /***
+     * PageRequest란
+     * 몇 페이지, 한 페이지의 사이즈, Sorting 방법(Option)을 가지고,
+     * Repository에 Paging을 요청할 때 사용하는 것
+     * PageRequest.of의 경우 2번째 매개변수 까지는 필수 입력이고 3번째 매개변수는 선택이다.
+     * @param pageNumber
+     * @param size
+     * @param part
+     * @return AllArgsConstructor로 만들어진 생성자에 파라미터 값 주입.
+     */
     public Paged<Lecture> getPageByPart(int pageNumber, int size,String part) {
         PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "id"));
         Page<Lecture> postPage;
         if(part.equals("All")){
+            //part가 All이면
             postPage = lectureRepository.findAll(request);
         }
         else {
+            //part가 파이썬 혹은 ai 등이라면
             postPage = lectureRepository.findAllByLecturePart(request, part);
         }
         return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
