@@ -22,7 +22,7 @@
                 <div class="col" style="right: 0; max-width: 150px;">
                     <a href="/lecture/add"
                        title="강좌 메뉴 링크" class="btn btn-outline-primary" id="lectureAddBtn"
-                       sec:authorize="isAuthenticated()">강좌추가</a>
+                        sec:authorize="hasRole('TEACHER')" >강좌추가</a>
                 </div>
             </div>
             <div class="lecture project-carousel fadeInUp" data-wow-delay="0.1s" >
@@ -44,6 +44,7 @@
                                sec:authorize="isAuthenticated()">
                                 View
                             </a>
+                            <div th:if="${vo.getId()}==userId">
                             <a class="btn btn-sm btn-outline-secondary"
                                th:href="@{/lecture/lectureEdit/{id}(id=${vo.getId()})}"
                                sec:authorize="isAuthenticated()">
@@ -54,6 +55,7 @@
                                sec:authorize="isAuthenticated()">
                                 Remove
                             </a>
+                            </div>
                         </div>
                     </div>
             </div>

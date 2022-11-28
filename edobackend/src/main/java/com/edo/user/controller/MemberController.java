@@ -135,14 +135,20 @@ public class MemberController {
 
         List<Long> lectureIds = lectureSubscribeRepository.searchLectureIdByMemberAndHeart(member.getMemberId());
         List<Lecture> lectureList = new ArrayList<>();
-
         for(Long lectureId : lectureIds){
             Lecture lecture = lectureService.getLectureById(lectureId);
             lectureList.add(lecture);
         }
+        List<Long> lectureListenIds = lectureSubscribeRepository.searchLectureIdByMemberAndListen(member.getMemberId());
+        List<Lecture> lectureList2 = new ArrayList<>();
+        for(Long lectureId : lectureListenIds){
+            Lecture lecture = lectureService.getLectureById(lectureId);
+            lectureList2.add(lecture);
+        }
         model.addAttribute("communityMainList", communityMainList);
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("postlike",lectureList);
+        model.addAttribute("listenList",lectureList2);
 
         return "mypage/mypageMain";
     }

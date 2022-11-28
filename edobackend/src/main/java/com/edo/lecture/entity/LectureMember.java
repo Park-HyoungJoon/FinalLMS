@@ -37,4 +37,6 @@ public class LectureMember {
 
     private int heart;
 
+    private int listen;
+
 }

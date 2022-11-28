@@ -92,14 +92,13 @@
 <!--                <button class="btn btn-primary">비밀번호 변경하기</button>-->
                 <h4>전화번호</h4>
                 <input type="text" th:value="${member.memberPhone}">
-<<<<<<< HEAD
+
                 <br>
                 <br>
 <!--                <button id="editButton" class="btn btn-primary" disabled>정보 수정하기</button>-->
                 <input type="submit" id="editButton" name="editButton" class="btn btn-primary" disabled value="정보 수정하기"/>
-=======
-                <button id="editButton" onclick="editButtonCheck()" class="btn btn-primary" >정보 수정하기</button>
->>>>>>> HyoungJoon_shorts_edit
+<!--
+                <button id="editButton" onclick="editButtonCheck()" class="btn btn-primary" >정보 수정하기</button>-->
             </div>
             </form>
 
@@ -121,8 +120,8 @@
                         <div class="row">
 
                             <div class="owl-carousel project-carousel wow fadeInUp" data-wow-delay="0.1s">
-                                <div th:if="${#lists.size(posts.getPage())}>0"
-                                     th:each="vo, status:${posts.getPage()}"
+                                <div th:if="${#lists.size(listenList)}>0"
+                                     th:each="vo, status:${listenList}"
                                      class="project-item border rounded h-100 p-4"
                                      style="min-height: 300px; max-height: 300px;"
                                      th:data-dot="${status.index}">
@@ -150,6 +149,7 @@
 
 
             </div>
+
             <div class="asset_center">
                 <div class="container">
                     <div class="school_lecture">

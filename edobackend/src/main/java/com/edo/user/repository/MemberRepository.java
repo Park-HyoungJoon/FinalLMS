@@ -25,6 +25,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     //	닉네임 중복된 회원이 있는지 검사하기 위한 쿼리 메소드 작성
     Member findByMemberNickname(String usersNickname);
 
+
     List<Member> findAllByOrderByMemberId();
 
     public Optional<Member> findByMemberId(Long memberId);

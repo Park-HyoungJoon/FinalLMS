@@ -1,6 +1,8 @@
 package com.edo.lecture.repository;
 
+import com.edo.lecture.entity.Lecture;
 import com.edo.lecture.entity.LectureMember;
+import com.edo.user.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,4 +17,14 @@ public interface LectureSubscribeRepository extends JpaRepository<LectureMember,
 
     @Query(value="select lm.lecture_id from lecture_member lm where lm.member_id =?1 and lm.heart =1 order by lecture_id desc limit 5",nativeQuery = true)
     List<Long> searchLectureIdByMemberAndHeart(Long id);
+
+
+    @Query(value = "select l.listen from lecture_member l where l.member_id=?1 and l.lecture_id=?2",nativeQuery = true)
+    int searchListenByLectureAndMember(Long id,Long lectureId);
+
+
+    @Query(value="select lm.lecture_id from lecture_member lm where lm.member_id =?1 and lm.listen =1 order by lecture_id desc limit 5",nativeQuery = true)
+    List<Long> searchLectureIdByMemberAndListen(Long id);
+
+    LectureMember findByMemberAndLecture(Member member, Lecture lecture);
 }

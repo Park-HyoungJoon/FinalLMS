@@ -101,8 +101,14 @@
                         <div th:if="${lectureDivide.size()>0}">
                             <div class="side-box" id="scroll">
                                 <div class="row">
+                                    <div th:if="${listen==0}">
+                                    <a th:href="'/lecture/listen/'+${lecture.getId()}"
+                                       class="listenLecture">강의수강</a>
+                                    </div>
+                                    <div th:if="${listen==1}">
                                     <a th:href="'/lecture/contents/'+${lecture.getId()}+'/'+${lectureDivide.get(0).getId()}"
                                        class="listenLecture">강의듣기</a>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <a class="button" th:href="'/lecture/All'">목록</a>

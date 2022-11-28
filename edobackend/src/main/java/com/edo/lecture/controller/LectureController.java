@@ -70,7 +70,13 @@ public class LectureController {
             (@PathVariable(value = "part", required = false) String part,
              @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
              @RequestParam(value = "size", required = false, defaultValue = "12") int size,
-             Model model) {
+             Model model , Principal principal) {
+        try{
+        String email = principal.getName();
+            Long id = memberRepository.findMemberIdByMemberEmail(email);
+            model.addAttribute("userId",id);
+        }catch (Exception e){}
+
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
         model.addAttribute("part", part);
         return "lecture/lecture";
@@ -398,6 +404,7 @@ public class LectureController {
     public String goDetail(@PathVariable("id") Long id, Model model,Principal principal) {
         Lecture lecture = lectureService.getLectureById(id);
         int heart = 0;
+        int listen = 0;
         try {
             String email = principal.getName();
             Optional<Member> member= memberRepository.findByMemberEmail(email);
@@ -409,14 +416,26 @@ public class LectureController {
 
         }
         try {
+            String email = principal.getName();
+            Optional<Member> member= memberRepository.findByMemberEmail(email);
+            Member member1 = member.get();
+            int listento = lectureSubscribeRepository.searchListenByLectureAndMember(member1.getMemberId(),id);
+            listen = listento;
+        }
+        catch (Exception e){
+
+        }
+        try {
             List<LectureDivide> lectureDivide = lectureDivideService.getListDivide(lecture);
             model.addAttribute("lecture", lecture);
             model.addAttribute("lectureDivide", lectureDivide);
             model.addAttribute("heart",heart);
+            model.addAttribute("listen",listen);
             return "lecture/lectureDetail";
         } catch (IndexOutOfBoundsException e) {
             model.addAttribute("heart",heart);
             model.addAttribute("lecture", lecture);
+            model.addAttribute("listen",listen);
             return "lecture/lectureDetail";
         }
     }
@@ -576,5 +595,38 @@ public class LectureController {
             return "lecture/lectureDetail";
         }
     }
-
+    @GetMapping(value = "/lecture/listen/{id}")
+    public String lectureListen(@PathVariable("id") Long LectureId,Principal principal, Model model) {
+        String email = principal.getName();
+        Member member = memberRepository.findByMemberEmail(email).get();
+        Lecture lecture = lectureRepository.findLectureById(LectureId);
+        LectureMember lectureMember1 = new LectureMember();
+        try {
+            LectureMember lectureMember = lectureSubscribeRepository.findByMemberAndLecture(member, lecture);
+            lectureMember.setListen(1);
+            lectureMember1 = lectureService.saveLectureListen(lectureMember);
+        }catch(Exception e){
+            LectureMemberDto lectureMemberDto = new LectureMemberDto();
+            lectureMemberDto.setListen(1);
+            lectureMemberDto.setHeart(0);
+            lectureMemberDto.setSubscribe(0);
+            lectureMemberDto.setMember(memberRepository.findByMemberEmail(email).get());
+            lectureMemberDto.setLecture(lectureRepository.findLectureById(LectureId));
+            LectureMember lectureMember = lectureMemberDto.toEntity(lectureMemberDto);
+            lectureMember1 = lectureService.saveLectureListen(lectureMember);
+        }
+        try {
+            List<LectureDivide> lectureDivide = lectureDivideService.getListDivide(lectureRepository.findLectureById(LectureId));
+            model.addAttribute("lecture", lectureRepository.findLectureById(LectureId));
+            model.addAttribute("lectureDivide", lectureDivide);
+            model.addAttribute("heart",lectureMember1.getHeart());
+            model.addAttribute("listen",lectureMember1.getListen());
+            return "lecture/lectureDetail";
+        } catch (IndexOutOfBoundsException e) {
+            model.addAttribute("heart",lectureMember1.getHeart());
+            model.addAttribute("lecture", lectureRepository.findLectureById(LectureId));
+            model.addAttribute("listen",lectureMember1.getListen());
+            return "lecture/lectureDetail";
+        }
+    }
 }

@@ -23,6 +23,8 @@ public class LectureMemberDto {
 
     private int heart;
 
+    private int listen;
+
 /*
     public LectureMemberDTO(LectureMember entity) {
         this.id = entity.getId();
@@ -39,6 +41,7 @@ public class LectureMemberDto {
                 .member(dto.getMember())
                 .subscribe(dto.getSubscribe())
                 .lecture(dto.getLecture())
+                .listen(dto.getListen())
                 .build();
     }
 }

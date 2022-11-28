@@ -93,4 +93,9 @@ public class LectureService {
         }
     }
 
+    public LectureMember saveLectureListen(LectureMember lectureMember){
+        LectureMember lectureMember1 = lectureSubscribeRepository.save(lectureMember);
+        return lectureMember1;
+    }
+
 }
