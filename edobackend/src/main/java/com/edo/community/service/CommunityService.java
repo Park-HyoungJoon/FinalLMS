@@ -76,9 +76,6 @@ public class CommunityService {
         return community;
     }
 
-
-
-
     //    게시글 조회수 올리기
     public Community updateHit(Long id) {
 //        일단 커뮤니티에서 아이디로 가져옵니다
