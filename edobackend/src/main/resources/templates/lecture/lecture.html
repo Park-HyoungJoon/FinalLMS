@@ -29,7 +29,7 @@
                 <!--partPage.page의 정보가 존재하는 경우 div 표시 & List인 partPage.page foreach형식으로 정보를 하나씩 가져옴.-->
                     <div th:if="${#lists.size(partPage.page)}>0"
                          th:each="vo, status:${partPage.page}"
-                            class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px; overflow: hidden;" th:data-dot="${status.index}">
+                            class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px; min-width: 240px; overflow: hidden;" th:data-dot="${status.index}">
                         <div class="position-relative mb-4">
                             <img class="img-fluid rounded " style="max-width: 190px; max-height: 150px;"
                                  th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
