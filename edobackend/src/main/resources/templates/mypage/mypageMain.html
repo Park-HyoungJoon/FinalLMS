@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/headAndFootLayout}">
 <head>
-    <title>회원가입</title>
+    <title>마이페이지</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -24,6 +24,7 @@
         });
 
         let nicknamecheck = false;
+        let memberPhone = document.getElementById('memberPhone').value;
 
         //닉네임 중복체크
         function nickNameDuplCheck() {
@@ -42,8 +43,10 @@
                 }).then(response => response.json())
                     .then(data => {
                         if (data) {
+                            document.getElementById('editButton').disabled = false;
                             alert("사용 가능한 닉네임 입니다.");
                         } else {
+                            document.getElementById('editButton').disabled = true;
                             alert("이미 사용 중인 닉네임 입니다.");
                         }
                         check();
@@ -56,7 +59,7 @@
 
         //정보 수정 버튼 제어
         function check() {
-            if (nicknamecheck) {
+            if (nicknamecheck ) {
                 document.getElementById('editButton').disabled = false;
             }
         }
@@ -77,37 +80,26 @@
             <form id="editForm" name="editForm" action="/member/mypage" method="post">
             <div class="myInfo" th:object="${member} ">
                 <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>마이페이지</b></h3>
-                <img class="user_img" id="memberName" src="/image/login/people.png"/>
+                <br>
+                    <img class="user_img" id="memberName" src="/image/login/people.png"  style="width: 200px;  height:200px;"/>
                 <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}"/>
                 <h4>이름</h4>
                 <dd th:utext="${ member.memberName}"></dd>
                 <h4>닉네임 </h4>
-<!--                <dd th:utext="${ member.memberNickname}"></dd>-->
                 <input type="text" id="memberNickname" th:value="${member.memberNickname}">
                 <a class="btn btn-primary" href="javascript:;" onclick="nickNameDuplCheck()">닉네임 중복확인</a>
 
-                <h4>비밀번호</h4>
-                <!--                여기는 update만 넣을 수 있도록 -->
-                <input type="password">
-<!--                <button class="btn btn-primary">비밀번호 변경하기</button>-->
                 <h4>전화번호</h4>
-                <input type="text" th:value="${member.memberPhone}">
+                <input type="text"id="memberPhone" onchange="check()" th:value="${member.memberPhone}">
 
                 <br>
                 <br>
-<!--                <button id="editButton" class="btn btn-primary" disabled>정보 수정하기</button>-->
                 <input type="submit" id="editButton" name="editButton" class="btn btn-primary" disabled value="정보 수정하기"/>
-<!--
-                <button id="editButton" onclick="editButtonCheck()" class="btn btn-primary" >정보 수정하기</button>-->
             </div>
             </form>
-
-            <br>
-            <br>
-
             <div class="sub_head">
                 <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>나의 수강 강좌</b> <a
-                        href="/community/main" style="float: right"><img
+                        href="/lecture/All" style="float: right"><img
                         src="http://crhs.aimind.co.kr/images/more.png" alt="더보기"></a></h3>
                 <hr>
 

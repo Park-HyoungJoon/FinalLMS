@@ -67,55 +67,32 @@
 
             </div>
         </div>
-        <nav aria-label="Page navigation" class="container d-flex align-items-center justify-content-center">
-            <ul class="pagination" th:if="${partPage.page.totalPages > 1}">
-                <li class="page-item" th:classappend="${!partPage.paging.isPrevEnabled()? 'disabled' : ''}">
-                    <a class="page-link" th:href="@{'/community/main' + '?pageNumber=' + ${partPage.paging.pageNumber -1}}"
-                       tabindex="-1">Previous</a>
-                </li>
-                <th:block th:each="item : ${partPage.paging.getItems()}">
-                    <li class="page-item" th:classappend="${item.index == partPage.paging.pageNumber? 'active' : ''}"
-                        th:if="${item.pageItemType.name() == 'PAGE'}">
-                        <a class="page-link" th:href="@{'/community/main' + '?pageNumber=' + ${item.index}}"
-                           th:text="${item.index}"></a>
-                    </li>
-                    </li>
-                    <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
-                        <a class="page-link" href="#">...</a>
-                    </li>
-                </th:block>
-                <li class="page-item" th:classappend="${!partPage.paging.isNextEnabled()? 'disabled' : ''}">
-                    <a class="page-link"
-                       th:href="@{'/community/main' + '?pageNumber=' + ${partPage.paging.pageNumber -1}}">Next</a>
-                </li>
-            </ul>
-        </nav>
 <!--            파트 페이지-->
-<!--            <nav aria-label="Page navigation" class="paging">-->
-<!--                <ul class="pagination" th:if="${partPage.page.totalPages > 1}">-->
-<!--                    <li class="page-item" th:classappend="${!partPage.paging.isPrevEnabled()? 'disabled' : ''}">-->
-<!--                        <a class ="page-link" th:href="@{'/community/' + ${category} + '?pageNumber=' + ${partPage.paging.pageNumber - 1}}"-->
-<!--                           tabindex="-1">Previous</a>-->
-<!--                    </li>-->
-<!--                    <th:block th:each="item : ${partPage.paging.getItems()}">-->
-<!--                        <li class="page-item" th:classappend="${item.index == partPage.paging.pageNumber? 'active' : ''}"-->
-<!--                            th:if="${item.pageItemType.name() == 'PAGE'}">-->
-<!--                            &lt;!&ndash; <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">-->
-<!--                             <a class="page-link"-->
-<!--                                id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>&ndash;&gt;-->
-<!--                            <a class="page-link" th:href="@{'/community/' + ${part} + '?pageNumber=' + ${item.index}}"-->
-<!--                               th:text="${item.index}"></a>-->
-<!--                        </li>-->
-<!--                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">-->
-<!--                            <a class="page-link" href="#">...</a>-->
-<!--                        </li>-->
-<!--                    </th:block>-->
-<!--                    <li class="page-item" th:classappend="${!partPage.paging.isNextEnabled()? 'disabled' : ''}">-->
-<!--                        <a class="page-link"-->
-<!--                           th:href="@{'/community/' + ${part} + '?pageNumber=' + ${partPage.paging.pageNumber + 1}}">Next</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </nav>-->
+            <nav aria-label="Page navigation" class="container d-flex align-items-center justify-content-center">
+                <ul class="pagination" th:if="${partPage.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!partPage.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class ="page-link" th:href="@{'/community/community/' + ${part} + '?pageNumber=' + ${partPage.paging.pageNumber - 1}}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <th:block th:each="item : ${partPage.paging.getItems()}">
+                        <li class="page-item" th:classappend="${item.index == partPage.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <!-- <input type="hidden" id="hiddenPrev" name="hiddenPrev" th:value="${item.index}">
+                             <a class="page-link"
+                                id="pagePrev" name="pagePrev" onclick="pagePrev()" th:text="${item.index}"></a>-->
+                            <a class="page-link" th:href="@{'/community/community/' + ${part} + '?pageNumber=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${!partPage.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link"
+                           th:href="@{'/community/community/' + ${part} + '?pageNumber=' + ${partPage.paging.pageNumber + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
     </div>
 
 </div>
