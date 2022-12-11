@@ -64,6 +64,7 @@
 
 <div class="row" id="main" >
     <!--sidebars -->
+    <input type="hidden" id="part" th:value="${part}"/>
     <div class="col-2" id="sideStart" style="margin-right: 5px; margin-left: -20px;">
         <div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
             <a id="side-head" href="/"
@@ -84,7 +85,7 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/community/community/{part}(part='freeCommu')}" class="nav-link link-dark">
+                    <a th:href="@{/community/community/{part}(part='freeCommu')}" id="freeCommu" class="nav-link link-dark">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#speedometer2"/>
                         </svg>
@@ -92,7 +93,7 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/community/community/{part}(part='qna')}" class="nav-link link-dark">
+                    <a th:href="@{/community/community/{part}(part='qna')}" id="qna" class="nav-link link-dark">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#table"/>
                         </svg>
@@ -100,7 +101,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/community/shorts" class="nav-link link-dark">
+                    <a href="/community/shorts" id="shorts" class="nav-link link-dark">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#grid"/>
                         </svg>
