@@ -7,8 +7,6 @@ import com.edo.community.entity.CommunityShorts;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityShortsRepository;
 import com.edo.community.service.CommunityService;
-import com.edo.lecture.entity.Lecture;
-import com.edo.lecture.entity.LectureDivide;
 import com.edo.user.entity.Member;
 import com.edo.user.service.MemberService;
 import com.edo.util.file.FileVO;
@@ -25,8 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
-import java.util.UUID;
 import java.util.Optional;
+import java.util.UUID;
 
 //웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 @CrossOrigin
