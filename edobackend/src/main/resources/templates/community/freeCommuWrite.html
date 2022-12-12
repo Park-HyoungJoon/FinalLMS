@@ -76,14 +76,14 @@
                 <!--            <div class="form-group">-->
                 <div style="display:block;">
                     <label class="form-label mt-4"> 내용 </label>
-                    <textarea name="content" id="editor1" placeholder="여기에 내용을 입력해주세요">
+                    <textarea name="content" id="editor1" placeholder="본인의 생각을 자유롭게 입력해주세요!">
         </textarea>
                     </input>
                 </div>
                 <div style="display:block;">
                     <div align="center" style="margin-top: 10px">
                         <input type=submit value="등록" class="btn btn-primary" id="nextButton"
-                               th:formaction="@{/community/write}"/>
+                               th:formaction="@{/community/write/freeCommu}"/>
                         <button onclick="location.href='/community/community/freeCommu'" type="button" class="btn btn-sm btn-secondary"
                                 id="btnList">목록
                         </button>

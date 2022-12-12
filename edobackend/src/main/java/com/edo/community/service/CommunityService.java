@@ -8,7 +8,6 @@ import com.edo.community.entity.CommunityTest;
 import com.edo.community.repository.CommunityRepository;
 import com.edo.community.repository.CommunityShortsRepository;
 import com.edo.community.repository.CommunityTestRepository;
-import com.edo.lecture.entity.Lecture;
 import com.edo.util.pagination.Paged;
 import com.edo.util.pagination.Paging;
 import lombok.RequiredArgsConstructor;
@@ -82,6 +81,15 @@ public class CommunityService {
         Community community = communityRepository.findById(id).get();
         community.hitCount(community.getHit());
         return community;
+    }
+
+//    게시글 지우기
+    public boolean deleteCommu(Long id){
+        boolean deleteCommunity = communityRepository.deleteCommunitiesById(id);
+        if(!deleteCommunity){
+            throw new IllegalStateException("오류가 발생했습니다.");
+        }
+        return true;
     }
 
     //shorts 저장

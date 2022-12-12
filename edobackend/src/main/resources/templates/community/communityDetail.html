@@ -20,8 +20,11 @@
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
-    <script>
-        async function load() {
+    <script>function deleteCommu() {
+        alert("정말 게시글을 삭제하시겠습니까?");
+    }
+
+    async function load() {
             let say = await import('https://unpkg.com/dropzone@5/dist/min/dropzone.min.js');
             say.dragend();
             say.click();
@@ -47,8 +50,19 @@
 <body class="vsc-initialized">
 <div layout:fragment="content"  style="min-height: 800px;">
     <div id="wrapper">
-        <!--  community field  -->
+
         <div id="container">
+
+            <!--  community field  -->
+
+<!--            (id ='${communityDetail.id}')-->
+            <div th:if="${communityDetail.member.memberEmail == eamil}" th:object="${communityDetail}" align="right"  style="margin :10px; margin-top: 30px; margin-right: 30px;">
+                <a href="community/update/{id}" class="btn btn-outline-dark" >수정</a>
+                <form role="form" method="post" enctype="multipart/form-data" id="formId" style="margin-top: 10px;" action="/community/delete/{id} ">
+                    <input type="submit" class="btn btn-dark" th:value="삭제" onclick="deleteCommu()">
+                </form>
+            </div>
+
             <label style="margin-top: 50px"><a href="/community/main">
             <dd th:utext="${communityDetail.category}"></dd>
         </a></label>

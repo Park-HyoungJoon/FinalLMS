@@ -148,11 +148,12 @@ public class CommunityController {
 
     //    게시글 상세 조회
     @GetMapping(value = "/detail/{id}")
-    public String communityDetail(@PathVariable(value = "id") Long id, Model model) {
+    public String communityDetail(@PathVariable(value = "id") Long id, Model model, Principal principal) {
         log.info("커뮤니티 아이디를 가져오나요?" + id);
             Community communityDetail = communityService.updateHit(id);
-
+            String email = principal.getName();
             model.addAttribute("communityDetail",communityDetail);
+            model.addAttribute("eamil", email);
         return "community/communityDetail";
 }
 
@@ -165,10 +166,11 @@ public class CommunityController {
         return "community/communityUpdate";
     }
 
-    @GetMapping(value = "/contentDelete/{id}")
+    @PostMapping(value = "/contentDelete/{id}")
     public String deleteDivide(@PathVariable("id") Long id, Model model) {
 
         Optional<Community> community = communityRepository.findById(id);
+        model.addAttribute("id",id);
         if (community.equals(id)){
             communityRepository.deleteCommunitiesById(id);
         }
