@@ -19,14 +19,29 @@
     <div id="container-xxl py-5" style="min-height: 800px;">
         <!--  community field  -->
         <div id="container">
-            <h3 style="text-align: center"><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>커뮤니티</b>
+            <h3 style="text-align: center"><img src="/image/EDoLOGO_small.png" width="30px" height="30px" th:text="${part}">
             </h3>
             <br>
             <div class="row ">
                 <div class="col-sm-12">
-                    <div align="right">
-                        <button type="button" class="btn btn-outline-dark" id="writeBtn" style="margin-bottom: 8px"
-                                onclick="window.location.href ='/community/write'" sec:authorize="isAuthenticated()">글쓰기
+<!--                    <div align="right">-->
+<!--                        <button type="button" class="btn btn-outline-dark" id="writeBtn" style="margin-bottom: 8px"-->
+<!--                                onclick="window.location.href ='/community/write'" sec:authorize="isAuthenticated()">글쓰기-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <div th:if="${part.toString() == 'notice'}" align="right">
+                        <button type="button" class="btn btn-outline-dark" id="writeAdminBtn" style="margin-bottom: 8px"
+                                onclick="window.location.href ='/community/write'" sec:authorize="hasAnyRole('ROLE_ADMIN')">글쓰기
+                        </button>
+                    </div>
+                    <div th:if="${part.toString() == 'freeCommu'}" align="right">
+                        <button type="button" class="btn btn-outline-dark" id="writeFree" style="margin-bottom: 8px"
+                                onclick="window.location.href ='/community/write/freeCommu'" sec:authorize="isAuthenticated()">글쓰기
+                        </button>
+                    </div>
+                    <div th:if="${part.toString() == 'qna'}" align="right">
+                        <button type="button" class="btn btn-outline-dark" id="writeQna" style="margin-bottom: 8px"
+                                onclick="window.location.href ='/community/write/qna'" sec:authorize="isAuthenticated()">글쓰기
                         </button>
                     </div>
                     <table class="table  caption-top table-hover" id="table" name="table">

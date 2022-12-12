@@ -29,7 +29,7 @@ public class MemberService implements UserDetailsService {
 
 
 //    @Autowired
-//    private PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     // 회원가입 시 멤버 저장
     public Long saveMember(Member member) {
@@ -55,6 +55,15 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
 
+    }
+
+
+//    이메일 확인하기
+    public void emailCheck(String memberEmail){
+        Optional<Member> findMember = memberRepository.findByMemberEmail(memberEmail);
+        if (findMember.isEmpty()) {
+            throw new IllegalStateException("회원 정보가 존재하지 않습니다!");
+        }
     }
 
     // 닉네임 중복 확인

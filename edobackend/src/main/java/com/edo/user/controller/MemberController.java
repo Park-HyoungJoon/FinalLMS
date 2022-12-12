@@ -12,15 +12,18 @@ import com.edo.user.repository.MemberRepository;
 import com.edo.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @Controller
@@ -189,6 +192,22 @@ public class MemberController {
         log.info("password reset form view resolve");
 
         return "/member/reset";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/password/passwordCheck")
+    public Boolean passwordEmailCheck(Authentication auth, @RequestParam(value = "memberPassword", required = false)String memberPassword){
+       Member member = (Member) auth.getPrincipal();
+       String password = member.getMemberPassword();
+       log.info("일단 찍어보자");
+       log.info(password);
+       log.info(member.getMemberPassword());
+       if(passwordEncoder.matches(memberPassword, password)){
+           log.info("비밀번호 확인 완료");
+       }else {
+           return false;
+       }
+        return true;
     }
 }
 
