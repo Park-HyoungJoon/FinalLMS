@@ -57,42 +57,31 @@
 
 
             <div style="display:block;">
-                <!--                    <br/>-->
-                <!--                    <label> 카테고리</label>-->
-                <!--                    <dd th:utext="${communityDetail.category}"></dd>-->
                 <h5 style="opacity: 0.5">
                     <dd th:utext="${communityDetail.member.memberNickname}"></dd>
                 </h5>
 
                 <hr style="opacity: 0.5"/>
             </div>
-            <!--        파일 업로드 부분 -->
-            <!--        <div style="display: block">-->
-            <!--            <label>파일 업로드</label>-->
-            <!--            <form action="/upload" method="post" class="dropzone"-->
-            <!--                  enctype="multipart/form-data" >-->
-            <!--                <div id="fileDropzone">-->
-            <!--                    <div class="dz-message needsclick">-->
-            <!--                        Dropfiles here or click to upload.-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </form>`-->
-            <!--            <div class="form-group">-->
             <div style="display:block;">
                 <dd th:utext="${communityDetail.content}"></dd>
                 <!--                     -->
                 </input>
             </div>
             <div style="display:block;">
-                <div align="center" style="margin-top: 10px">
-                    <!--                        <input type=submit value="목록으로돌아가기" class="btn btn-secondary" id="nextButton"-->
-                    <!--                               onclick="location.href='/community/main'"/>-->
-
-<!--                    <a value="삭제하기" class="btn btn-secondary" id="deletButton" th:href="/community/contentDelete/{id}(id=communityDetail.getId())"-->
-<!--                            sec:authentication="isAuthenticated()">목록으로 돌아가기-->
-<!--                    </a>-->
+                <div th:if="${communityDetail.category == 'notice'}" align="center" style="margin-top: 10px">
                     <button value="목록으로 돌아가기" class="btn btn-secondary" id="nextButton"
-                            onclick="location.href='/community/main'">목록으로 돌아가기
+                            onclick="location.href='/community/community/notice'">목록으로 돌아가기
+                    </button>
+                </div>
+                <div th:if="${communityDetail.category == 'qna'}" align="center" style="margin-top: 10px">
+                    <button value="목록으로 돌아가기" class="btn btn-secondary" id="nextqnaButton"
+                            onclick="location.href='/community/community/qna'">목록으로 돌아가기
+                    </button>
+                </div>
+                <div th:if="${communityDetail.category == 'freeCommu'}" align="center" style="margin-top: 10px">
+                    <button value="목록으로 돌아가기" class="btn btn-secondary" id="nextfreeCommuButton"
+                            onclick="location.href='/community/community/freeCommu'">목록으로 돌아가기
                     </button>
                 </div>
             </div>

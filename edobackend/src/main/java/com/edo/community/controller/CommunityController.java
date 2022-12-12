@@ -95,7 +95,54 @@ public class CommunityController {
 
 
 //          성공 시 메인 페이지로 돌아감
-        return "redirect:/community/main";
+        return "redirect:/community/community/notice";
+    }
+    
+//    자유게시판
+    @GetMapping(value = "/write/freeCommu")
+    public String getCommunityWriteFree(Principal principal, Model model) {
+
+        Member member = memberService.communityMember(principal.getName());
+        log.info("사용자정보" + member);
+        model.addAttribute("member", member);
+        return "community/freeCommuWrite";
+    }
+
+    @PostMapping(value = "/write/freeCommu")
+    public String CommunityWriteFree(@Valid CommunityDto communityDto, Model model) {
+
+
+        Community community = communityService.createRealContents(communityDto);
+        log.info("CommunityDto 찍기" + communityDto.toString());
+        communityRepository.save(community);
+
+
+        //          성공 시 메인 페이지로 돌아감
+        return "redirect:/community/community/freeCommu";
+    }
+
+//    QNA
+    @GetMapping(value = "/write/qna")
+    public String getCommunityWriteQna(Principal principal, Model model) {
+
+        Member member = memberService.communityMember(principal.getName());
+        log.info("사용자정보" + member);
+        model.addAttribute("member", member);
+        return "community/qnaCommuWrite";
+    }
+
+    //    qna
+    @PostMapping(value = "/write/qna")
+    public String CommunityWriteQna(@Valid CommunityDto communityDto, Model model) {
+
+
+        Community community = communityService.createRealContents(communityDto);
+        log.info("CommunityDto 찍기" + communityDto.toString());
+        communityRepository.save(community);
+
+
+        //          성공 시 메인 페이지로 돌아감
+        return "redirect:/community/community/qna";
     }
 
 

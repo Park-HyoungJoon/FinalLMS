@@ -36,18 +36,18 @@
         <div id="container" style="margin: 100px;">
 
             <h3 style="margin-top: 100px; text-align: center "><img src="/image/EDoLOGO_small.png" width="30px"
-                                                                    height="30px"><b>공지 글쓰기</b></h3>
+                                                                    height="30px"><b>자유게시판 글쓰기</b></h3>
 
             <form role="form" method="post" enctype="multipart/form-data" id="formId" th:object="${communityDto}">
                 <div style="display:block;">
 
+
                     <div class="form-floating mb-3">
                         <!--                        <input type="hidden" th:value="${#calendars.createNow()}" id="regTime" name="regTime" }/>-->
                         <input type="text" readonly class="form-control-plaintext" id="category" name="category"
-                               th:value="notice">
+                               th:value="freeCommu">
                         <label for="category">카테고리</label>
                     </div>
-
 
                     <div class="form-floating mb-3">
 <!--                        <input type="hidden" th:value="${#calendars.createNow()}" id="regTime" name="regTime" }/>-->
@@ -84,7 +84,7 @@
                     <div align="center" style="margin-top: 10px">
                         <input type=submit value="등록" class="btn btn-primary" id="nextButton"
                                th:formaction="@{/community/write}"/>
-                        <button onclick="location.href='/community/community/notice'" type="button" class="btn btn-sm btn-secondary"
+                        <button onclick="location.href='/community/community/freeCommu'" type="button" class="btn btn-sm btn-secondary"
                                 id="btnList">목록
                         </button>
                     </div>
