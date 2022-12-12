@@ -167,8 +167,16 @@ public class MemberController {
     }
 
 
-    @PostMapping(value = "/mypage")
-    public String myPagePost(MemberDto memberDto, Model model){
+    @PutMapping(value = "/password/passwordEdit")
+    public String myPasswordEdit(Member member, Model model){
+
+
+        return "redirect:/";
+    }
+
+
+    @PutMapping(value = "/mypage")
+    public String myPagePost(Member member, Model model){
 
 
         return "/mypage/mypageMain";

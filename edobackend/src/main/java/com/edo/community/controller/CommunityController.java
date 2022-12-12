@@ -158,7 +158,7 @@ public class CommunityController {
 }
 
     @GetMapping(value = "/update/{id}")
-    public String communityUpdate(@PathVariable(value = "id") Long id, Model model) {
+    public String communityUpdate(@RequestParam(value = "id") Long id, Model model) {
         log.info("커뮤니티 아이디를 가져오나요?" + id);
         Community communityDetail = communityService.updateHit(id);
 
@@ -166,8 +166,8 @@ public class CommunityController {
         return "community/communityUpdate";
     }
 
-    @PostMapping(value = "/contentDelete/{id}")
-    public String deleteDivide(@PathVariable("id") Long id, Model model) {
+    @DeleteMapping(value = "/contentDelete/{id}")
+    public String deleteDivide(@RequestParam(value = "id") Long id, Model model) {
 
         Optional<Community> community = communityRepository.findById(id);
         model.addAttribute("id",id);

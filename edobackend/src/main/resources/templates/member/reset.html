@@ -12,12 +12,16 @@
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <script type="text/javascript">
 
-        let emailCheck = false
+
+
+    let emailCheck = false
         function myPasswordCheck() {
             //닉네임 중복체크
 
                 let memberPassword = document.getElementById('memberPassword').value;
+                let visiMemberPassword = document.getElementById('memberPassword');
                 console.log(document.getElementById('memberPassword').value);
+
 
                 if (memberPassword != null) {
                     console.log(memberPassword)
@@ -32,7 +36,9 @@
                     }).then(response => response.json())
                         .then(data => {
                             if (data) {
-                                alert("비밀번호가 일치합니다..");
+                                alert("비밀번호가 일치합니다.");
+                                document.getElementById('memberPassword').readOnly = true;
+                                document.getElementById('EditPassword').style.display = 'block';
                             } else {
                                 alert("비밀번호가 일치하지 않습니다.");
                             }
@@ -55,6 +61,7 @@
             <div class="log_form">
 
                <form id="passwordCheck" name="passwordCheck" action="/member//password/passwordCheck" method="post">
+<!--                   <input type="hidden" th:value="${principal.getPassword()}" id="mypassword" name="mypassword">-->
                   현재 비밀번호 확인<br>
                    <input id="memberPassword" name="memberPassword" class="text text_s text_ss" title="이메일"
                           type="password"
@@ -62,6 +69,14 @@
                    <a class="btn btn-secondary" href="javascript:;" onclick="myPasswordCheck()">비밀번호 확인</a>
 
                </form>
+                <form id="EditPassword" name="EditPassword" action="/member/password/passwordEdit" method="post" style="display: none">
+                새 비밀번호 입력<br>
+                <input id="passwordEdit" name="passwordEdit" class="text text_s text_ss" title="패스워드 바꾸기"
+                       type="password"
+                       value="">
+                <a class="btn btn-secondary" href="javascript:;" >패스워드 바꾸기</a>
+
+            </form>
 
 
             </div>
