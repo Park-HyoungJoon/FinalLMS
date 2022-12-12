@@ -85,10 +85,7 @@ public class CommunityService {
 
 //    게시글 지우기
     public boolean deleteCommu(Long id){
-        boolean deleteCommunity = communityRepository.deleteCommunitiesById(id);
-        if(!deleteCommunity){
-            throw new IllegalStateException("오류가 발생했습니다.");
-        }
+        communityRepository.deleteCommunitiesById(id);
         return true;
     }
 

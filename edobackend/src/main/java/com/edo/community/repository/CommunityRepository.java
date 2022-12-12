@@ -21,7 +21,7 @@ public interface CommunityRepository extends JpaRepository<Community,Long> {
     @Modifying
     @Transactional
     @Query(value = "delete from community where community_id = ?1", nativeQuery = true)
-    boolean deleteCommunitiesById(Long id);
+    void deleteCommunitiesById(Long id);
 
 
     Page<Community> findAll(Pageable request);

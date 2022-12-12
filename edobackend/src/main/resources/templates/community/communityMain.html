@@ -70,7 +70,7 @@
                             th:data-dot="${listStat.index}" scope = "row">
 
                                 <td th:text="${list.id}"></td>
-                                <td ><a th:href="@{/community/detail/{id}(id=${list.id})}" th:text="${list.title}"></a></td>
+                                <td ><a th:href="@{/community/detail/{id}/{part}(id=${list.id},part=${part})}" th:text="${list.title}"></a></td>
                                 <td th:text="${list.member.memberNickname}"></td>
                                 <td th:text="${#temporals.format(list.regTime, 'yyyy-MM-dd')}"></td>
                                 <td th:text="${list.hit}"></td>

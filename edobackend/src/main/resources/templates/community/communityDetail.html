@@ -20,9 +20,11 @@
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
-    <script>function deleteCommu() {
-        alert("정말 게시글을 삭제하시겠습니까?");
-    }
+    <script>
+        $("#deleteCommu").bind('click',function(e){
+            e.preventDefault();
+            if(confirm("정말 삭제하시겠습니까?")) this.submit();
+        })
 
     async function load() {
             let say = await import('https://unpkg.com/dropzone@5/dist/min/dropzone.min.js');
@@ -58,9 +60,15 @@
 <!--            (id ='${communityDetail.id}')-->
             <div th:if="${communityDetail.member.memberEmail == eamil}" th:object="${communityDetail}" align="right"  style="margin :10px; margin-top: 30px; margin-right: 30px;">
                 <a href="community/update/{id}"  class="btn btn-outline-dark" >수정</a>
+                <a th:href="'/community/contentDelete/'+${communityDetail.getId()}+'/'+${part} "
+                   onclick="return confirm('정말 삭제하시겠습니까?');"
+                   class="btn btn-dark" >삭제</a>
+                <input type="hidden" id="detailId" th:value="${communityDetail.getId()}">
+
+                <!--
                 <form role="form" method="post" enctype="multipart/form-data" id="formId" style="margin-top: 10px;" action="/community/delete/{id} ">
                     <input type="submit" class="btn btn-dark" th:value="삭제" onclick="deleteCommu()">
-                </form>
+                </form>-->
             </div>
 
             <label style="margin-top: 50px"><a href="/community/main">
