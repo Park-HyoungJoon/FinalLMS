@@ -81,7 +81,7 @@ public class CommunityController {
         Member member = memberService.communityMember(principal.getName());
         log.info("사용자정보" + member);
         model.addAttribute("member", member);
-        return "freecommuWirte";
+        return "community/communityWrite";
     }
 
     //    값 전달 테스트

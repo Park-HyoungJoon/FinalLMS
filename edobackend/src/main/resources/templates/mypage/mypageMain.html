@@ -81,7 +81,10 @@
             <div class="myInfo" th:object="${member} ">
                 <h3><img src="/image/EDoLOGO_small.png" width="30px" height="30px"><b>마이페이지</b></h3>
                 <br>
+                <div class="img_file">
                     <img class="user_img" id="memberName" src="/image/login/people.png"  style="width: 200px;  height:200px;"/>
+                    <input type="file" class="custom-file-input" name="itemImgFile">
+                </div>
                 <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}"/>
                 <h4>이름</h4>
                 <dd th:utext="${ member.memberName}"></dd>

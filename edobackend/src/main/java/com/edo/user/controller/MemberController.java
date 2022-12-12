@@ -12,7 +12,6 @@ import com.edo.user.repository.MemberRepository;
 import com.edo.user.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +31,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    private final LectureRepository lectureRepository;
     private final CommunityRepository communityRepository;
     private final MemberRepository memberRepository;
 
@@ -180,6 +178,17 @@ public class MemberController {
         log.info("=================> 오류 발생" + error + ", " + exception);
         model.addAttribute("loginErrorMsg", exception);
         return "/member/login";
+    }
+
+//    비밀번호 재설정
+    @GetMapping(value = "/password/reset")
+    public String passwordReset(@RequestParam(value = "error", required = false) String error,
+                                @RequestParam(value = "exception", required = false) String exception, Model model){
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+        log.info("password reset form view resolve");
+
+        return "/member/reset";
     }
 }
 

@@ -79,7 +79,6 @@
             <ul class="nav nav-pills flex-column mb-auto" id="sideTag">
                 <li class="nav-item">
                     <a th:href="@{/community/community/{part}(part='notice')}" class="nav-link link-dark" aria-current="page" id="notice">
->>>>>>> HyoungJoon_sidebar_edit
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#home"/>
                         </svg>
@@ -103,7 +102,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/community/shorts" class="nav-link link-dark" id="shorts">
+<!--                    <a href="/community/shorts" class="nav-link link-dark" id="shorts">-->
+                    <a th:href="@{/community/{part}(part='shorts')}" class="nav-link link-dark" id="shorts">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#grid"/>
                         </svg>
