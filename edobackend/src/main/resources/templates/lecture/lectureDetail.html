@@ -10,7 +10,60 @@
     <meta charset="utf-8">
 </head>
 <body>
+
 <div layout:fragment="content">
+    <style>
+
+        #profile-upload:hover .hvr-profile-img{
+            opacity:1;
+        }
+        .hvr-profile-img{opacity:.3;}
+
+
+        #profile-upload{
+            background-image:url('');
+            background-size:cover;
+            background-position: center;
+            height: 150px; width: 150px;
+            border: 1px solid #bbb;
+            position:relative;top:20px;
+            border-radius:50%;
+            overflow:hidden;
+            text-overflow: ellipsis;
+
+
+            float:left;margin-right:30px;margin-bottom:0px;
+
+        }
+        #profile-upload:hover input.upload{
+            display:block;
+        }
+        #profile-upload:hover {
+            border: 1px solid gray
+        }
+        #profile-upload:hover .hvr-profile-img{
+            opacity:1;
+        }
+        .hvr-profile-img{opacity:.3;}
+
+        #profile-upload input.upload {
+            z-index:1;
+            left: 0;
+            margin: 0;
+            bottom: 0;
+            top: 0;
+            padding: 0;
+            opacity: 0;
+            outline: none;
+            cursor: pointer;
+            position: absolute;
+
+            width:100%;
+            display:none;
+        }
+
+
+    </style>
     <input type="hidden" id="heartBeat" th:value="${heart}">
     <div th:if="${not #strings.isEmpty(lecture)}">
         <input type="hidden" id="lectureId" th:value="${lecture.getId()}">
@@ -24,7 +77,7 @@
                 <br>
                 <span th:text="${lecture.getLectureDetail()}"></span>
                 <br>
-                <b class="top-box-teacher">아무개</b>
+                <b class="top-box-teacher">차은우</b>
                 <div class="top-box-bottom">
                     <a class="btn red mini" sec:authorize="isAuthenticated()" >구독</a>
                 </div>
@@ -48,19 +101,27 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3 top-box-img" style="margin-left: 100px;">
-                                <img src="/image/teacherImg.png" alt="/img/project-1.jpg"/>
+                                <div class="frm">
+                                    <div id='profile-upload' class="shadow_hov_effect">
+
+                                    </div>
+                                </div>
                             </div>
                             <div class="col top-box-info">
-                                <h4>아무개</h4>
-                                <br>
-                                <span>강사 소개</span>
+                                <h4>차은우</h4>
                                 <br>
                                 <ol>
-                                    <li>스펙1</li>
-                                    <li>스펙2</li>
-                                    <li>스펙3</li>
-                                    <li>스펙4</li>
-                                    <li>스펙5</li>
+                                    <li >
+                                    다양한 도메인(제약, 통신, 자동차, 커머스, 교육, 정부기관 등)의 기업 데이터 분석 및 데이터셋 생산
+                                    </li>
+                                    <br>
+                                    <li>서울대 평생교육원 강의</li>
+                                    <br>
+                                    <li> 다수의 교육기관 및 기업 강의</li>
+                                    <br>
+                                    <li> 다양한 도메인(제약, 통신, 자동차, 커머스, 교육, 정부기관 등)의 기업 데이터 분석 및 데이터셋 생산</li>
+                                    <br>
+                                    <li> 10년이상 게임과 광고분야에서 웹 및 백엔드 개발자로 근무</li>
                                 </ol>
                             </div>
                         </div>
@@ -111,7 +172,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <a class="button" th:href="'/lecture/All'">목록</a>
+                                    <a  href="/lecture/All">목록</a>
                                 </div>
                                     <hr>
                                 <div class="row">
@@ -209,6 +270,14 @@
                 })
             }
         });
+    </script>
+
+    <script>
+        $(function() {
+
+            document.getElementById('profile-upload').style.backgroundImage = "url('" + '/image/차은우.jpg' + "')";
+
+        })
     </script>
 </div>
 

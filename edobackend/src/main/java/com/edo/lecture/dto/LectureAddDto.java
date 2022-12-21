@@ -1,6 +1,7 @@
 package com.edo.lecture.dto;
 
 import com.edo.lecture.entity.Lecture;
+import com.edo.user.entity.Member;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,6 +60,8 @@ public class LectureAddDto {
     String lectureInfoHidden;
     @JsonProperty("lectureImgStr")
     String lectureImgStr;
+
+    Member member;
     /*
 
     * */

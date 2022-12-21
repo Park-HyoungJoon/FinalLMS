@@ -1,5 +1,6 @@
 package com.edo.lecture.entity;
 
+import com.edo.user.entity.Member;
 import com.edo.util.item.BaseTimeEntity;
 import lombok.*;
 
@@ -59,4 +60,8 @@ public class Lecture extends BaseTimeEntity {
     //상태
     @Column(length = 1)
     private String lectureYN;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    Member member;
 }

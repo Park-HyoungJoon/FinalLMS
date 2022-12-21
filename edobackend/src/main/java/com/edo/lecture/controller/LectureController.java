@@ -75,6 +75,7 @@ public class LectureController {
         String email = principal.getName();
             Long id = memberRepository.findMemberIdByMemberEmail(email);
             model.addAttribute("userId",id);
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@????"+id);
         }catch (Exception e){}
 
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
@@ -98,8 +99,10 @@ public class LectureController {
      * @throws IOException
      */
     @PostMapping(value = "/lecture/add", consumes = "multipart/form-data")
-    public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model) throws IOException,
+    public String LectureAdd(@ModelAttribute LectureAddDto lectureAddDto, Model model,Principal principal) throws IOException,
             NullPointerException {
+        String email = principal.getName();
+        Member member = memberRepository.findByMemberEmail(email).get();
         //운영체제가 윈도우인지 , 리눅스인지에 따라 루트 변경
         String os = System.getProperty("os.name").toLowerCase();
         if(os.contains("win")){
@@ -172,6 +175,7 @@ public class LectureController {
             lectureAddDto.setFinalDate(subDate.get(1));
             lectureAddDto.setManageStartDate(manageDate.get(0));
             lectureAddDto.setManageFinalDate(manageDate.get(1));
+            lectureAddDto.setMember(member);
 
 
             Lecture lecture = lectureService.lectureAdd(lectureAddDto);
@@ -312,6 +316,7 @@ public class LectureController {
      * @return
      * @throws IOException
      */
+    //강의 차시 업로드(파일부분)
     @PostMapping(value = "/contents/uploader", consumes = "multipart/form-data")
     public String ContentsFileCreate(FileVO fileVO,Model model)
             throws IOException {
@@ -400,6 +405,7 @@ public class LectureController {
     }
 
 
+    //강의 상세페이지
     @GetMapping(value = "/lecture/lectureDetail/{id}")
     public String goDetail(@PathVariable("id") Long id, Model model,Principal principal) {
         Lecture lecture = lectureService.getLectureById(id);
@@ -440,6 +446,7 @@ public class LectureController {
         }
     }
 
+    //강의수정
     @GetMapping(value = "/lecture/lectureEdit/{id}")
     public String goLectureEdit(@PathVariable("id") Long id, Model model) {
         Lecture lecture = lectureService.getLectureById(id);
@@ -471,6 +478,7 @@ public class LectureController {
      * @param model
      * @return
      */
+    //강의 차시 추가
     @GetMapping(value = "/lecture/divideAdd/{id}")
     public String addDivide(@PathVariable("id") Long id, Model model) {
         LectureDivide lectureDivide = lectureDivideService.addDivide(id);
@@ -484,6 +492,7 @@ public class LectureController {
         return "lecture/lectureContentsEdit";
     }
 
+    //강의 차시파일 삭제
     @GetMapping(value = "/lecture/contentsdelete/{id}")
     public String deleteDivide(@PathVariable("id") Long id, Model model) {
         Lecture lecture = lectureDivideService.getLecture(id);
@@ -497,13 +506,16 @@ public class LectureController {
         return "lecture/lectureContentsEdit";
     }
 
+    //강의 삭제
     @GetMapping(value = "/lecture/lectureRemove/{id}/{part}/{pageNumber}")
     public String deleteLecture
             (       @PathVariable(value = "id",required = false) Long id,
                     @PathVariable(value = "part", required = false) String part,
                     @RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
                     @RequestParam(value = "size", required = false, defaultValue = "12") int size,
-                    Model model) {
+                    Model model,Principal principal) {
+        String email = principal.getName();
+        Member member = memberRepository.findByMemberEmail(email).get();
         String os = System.getProperty("os.name").toLowerCase();
         if(os.contains("win")){
             imgPath =System.getProperty("user.dir") + imgRoot;
@@ -543,6 +555,7 @@ public class LectureController {
         }
         lectureRepository.deleteLectureById(id);
         List<Lecture> lectureList = lectureRepository.findAll();
+        model.addAttribute("userId",member.getMemberId());
         model.addAttribute("posts", lectureService.getPage(pageNumber, size));
         model.addAttribute("partPage", lectureService.getPageByPart(pageNumber, size,part));
         model.addAttribute("list", lectureList);
@@ -551,7 +564,8 @@ public class LectureController {
     }
 
 
-    //좋아요 버튼 클릭 시
+
+    //강의 좋아요 버튼 클릭 시
     @PostMapping("/lecture/lectureHeart")
     public String comheart(heartAndSubData data,Principal principal,Model model) {
         //세션을 통해 현재 유저 정보 가져옴
@@ -595,6 +609,8 @@ public class LectureController {
             return "lecture/lectureDetail";
         }
     }
+
+    //강의수강 클릭 시
     @GetMapping(value = "/lecture/listen/{id}")
     public String lectureListen(@PathVariable("id") Long LectureId,Principal principal, Model model) {
         String email = principal.getName();

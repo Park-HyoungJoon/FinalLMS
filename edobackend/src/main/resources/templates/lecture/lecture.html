@@ -21,7 +21,7 @@
                 </div>
                 <div class="col" style="right: 0; max-width: 150px;">
                     <a href="/lecture/add"
-                       title="강좌 메뉴 링크" class="btn btn-outline-primary" id="lectureAddBtn"
+                       title="강좌 메뉴 링크" class="btn btn-outline-primary" id="lectureAddBtn" sec:authorize="hasAnyRole('ROLE_TEACHER')"
                        >강좌추가</a>
                 </div>
             </div>
@@ -30,6 +30,7 @@
                     <div th:if="${#lists.size(partPage.page)}>0"
                          th:each="vo, status:${partPage.page}"
                             class="project-item border rounded h-100 p-4"  style="min-height: 300px; max-height: 300px; min-width:240px  ;overflow: hidden;" th:data-dot="${status.index}">
+                        <div class="row">
                         <div class="position-relative mb-4">
                             <img class="img-fluid rounded " style="max-width: 190px; max-height: 150px;"
                                  th:src="'/image/'+${vo.getLectureImage()}" alt="/img/project-1.jpg">
@@ -38,19 +39,21 @@
                         </div>
                         <h6 th:text="${vo.getLectureTitle()}"></h6>
                         <span th:text="${vo.getLectureDetail()}"></span>
-                        <div class="btn-group" style="bottom: 0;" >
-                            <a class="btn btn-sm btn-outline-secondary"
+                        </div>
+
+                        <div class="btn-group row" >
+                            <a class="btn btn-sm btn-outline-secondary" style="max-width: 60px;"
                                th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
                                sec:authorize="isAuthenticated()">
                                 View
                             </a>
-                            <div th:if="${vo.getId()}==userId">
-                            <a class="btn btn-sm btn-outline-secondary"
+                            <div th:if="${vo.getMember().getMemberId()}==${userId}">
+                            <a class="btn btn-sm btn-outline-secondary" style="margin-left: 70px; max-width: 60px;"
                                th:href="@{/lecture/lectureEdit/{id}(id=${vo.getId()})}"
                                sec:authorize="isAuthenticated()">
                                 Edit
                             </a>
-                            <a class="btn btn-sm btn-outline-danger"
+                            <a class="btn btn-sm btn-outline-danger"  style="margin-left: 140px; max-width: 60px;"
                                th:href="@{/lecture/lectureRemove/{id}/{part}/{pageNumber}(id=${vo.getId()},part=${part},pageNumber=${partPage.paging.pageNumber})}"
                                sec:authorize="isAuthenticated()">
                                 Remove
