@@ -151,7 +151,7 @@ public class MemberController {
         model.addAttribute("postlike",lectureList);
         model.addAttribute("listenList",lectureList2);
 
-        return "mypage/mypageMain";
+        return "mypage/MypageTest";
     }
 
     @ResponseBody

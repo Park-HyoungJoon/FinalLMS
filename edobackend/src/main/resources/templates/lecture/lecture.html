@@ -46,8 +46,8 @@
                                th:href="@{/lecture/lectureDetail/{id}(id=${vo.getId()})}"
                                sec:authorize="isAuthenticated()">
                                 View
-                            </a>
-                            <div th:if="${vo.getMember().getMemberId()}==${userId}">
+                            </a><!--
+                            <div th:if="${vo.getMember().getMemberId()}==${userId}">-->
                             <a class="btn btn-sm btn-outline-secondary" style="margin-left: 70px; max-width: 60px;"
                                th:href="@{/lecture/lectureEdit/{id}(id=${vo.getId()})}"
                                sec:authorize="isAuthenticated()">

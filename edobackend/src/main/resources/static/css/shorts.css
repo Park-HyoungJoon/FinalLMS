@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
 .content{
+    margin-left: 70px;
     width: 1000px;
 }
 *, *:before, *:after {
@@ -31,15 +32,13 @@
 .clash-main{
     position: relative;
     height: 480px;
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
+    border-radius: 14px;
 }
 .clash-card__image {
     position: relative;
     height: 230px;
     margin-bottom: 35px;
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
+    border-radius: 14px;
 }
 
 .clash-card__level {
@@ -84,8 +83,8 @@
 }
 
 .clash-card__unit-stats--archer {
-    border-bottom-left-radius: 14px;
-    border-bottom-right-radius: 14px;
+    border-radius: 14px;
+
     background: #009cff;
 }
 .one-third {
@@ -161,48 +160,63 @@ sup {
 
 .slick-prev {
     top:50%;
-    left: 100px;
+    left: 10px;
     z-index: 999;
 }
 
 .slick-next {
     top:50%;
-    right: 100px;
     z-index: 999;
 }
 
+/***
+카드
+ */
+.card-point {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-block: 2rem;
+    gap: 2.5rem;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
 section {
-    margin: auto;
-    width: 600px;
-    text-align: center;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    height: 300px;
+    margin-top: -10%;
+    width: 330px;
+    height: 520px;
     border-radius: 8px;
-    background-color: #828282;
+    background-color: #282828;
     color: black;
     user-select: none;
     display: flex;
     align-items: end;
 }
-
-section .info {
+.info{
+    display: none;
+}
+section:hover .info {
     display: flex;
     align-items: center;
     gap: 5%;
     white-space: nowrap;
     margin-left: 5%;
+    margin-top: -50%;
     margin-bottom: 5%;
     width: 100%;
     font-weight: bold;
-    position: relative;
+    position: absolute;
 }
 
 ul.menu {
+    color: black;
     padding: 0;
-    margin: 0;
+    left: 105%;
+    margin-top: -100%;
     align-self: flex-start;
-    position: relative;
+    position: absolute;
     list-style-type: none;
     font-size: 200%;
 }
@@ -226,11 +240,12 @@ ul.menu {
     list-style-type: none;
     margin: 0;
     position: absolute;
-    top: 450%;
+    top: 200%;
     padding: 0;
 }
 
 .actions li {
+    font-size: 23px;
     margin-block: 25%;
     border-left: 3px solid currentcolor;
     padding-left: 10%;
@@ -272,7 +287,7 @@ ul.menu {
 .info .sub {
     align-self: flex-end;
     padding: 10px 16px;
-    border-radius: 2px;
+    border-radius: 10px;
     background-color: #c00;
     font-weight: bold;
     display: block;
