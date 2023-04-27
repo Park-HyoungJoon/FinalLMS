@@ -53,9 +53,7 @@ public class MainController {
         model.addAttribute("list", lectureList);
 
         List<Community> communityMainList = communityRepository.findDescCommunity(4);
-		log.info("커뮤니티 리스트 사이즈 출력" + communityMainList.size());
-		Community community = communityMainList.get(0);
-		log.info("첫 번째 커뮤니티 리스트 출력" + community);
+
         model.addAttribute("communityMainList", communityMainList);
 
         return "index";
