@@ -10,6 +10,7 @@ LMS라는 주제는 웹 개발에 있어서 웬만한 기본적인 기능들(CRU
 
 # 데이터베이스
 
+![image](https://github.com/Park-HyoungJoon/FinalLMS/assets/83392856/92d2085b-b094-4c26-96b7-578bf4d8775f)
 
 
 # 결과 화면
